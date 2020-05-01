@@ -304,44 +304,37 @@ private:
 
     // code=$65, len=2, cycle=3
     static inline void adc_zpg(M6502* cpu) {
-        unsigned char addr;
-        cpu->adc(cpu->readZeroPage(&addr));
+        cpu->adc(cpu->readZeroPage());
     }
 
     // code=$75, len=2, cycle=4
     static inline void adc_zpg_x(M6502* cpu) {
-        unsigned char addr;
-        cpu->adc(cpu->readZeroPageX(&addr));
+        cpu->adc(cpu->readZeroPageX());
     }
 
     // code=$6D, len=3, cycle=4
     static inline void adc_abs(M6502* cpu) {
-        unsigned short addr;
-        cpu->adc(cpu->readAbsolute(&addr));
+        cpu->adc(cpu->readAbsolute(NULL));
     }
 
     // code=$7D, len=3, cycle=4 or 5
     static inline void adc_abs_x(M6502* cpu) {
-        unsigned short addr;
-        cpu->adc(cpu->readAbsoluteX(&addr));
+        cpu->adc(cpu->readAbsoluteX(NULL));
     }
 
     // code=$79, len=3, cycle=4 or 5
     static inline void adc_abs_y(M6502* cpu) {
-        unsigned short addr;
-        cpu->adc(cpu->readAbsoluteY(&addr));
+        cpu->adc(cpu->readAbsoluteY(NULL));
     }
 
     // code=$61, len=2, cycle=6
     static inline void adc_x_ind(M6502* cpu) {
-        unsigned short addr;
-        cpu->adc(cpu->readIndirectX(&addr));
+        cpu->adc(cpu->readIndirectX(NULL));
     }
 
     // code=$71, len=2, cycle=5 or 6
     static inline void adc_ind_y(M6502* cpu) {
-        unsigned short addr;
-        cpu->adc(cpu->readIndirectY(&addr));
+        cpu->adc(cpu->readIndirectY(NULL));
     }
 
     // code=$29, len=2, cycle=2
@@ -351,44 +344,37 @@ private:
 
     // code=$25, len=2, cycle=3
     static inline void and_zpg(M6502* cpu) {
-        unsigned char addr;
-        cpu->and(cpu->readZeroPage(&addr));
+        cpu->and(cpu->readZeroPage(NULL));
     }
 
     // code=$35, len=2, cycle=4
     static inline void and_zpg_x(M6502* cpu) {
-        unsigned char addr;
-        cpu->and(cpu->readZeroPageX(&addr));
+        cpu->and(cpu->readZeroPageX(NULL));
     }
 
     // code=$2D, len=3, cycle=4
     static inline void and_abs(M6502* cpu) {
-        unsigned short addr;
-        cpu->and(cpu->readAbsolute(&addr));
+        cpu->and(cpu->readAbsolute(NULL));
     }
 
     // code=$3D, len=3, cycle=4 or 5
     static inline void and_abs_x(M6502* cpu) {
-        unsigned short addr;
-        cpu->and(cpu->readAbsoluteX(&addr));
+        cpu->and(cpu->readAbsoluteX(NULL));
     }
 
     // code=$39, len=3, cycle=4 or 5
     static inline void and_abs_y(M6502* cpu) {
-        unsigned short addr;
-        cpu->and(cpu->readAbsoluteY(&addr));
+        cpu->and(cpu->readAbsoluteY(NULL));
     }
 
     // code=$21, len=2, cycle=6
     static inline void and_x_ind(M6502* cpu) {
-        unsigned short addr;
-        cpu->and(cpu->readIndirectX(&addr));
+        cpu->and(cpu->readIndirectX(NULL));
     }
 
     // code=$31, len=2, cycle=5 or 6
     static inline void and_ind_y(M6502* cpu) {
-        unsigned short addr;
-        cpu->and(cpu->readIndirectY(&addr));
+        cpu->and(cpu->readIndirectY(NULL));
     }
 
     // code=$0A, len=1, cycle=2
@@ -475,44 +461,37 @@ private:
 
     // code=$05, len=2, cycle=3
     static inline void ora_zpg(M6502* cpu) {
-        unsigned char addr;
-        cpu->ora(cpu->readZeroPage(&addr));
+        cpu->ora(cpu->readZeroPage(NULL));
     }
 
     // code=$15, len=2, cycle=4
     static inline void ora_zpg_x(M6502* cpu) {
-        unsigned char addr;
-        cpu->ora(cpu->readZeroPageX(&addr));
+        cpu->ora(cpu->readZeroPageX(NULL));
     }
 
     // code=$0D, len=3, cycle=4
     static inline void ora_abs(M6502* cpu) {
-        unsigned short addr;
-        cpu->ora(cpu->readAbsolute(&addr));
+        cpu->ora(cpu->readAbsolute(NULL));
     }
 
     // code=$1D, len=3, cycle=4 or 5
     static inline void ora_abs_x(M6502* cpu) {
-        unsigned short addr;
-        cpu->ora(cpu->readAbsoluteX(&addr));
+        cpu->ora(cpu->readAbsoluteX(NULL));
     }
 
     // code=$19, len=3, cycle=4 or 5
     static inline void ora_abs_y(M6502* cpu) {
-        unsigned short addr;
-        cpu->ora(cpu->readAbsoluteY(&addr));
+        cpu->ora(cpu->readAbsoluteY(NULL));
     }
 
     // code=$01, len=2, cycle=6
     static inline void ora_x_ind(M6502* cpu) {
-        unsigned short addr;
-        cpu->ora(cpu->readIndirectX(&addr));
+        cpu->ora(cpu->readIndirectX(NULL));
     }
 
     // code=$11, len=2, cycle=5 or 6
     static inline void ora_ind_y(M6502* cpu) {
-        unsigned short addr;
-        cpu->ora(cpu->readIndirectY(&addr));
+        cpu->ora(cpu->readIndirectY(NULL));
     }
 
     static inline void php_impl(M6502* cpu) {
