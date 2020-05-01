@@ -309,6 +309,26 @@ private:
     }
 
     // use no cycle
+    inline void cpx(unsigned char value) {
+        int m = cpu->R.x;
+        m -= value;
+        unsigned char c = m & 0xFF;
+        updateStatusN(c & 0x80);
+        updateStatusZ(c == 0);
+        updateStatusC(m & 0xFF00 ? true : false);
+    }
+
+    // use no cycle
+    inline void cpy(unsigned char value) {
+        int m = cpu->R.y;
+        m -= value;
+        unsigned char c = m & 0xFF;
+        updateStatusN(c & 0x80);
+        updateStatusZ(c == 0);
+        updateStatusC(m & 0xFF00 ? true : false);
+    }
+
+    // use no cycle
     inline void ora(unsigned char value) {
         R.a |= value;
         updateStatusN(R.a & 0x80);
@@ -564,6 +584,36 @@ private:
         cpu->cmp(cpu->readIndirectY(NULL));
     }
 
+    // code=$E0, len=2, cycle=2
+    static inline void cpx_imm(M6502* cpu) {
+        cpu->cpx(cpu->fetch());
+    }
+
+    // code=$E4, len=2, cycle=3
+    static inline void cpx_zpg(M6502* cpu) {
+        cpu->cpx(cpu->readZeroPage(NULL));
+    }
+
+    // code=$EC, len=3, cycle=4
+    static inline void cpx_abs(M6502* cpu) {
+        cpu->cpx(cpu->readAbsolute(NULL));
+    }
+
+    // code=$C0, len=2, cycle=2
+    static inline void cpy_imm(M6502* cpu) {
+        cpu->cpy(cpu->fetch());
+    }
+
+    // code=$C4, len=2, cycle=3
+    static inline void cpy_zpg(M6502* cpu) {
+        cpu->cpy(cpu->readZeroPage(NULL));
+    }
+
+    // code=$CC, len=3, cycle=4
+    static inline void cpy_abs(M6502* cpu) {
+        cpu->cpy(cpu->readAbsolute(NULL));
+    }
+
     // code=$09, len=2, cycle=2
     static inline void ora_imm(M6502* cpu) {
         cpu->ora(cpu->fetch());
@@ -665,6 +715,14 @@ private:
         operands[0xD9] = cmp_abs_y;
         operands[0xC1] = cmp_x_ind;
         operands[0xD1] = cmp_ind_y;
+
+        operands[0xE0] = cpx_imm;
+        operands[0xE4] = cpx_zpg;
+        operands[0xEC] = cpx_abs;
+
+        operands[0xC0] = cpy_imm;
+        operands[0xC4] = cpy_zpg;
+        operands[0xCC] = cpy_abs;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
