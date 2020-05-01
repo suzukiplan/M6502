@@ -110,78 +110,85 @@ private:
     }
 
     // uses 2 cycles
-    inline unsigned char readZeroPage(unsigned short* addr) {
-        *addr = fetch();
-        return readMemory(*addr);
+    inline unsigned char readZeroPage(unsigned short* a) {
+        unsigned short addr = fetch();
+        if (a) *a = addr;
+        return readMemory(addr);
     }
 
     // uses 3 cycles
-    inline unsigned char readZeroPageX(unsigned short* addr) {
-        *addr = fetch();
-        *addr += R.x;
-        *addr &= 0xFF;
+    inline unsigned char readZeroPageX(unsigned short* a) {
+        unsigned short addr = fetch();
+        addr += R.x;
+        addr &= 0xFF;
         consumeClock();
-        return readMemory(*addr);
+        if (a) *a = addr;        
+        return readMemory(*ddr);
     }
 
     // uses 3 cycles
-    inline unsigned char readAbsolute(unsigned short* addr) {
+    inline unsigned char readAbsolute(unsigned short* a) {
         unsigned char low = fetch();
-        *addr = fetch();
-        *addr <<= 8;
-        *addr |= low;
-        return readMemory(*addr);
+        unsigned short addr = fetch();
+        addr <<= 8;
+        addr |= low;
+        if (a) *a = addr;        
+        return readMemory(addr);
     }
 
     // use 3 or 4 cycles
-    inline unsigned char readAbsoluteX(unsigned short* addr, bool alwaysPenalty = false) {
+    inline unsigned char readAbsoluteX(unsigned short* a, bool alwaysPenalty = false) {
         unsigned int low = fetch();
-        *addr = fetch();
-        *addr <<= 8;
-        *addr |= low;
-        *addr += R.x;
+        unsigned short addr = fetch();
+        addr <<= 8;
+        addr |= low;
+        addr += R.x;
         if (alwaysPenalty || 0xFF < R.x + low) {
             consumeClock(); // consume a penalty cycle
         }
-        return readMemory(*addr);
+        if (a) *a = addr;        
+        return readMemory(addr);
     }
 
     // use 3 or 4 cycles
-    inline unsigned char readAbsoluteY(unsigned short* addr) {
+    inline unsigned char readAbsoluteY(unsigned short* a) {
         unsigned int low = fetch();
-        *addr = fetch();
-        *addr <<= 8;
-        *addr |= low;
-        *addr += R.y;
+        unsigned short addr = fetch();
+        addr <<= 8;
+        addr |= low;
+        addr += R.y;
         if (0xFF < R.y + low) {
             consumeClock(); // consume a penalty cycle
         }
-        return readMemory(*addr);
+        if (a) *a = addr;        
+        return readMemory(addr);
     }
 
     // use 5 cycles
-    inline unsigned char readIndirectX(unsigned short* addr) {
+    inline unsigned char readIndirectX(unsigned short* a) {
         unsigned char zero = fetch() + R.x;
         unsigned char low = readMemory(zero++);
-        *addr = readMemory(zero);
-        *addr <<= 8;
-        *addr |= low;
+        unsigned short addr = readMemory(zero);
+        addr <<= 8;
+        addr |= low;
         consumeClock();
-        return readMemory(*addr);
+        if (a) *a = addr;        
+        return readMemory(addr);
     }
 
     // use 4 or 5 cycles
-    inline unsigned char readIndirectY(unsigned short* addr) {
+    inline unsigned char readIndirectY(unsigned short* a) {
         unsigned char zero = fetch();
         unsigned int low = readMemory(zero++);
-        *addr = readMemory(zero);
-        *addr <<= 8;
-        *addr |= low;
-        *addr += R.y;
+        unsigned short addr = readMemory(zero);
+        addr <<= 8;
+        addr |= low;
+        addr += R.y;
         if (0xFF < R.y + low) {
             consumeClock(); // consume a penalty cycle
         }
-        return readMemory(*addr);
+        if (a) *a = addr;        
+        return readMemory(addr);
     }
 
     inline void updateStatusN(bool n) {
