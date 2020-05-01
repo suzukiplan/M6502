@@ -714,6 +714,8 @@ class M6502
     static inline void ldy_abs(M6502* cpu) { cpu->ldy(cpu->readAbsolute(NULL)); }
     static inline void ldy_abs_x(M6502* cpu) { cpu->ldy(cpu->readAbsoluteX(NULL)); }
 
+    static inline void nop(M6502* cpu) { cpu->consumeClock(); }
+
     static inline void ora_imm(M6502* cpu) { cpu->ora(cpu->fetch()); }
     static inline void ora_zpg(M6502* cpu) { cpu->ora(cpu->readZeroPage(NULL)); }
     static inline void ora_zpg_x(M6502* cpu) { cpu->ora(cpu->readZeroPageX(NULL)); }
@@ -850,6 +852,8 @@ class M6502
         operands[0xB4] = ldy_zpg_x;
         operands[0xAC] = ldy_abs;
         operands[0xBC] = ldy_abs_x;
+
+        operands[0xEA] = nop;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
