@@ -41,6 +41,11 @@ class M6502
         void (*consumeClock)(void* arg);
         void* arg;
     } CB;
+    struct DebugData {
+        unsigned short pc;
+        char mne[4];
+        char opp[32];
+    } DD;
     int clockConsumed;
     void (*operands[256])(M6502*);
 
@@ -80,9 +85,17 @@ class M6502
     {
         this->clockConsumed = 0;
         while (this->clockConsumed < clocks) {
+            DD.pc = R.pc;
+            DD.mne[0] = '\0';
+            DD.opp[0] = '\0';
             void (*operand)(M6502*) = operands[fetch()];
             if (operand) {
                 operand(this);
+                if (CB.debugMessage) {
+                    char buf[1024];
+                    sprintf(buf, "[$%04X] %s %s", DD.pc, DD.mne, DD.opp);
+                    CB.debugMessage(CB.arg, buf);
+                }
             } else {
                 // TODO: halt (unknown operand)
             }
@@ -120,11 +133,20 @@ class M6502
         return readMemory(R.pc++);
     }
 
+    // uses 1 cycle
+    inline unsigned char readImmediate()
+    {
+        unsigned short value = fetch();
+        sprintf(DD.opp, "#$%02X", value);
+        return value;
+    }
+
     // uses 2 cycles
     inline unsigned char readZeroPage(unsigned short* a)
     {
         unsigned short addr = fetch();
         if (a) *a = addr;
+        sprintf(DD.opp, "$%02X", addr);
         return readMemory(addr);
     }
 
@@ -132,6 +154,7 @@ class M6502
     inline unsigned char readZeroPageX(unsigned short* a)
     {
         unsigned short addr = fetch();
+        sprintf(DD.opp, "$%02X, X<$%02X>", addr, R.x);
         addr += R.x;
         addr &= 0xFF;
         consumeClock();
@@ -143,6 +166,7 @@ class M6502
     inline unsigned char readZeroPageY(unsigned short* a)
     {
         unsigned short addr = fetch();
+        sprintf(DD.opp, "$%02X, Y<$%02X>", addr, R.y);
         addr += R.y;
         addr &= 0xFF;
         consumeClock();
@@ -158,6 +182,7 @@ class M6502
         addr <<= 8;
         addr |= low;
         if (a) *a = addr;
+        sprintf(DD.opp, "$%04X", addr);
         return readMemory(addr);
     }
 
@@ -168,6 +193,7 @@ class M6502
         unsigned short addr = fetch();
         addr <<= 8;
         addr |= low;
+        sprintf(DD.opp, "$%04X, X<$%02X>", addr, R.x);
         addr += R.x;
         if (alwaysPenalty || 0xFF < R.x + low) {
             consumeClock(); // consume a penalty cycle
@@ -183,6 +209,7 @@ class M6502
         unsigned short addr = fetch();
         addr <<= 8;
         addr |= low;
+        sprintf(DD.opp, "$%04X, Y<$%02X>", addr, R.y);
         addr += R.y;
         if (0xFF < R.y + low) {
             consumeClock(); // consume a penalty cycle
@@ -194,7 +221,9 @@ class M6502
     // use 5 cycles
     inline unsigned char readIndirectX(unsigned short* a)
     {
-        unsigned char zero = fetch() + R.x;
+        unsigned char zero = fetch();
+        sprintf(DD.opp, "($%02X, X<$%02X>)", zero, R.x);
+        zero += R.x;
         unsigned char low = readMemory(zero++);
         unsigned short addr = readMemory(zero);
         addr <<= 8;
@@ -208,6 +237,7 @@ class M6502
     inline unsigned char readIndirectY(unsigned short* a)
     {
         unsigned char zero = fetch();
+        sprintf(DD.opp, "($%02X), Y<$%02X>", zero, R.y);
         unsigned int low = readMemory(zero++);
         unsigned short addr = readMemory(zero);
         addr <<= 8;
@@ -293,6 +323,7 @@ class M6502
     // use no cycle
     inline void adc(unsigned char value)
     {
+        strcpy(DD.mne, "ADC");
         unsigned int a = cpu->R.a;
         a += value;
         a += getStatusC() ? 1 : 0;
@@ -305,6 +336,7 @@ class M6502
     // use no cycle
     inline void and_(unsigned char value)
     {
+        strcpy(DD.mne, "AND");
         cpu->R.a &= value;
         cpu->updateStatusN(cpu->R.a & 0x80);
         cpu->updateStatusZ(cpu->R.a == 0);
@@ -313,6 +345,7 @@ class M6502
     // use 1 cycle
     inline unsigned char asl(unsigned char value)
     {
+        strcpy(DD.mne, "ASL");
         int work = value;
         work <<= 1;
         unsigned char result = work & 0xFF;
@@ -326,6 +359,8 @@ class M6502
     // use 1 cycle
     inline unsigned char lsr(unsigned char value)
     {
+        strcpy(DD.mne, "LSR");
+        if (!DD.opp[0]) sprintf(DD.opp, "A<$%02X>", R.a);
         updateStatusC(value & 0x01 ? true : false);
         value &= 0xFE;
         value >>= 1;
@@ -338,6 +373,8 @@ class M6502
     // use 1 cycle
     inline unsigned char rol(unsigned char value)
     {
+        strcpy(DD.mne, "ROL");
+        if (!DD.opp[0]) sprintf(DD.opp, "A<$%02X>", R.a);
         updateStatusC(value & 0x80 ? true : false);
         value &= 0x7F;
         value <<= 1;
@@ -351,6 +388,8 @@ class M6502
     // use 1 cycle
     inline unsigned char ror(unsigned char value)
     {
+        strcpy(DD.mne, "ROR");
+        if (!DD.opp[0]) sprintf(DD.opp, "A<$%02X>", R.a);
         updateStatusC(value & 0x01 ? true : false);
         value &= 0xFE;
         value >>= 1;
@@ -362,8 +401,9 @@ class M6502
     }
 
     // use 1, 2 or 3 cycles
-    inline void branch(bool isBranch)
+    inline void branch(const char* mne, bool isBranch)
     {
+        strcpy(DD.mne, mne);
         unsigned char rel = fetch();
         if (!isBranch) return; // not branch
         unsigned addr = R.pc - 2;
@@ -378,6 +418,7 @@ class M6502
     // use no cycle
     inline void bit(unsigned char value)
     {
+        strcpy(DD.mne, "BIT");
         unsigned char w = cpu->R.a & value;
         updateStatusN(value & 0b10000000);
         updateStatusV(value & 0b01000000);
@@ -385,21 +426,23 @@ class M6502
     }
 
     // use no cycle
-    inline void cp(int m, unsigned char value)
+    inline void cp(const char* mne, int m, unsigned char value)
     {
+        strcpy(DD.mne, mne);
         m -= value;
         unsigned char c = m & 0xFF;
         updateStatusN(c & 0x80);
         updateStatusZ(c == 0);
         updateStatusC(m & 0xFF00 ? true : false);
     }
-    inline void cmp(unsigned char value) { cp(cpu->R.a, value); }
-    inline void cpx(unsigned char value) { cp(cpu->R.x, value); }
-    inline void cpy(unsigned char value) { cp(cpu->R.y, value); }
+    inline void cmp(unsigned char value) { cp("CMP", cpu->R.a, value); }
+    inline void cpx(unsigned char value) { cp("CPX", cpu->R.x, value); }
+    inline void cpy(unsigned char value) { cp("CPY", cpu->R.y, value); }
 
     // use 1 cycle
-    inline unsigned char dec(unsigned char value)
+    inline unsigned char dec(const char* mne, unsigned char value)
     {
+        strcpy(DD.mne, mne);
         int work = value;
         work--;
         unsigned char result = work & 0xFF;
@@ -409,12 +452,13 @@ class M6502
         clockConsume();
         return result;
     }
-    inline void dex() { R.x = dec(R.x); }
-    inline void dey() { R.y = dec(R.y); }
+    inline void dex() { R.x = dec("DEX", R.x); }
+    inline void dey() { R.y = dec("DEY", R.y); }
 
     // use 1 cycle
-    inline unsigned char inc(unsigned char value)
+    inline unsigned char inc(const char* mne, unsigned char value)
     {
+        strcpy(DD.mne, mne);
         int work = value;
         work++;
         unsigned char result = work & 0xFF;
@@ -424,31 +468,34 @@ class M6502
         clockConsume();
         return result;
     }
-    inline void inx() { R.x = inc(R.x); }
-    inline void iny() { R.y = inc(R.y); }
+    inline void inx() { R.x = inc("INX", R.x); }
+    inline void iny() { R.y = inc("INY", R.y); }
 
     // use no cycle
     inline void eor(unsigned char value)
     {
+        strcpy(DD.mne, "EOR");
         R.a ^= value;
         updateStatusN(R.a & 0x80);
         updateStatusZ(R.a == 0);
     }
 
     // use no cycle
-    inline void ld(unsigned char* r, unsigned char value)
+    inline void ld(const char* mne, unsigned char* r, unsigned char value)
     {
+        strcpy(DD.mne, mne);
         *r = value;
         updateStatusN(*r & 0x80);
         updateStatusZ(*r == 0);
     }
-    inline void lda(unsigned char value) { ld(&R.a, value); }
-    inline void ldx(unsigned char value) { ld(&R.x, value); }
-    inline void ldy(unsigned char value) { ld(&R.y, value); }
+    inline void lda(unsigned char value) { ld("LDA", &R.a, value); }
+    inline void ldx(unsigned char value) { ld("LDX", &R.x, value); }
+    inline void ldy(unsigned char value) { ld("LDY", &R.y, value); }
 
     // use no cycle
     inline void ora(unsigned char value)
     {
+        strcpy(DD.mne, "ORA");
         R.a |= value;
         updateStatusN(R.a & 0x80);
         updateStatusZ(R.a == 0);
@@ -469,7 +516,7 @@ class M6502
         return result;
     }
 
-    static inline void adc_imm(M6502* cpu) { cpu->adc(cpu->fetch()); }
+    static inline void adc_imm(M6502* cpu) { cpu->adc(cpu->readImmediate()); }
     static inline void adc_zpg(M6502* cpu) { cpu->adc(cpu->readZeroPage()); }
     static inline void adc_zpg_x(M6502* cpu) { cpu->adc(cpu->readZeroPageX()); }
     static inline void adc_abs(M6502* cpu) { cpu->adc(cpu->readAbsolute(NULL)); }
@@ -478,7 +525,7 @@ class M6502
     static inline void adc_x_ind(M6502* cpu) { cpu->adc(cpu->readIndirectX(NULL)); }
     static inline void adc_ind_y(M6502* cpu) { cpu->adc(cpu->readIndirectY(NULL)); }
 
-    static inline void and_imm(M6502* cpu) { cpu->and_(cpu->fetch()); }
+    static inline void and_imm(M6502* cpu) { cpu->and_(cpu->readImmediate()); }
     static inline void and_zpg(M6502* cpu) { cpu->and_(cpu->readZeroPage(NULL)); }
     static inline void and_zpg_x(M6502* cpu) { cpu->and_(cpu->readZeroPageX(NULL)); }
     static inline void and_abs(M6502* cpu) { cpu->and_(cpu->readAbsolute(NULL)); }
@@ -591,14 +638,14 @@ class M6502
         writeMemory(addr, m);
     }
 
-    static inline void bmi_rel(M6502* cpu) { cpu->branch(cpu->getStatusN()); }
-    static inline void bpl_rel(M6502* cpu) { cpu->branch(!cpu->getStatusN()); }
-    static inline void bvs_rel(M6502* cpu) { cpu->branch(cpu->getStatusV()); }
-    static inline void bvc_rel(M6502* cpu) { cpu->branch(!cpu->getStatusV()); }
-    static inline void beq_rel(M6502* cpu) { cpu->branch(cpu->getStatusZ()); }
-    static inline void bne_rel(M6502* cpu) { cpu->branch(!cpu->getStatusZ()); }
-    static inline void bcs_rel(M6502* cpu) { cpu->branch(cpu->getStatusC()); }
-    static inline void bcc_rel(M6502* cpu) { cpu->branch(!cpu->getStatusC()); }
+    static inline void bmi_rel(M6502* cpu) { cpu->branch("BMI", cpu->getStatusN()); }
+    static inline void bpl_rel(M6502* cpu) { cpu->branch("BPL", !cpu->getStatusN()); }
+    static inline void bvs_rel(M6502* cpu) { cpu->branch("BVS", cpu->getStatusV()); }
+    static inline void bvc_rel(M6502* cpu) { cpu->branch("BVC", !cpu->getStatusV()); }
+    static inline void beq_rel(M6502* cpu) { cpu->branch("BEQ", cpu->getStatusZ()); }
+    static inline void bne_rel(M6502* cpu) { cpu->branch("BNE", !cpu->getStatusZ()); }
+    static inline void bcs_rel(M6502* cpu) { cpu->branch("BCS", cpu->getStatusC()); }
+    static inline void bcc_rel(M6502* cpu) { cpu->branch("BCC", !cpu->getStatusC()); }
 
     static inline void bit_zpg(M6502* cpu) { cpu->bit(cpu->readZeroPage(NULL)); }
     static inline void bit_abs(M6502* cpu) { cpu->bit(cpu->readAbsolute(NULL)); }
@@ -645,7 +692,7 @@ class M6502
         cpu->consumeClock();
     }
 
-    static inline void cmp_imm(M6502* cpu) { cpu->cmp(cpu->fetch()); }
+    static inline void cmp_imm(M6502* cpu) { cpu->cmp(cpu->readImmediate()); }
     static inline void cmp_zpg(M6502* cpu) { cpu->cmp(cpu->readZeroPage(NULL)); }
     static inline void cmp_zpg_x(M6502* cpu) { cpu->cmp(cpu->readZeroPageX(NULL)); }
     static inline void cmp_abs(M6502* cpu) { cpu->cmp(cpu->readAbsolute(NULL)); }
@@ -654,42 +701,42 @@ class M6502
     static inline void cmp_x_ind(M6502* cpu) { cpu->cmp(cpu->readIndirectX(NULL)); }
     static inline void cmp_ind_y(M6502* cpu) { cpu->cmp(cpu->readIndirectY(NULL)); }
 
-    static inline void cpx_imm(M6502* cpu) { cpu->cpx(cpu->fetch()); }
+    static inline void cpx_imm(M6502* cpu) { cpu->cpx(cpu->readImmediate()); }
     static inline void cpx_zpg(M6502* cpu) { cpu->cpx(cpu->readZeroPage(NULL)); }
     static inline void cpx_abs(M6502* cpu) { cpu->cpx(cpu->readAbsolute(NULL)); }
 
-    static inline void cpy_imm(M6502* cpu) { cpu->cpy(cpu->fetch()); }
+    static inline void cpy_imm(M6502* cpu) { cpu->cpy(cpu->readImmediate()); }
     static inline void cpy_zpg(M6502* cpu) { cpu->cpy(cpu->readZeroPage(NULL)); }
     static inline void cpy_abs(M6502* cpu) { cpu->cpy(cpu->readAbsolute(NULL)); }
 
     static inline void dec_zpg(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->dec(readZeroPage(&addr));
+        unsigned char m = cpu->dec("DEC", readZeroPage(&addr));
         writeMemory(addr, m);
     }
     static inline void dec_zpg_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->dec(readZeroPageX(&addr));
+        unsigned char m = cpu->dec("DEC", readZeroPageX(&addr));
         writeMemory(addr, m);
     }
     static inline void dec_abs(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->dec(readAbsolute(&addr));
+        unsigned char m = cpu->dec("DEC", readAbsolute(&addr));
         writeMemory(addr, m);
     }
     static inline void dec_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->dec(readAbsoluteX(&addr, true));
+        unsigned char m = cpu->dec("DEC", readAbsoluteX(&addr, true));
         writeMemory(addr, m);
     }
     static inline void dex_impl(M6502* cpu) { cpu->dex(); }
     static inline void dey_impl(M6502* cpu) { cpu->dey(); }
 
-    static inline void eor_imm(M6502* cpu) { cpu->eor(cpu->fetch()); }
+    static inline void eor_imm(M6502* cpu) { cpu->eor(cpu->readImmediate()); }
     static inline void eor_zpg(M6502* cpu) { cpu->eor(cpu->readZeroPage(NULL)); }
     static inline void eor_zpg_x(M6502* cpu) { cpu->eor(cpu->readZeroPageX(NULL)); }
     static inline void eor_abs(M6502* cpu) { cpu->eor(cpu->readAbsolute(NULL)); }
@@ -701,25 +748,25 @@ class M6502
     static inline void inc_zpg(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->inc(readZeroPage(&addr));
+        unsigned char m = cpu->inc("INC", readZeroPage(&addr));
         writeMemory(addr, m);
     }
     static inline void inc_zpg_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->inc(readZeroPageX(&addr));
+        unsigned char m = cpu->inc("INC", readZeroPageX(&addr));
         writeMemory(addr, m);
     }
     static inline void inc_abs(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->inc(readAbsolute(&addr));
+        unsigned char m = cpu->inc("INC", readAbsolute(&addr));
         writeMemory(addr, m);
     }
     static inline void inc_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->inc(readAbsoluteX(&addr, true));
+        unsigned char m = cpu->inc("INC", readAbsoluteX(&addr, true));
         writeMemory(addr, m);
     }
     static inline void inx_impl(M6502* cpu) { cpu->inx(); }
@@ -727,19 +774,23 @@ class M6502
 
     static inline void jmp_abs(M6502* cpu)
     {
+        strcpy(cpu->DD.mne, "JMP");
         unsigned char low = cpu->fetch();
         unsigned short addr = cpu->fetch();
         addr <<= 8;
         addr |= low;
+        sprintf(cpu->DD.opp, "$%04X", addr);
         cpu->R.pc = addr;
     }
 
     static inline void jmp_ind(M6502* cpu)
     {
+        strcpy(cpu->DD.mne, "JMP");
         unsigned char low = cpu->fetch();
         unsigned short addr = cpu->fetch();
         addr <<= 8;
         addr |= low;
+        sprintf(cpu->DD.opp, "($%04X)", addr);
         low = cpu->readMemory(addr++);
         addr = cpu->readMemory(addr);
         addr <<= 8;
@@ -749,10 +800,12 @@ class M6502
 
     static inline void jsr_abs(M6502* cpu)
     {
+        strcpy(cpu->DD.mne, "JMP");
         unsigned char low = cpu->fetch();
         unsigned short addr = cpu->fetch();
         addr <<= 8;
         addr |= low;
+        sprintf(cpu->DD.opp, "$%04X", addr);
         cpu->push(cpu->R.pc & 0xFF);
         cpu->push((cpu->R.pc & 0xFF00) >> 8);
         cpu->R.pc = addr;
@@ -761,6 +814,7 @@ class M6502
 
     static inline void rts(M6502* cpu)
     {
+        strcpy(cpu->DD.mne, "RTS");
         unsigned char low = cpu->pop();
         unsigned short addr = cpu->pop();
         addr <<= 8;
@@ -771,7 +825,7 @@ class M6502
         cpu->consumeClock();
     }
 
-    static inline void lda_imm(M6502* cpu) { cpu->lda(cpu->fetch()); }
+    static inline void lda_imm(M6502* cpu) { cpu->lda(cpu->readImmediate()); }
     static inline void lda_zpg(M6502* cpu) { cpu->lda(cpu->readZeroPage(NULL)); }
     static inline void lda_zpg_x(M6502* cpu) { cpu->lda(cpu->readZeroPageX(NULL)); }
     static inline void lda_abs(M6502* cpu) { cpu->lda(cpu->readAbsolute(NULL)); }
@@ -780,13 +834,13 @@ class M6502
     static inline void lda_x_ind(M6502* cpu) { cpu->lda(cpu->readIndirectX(NULL)); }
     static inline void lda_ind_y(M6502* cpu) { cpu->lda(cpu->readIndirectY(NULL)); }
 
-    static inline void ldx_imm(M6502* cpu) { cpu->ldx(cpu->fetch()); }
+    static inline void ldx_imm(M6502* cpu) { cpu->ldx(cpu->readImmediate()); }
     static inline void ldx_zpg(M6502* cpu) { cpu->ldx(cpu->readZeroPage(NULL)); }
     static inline void ldx_zpg_y(M6502* cpu) { cpu->ldx(cpu->readZeroPageY(NULL)); }
     static inline void ldx_abs(M6502* cpu) { cpu->ldx(cpu->readAbsolute(NULL)); }
     static inline void ldx_abs_y(M6502* cpu) { cpu->ldx(cpu->readAbsoluteY(NULL)); }
 
-    static inline void ldy_imm(M6502* cpu) { cpu->ldy(cpu->fetch()); }
+    static inline void ldy_imm(M6502* cpu) { cpu->ldy(cpu->readImmediate()); }
     static inline void ldy_zpg(M6502* cpu) { cpu->ldy(cpu->readZeroPage(NULL)); }
     static inline void ldy_zpg_x(M6502* cpu) { cpu->ldy(cpu->readZeroPageX(NULL)); }
     static inline void ldy_abs(M6502* cpu) { cpu->ldy(cpu->readAbsolute(NULL)); }
@@ -794,7 +848,7 @@ class M6502
 
     static inline void nop(M6502* cpu) { cpu->consumeClock(); }
 
-    static inline void ora_imm(M6502* cpu) { cpu->ora(cpu->fetch()); }
+    static inline void ora_imm(M6502* cpu) { cpu->ora(cpu->readImmediate()); }
     static inline void ora_zpg(M6502* cpu) { cpu->ora(cpu->readZeroPage(NULL)); }
     static inline void ora_zpg_x(M6502* cpu) { cpu->ora(cpu->readZeroPageX(NULL)); }
     static inline void ora_abs(M6502* cpu) { cpu->ora(cpu->readAbsolute(NULL)); }
@@ -803,22 +857,24 @@ class M6502
     static inline void ora_x_ind(M6502* cpu) { cpu->ora(cpu->readIndirectX(NULL)); }
     static inline void ora_ind_y(M6502* cpu) { cpu->ora(cpu->readIndirectY(NULL)); }
 
-    inline void ph(unsigned char r)
+    inline void ph(const char* mne, unsigned char r)
     {
+        strcpy(DD.mne, mne);
         push(r);
         consumeClock();
     }
-    static inline void pha(M6502* cpu) { cpu->ph(cpu->R.a); }
-    static inline void php(M6502* cpu) { cpu->ph(cpu->R.p); }
+    static inline void pha(M6502* cpu) { cpu->ph("PHA", cpu->R.a); }
+    static inline void php(M6502* cpu) { cpu->ph("PHP", cpu->R.p); }
 
-    inline void pl(unsigned char* r)
+    inline void pl(const char* mne, unsigned char* r)
     {
+        strcpy(DD.mne, mne);
         cpu->consumeClock();
         *r = cpu->pop();
         cpu->consumeClock();
     }
-    static inline void pla(M6502* cpu) { cpu->pl(&cpu->R.a); }
-    static inline void plp(M6502* cpu) { cpu->pl(&cpu->R.p); }
+    static inline void pla(M6502* cpu) { cpu->pl("PLA", &cpu->R.a); }
+    static inline void plp(M6502* cpu) { cpu->pl("PLP", &cpu->R.p); }
 
     void setupOperands()
     {
