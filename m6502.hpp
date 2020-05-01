@@ -186,53 +186,81 @@ class M6502
         return value;
     }
 
+    // uses 1 cycle
+    inline unsigned short zeroPage()
+    {
+        unsigned short addr = fetch();
+        sprintf(DD.opp, "$%02X", addr);
+        return addr;
+    }
+
     // uses 2 cycles
     inline unsigned char readZeroPage(unsigned short* a)
     {
-        unsigned short addr = fetch();
+        unsigned short addr = zeroPage();
         if (a) *a = addr;
-        sprintf(DD.opp, "$%02X", addr);
         return readMemory(addr);
     }
 
-    // uses 3 cycles
-    inline unsigned char readZeroPageX(unsigned short* a)
+    // uses 2 cycles
+    inline unsigned short zeroPageX()
     {
         unsigned short addr = fetch();
         sprintf(DD.opp, "$%02X, X<$%02X>", addr, R.x);
         addr += R.x;
         addr &= 0xFF;
         consumeClock();
+        return addr
+    }
+
+    // uses 3 cycles
+    inline unsigned char readZeroPageX(unsigned short* a)
+    {
+        unsigned short addr = zeroPageX();
         if (a) *a = addr;
         return readMemory(*ddr);
     }
 
-    // uses 3 cycles
-    inline unsigned char readZeroPageY(unsigned short* a)
+    // uses 2 cycles
+    inline unsigned short zeroPageY()
     {
         unsigned short addr = fetch();
         sprintf(DD.opp, "$%02X, Y<$%02X>", addr, R.y);
         addr += R.y;
         addr &= 0xFF;
         consumeClock();
+        return addr;
+    }
+
+    // uses 3 cycles
+    inline unsigned char readZeroPageY(unsigned short* a)
+    {
+        unsigned short addr = zeroPageY();
         if (a) *a = addr;
         return readMemory(*ddr);
     }
 
-    // uses 3 cycles
-    inline unsigned char readAbsolute(unsigned short* a)
+    // uses 2 cycles
+    inline unsigned short absolute()
     {
         unsigned char low = fetch();
         unsigned short addr = fetch();
         addr <<= 8;
         addr |= low;
-        if (a) *a = addr;
         sprintf(DD.opp, "$%04X", addr);
+        return addr;
+    }
+
+    // uses 3 cycles
+    inline unsigned char readAbsolute(unsigned short* a)
+    {
+        unsigned short addr = absolute();
+        if (a) *a = addr;
         return readMemory(addr);
     }
 
-    // use 3 or 4 cycles
-    inline unsigned char readAbsoluteX(unsigned short* a, bool alwaysPenalty = false)
+    // use 2 or 3 cycles
+    inline unsigned short absoluteX(bool alwaysPenalty)
     {
         unsigned int low = fetch();
         unsigned short addr = fetch();
@@ -243,12 +271,19 @@ class M6502
         if (alwaysPenalty || 0xFF < R.x + low) {
             consumeClock(); // consume a penalty cycle
         }
+        return addr;
+    }
+
+    // use 3 or 4 cycles
+    inline unsigned char readAbsoluteX(unsigned short* a, bool alwaysPenalty = false)
+    {
+        unsigned short absoluteX(alwaysPenalty);
         if (a) *a = addr;
         return readMemory(addr);
     }
 
-    // use 3 or 4 cycles
-    inline unsigned char readAbsoluteY(unsigned short* a)
+    // use 2 or 3 cycles
+    inline unsigned short absoluteY(bool alwaysPenalty)
     {
         unsigned int low = fetch();
         unsigned short addr = fetch();
@@ -256,15 +291,22 @@ class M6502
         addr |= low;
         sprintf(DD.opp, "$%04X, Y<$%02X>", addr, R.y);
         addr += R.y;
-        if (0xFF < R.y + low) {
+        if (alwaysPenalty || 0xFF < R.y + low) {
             consumeClock(); // consume a penalty cycle
         }
+        return addr;
+    }
+
+    // use 3 or 4 cycles
+    inline unsigned char readAbsoluteY(unsigned short* a, bool alwaysPenalty = false)
+    {
+        unsigned short addr = absoluteY(alwaysPenalty);
         if (a) *a = addr;
         return readMemory(addr);
     }
 
-    // use 5 cycles
-    inline unsigned char readIndirectX(unsigned short* a)
+    // uses 4 cycles
+    inline unsigned short indirectX()
     {
         unsigned char zero = fetch();
         sprintf(DD.opp, "($%02X, X<$%02X>)", zero, R.x);
@@ -274,12 +316,18 @@ class M6502
         addr <<= 8;
         addr |= low;
         consumeClock();
+    }
+
+    // use 5 cycles
+    inline unsigned char readIndirectX(unsigned short* a)
+    {
+        unsigned short addr = indirectX();
         if (a) *a = addr;
         return readMemory(addr);
     }
 
-    // use 4 or 5 cycles
-    inline unsigned char readIndirectY(unsigned short* a)
+    // uses 3 or 4 cycles
+    inline unsigned short indirectY(bool alwaysPenalty)
     {
         unsigned char zero = fetch();
         sprintf(DD.opp, "($%02X), Y<$%02X>", zero, R.y);
@@ -288,9 +336,15 @@ class M6502
         addr <<= 8;
         addr |= low;
         addr += R.y;
-        if (0xFF < R.y + low) {
+        if (alwaysPenalty || 0xFF < R.y + low) {
             consumeClock(); // consume a penalty cycle
         }
+    }
+
+    // use 4 or 5 cycles
+    inline unsigned char readIndirectY(unsigned short* a, bool alwaysPenalty = false)
+    {
+        unsigned short addr = indirectY(alwaysPenalty);
         if (a) *a = addr;
         return readMemory(addr);
     }
@@ -549,6 +603,16 @@ class M6502
     inline void lda(unsigned char value) { ld("LDA", &R.a, value); }
     inline void ldx(unsigned char value) { ld("LDX", &R.x, value); }
     inline void ldy(unsigned char value) { ld("LDY", &R.y, value); }
+
+    // use 1 cycle
+    inline void st(const char* mne, unsigned short addr, unsigned char value)
+    {
+        strcpy(DD.mne, mne);
+        writeMemory(addr, value);
+    }
+    inline void sta(unsigned short addr) { st("STA", addr, R.a); }
+    inline void stx(unsigned short addr) { st("STX", addr, R.x); }
+    inline void sty(unsigned short addr) { st("STY", addr, R.y); }
 
     // use no cycle
     inline void ora(unsigned char value)
@@ -940,6 +1004,22 @@ class M6502
     static inline void ldy_abs(M6502* cpu) { cpu->ldy(cpu->readAbsolute(NULL)); }
     static inline void ldy_abs_x(M6502* cpu) { cpu->ldy(cpu->readAbsoluteX(NULL)); }
 
+    static inline void sta_zpg(M6502* cpu) { cpu->sta(cpu->zeroPage()); }
+    static inline void sta_zpg_x(M6502* cpu) { cpu->sta(cpu->zeroPageX()); }
+    static inline void sta_abs(M6502* cpu) { cpu->sta(cpu->absolute()); }
+    static inline void sta_abs_x(M6502* cpu) { cpu->sta(cpu->absoluteX(true)); }
+    static inline void sta_abs_y(M6502* cpu) { cpu->sta(cpu->absoluteY(true)); }
+    static inline void sta_x_ind(M6502* cpu) { cpu->sta(cpu->indirectX()); }
+    static inline void sta_ind_y(M6502* cpu) { cpu->sta(cpu->indirectY(true)); }
+
+    static inline void stx_zpg(M6502* cpu) { cpu->stx(cpu->zeroPage()); }
+    static inline void stx_zpg_y(M6502* cpu) { cpu->stx(cpu->zeroPageY()); }
+    static inline void stx_abs(M6502* cpu) { cpu->stx(cpu->absolute()); }
+
+    static inline void sty_zpg(M6502* cpu) { cpu->sty(cpu->zeroPage()); }
+    static inline void sty_zpg_x(M6502* cpu) { cpu->sty(cpu->zeroPageX()); }
+    static inline void sty_abs(M6502* cpu) { cpu->sty(cpu->absolute()); }
+
     static inline void nop(M6502* cpu) { cpu->consumeClock(); }
 
     static inline void ora_imm(M6502* cpu) { cpu->ora(cpu->readImmediate()); }
@@ -1113,6 +1193,22 @@ class M6502
         operands[0xB4] = ldy_zpg_x;
         operands[0xAC] = ldy_abs;
         operands[0xBC] = ldy_abs_x;
+
+        operands[0x85] = sta_zpg;
+        operands[0x95] = sta_zpg_x;
+        operands[0x8D] = sta_abs;
+        operands[0x9D] = sta_abs_x;
+        operands[0x99] = sta_abs_y;
+        operands[0x81] = sta_x_ind;
+        operands[0x91] = sta_ind_y;
+
+        operands[0x86] = stx_zpg;
+        operands[0x96] = stx_zpg_y;
+        operands[0x8E] = stx_abs;
+
+        operands[0x84] = sty_zpg;
+        operands[0x94] = sty_zpg_x;
+        operands[0x8C] = sty_abs;
 
         operands[0xEA] = nop;
 
