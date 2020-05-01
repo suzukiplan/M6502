@@ -13,6 +13,14 @@
 - The MOS6502 is an 8-bit microprocessor that was designed by a small team led by Chuck Peddle for MOS Technology.
 - It has a simpler structure than the Z80, but it has all the necessary and sufficient functions for game programming.
 
+## Features (aiming...)
+
+- Perfect cycle penalty implementation
+- Perfect synchronization (syncable with every 1 clock)
+- Perfect responsibility separation of MMU (Memory Management Unit) implementation
+- Perfect debuging features
+- Commercially available license (MIT)
+
 ## Usage
 
 ```text
