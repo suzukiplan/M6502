@@ -303,7 +303,7 @@ class M6502
     }
 
     // use no cycle
-    inline void and (unsigned char value)
+    inline void and_(unsigned char value)
     {
         cpu->R.a &= value;
         cpu->updateStatusN(cpu->R.a & 0x80);
@@ -321,6 +321,18 @@ class M6502
         updateStatusC(work & 0xFF00 ? true : false);
         clockConsume();
         return result;
+    }
+
+    // use 1 cycle
+    inline unsigned char lsr(unsigned char value)
+    {
+        updateStatusC(value & 0x01 ? true : false);
+        value &= 0xFE;
+        value >>= 1;
+        updateStatusN(false);
+        updateStatusZ(value == 0);
+        clockConsume();
+        return value;
     }
 
     // use 1, 2 or 3 cycles
@@ -440,14 +452,14 @@ class M6502
     static inline void adc_x_ind(M6502* cpu) { cpu->adc(cpu->readIndirectX(NULL)); }
     static inline void adc_ind_y(M6502* cpu) { cpu->adc(cpu->readIndirectY(NULL)); }
 
-    static inline void and_imm(M6502* cpu) { cpu->and (cpu->fetch()); }
-    static inline void and_zpg(M6502* cpu) { cpu->and (cpu->readZeroPage(NULL)); }
-    static inline void and_zpg_x(M6502* cpu) { cpu->and (cpu->readZeroPageX(NULL)); }
-    static inline void and_abs(M6502* cpu) { cpu->and (cpu->readAbsolute(NULL)); }
-    static inline void and_abs_x(M6502* cpu) { cpu->and (cpu->readAbsoluteX(NULL)); }
-    static inline void and_abs_y(M6502* cpu) { cpu->and (cpu->readAbsoluteY(NULL)); }
-    static inline void and_x_ind(M6502* cpu) { cpu->and (cpu->readIndirectX(NULL)); }
-    static inline void and_ind_y(M6502* cpu) { cpu->and (cpu->readIndirectY(NULL)); }
+    static inline void and_imm(M6502* cpu) { cpu->and_(cpu->fetch()); }
+    static inline void and_zpg(M6502* cpu) { cpu->and_(cpu->readZeroPage(NULL)); }
+    static inline void and_zpg_x(M6502* cpu) { cpu->and_(cpu->readZeroPageX(NULL)); }
+    static inline void and_abs(M6502* cpu) { cpu->and_(cpu->readAbsolute(NULL)); }
+    static inline void and_abs_x(M6502* cpu) { cpu->and_(cpu->readAbsoluteX(NULL)); }
+    static inline void and_abs_y(M6502* cpu) { cpu->and_(cpu->readAbsoluteY(NULL)); }
+    static inline void and_x_ind(M6502* cpu) { cpu->and_(cpu->readIndirectX(NULL)); }
+    static inline void and_ind_y(M6502* cpu) { cpu->and_(cpu->readIndirectY(NULL)); }
 
     static inline void asl_a(M6502* cpu) { R.a = cpu->asl(R.a); }
     static inline void asl_zpg(M6502* cpu)
@@ -472,6 +484,32 @@ class M6502
     {
         unsigned short addr;
         unsigned char m = cpu->asl(readAbsoluteX(&addr, true));
+        writeMemory(addr, m);
+    }
+
+    static inline void lsr_a(M6502* cpu) { R.a = cpu->lsr(R.a); }
+    static inline void lsr_zpg(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->lsr(readZeroPage(&addr));
+        writeMemory(addr, m);
+    }
+    static inline void lsr_zpg_x(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->lsr(readZeroPageX(&addr));
+        writeMemory(addr, m);
+    }
+    static inline void lsr_abs(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->lsr(readAbsolute(&addr));
+        writeMemory(addr, m);
+    }
+    static inline void lsr_abs_x(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->lsr(readAbsoluteX(&addr, true));
         writeMemory(addr, m);
     }
 
@@ -719,6 +757,12 @@ class M6502
         operands[0x16] = asl_zpg_x;
         operands[0x0E] = asl_abs;
         operands[0x1E] = asl_abs_x;
+
+        operands[0x4A] = lsr_a;
+        operands[0x46] = lsr_zpg;
+        operands[0x56] = lsr_zpg_x;
+        operands[0x4E] = lsr_abs;
+        operands[0x5E] = lsr_abs_x;
 
         operands[0x30] = bmi_rel;
         operands[0x10] = bpl_rel;
