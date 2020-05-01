@@ -3,6 +3,7 @@
 ## WIP status
 
 - [x] implement all operands
+- [ ] implement decimal mode
 - [ ] create driver program for test
 - [ ] CI
 
