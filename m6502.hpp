@@ -650,9 +650,34 @@ class M6502
     static inline void bit_zpg(M6502* cpu) { cpu->bit(cpu->readZeroPage(NULL)); }
     static inline void bit_abs(M6502* cpu) { cpu->bit(cpu->readAbsolute(NULL)); }
 
-    static inline void brk_impl(M6502* cpu)
+    static inline void brk(M6502* cpu)
     {
-        // TODO
+        strcpy(cpu->DD.mne, "BRK");
+        unsigned short pc = cpu->R.pc + 1;
+        unsigned char pcH = (pc & 0xFF00) >> 8;
+        unsigned char pcL = pc & 0x00FF;
+        cpu->push(pcL);
+        cpu->push(pcH);
+        cpu->push(cpu->R.p);
+        cpu->updateStatusB(true);
+        cpu->updateStatusI(true);
+        pcL = cpu->readMemory(0xFFFE);
+        pcH = cpu->readMemory(0xFFFF);
+        cpu->R.pc = pcH;
+        cpu->R.pc <<= 8;
+        cpu->R.pc |= pcL;
+        cpu->consumeClock();
+    }
+
+    static inline void rti(M6502* cpu)
+    {
+        strcpy(cpu->DD.mne, "RTI");
+        cpu->R.p = cpu->pop();
+        cpu->R.pc = cpu->pop();
+        cpu->R.pc <<= 8;
+        cpu->R.pc |= cpu->pop();
+        cpu->consumeClock();
+        cpu->consumeClock();
     }
 
     static inline void clc(M6502* cpu)
@@ -879,8 +904,8 @@ class M6502
     void setupOperands()
     {
         memset(operands, 0, sizeof(operands));
-        operands[0x00] = brk_impl;
-        operands[0x08] = php_impl;
+        operands[0x00] = brk;
+        operands[0x40] = rti;
 
         operands[0x69] = adc_imm;
         operands[0x65] = adc_zpg;
