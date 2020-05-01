@@ -293,9 +293,19 @@ private:
     // use no cycle
     inline void bit(unsigned char value) {
         unsigned char w = cpu->R.a & value;
-        cpu->updateStatusN(value & 0b10000000);
-        cpu->updateStatusV(value & 0b01000000);
-        cpu->updateStatusZ(w == 0);
+        updateStatusN(value & 0b10000000);
+        updateStatusV(value & 0b01000000);
+        updateStatusZ(w == 0);
+    }
+
+    // use no cycle
+    inline void cmp(unsigned char value) {
+        int m = cpu->R.a;
+        m -= value;
+        unsigned char c = m & 0xFF;
+        updateStatusN(c & 0x80);
+        updateStatusZ(c == 0);
+        updateStatusC(m & 0xFF00 ? true : false);
     }
 
     // use no cycle
@@ -514,6 +524,46 @@ private:
         cpu->consumeClock();
     }
 
+    // code=$C9, len=2, cycle=2
+    static inline void cmp_imm(M6502* cpu) {
+        cpu->cmp(cpu->fetch());
+    }
+
+    // code=$C5, len=2, cycle=3
+    static inline void cmp_zpg(M6502* cpu) {
+        cpu->cmp(cpu->readZeroPage(NULL));
+    }
+
+    // code=$D5, len=2, cycle=4
+    static inline void cmp_zpg_x(M6502* cpu) {
+        cpu->cmp(cpu->readZeroPageX(NULL));
+    }
+
+    // code=$CD, len=3, cycle=4
+    static inline void cmp_abs(M6502* cpu) {
+        cpu->cmp(cpu->readAbsolute(NULL));
+    }
+
+    // code=$DD, len=3, cycle=4 or 5
+    static inline void cmp_abs_x(M6502* cpu) {
+        cpu->cmp(cpu->readAbsoluteX(NULL));
+    }
+
+    // code=$D9, len=3, cycle=4 or 5
+    static inline void cmp_abs_y(M6502* cpu) {
+        cpu->cmp(cpu->readAbsoluteY(NULL));
+    }
+
+    // code=$C1, len=2, cycle=6
+    static inline void cmp_x_ind(M6502* cpu) {
+        cpu->cmp(cpu->readIndirectX(NULL));
+    }
+
+    // code=$D1, len=2, cycle=5 or 6
+    static inline void cmp_ind_y(M6502* cpu) {
+        cpu->cmp(cpu->readIndirectY(NULL));
+    }
+
     // code=$09, len=2, cycle=2
     static inline void ora_imm(M6502* cpu) {
         cpu->ora(cpu->fetch());
@@ -606,6 +656,15 @@ private:
         operands[0x38] = sec;
         operands[0xF8] = sed;
         operands[0x78] = sei;
+
+        operands[0xC9] = cmp_imm;
+        operands[0xC5] = cmp_zpg;
+        operands[0xD5] = cmp_zpg_x;
+        operands[0xCD] = cmp_abs;
+        operands[0xDD] = cmp_abs_x;
+        operands[0xD9] = cmp_abs_y;
+        operands[0xC1] = cmp_x_ind;
+        operands[0xD1] = cmp_ind_y;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
