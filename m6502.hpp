@@ -291,6 +291,14 @@ private:
     }
 
     // use no cycle
+    inline void bit(unsigned char value) {
+        unsigned char w = cpu->R.a & value;
+        cpu->updateStatusN(value & 0b10000000);
+        cpu->updateStatusV(value & 0b01000000);
+        cpu->updateStatusZ(w == 0);
+    }
+
+    // use no cycle
     inline void ora(unsigned char value) {
         R.a |= value;
         updateStatusN(R.a & 0x80);
@@ -450,6 +458,16 @@ private:
         cpu->branch(!cpu->getStatusC());
     }
 
+    // code=$24, len=2, cycle=3
+    static inline void bit_zpg(M6502* cpu) {
+        cpu->bit(cpu->readZeroPage(NULL));
+    }
+
+    // code=$2C, len=2, cycle=4
+    static inline void bit_abs(M6502* cpu) {
+        cpu->bit(cpu->readAbsolute(NULL));
+    }
+
     static inline void brk_impl(M6502* cpu) {
         // TODO
     }
@@ -535,6 +553,9 @@ private:
         operands[0xD0] = bne_rel;
         operands[0xB0] = bcs_rel;
         operands[0x90] = bcc_rel;
+
+        operands[0x24] = bit_zpg;
+        operands[0x2C] = bit_abs;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
