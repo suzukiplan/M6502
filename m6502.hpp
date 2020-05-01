@@ -458,6 +458,21 @@ class M6502
         updateStatusZ(R.a == 0);
     }
 
+    // use 1 cycle
+    inline void push(unsigned char value)
+    {
+        R.s++;
+        writeMemory(0x0100 + R.s, value);
+    }
+
+    // use 1 cycle
+    inline unsigned char pop()
+    {
+        unsigned char result = readMemory(0x0100 + R.s);
+        R.s--;
+        return result;
+    }
+
     // code=$69, len=2, cycle=2
     static inline void adc_imm(M6502* cpu)
     {
@@ -926,6 +941,56 @@ class M6502
         cpu->iny();
     }
 
+    // code=$4C, len=3, cycle=3
+    static inline void jmp_abs(M6502* cpu)
+    {
+        unsigned char low = cpu->fetch();
+        unsigned short addr = cpu->fetch();
+        addr <<= 8;
+        addr |= low;
+        cpu->R.pc = addr;
+    }
+
+    // code=$6C, len=3, cycle=5
+    static inline void jmp_ind(M6502* cpu)
+    {
+        unsigned char low = cpu->fetch();
+        unsigned short addr = cpu->fetch();
+        addr <<= 8;
+        addr |= low;
+        low = cpu->readMemory(addr++);
+        addr = cpu->readMemory(addr);
+        addr <<= 8;
+        addr |= low;
+        cpu->R.pc = addr;
+    }
+
+    // code=$20, len=3, cycle=6
+    static inline void jsr_abs(M6502* cpu)
+    {
+        unsigned char low = cpu->fetch();
+        unsigned short addr = cpu->fetch();
+        addr <<= 8;
+        addr |= low;
+        cpu->push(cpu->R.pc & 0xFF);
+        cpu->push((cpu->R.pc & 0xFF00) >> 8);
+        cpu->R.pc = addr;
+        cpu->consumeClock();
+    }
+
+    // code=$60, len=1, cycle=6
+    static inline void rts(M6502* cpu)
+    {
+        unsigned char low = cpu->pop();
+        unsigned short addr = cpu->pop();
+        addr <<= 8;
+        cpu->consumeClock();
+        addr |= low;
+        cpu->consumeClock();
+        cpu->R.pc = addr;
+        cpu->consumeClock();
+    }
+
     // code=$09, len=2, cycle=2
     static inline void ora_imm(M6502* cpu)
     {
@@ -1068,6 +1133,11 @@ class M6502
         operands[0xFE] = inc_abs_x;
         operands[0xE8] = inx_impl;
         operands[0xC8] = iny_impl;
+
+        operands[0x4C] = jmp_abs;
+        operands[0x6C] = jmp_ind;
+        operands[0x20] = jsr_abs;
+        operands[0x60] = rts;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
