@@ -105,20 +105,12 @@ class M6502
     void IRQ()
     {
         if (getStatusI()) return;
-        unsigned short pc = cpu->R.pc + 1;
-        unsigned char pcH = (pc & 0xFF00) >> 8;
-        unsigned char pcL = pc & 0x00FF;
-        push(pcH);
-        push(pcL);
-        push(cpu->R.p);
-        updateStatusB(false);
-        updateStatusI(true);
-        pcL = readMemory(0xFFFE);
-        pcH = readMemory(0xFFFF);
-        R.pc = pcH;
-        R.pc <<= 8;
-        R.pc |= pcL;
-        consumeClock();
+        executeInterrupt(0xFFFE);
+    }
+
+    void NMI()
+    {
+        executeInterrupt(0xFFFA);
     }
 
     void reset()
@@ -139,6 +131,24 @@ class M6502
     }
 
   private:
+    inline void executeInterrupt(unsigned short addr)
+    {
+        unsigned short pc = cpu->R.pc + 1;
+        unsigned char pcH = (pc & 0xFF00) >> 8;
+        unsigned char pcL = pc & 0x00FF;
+        push(pcH);
+        push(pcL);
+        push(cpu->R.p);
+        updateStatusB(false);
+        updateStatusI(true);
+        pcL = readMemory(addr);
+        pcH = readMemory(addr + 1);
+        R.pc = pcH;
+        R.pc <<= 8;
+        R.pc |= pcL;
+        consumeClock();
+    }
+
     inline void consumeClock()
     {
         if (CB.consumeClock) {
