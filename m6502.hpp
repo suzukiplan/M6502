@@ -334,6 +334,19 @@ class M6502
     }
 
     // use no cycle
+    inline void sbc(unsigned char value)
+    {
+        strcpy(DD.mne, "SBC");
+        unsigned int a = cpu->R.a;
+        a -= value;
+        a -= getStatusC() ? 0 : 1;
+        cpu->R.a = a & 0xFF;
+        cpu->updateStatusN(cpu->R.a & 0x80);
+        cpu->updateStatusZ(cpu->R.a == 0);
+        cpu->updateStatusC(a & 0xFF00 ? true : false);
+    }
+
+    // use no cycle
     inline void and_(unsigned char value)
     {
         strcpy(DD.mne, "AND");
@@ -524,6 +537,15 @@ class M6502
     static inline void adc_abs_y(M6502* cpu) { cpu->adc(cpu->readAbsoluteY(NULL)); }
     static inline void adc_x_ind(M6502* cpu) { cpu->adc(cpu->readIndirectX(NULL)); }
     static inline void adc_ind_y(M6502* cpu) { cpu->adc(cpu->readIndirectY(NULL)); }
+
+    static inline void sbc_imm(M6502* cpu) { cpu->sbc(cpu->readImmediate()); }
+    static inline void sbc_zpg(M6502* cpu) { cpu->sbc(cpu->readZeroPage()); }
+    static inline void sbc_zpg_x(M6502* cpu) { cpu->sbc(cpu->readZeroPageX()); }
+    static inline void sbc_abs(M6502* cpu) { cpu->sbc(cpu->readAbsolute(NULL)); }
+    static inline void sbc_abs_x(M6502* cpu) { cpu->sbc(cpu->readAbsoluteX(NULL)); }
+    static inline void sbc_abs_y(M6502* cpu) { cpu->sbc(cpu->readAbsoluteY(NULL)); }
+    static inline void sbc_x_ind(M6502* cpu) { cpu->sbc(cpu->readIndirectX(NULL)); }
+    static inline void sbc_ind_y(M6502* cpu) { cpu->sbc(cpu->readIndirectY(NULL)); }
 
     static inline void and_imm(M6502* cpu) { cpu->and_(cpu->readImmediate()); }
     static inline void and_zpg(M6502* cpu) { cpu->and_(cpu->readZeroPage(NULL)); }
@@ -915,6 +937,15 @@ class M6502
         operands[0x79] = adc_abs_y;
         operands[0x61] = adc_x_ind;
         operands[0x71] = adc_ind_y;
+
+        operands[0xE9] = sbc_imm;
+        operands[0xE5] = sbc_zpg;
+        operands[0xF5] = sbc_zpg_x;
+        operands[0xED] = sbc_abs;
+        operands[0xFD] = sbc_abs_x;
+        operands[0xF9] = sbc_abs_y;
+        operands[0xE1] = sbc_x_ind;
+        operands[0xF1] = sbc_ind_y;
 
         operands[0x29] = and_imm;
         operands[0x25] = and_zpg;
