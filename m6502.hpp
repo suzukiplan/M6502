@@ -422,7 +422,7 @@ class M6502
     // use no cycle
     inline void adc(unsigned char value)
     {
-        strcpy(DD.mne, "ADC");
+        if (CB.debugMessage) strcpy(DD.mne, "ADC");
         unsigned int a = cpu->R.a;
         a += value;
         a += getStatusC() ? 1 : 0;
@@ -435,7 +435,7 @@ class M6502
     // use no cycle
     inline void sbc(unsigned char value)
     {
-        strcpy(DD.mne, "SBC");
+        if (CB.debugMessage) strcpy(DD.mne, "SBC");
         unsigned int a = cpu->R.a;
         a -= value;
         a -= getStatusC() ? 0 : 1;
@@ -448,7 +448,7 @@ class M6502
     // use no cycle
     inline void and_(unsigned char value)
     {
-        strcpy(DD.mne, "AND");
+        if (CB.debugMessage) strcpy(DD.mne, "AND");
         cpu->R.a &= value;
         cpu->updateStatusN(cpu->R.a & 0x80);
         cpu->updateStatusZ(cpu->R.a == 0);
@@ -457,7 +457,7 @@ class M6502
     // use 1 cycle
     inline unsigned char asl(unsigned char value)
     {
-        strcpy(DD.mne, "ASL");
+        if (CB.debugMessage) strcpy(DD.mne, "ASL");
         int work = value;
         work <<= 1;
         unsigned char result = work & 0xFF;
@@ -471,8 +471,8 @@ class M6502
     // use 1 cycle
     inline unsigned char lsr(unsigned char value)
     {
-        strcpy(DD.mne, "LSR");
-        if (!DD.opp[0]) sprintf(DD.opp, "A<$%02X>", R.a);
+        if (CB.debugMessage) strcpy(DD.mne, "LSR");
+        if (CB.debugMessage && !DD.opp[0]) sprintf(DD.opp, "A<$%02X>", R.a);
         updateStatusC(value & 0x01 ? true : false);
         value &= 0xFE;
         value >>= 1;
@@ -485,8 +485,8 @@ class M6502
     // use 1 cycle
     inline unsigned char rol(unsigned char value)
     {
-        strcpy(DD.mne, "ROL");
-        if (!DD.opp[0]) sprintf(DD.opp, "A<$%02X>", R.a);
+        if (CB.debugMessage) strcpy(DD.mne, "ROL");
+        if (CB.debugMessage && !DD.opp[0]) sprintf(DD.opp, "A<$%02X>", R.a);
         updateStatusC(value & 0x80 ? true : false);
         value &= 0x7F;
         value <<= 1;
@@ -500,8 +500,8 @@ class M6502
     // use 1 cycle
     inline unsigned char ror(unsigned char value)
     {
-        strcpy(DD.mne, "ROR");
-        if (!DD.opp[0]) sprintf(DD.opp, "A<$%02X>", R.a);
+        if (CB.debugMessage) strcpy(DD.mne, "ROR");
+        if (CB.debugMessage && !DD.opp[0]) sprintf(DD.opp, "A<$%02X>", R.a);
         updateStatusC(value & 0x01 ? true : false);
         value &= 0xFE;
         value >>= 1;
@@ -515,7 +515,7 @@ class M6502
     // use 1, 2 or 3 cycles
     inline void branch(const char* mne, bool isBranch)
     {
-        strcpy(DD.mne, mne);
+        if (CB.debugMessage) strcpy(DD.mne, mne);
         unsigned char rel = fetch();
         if (!isBranch) return; // not branch
         unsigned addr = R.pc - 2;
@@ -530,7 +530,7 @@ class M6502
     // use no cycle
     inline void bit(unsigned char value)
     {
-        strcpy(DD.mne, "BIT");
+        if (CB.debugMessage) strcpy(DD.mne, "BIT");
         unsigned char w = cpu->R.a & value;
         updateStatusN(value & 0b10000000);
         updateStatusV(value & 0b01000000);
@@ -540,7 +540,7 @@ class M6502
     // use no cycle
     inline void cp(const char* mne, int m, unsigned char value)
     {
-        strcpy(DD.mne, mne);
+        if (CB.debugMessage) strcpy(DD.mne, mne);
         m -= value;
         unsigned char c = m & 0xFF;
         updateStatusN(c & 0x80);
@@ -554,7 +554,7 @@ class M6502
     // use 1 cycle
     inline unsigned char dec(const char* mne, unsigned char value)
     {
-        strcpy(DD.mne, mne);
+        if (CB.debugMessage) strcpy(DD.mne, mne);
         int work = value;
         work--;
         unsigned char result = work & 0xFF;
@@ -570,7 +570,7 @@ class M6502
     // use 1 cycle
     inline unsigned char inc(const char* mne, unsigned char value)
     {
-        strcpy(DD.mne, mne);
+        if (CB.debugMessage) strcpy(DD.mne, mne);
         int work = value;
         work++;
         unsigned char result = work & 0xFF;
@@ -586,7 +586,7 @@ class M6502
     // use no cycle
     inline void eor(unsigned char value)
     {
-        strcpy(DD.mne, "EOR");
+        if (CB.debugMessage) strcpy(DD.mne, "EOR");
         R.a ^= value;
         updateStatusN(R.a & 0x80);
         updateStatusZ(R.a == 0);
@@ -595,7 +595,7 @@ class M6502
     // use no cycle
     inline void ld(const char* mne, unsigned char* r, unsigned char value)
     {
-        strcpy(DD.mne, mne);
+        if (CB.debugMessage) strcpy(DD.mne, mne);
         *r = value;
         updateStatusN(*r & 0x80);
         updateStatusZ(*r == 0);
@@ -607,7 +607,7 @@ class M6502
     // use 1 cycle
     inline void st(const char* mne, unsigned short addr, unsigned char value)
     {
-        strcpy(DD.mne, mne);
+        if (CB.debugMessage) strcpy(DD.mne, mne);
         writeMemory(addr, value);
     }
     inline void sta(unsigned short addr) { st("STA", addr, R.a); }
@@ -617,7 +617,7 @@ class M6502
     // use no cycle
     inline void ora(unsigned char value)
     {
-        strcpy(DD.mne, "ORA");
+        if (CB.debugMessage) strcpy(DD.mne, "ORA");
         R.a |= value;
         updateStatusN(R.a & 0x80);
         updateStatusZ(R.a == 0);
@@ -783,7 +783,7 @@ class M6502
 
     static inline void brk(M6502* cpu)
     {
-        strcpy(cpu->DD.mne, "BRK");
+        if (CB.debugMessage) strcpy(cpu->DD.mne, "BRK");
         unsigned short pc = cpu->R.pc + 1;
         unsigned char pcH = (pc & 0xFF00) >> 8;
         unsigned char pcL = pc & 0x00FF;
@@ -802,7 +802,7 @@ class M6502
 
     static inline void rti(M6502* cpu)
     {
-        strcpy(cpu->DD.mne, "RTI");
+        if (CB.debugMessage) strcpy(cpu->DD.mne, "RTI");
         cpu->R.p = cpu->pop();
         unsigned char pcL = cpu->pop();
         unsigned char pcH = cpu->pop();
@@ -932,23 +932,23 @@ class M6502
 
     static inline void jmp_abs(M6502* cpu)
     {
-        strcpy(cpu->DD.mne, "JMP");
+        if (CB.debugMessage) strcpy(cpu->DD.mne, "JMP");
         unsigned char low = cpu->fetch();
         unsigned short addr = cpu->fetch();
         addr <<= 8;
         addr |= low;
-        sprintf(cpu->DD.opp, "$%04X", addr);
+        if (CB.debugMessage) sprintf(cpu->DD.opp, "$%04X", addr);
         cpu->R.pc = addr;
     }
 
     static inline void jmp_ind(M6502* cpu)
     {
-        strcpy(cpu->DD.mne, "JMP");
+        if (CB.debugMessage) strcpy(cpu->DD.mne, "JMP");
         unsigned char low = cpu->fetch();
         unsigned short addr = cpu->fetch();
         addr <<= 8;
         addr |= low;
-        sprintf(cpu->DD.opp, "($%04X)", addr);
+        if (CB.debugMessage) sprintf(cpu->DD.opp, "($%04X)", addr);
         low = cpu->readMemory(addr++);
         addr = cpu->readMemory(addr);
         addr <<= 8;
@@ -958,12 +958,12 @@ class M6502
 
     static inline void jsr_abs(M6502* cpu)
     {
-        strcpy(cpu->DD.mne, "JMP");
+        if (CB.debugMessage) strcpy(cpu->DD.mne, "JMP");
         unsigned char low = cpu->fetch();
         unsigned short addr = cpu->fetch();
         addr <<= 8;
         addr |= low;
-        sprintf(cpu->DD.opp, "$%04X", addr);
+        if (CB.debugMessage) sprintf(cpu->DD.opp, "$%04X", addr);
         cpu->push(cpu->R.pc & 0xFF);
         cpu->push((cpu->R.pc & 0xFF00) >> 8);
         cpu->R.pc = addr;
@@ -972,7 +972,7 @@ class M6502
 
     static inline void rts(M6502* cpu)
     {
-        strcpy(cpu->DD.mne, "RTS");
+        if (CB.debugMessage) strcpy(cpu->DD.mne, "RTS");
         unsigned char low = cpu->pop();
         unsigned short addr = cpu->pop();
         addr <<= 8;
@@ -1033,7 +1033,7 @@ class M6502
 
     inline void ph(const char* mne, unsigned char r)
     {
-        strcpy(DD.mne, mne);
+        if (CB.debugMessage) strcpy(DD.mne, mne);
         push(r);
         consumeClock();
     }
@@ -1042,7 +1042,7 @@ class M6502
 
     inline void pl(const char* mne, unsigned char* r)
     {
-        strcpy(DD.mne, mne);
+        if (CB.debugMessage) strcpy(DD.mne, mne);
         cpu->consumeClock();
         *r = cpu->pop();
         cpu->consumeClock();
