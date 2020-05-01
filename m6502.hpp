@@ -55,6 +55,8 @@ public:
 
     M6502(unsigned char (*readMemory)(void* arg, unsigned short addr), void (*writeMemory)(void* arg, unsigned short addr, unsigned char value), void* arg) {
         memset(&R, 0, sizeof(R));
+        R.pc = 0x8000;
+        R.s = 0xFF;
         memset(&CB, 0, sizeof(CB));
         CB.readMemory = readMemory;
         CB.writeMemory = writeMemory;
@@ -270,9 +272,9 @@ private:
         int work = value;
         work <<= 1;
         unsigned char result = work & 0xFF;
-        updateStatusN(R.a & 0x80);
-        updateStatusZ(R.a == 0);
-        updateStatusC(a & 0xFF00 ? true : false);
+        updateStatusN(result & 0x80);
+        updateStatusZ(result == 0);
+        updateStatusC(work & 0xFF00 ? true : false);
         clockConsume();
         return result;
     }
@@ -326,6 +328,40 @@ private:
         updateStatusN(c & 0x80);
         updateStatusZ(c == 0);
         updateStatusC(m & 0xFF00 ? true : false);
+    }
+
+    // use 1 cycle
+    inline unsigned char dec(unsigned char value) {
+        int work = value;
+        work--;
+        unsigned char result = work & 0xFF;
+        updateStatusN(result & 0x80);
+        updateStatusZ(result == 0);
+        updateStatusC(work & 0xFF00 ? true : false);
+        clockConsume();
+        return result;
+    }
+
+    // use 1 cycle
+    inline void dex() {
+        int work = R.x;
+        work--;
+        R.x = work & 0xFF;
+        updateStatusN(R.x & 0x80);
+        updateStatusZ(R.x == 0);
+        updateStatusC(work & 0xFF00 ? true : false);
+        clockConsume();
+    }
+
+    // use 1 cycle
+    inline void dey() {
+        int work = R.y;
+        work--;
+        R.y = work & 0xFF;
+        updateStatusN(R.y & 0x80);
+        updateStatusZ(R.y == 0);
+        updateStatusC(work & 0xFF00 ? true : false);
+        clockConsume();
     }
 
     // use no cycle
@@ -614,6 +650,44 @@ private:
         cpu->cpy(cpu->readAbsolute(NULL));
     }
 
+    // code=$C6, len=2, cycle=5
+    static inline void dec_zpg(M6502* cpu) {
+        unsigned short addr;
+        unsigned char m = cpu->dec(readZeroPage(&addr));
+        writeMemory(addr, m);
+    }
+
+    // code=$D6, len=2, cycle=6
+    static inline void dec_zpg_x(M6502* cpu) {
+        unsigned short addr;
+        unsigned char m = cpu->dec(readZeroPageX(&addr));
+        writeMemory(addr, m);
+    }
+
+    // code=$CE, len=3, cycle=6
+    static inline void dec_abs(M6502* cpu) {
+        unsigned short addr;
+        unsigned char m = cpu->dec(readAbsolute(&addr));
+        writeMemory(addr, m);
+    }
+
+    // code=$DE, len=3, cycle=7 (*always consume penalty cycle)
+    static inline void dec_abs_x(M6502* cpu) {
+        unsigned short addr;
+        unsigned char m = cpu->dec(readAbsoluteX(&addr, true));
+        writeMemory(addr, m);
+    }
+
+    // code=$CA, len=1, cycle=2
+    static inline void dex_impl(M6502* cpu) {
+        cpu->dex();
+    }
+
+    // code=$88, len=1, cycle=2
+    static inline void dey_impl(M6502* cpu) {
+        cpu->dey();
+    }
+
     // code=$09, len=2, cycle=2
     static inline void ora_imm(M6502* cpu) {
         cpu->ora(cpu->fetch());
@@ -723,6 +797,13 @@ private:
         operands[0xC0] = cpy_imm;
         operands[0xC4] = cpy_zpg;
         operands[0xCC] = cpy_abs;
+
+        operands[0xC6] = dec_zpg;
+        operands[0xD6] = dec_zpg_x;
+        operands[0xCE] = dec_abs;
+        operands[0xDE] = dec_abs_x;
+        operands[0xCA] = dex_impl;
+        operands[0x88] = dey_impl;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
