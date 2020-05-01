@@ -335,6 +335,32 @@ class M6502
         return value;
     }
 
+    // use 1 cycle
+    inline unsigned char rol(unsigned char value)
+    {
+        updateStatusC(value & 0x80 ? true : false);
+        value &= 0x7F;
+        value <<= 1;
+        value |= getStatusC() ? 0x01 : 0x00;
+        updateStatusN(value & 0x80 ? true : false);
+        updateStatusZ(value == 0);
+        clockConsume();
+        return value;
+    }
+
+    // use 1 cycle
+    inline unsigned char ror(unsigned char value)
+    {
+        updateStatusC(value & 0x01 ? true : false);
+        value &= 0xFE;
+        value >>= 1;
+        value |= getStatusC() ? 0x80 : 0x00;
+        updateStatusN(value & 0x80 ? true : false);
+        updateStatusZ(value == 0);
+        clockConsume();
+        return value;
+    }
+
     // use 1, 2 or 3 cycles
     inline void branch(bool isBranch)
     {
@@ -510,6 +536,58 @@ class M6502
     {
         unsigned short addr;
         unsigned char m = cpu->lsr(readAbsoluteX(&addr, true));
+        writeMemory(addr, m);
+    }
+
+    static inline void rol_a(M6502* cpu) { R.a = cpu->rol(R.a); }
+    static inline void rol_zpg(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->rol(readZeroPage(&addr));
+        writeMemory(addr, m);
+    }
+    static inline void rol_zpg_x(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->rol(readZeroPageX(&addr));
+        writeMemory(addr, m);
+    }
+    static inline void rol_abs(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->rol(readAbsolute(&addr));
+        writeMemory(addr, m);
+    }
+    static inline void rol_abs_x(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->rol(readAbsoluteX(&addr, true));
+        writeMemory(addr, m);
+    }
+
+    static inline void ror_a(M6502* cpu) { R.a = cpu->ror(R.a); }
+    static inline void ror_zpg(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->ror(readZeroPage(&addr));
+        writeMemory(addr, m);
+    }
+    static inline void ror_zpg_x(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->ror(readZeroPageX(&addr));
+        writeMemory(addr, m);
+    }
+    static inline void ror_abs(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->ror(readAbsolute(&addr));
+        writeMemory(addr, m);
+    }
+    static inline void ror_abs_x(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->ror(readAbsoluteX(&addr, true));
         writeMemory(addr, m);
     }
 
@@ -777,6 +855,18 @@ class M6502
         operands[0x56] = lsr_zpg_x;
         operands[0x4E] = lsr_abs;
         operands[0x5E] = lsr_abs_x;
+
+        operands[0x2A] = rol_a;
+        operands[0x26] = rol_zpg;
+        operands[0x36] = rol_zpg_x;
+        operands[0x2E] = rol_abs;
+        operands[0x3E] = rol_abs_x;
+
+        operands[0x6A] = ror_a;
+        operands[0x66] = ror_zpg;
+        operands[0x76] = ror_zpg_x;
+        operands[0x6E] = ror_abs;
+        operands[0x7E] = ror_abs_x;
 
         operands[0x30] = bmi_rel;
         operands[0x10] = bpl_rel;
