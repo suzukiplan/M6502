@@ -405,6 +405,43 @@ class M6502
         clockConsume();
     }
 
+    // use 1 cycle
+    inline unsigned char inc(unsigned char value)
+    {
+        int work = value;
+        work++;
+        unsigned char result = work & 0xFF;
+        updateStatusN(result & 0x80);
+        updateStatusZ(result == 0);
+        updateStatusC(work & 0xFF00 ? true : false);
+        clockConsume();
+        return result;
+    }
+
+    // use 1 cycle
+    inline void inx()
+    {
+        int work = R.x;
+        work++;
+        R.x = work & 0xFF;
+        updateStatusN(R.x & 0x80);
+        updateStatusZ(R.x == 0);
+        updateStatusC(work & 0xFF00 ? true : false);
+        clockConsume();
+    }
+
+    // use 1 cycle
+    inline void iny()
+    {
+        int work = R.y;
+        work++;
+        R.y = work & 0xFF;
+        updateStatusN(R.y & 0x80);
+        updateStatusZ(R.y == 0);
+        updateStatusC(work & 0xFF00 ? true : false);
+        clockConsume();
+    }
+
     // use no cycle
     inline void eor(unsigned char value)
     {
@@ -845,6 +882,50 @@ class M6502
         cpu->eor(cpu->readIndirectY(NULL));
     }
 
+    // code=$E6, len=2, cycle=5
+    static inline void inc_zpg(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->inc(readZeroPage(&addr));
+        writeMemory(addr, m);
+    }
+
+    // code=$F6, len=2, cycle=6
+    static inline void inc_zpg_x(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->inc(readZeroPageX(&addr));
+        writeMemory(addr, m);
+    }
+
+    // code=$EE, len=3, cycle=6
+    static inline void inc_abs(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->inc(readAbsolute(&addr));
+        writeMemory(addr, m);
+    }
+
+    // code=$FE, len=3, cycle=7 (*always consume penalty cycle)
+    static inline void inc_abs_x(M6502* cpu)
+    {
+        unsigned short addr;
+        unsigned char m = cpu->inc(readAbsoluteX(&addr, true));
+        writeMemory(addr, m);
+    }
+
+    // code=$E8, len=1, cycle=2
+    static inline void inx_impl(M6502* cpu)
+    {
+        cpu->inx();
+    }
+
+    // code=$C8, len=1, cycle=2
+    static inline void iny_impl(M6502* cpu)
+    {
+        cpu->iny();
+    }
+
     // code=$09, len=2, cycle=2
     static inline void ora_imm(M6502* cpu)
     {
@@ -980,6 +1061,13 @@ class M6502
         operands[0x59] = eor_abs_y;
         operands[0x41] = eor_x_ind;
         operands[0x51] = eor_ind_y;
+
+        operands[0xE6] = inc_zpg;
+        operands[0xF6] = inc_zpg_x;
+        operands[0xEE] = inc_abs;
+        operands[0xFE] = inc_abs_x;
+        operands[0xE8] = inx_impl;
+        operands[0xC8] = iny_impl;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
