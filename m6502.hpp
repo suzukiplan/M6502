@@ -406,6 +406,14 @@ class M6502
     }
 
     // use no cycle
+    inline void eor(unsigned char value)
+    {
+        R.a ^= value;
+        updateStatusN(R.a & 0x80);
+        updateStatusZ(R.a == 0);
+    }
+
+    // use no cycle
     inline void ora(unsigned char value)
     {
         R.a |= value;
@@ -789,6 +797,54 @@ class M6502
         cpu->dey();
     }
 
+    // code=$49, len=2, cycle=2
+    static inline void eor_imm(M6502* cpu)
+    {
+        cpu->eor(cpu->fetch());
+    }
+
+    // code=$45, len=2, cycle=3
+    static inline void eor_zpg(M6502* cpu)
+    {
+        cpu->eor(cpu->readZeroPage(NULL));
+    }
+
+    // code=$55, len=2, cycle=4
+    static inline void eor_zpg_x(M6502* cpu)
+    {
+        cpu->eor(cpu->readZeroPageX(NULL));
+    }
+
+    // code=$4D, len=3, cycle=4
+    static inline void eor_abs(M6502* cpu)
+    {
+        cpu->eor(cpu->readAbsolute(NULL));
+    }
+
+    // code=$5D, len=3, cycle=4 or 5
+    static inline void eor_abs_x(M6502* cpu)
+    {
+        cpu->eor(cpu->readAbsoluteX(NULL));
+    }
+
+    // code=$59, len=3, cycle=4 or 5
+    static inline void eor_abs_y(M6502* cpu)
+    {
+        cpu->eor(cpu->readAbsoluteY(NULL));
+    }
+
+    // code=$41, len=2, cycle=6
+    static inline void eor_x_ind(M6502* cpu)
+    {
+        cpu->eor(cpu->readIndirectX(NULL));
+    }
+
+    // code=$51, len=2, cycle=5 or 6
+    static inline void eor_ind_y(M6502* cpu)
+    {
+        cpu->eor(cpu->readIndirectY(NULL));
+    }
+
     // code=$09, len=2, cycle=2
     static inline void ora_imm(M6502* cpu)
     {
@@ -915,6 +971,15 @@ class M6502
         operands[0xDE] = dec_abs_x;
         operands[0xCA] = dex_impl;
         operands[0x88] = dey_impl;
+
+        operands[0x49] = eor_imm;
+        operands[0x45] = eor_zpg;
+        operands[0x55] = eor_zpg_x;
+        operands[0x4D] = eor_abs;
+        operands[0x5D] = eor_abs_x;
+        operands[0x59] = eor_abs_y;
+        operands[0x41] = eor_x_ind;
+        operands[0x51] = eor_ind_y;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
