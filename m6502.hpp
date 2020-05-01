@@ -140,6 +140,17 @@ class M6502
     }
 
     // uses 3 cycles
+    inline unsigned char readZeroPageY(unsigned short* a)
+    {
+        unsigned short addr = fetch();
+        addr += R.y;
+        addr &= 0xFF;
+        consumeClock();
+        if (a) *a = addr;
+        return readMemory(*ddr);
+    }
+
+    // uses 3 cycles
     inline unsigned char readAbsolute(unsigned short* a)
     {
         unsigned char low = fetch();
@@ -448,6 +459,30 @@ class M6502
         R.a ^= value;
         updateStatusN(R.a & 0x80);
         updateStatusZ(R.a == 0);
+    }
+
+    // use no cycle
+    inline void lda(unsigned char value)
+    {
+        R.a = value;
+        updateStatusN(R.a & 0x80);
+        updateStatusZ(R.a == 0);
+    }
+
+    // use no cycle
+    inline void ldx(unsigned char value)
+    {
+        R.x = value;
+        updateStatusN(R.x & 0x80);
+        updateStatusZ(R.x == 0);
+    }
+
+    // use no cycle
+    inline void ldy(unsigned char value)
+    {
+        R.y = value;
+        updateStatusN(R.y & 0x80);
+        updateStatusZ(R.y == 0);
     }
 
     // use no cycle
@@ -991,6 +1026,114 @@ class M6502
         cpu->consumeClock();
     }
 
+    // code=$A9, len=2, cycle=2
+    static inline void lda_imm(M6502* cpu)
+    {
+        cpu->lda(cpu->fetch());
+    }
+
+    // code=$A5, len=2, cycle=3
+    static inline void lda_zpg(M6502* cpu)
+    {
+        cpu->lda(cpu->readZeroPage(NULL));
+    }
+
+    // code=$B5, len=2, cycle=4
+    static inline void lda_zpg_x(M6502* cpu)
+    {
+        cpu->lda(cpu->readZeroPageX(NULL));
+    }
+
+    // code=$AD, len=3, cycle=4
+    static inline void lda_abs(M6502* cpu)
+    {
+        cpu->lda(cpu->readAbsolute(NULL));
+    }
+
+    // code=$BD, len=3, cycle=4 or 5
+    static inline void lda_abs_x(M6502* cpu)
+    {
+        cpu->lda(cpu->readAbsoluteX(NULL));
+    }
+
+    // code=$B9, len=3, cycle=4 or 5
+    static inline void lda_abs_y(M6502* cpu)
+    {
+        cpu->lda(cpu->readAbsoluteY(NULL));
+    }
+
+    // code=$A1, len=2, cycle=6
+    static inline void lda_x_ind(M6502* cpu)
+    {
+        cpu->lda(cpu->readIndirectX(NULL));
+    }
+
+    // code=$B11, len=2, cycle=5 or 6
+    static inline void lda_ind_y(M6502* cpu)
+    {
+        cpu->lda(cpu->readIndirectY(NULL));
+    }
+
+    // code=$A2, len=2, cycle=2
+    static inline void ldx_imm(M6502* cpu)
+    {
+        cpu->ldx(cpu->fetch());
+    }
+
+    // code=$A6, len=2, cycle=3
+    static inline void ldx_zpg(M6502* cpu)
+    {
+        cpu->ldx(cpu->readZeroPage(NULL));
+    }
+
+    // code=$B6, len=2, cycle=4
+    static inline void ldx_zpg_y(M6502* cpu)
+    {
+        cpu->ldx(cpu->readZeroPageY(NULL));
+    }
+
+    // code=$AE, len=3, cycle=4
+    static inline void ldx_abs(M6502* cpu)
+    {
+        cpu->ldx(cpu->readAbsolute(NULL));
+    }
+
+    // code=$BE, len=3, cycle=4 or 5
+    static inline void ldx_abs_y(M6502* cpu)
+    {
+        cpu->ldx(cpu->readAbsoluteY(NULL));
+    }
+
+    // code=$A0, len=2, cycle=2
+    static inline void ldy_imm(M6502* cpu)
+    {
+        cpu->ldy(cpu->fetch());
+    }
+
+    // code=$A4, len=2, cycle=3
+    static inline void ldy_zpg(M6502* cpu)
+    {
+        cpu->ldy(cpu->readZeroPage(NULL));
+    }
+
+    // code=$B4, len=2, cycle=4
+    static inline void ldy_zpg_x(M6502* cpu)
+    {
+        cpu->ldy(cpu->readZeroPageX(NULL));
+    }
+
+    // code=$AC, len=3, cycle=4
+    static inline void ldy_abs(M6502* cpu)
+    {
+        cpu->ldy(cpu->readAbsolute(NULL));
+    }
+
+    // code=$BC, len=3, cycle=4 or 5
+    static inline void ldy_abs_x(M6502* cpu)
+    {
+        cpu->ldy(cpu->readAbsoluteX(NULL));
+    }
+
     // code=$09, len=2, cycle=2
     static inline void ora_imm(M6502* cpu)
     {
@@ -1136,8 +1279,30 @@ class M6502
 
         operands[0x4C] = jmp_abs;
         operands[0x6C] = jmp_ind;
+
         operands[0x20] = jsr_abs;
         operands[0x60] = rts;
+
+        operands[0xA9] = lda_imm;
+        operands[0xA5] = lda_zpg;
+        operands[0xB5] = lda_zpg_x;
+        operands[0xAD] = lda_abs;
+        operands[0xBD] = lda_abs_x;
+        operands[0xB9] = lda_abs_y;
+        operands[0xA1] = lda_x_ind;
+        operands[0xB1] = lda_ind_y;
+
+        operands[0xA2] = ldx_imm;
+        operands[0xA6] = ldx_zpg;
+        operands[0xB6] = ldx_zpg_y;
+        operands[0xAE] = ldx_abs;
+        operands[0xBE] = ldx_abs_y;
+
+        operands[0xA0] = ldy_imm;
+        operands[0xA4] = ldy_zpg;
+        operands[0xB4] = ldy_zpg_x;
+        operands[0xAC] = ldy_abs;
+        operands[0xBC] = ldy_abs_x;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
