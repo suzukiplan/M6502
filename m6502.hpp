@@ -62,13 +62,12 @@ class M6502
     M6502(unsigned char (*readMemory)(void* arg, unsigned short addr), void (*writeMemory)(void* arg, unsigned short addr, unsigned char value), void* arg)
     {
         memset(&R, 0, sizeof(R));
-        R.pc = 0x8000;
-        R.s = 0xFF;
         memset(&CB, 0, sizeof(CB));
         CB.readMemory = readMemory;
         CB.writeMemory = writeMemory;
         CB.arg = arg;
         setupOperands();
+        reset();
     }
 
     void setConsumeClock(void (*callback)(void* arg))
@@ -101,6 +100,42 @@ class M6502
             }
         }
         return this->clockConsumed;
+    }
+
+    void IRQ()
+    {
+        if (getStatusI()) return;
+        unsigned short pc = cpu->R.pc + 1;
+        unsigned char pcH = (pc & 0xFF00) >> 8;
+        unsigned char pcL = pc & 0x00FF;
+        push(pcH);
+        push(pcL);
+        push(cpu->R.p);
+        updateStatusB(false);
+        updateStatusI(true);
+        pcL = readMemory(0xFFFE);
+        pcH = readMemory(0xFFFF);
+        R.pc = pcH;
+        R.pc <<= 8;
+        R.pc |= pcL;
+        consumeClock();
+    }
+
+    void reset()
+    {
+        R.s = 0;
+        consumeClock();
+        updateStatusI(true);
+        consumeClock();
+        updateStatusB(false);
+        consumeClock();
+        push(0);
+        R.pc = readMemory(0xFFFD);
+        R.pc <<= 8;
+        R.pc |= readMemory(0xFFFC);
+        consumeClock();
+        consumeClock();
+        consumeClock();
     }
 
   private:
@@ -517,15 +552,15 @@ class M6502
     // use 1 cycle
     inline void push(unsigned char value)
     {
-        R.s++;
         writeMemory(0x0100 + R.s, value);
+        R.s--;
     }
 
     // use 1 cycle
     inline unsigned char pop()
     {
+        R.s++;
         unsigned char result = readMemory(0x0100 + R.s);
-        R.s--;
         return result;
     }
 
@@ -678,8 +713,8 @@ class M6502
         unsigned short pc = cpu->R.pc + 1;
         unsigned char pcH = (pc & 0xFF00) >> 8;
         unsigned char pcL = pc & 0x00FF;
-        cpu->push(pcL);
         cpu->push(pcH);
+        cpu->push(pcL);
         cpu->push(cpu->R.p);
         cpu->updateStatusB(true);
         cpu->updateStatusI(true);
@@ -695,9 +730,11 @@ class M6502
     {
         strcpy(cpu->DD.mne, "RTI");
         cpu->R.p = cpu->pop();
-        cpu->R.pc = cpu->pop();
+        unsigned char pcL = cpu->pop();
+        unsigned char pcH = cpu->pop();
+        cpu->R.pc = pcH;
         cpu->R.pc <<= 8;
-        cpu->R.pc |= cpu->pop();
+        cpu->R.pc |= pcL;
         cpu->consumeClock();
         cpu->consumeClock();
     }
