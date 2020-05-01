@@ -472,6 +472,48 @@ private:
         // TODO
     }
 
+    // code=$18, len=1, cycle=2
+    static inline void clc(M6502* cpu) {
+        cpu->updateStatusC(false);
+        cpu->consumeClock();
+    }
+
+    // code=$D8, len=1, cycle=2
+    static inline void cld(M6502* cpu) {
+        cpu->updateStatusD(false);
+        cpu->consumeClock();
+    }
+
+    // code=$58, len=1, cycle=2
+    static inline void cli(M6502* cpu) {
+        cpu->updateStatusI(false);
+        cpu->consumeClock();
+    }
+
+    // code=$B8, len=1, cycle=2
+    static inline void clv(M6502* cpu) {
+        cpu->updateStatusV(false);
+        cpu->consumeClock();
+    }
+
+    // code=$38, len=1, cycle=2
+    static inline void sec(M6502* cpu) {
+        cpu->updateStatusC(true);
+        cpu->consumeClock();
+    }
+
+    // code=$F8, len=1, cycle=2
+    static inline void sed(M6502* cpu) {
+        cpu->updateStatusD(true);
+        cpu->consumeClock();
+    }
+
+    // code=$78, len=1, cycle=2
+    static inline void sei(M6502* cpu) {
+        cpu->updateStatusI(true);
+        cpu->consumeClock();
+    }
+
     // code=$09, len=2, cycle=2
     static inline void ora_imm(M6502* cpu) {
         cpu->ora(cpu->fetch());
@@ -556,6 +598,14 @@ private:
 
         operands[0x24] = bit_zpg;
         operands[0x2C] = bit_abs;
+
+        operands[0x18] = clc;
+        operands[0xD8] = cld;
+        operands[0x58] = cli;
+        operands[0xB8] = clv;
+        operands[0x38] = sec;
+        operands[0xF8] = sed;
+        operands[0x78] = sei;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
