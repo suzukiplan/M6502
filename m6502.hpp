@@ -347,37 +347,17 @@ class M6502
     }
 
     // use no cycle
-    inline void cmp(unsigned char value)
+    inline void cp(int m, unsigned char value)
     {
-        int m = cpu->R.a;
         m -= value;
         unsigned char c = m & 0xFF;
         updateStatusN(c & 0x80);
         updateStatusZ(c == 0);
         updateStatusC(m & 0xFF00 ? true : false);
     }
-
-    // use no cycle
-    inline void cpx(unsigned char value)
-    {
-        int m = cpu->R.x;
-        m -= value;
-        unsigned char c = m & 0xFF;
-        updateStatusN(c & 0x80);
-        updateStatusZ(c == 0);
-        updateStatusC(m & 0xFF00 ? true : false);
-    }
-
-    // use no cycle
-    inline void cpy(unsigned char value)
-    {
-        int m = cpu->R.y;
-        m -= value;
-        unsigned char c = m & 0xFF;
-        updateStatusN(c & 0x80);
-        updateStatusZ(c == 0);
-        updateStatusC(m & 0xFF00 ? true : false);
-    }
+    inline void cmp(unsigned char value) { cp(cpu->R.a, value); }
+    inline void cpx(unsigned char value) { cp(cpu->R.x, value); }
+    inline void cpy(unsigned char value) { cp(cpu->R.y, value); }
 
     // use 1 cycle
     inline unsigned char dec(unsigned char value)
@@ -391,30 +371,8 @@ class M6502
         clockConsume();
         return result;
     }
-
-    // use 1 cycle
-    inline void dex()
-    {
-        int work = R.x;
-        work--;
-        R.x = work & 0xFF;
-        updateStatusN(R.x & 0x80);
-        updateStatusZ(R.x == 0);
-        updateStatusC(work & 0xFF00 ? true : false);
-        clockConsume();
-    }
-
-    // use 1 cycle
-    inline void dey()
-    {
-        int work = R.y;
-        work--;
-        R.y = work & 0xFF;
-        updateStatusN(R.y & 0x80);
-        updateStatusZ(R.y == 0);
-        updateStatusC(work & 0xFF00 ? true : false);
-        clockConsume();
-    }
+    inline void dex() { R.x = dec(R.x); }
+    inline void dey() { R.y = dec(R.y); }
 
     // use 1 cycle
     inline unsigned char inc(unsigned char value)
@@ -428,30 +386,8 @@ class M6502
         clockConsume();
         return result;
     }
-
-    // use 1 cycle
-    inline void inx()
-    {
-        int work = R.x;
-        work++;
-        R.x = work & 0xFF;
-        updateStatusN(R.x & 0x80);
-        updateStatusZ(R.x == 0);
-        updateStatusC(work & 0xFF00 ? true : false);
-        clockConsume();
-    }
-
-    // use 1 cycle
-    inline void iny()
-    {
-        int work = R.y;
-        work++;
-        R.y = work & 0xFF;
-        updateStatusN(R.y & 0x80);
-        updateStatusZ(R.y == 0);
-        updateStatusC(work & 0xFF00 ? true : false);
-        clockConsume();
-    }
+    inline void inx() { R.x = inc(R.x); }
+    inline void iny() { R.y = inc(R.y); }
 
     // use no cycle
     inline void eor(unsigned char value)
@@ -462,28 +398,15 @@ class M6502
     }
 
     // use no cycle
-    inline void lda(unsigned char value)
+    inline void ld(unsigned char* r, unsigned char value)
     {
-        R.a = value;
-        updateStatusN(R.a & 0x80);
-        updateStatusZ(R.a == 0);
+        *r = value;
+        updateStatusN(*r & 0x80);
+        updateStatusZ(*r == 0);
     }
-
-    // use no cycle
-    inline void ldx(unsigned char value)
-    {
-        R.x = value;
-        updateStatusN(R.x & 0x80);
-        updateStatusZ(R.x == 0);
-    }
-
-    // use no cycle
-    inline void ldy(unsigned char value)
-    {
-        R.y = value;
-        updateStatusN(R.y & 0x80);
-        updateStatusZ(R.y == 0);
-    }
+    inline void lda(unsigned char value) { ld(&R.a, value); }
+    inline void ldx(unsigned char value) { ld(&R.x, value); }
+    inline void ldy(unsigned char value) { ld(&R.y, value); }
 
     // use no cycle
     inline void ora(unsigned char value)
@@ -508,133 +431,43 @@ class M6502
         return result;
     }
 
-    // code=$69, len=2, cycle=2
-    static inline void adc_imm(M6502* cpu)
-    {
-        cpu->adc(cpu->fetch());
-    }
+    static inline void adc_imm(M6502* cpu) { cpu->adc(cpu->fetch()); }
+    static inline void adc_zpg(M6502* cpu) { cpu->adc(cpu->readZeroPage()); }
+    static inline void adc_zpg_x(M6502* cpu) { cpu->adc(cpu->readZeroPageX()); }
+    static inline void adc_abs(M6502* cpu) { cpu->adc(cpu->readAbsolute(NULL)); }
+    static inline void adc_abs_x(M6502* cpu) { cpu->adc(cpu->readAbsoluteX(NULL)); }
+    static inline void adc_abs_y(M6502* cpu) { cpu->adc(cpu->readAbsoluteY(NULL)); }
+    static inline void adc_x_ind(M6502* cpu) { cpu->adc(cpu->readIndirectX(NULL)); }
+    static inline void adc_ind_y(M6502* cpu) { cpu->adc(cpu->readIndirectY(NULL)); }
 
-    // code=$65, len=2, cycle=3
-    static inline void adc_zpg(M6502* cpu)
-    {
-        cpu->adc(cpu->readZeroPage());
-    }
+    static inline void and_imm(M6502* cpu) { cpu->and (cpu->fetch()); }
+    static inline void and_zpg(M6502* cpu) { cpu->and (cpu->readZeroPage(NULL)); }
+    static inline void and_zpg_x(M6502* cpu) { cpu->and (cpu->readZeroPageX(NULL)); }
+    static inline void and_abs(M6502* cpu) { cpu->and (cpu->readAbsolute(NULL)); }
+    static inline void and_abs_x(M6502* cpu) { cpu->and (cpu->readAbsoluteX(NULL)); }
+    static inline void and_abs_y(M6502* cpu) { cpu->and (cpu->readAbsoluteY(NULL)); }
+    static inline void and_x_ind(M6502* cpu) { cpu->and (cpu->readIndirectX(NULL)); }
+    static inline void and_ind_y(M6502* cpu) { cpu->and (cpu->readIndirectY(NULL)); }
 
-    // code=$75, len=2, cycle=4
-    static inline void adc_zpg_x(M6502* cpu)
-    {
-        cpu->adc(cpu->readZeroPageX());
-    }
-
-    // code=$6D, len=3, cycle=4
-    static inline void adc_abs(M6502* cpu)
-    {
-        cpu->adc(cpu->readAbsolute(NULL));
-    }
-
-    // code=$7D, len=3, cycle=4 or 5
-    static inline void adc_abs_x(M6502* cpu)
-    {
-        cpu->adc(cpu->readAbsoluteX(NULL));
-    }
-
-    // code=$79, len=3, cycle=4 or 5
-    static inline void adc_abs_y(M6502* cpu)
-    {
-        cpu->adc(cpu->readAbsoluteY(NULL));
-    }
-
-    // code=$61, len=2, cycle=6
-    static inline void adc_x_ind(M6502* cpu)
-    {
-        cpu->adc(cpu->readIndirectX(NULL));
-    }
-
-    // code=$71, len=2, cycle=5 or 6
-    static inline void adc_ind_y(M6502* cpu)
-    {
-        cpu->adc(cpu->readIndirectY(NULL));
-    }
-
-    // code=$29, len=2, cycle=2
-    static inline void and_imm(M6502* cpu)
-    {
-        cpu->and (cpu->fetch());
-    }
-
-    // code=$25, len=2, cycle=3
-    static inline void and_zpg(M6502* cpu)
-    {
-        cpu->and (cpu->readZeroPage(NULL));
-    }
-
-    // code=$35, len=2, cycle=4
-    static inline void and_zpg_x(M6502* cpu)
-    {
-        cpu->and (cpu->readZeroPageX(NULL));
-    }
-
-    // code=$2D, len=3, cycle=4
-    static inline void and_abs(M6502* cpu)
-    {
-        cpu->and (cpu->readAbsolute(NULL));
-    }
-
-    // code=$3D, len=3, cycle=4 or 5
-    static inline void and_abs_x(M6502* cpu)
-    {
-        cpu->and (cpu->readAbsoluteX(NULL));
-    }
-
-    // code=$39, len=3, cycle=4 or 5
-    static inline void and_abs_y(M6502* cpu)
-    {
-        cpu->and (cpu->readAbsoluteY(NULL));
-    }
-
-    // code=$21, len=2, cycle=6
-    static inline void and_x_ind(M6502* cpu)
-    {
-        cpu->and (cpu->readIndirectX(NULL));
-    }
-
-    // code=$31, len=2, cycle=5 or 6
-    static inline void and_ind_y(M6502* cpu)
-    {
-        cpu->and (cpu->readIndirectY(NULL));
-    }
-
-    // code=$0A, len=1, cycle=2
-    static inline void asl_a(M6502* cpu)
-    {
-        R.a = cpu->asl(R.a);
-    }
-
-    // code=$06, len=2, cycle=5
+    static inline void asl_a(M6502* cpu) { R.a = cpu->asl(R.a); }
     static inline void asl_zpg(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->asl(readZeroPage(&addr));
         writeMemory(addr, m);
     }
-
-    // code=$16, len=2, cycle=6
     static inline void asl_zpg_x(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->asl(readZeroPageX(&addr));
         writeMemory(addr, m);
     }
-
-    // code=$0E, len=3, cycle=6
     static inline void asl_abs(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->asl(readAbsolute(&addr));
         writeMemory(addr, m);
     }
-
-    // code=$1E, len=3, cycle=7 (*always consume penalty cycle)
     static inline void asl_abs_x(M6502* cpu)
     {
         unsigned short addr;
@@ -642,341 +475,140 @@ class M6502
         writeMemory(addr, m);
     }
 
-    // code=$30, len=2, cycle=3, 4 or 5
-    static inline void bmi_rel(M6502* cpu)
-    {
-        cpu->branch(cpu->getStatusN());
-    }
+    static inline void bmi_rel(M6502* cpu) { cpu->branch(cpu->getStatusN()); }
+    static inline void bpl_rel(M6502* cpu) { cpu->branch(!cpu->getStatusN()); }
+    static inline void bvs_rel(M6502* cpu) { cpu->branch(cpu->getStatusV()); }
+    static inline void bvc_rel(M6502* cpu) { cpu->branch(!cpu->getStatusV()); }
+    static inline void beq_rel(M6502* cpu) { cpu->branch(cpu->getStatusZ()); }
+    static inline void bne_rel(M6502* cpu) { cpu->branch(!cpu->getStatusZ()); }
+    static inline void bcs_rel(M6502* cpu) { cpu->branch(cpu->getStatusC()); }
+    static inline void bcc_rel(M6502* cpu) { cpu->branch(!cpu->getStatusC()); }
 
-    // code=$10, len=2, cycle=3, 4 or 5
-    static inline void bpl_rel(M6502* cpu)
-    {
-        cpu->branch(!cpu->getStatusN());
-    }
-
-    // code=$70, len=2, cycle=3, 4 or 5
-    static inline void bvs_rel(M6502* cpu)
-    {
-        cpu->branch(cpu->getStatusV());
-    }
-
-    // code=$50, len=2, cycle=3, 4 or 5
-    static inline void bvc_rel(M6502* cpu)
-    {
-        cpu->branch(!cpu->getStatusV());
-    }
-
-    // code=$F0, len=2, cycle=3, 4 or 5
-    static inline void beq_rel(M6502* cpu)
-    {
-        cpu->branch(cpu->getStatusZ());
-    }
-
-    // code=$D0, len=2, cycle=3, 4 or 5
-    static inline void bne_rel(M6502* cpu)
-    {
-        cpu->branch(!cpu->getStatusZ());
-    }
-
-    // code=$B0, len=2, cycle=3, 4 or 5
-    static inline void bcs_rel(M6502* cpu)
-    {
-        cpu->branch(cpu->getStatusC());
-    }
-
-    // code=$90, len=2, cycle=3, 4 or 5
-    static inline void bcc_rel(M6502* cpu)
-    {
-        cpu->branch(!cpu->getStatusC());
-    }
-
-    // code=$24, len=2, cycle=3
-    static inline void bit_zpg(M6502* cpu)
-    {
-        cpu->bit(cpu->readZeroPage(NULL));
-    }
-
-    // code=$2C, len=2, cycle=4
-    static inline void bit_abs(M6502* cpu)
-    {
-        cpu->bit(cpu->readAbsolute(NULL));
-    }
+    static inline void bit_zpg(M6502* cpu) { cpu->bit(cpu->readZeroPage(NULL)); }
+    static inline void bit_abs(M6502* cpu) { cpu->bit(cpu->readAbsolute(NULL)); }
 
     static inline void brk_impl(M6502* cpu)
     {
         // TODO
     }
 
-    // code=$18, len=1, cycle=2
     static inline void clc(M6502* cpu)
     {
         cpu->updateStatusC(false);
         cpu->consumeClock();
     }
-
-    // code=$D8, len=1, cycle=2
     static inline void cld(M6502* cpu)
     {
         cpu->updateStatusD(false);
         cpu->consumeClock();
     }
-
-    // code=$58, len=1, cycle=2
     static inline void cli(M6502* cpu)
     {
         cpu->updateStatusI(false);
         cpu->consumeClock();
     }
-
-    // code=$B8, len=1, cycle=2
     static inline void clv(M6502* cpu)
     {
         cpu->updateStatusV(false);
         cpu->consumeClock();
     }
 
-    // code=$38, len=1, cycle=2
     static inline void sec(M6502* cpu)
     {
         cpu->updateStatusC(true);
         cpu->consumeClock();
     }
-
-    // code=$F8, len=1, cycle=2
     static inline void sed(M6502* cpu)
     {
         cpu->updateStatusD(true);
         cpu->consumeClock();
     }
-
-    // code=$78, len=1, cycle=2
     static inline void sei(M6502* cpu)
     {
         cpu->updateStatusI(true);
         cpu->consumeClock();
     }
 
-    // code=$C9, len=2, cycle=2
-    static inline void cmp_imm(M6502* cpu)
-    {
-        cpu->cmp(cpu->fetch());
-    }
+    static inline void cmp_imm(M6502* cpu) { cpu->cmp(cpu->fetch()); }
+    static inline void cmp_zpg(M6502* cpu) { cpu->cmp(cpu->readZeroPage(NULL)); }
+    static inline void cmp_zpg_x(M6502* cpu) { cpu->cmp(cpu->readZeroPageX(NULL)); }
+    static inline void cmp_abs(M6502* cpu) { cpu->cmp(cpu->readAbsolute(NULL)); }
+    static inline void cmp_abs_x(M6502* cpu) { cpu->cmp(cpu->readAbsoluteX(NULL)); }
+    static inline void cmp_abs_y(M6502* cpu) { cpu->cmp(cpu->readAbsoluteY(NULL)); }
+    static inline void cmp_x_ind(M6502* cpu) { cpu->cmp(cpu->readIndirectX(NULL)); }
+    static inline void cmp_ind_y(M6502* cpu) { cpu->cmp(cpu->readIndirectY(NULL)); }
 
-    // code=$C5, len=2, cycle=3
-    static inline void cmp_zpg(M6502* cpu)
-    {
-        cpu->cmp(cpu->readZeroPage(NULL));
-    }
+    static inline void cpx_imm(M6502* cpu) { cpu->cpx(cpu->fetch()); }
+    static inline void cpx_zpg(M6502* cpu) { cpu->cpx(cpu->readZeroPage(NULL)); }
+    static inline void cpx_abs(M6502* cpu) { cpu->cpx(cpu->readAbsolute(NULL)); }
 
-    // code=$D5, len=2, cycle=4
-    static inline void cmp_zpg_x(M6502* cpu)
-    {
-        cpu->cmp(cpu->readZeroPageX(NULL));
-    }
+    static inline void cpy_imm(M6502* cpu) { cpu->cpy(cpu->fetch()); }
+    static inline void cpy_zpg(M6502* cpu) { cpu->cpy(cpu->readZeroPage(NULL)); }
+    static inline void cpy_abs(M6502* cpu) { cpu->cpy(cpu->readAbsolute(NULL)); }
 
-    // code=$CD, len=3, cycle=4
-    static inline void cmp_abs(M6502* cpu)
-    {
-        cpu->cmp(cpu->readAbsolute(NULL));
-    }
-
-    // code=$DD, len=3, cycle=4 or 5
-    static inline void cmp_abs_x(M6502* cpu)
-    {
-        cpu->cmp(cpu->readAbsoluteX(NULL));
-    }
-
-    // code=$D9, len=3, cycle=4 or 5
-    static inline void cmp_abs_y(M6502* cpu)
-    {
-        cpu->cmp(cpu->readAbsoluteY(NULL));
-    }
-
-    // code=$C1, len=2, cycle=6
-    static inline void cmp_x_ind(M6502* cpu)
-    {
-        cpu->cmp(cpu->readIndirectX(NULL));
-    }
-
-    // code=$D1, len=2, cycle=5 or 6
-    static inline void cmp_ind_y(M6502* cpu)
-    {
-        cpu->cmp(cpu->readIndirectY(NULL));
-    }
-
-    // code=$E0, len=2, cycle=2
-    static inline void cpx_imm(M6502* cpu)
-    {
-        cpu->cpx(cpu->fetch());
-    }
-
-    // code=$E4, len=2, cycle=3
-    static inline void cpx_zpg(M6502* cpu)
-    {
-        cpu->cpx(cpu->readZeroPage(NULL));
-    }
-
-    // code=$EC, len=3, cycle=4
-    static inline void cpx_abs(M6502* cpu)
-    {
-        cpu->cpx(cpu->readAbsolute(NULL));
-    }
-
-    // code=$C0, len=2, cycle=2
-    static inline void cpy_imm(M6502* cpu)
-    {
-        cpu->cpy(cpu->fetch());
-    }
-
-    // code=$C4, len=2, cycle=3
-    static inline void cpy_zpg(M6502* cpu)
-    {
-        cpu->cpy(cpu->readZeroPage(NULL));
-    }
-
-    // code=$CC, len=3, cycle=4
-    static inline void cpy_abs(M6502* cpu)
-    {
-        cpu->cpy(cpu->readAbsolute(NULL));
-    }
-
-    // code=$C6, len=2, cycle=5
     static inline void dec_zpg(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->dec(readZeroPage(&addr));
         writeMemory(addr, m);
     }
-
-    // code=$D6, len=2, cycle=6
     static inline void dec_zpg_x(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->dec(readZeroPageX(&addr));
         writeMemory(addr, m);
     }
-
-    // code=$CE, len=3, cycle=6
     static inline void dec_abs(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->dec(readAbsolute(&addr));
         writeMemory(addr, m);
     }
-
-    // code=$DE, len=3, cycle=7 (*always consume penalty cycle)
     static inline void dec_abs_x(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->dec(readAbsoluteX(&addr, true));
         writeMemory(addr, m);
     }
+    static inline void dex_impl(M6502* cpu) { cpu->dex(); }
+    static inline void dey_impl(M6502* cpu) { cpu->dey(); }
 
-    // code=$CA, len=1, cycle=2
-    static inline void dex_impl(M6502* cpu)
-    {
-        cpu->dex();
-    }
+    static inline void eor_imm(M6502* cpu) { cpu->eor(cpu->fetch()); }
+    static inline void eor_zpg(M6502* cpu) { cpu->eor(cpu->readZeroPage(NULL)); }
+    static inline void eor_zpg_x(M6502* cpu) { cpu->eor(cpu->readZeroPageX(NULL)); }
+    static inline void eor_abs(M6502* cpu) { cpu->eor(cpu->readAbsolute(NULL)); }
+    static inline void eor_abs_x(M6502* cpu) { cpu->eor(cpu->readAbsoluteX(NULL)); }
+    static inline void eor_abs_y(M6502* cpu) { cpu->eor(cpu->readAbsoluteY(NULL)); }
+    static inline void eor_x_ind(M6502* cpu) { cpu->eor(cpu->readIndirectX(NULL)); }
+    static inline void eor_ind_y(M6502* cpu) { cpu->eor(cpu->readIndirectY(NULL)); }
 
-    // code=$88, len=1, cycle=2
-    static inline void dey_impl(M6502* cpu)
-    {
-        cpu->dey();
-    }
-
-    // code=$49, len=2, cycle=2
-    static inline void eor_imm(M6502* cpu)
-    {
-        cpu->eor(cpu->fetch());
-    }
-
-    // code=$45, len=2, cycle=3
-    static inline void eor_zpg(M6502* cpu)
-    {
-        cpu->eor(cpu->readZeroPage(NULL));
-    }
-
-    // code=$55, len=2, cycle=4
-    static inline void eor_zpg_x(M6502* cpu)
-    {
-        cpu->eor(cpu->readZeroPageX(NULL));
-    }
-
-    // code=$4D, len=3, cycle=4
-    static inline void eor_abs(M6502* cpu)
-    {
-        cpu->eor(cpu->readAbsolute(NULL));
-    }
-
-    // code=$5D, len=3, cycle=4 or 5
-    static inline void eor_abs_x(M6502* cpu)
-    {
-        cpu->eor(cpu->readAbsoluteX(NULL));
-    }
-
-    // code=$59, len=3, cycle=4 or 5
-    static inline void eor_abs_y(M6502* cpu)
-    {
-        cpu->eor(cpu->readAbsoluteY(NULL));
-    }
-
-    // code=$41, len=2, cycle=6
-    static inline void eor_x_ind(M6502* cpu)
-    {
-        cpu->eor(cpu->readIndirectX(NULL));
-    }
-
-    // code=$51, len=2, cycle=5 or 6
-    static inline void eor_ind_y(M6502* cpu)
-    {
-        cpu->eor(cpu->readIndirectY(NULL));
-    }
-
-    // code=$E6, len=2, cycle=5
     static inline void inc_zpg(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->inc(readZeroPage(&addr));
         writeMemory(addr, m);
     }
-
-    // code=$F6, len=2, cycle=6
     static inline void inc_zpg_x(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->inc(readZeroPageX(&addr));
         writeMemory(addr, m);
     }
-
-    // code=$EE, len=3, cycle=6
     static inline void inc_abs(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->inc(readAbsolute(&addr));
         writeMemory(addr, m);
     }
-
-    // code=$FE, len=3, cycle=7 (*always consume penalty cycle)
     static inline void inc_abs_x(M6502* cpu)
     {
         unsigned short addr;
         unsigned char m = cpu->inc(readAbsoluteX(&addr, true));
         writeMemory(addr, m);
     }
+    static inline void inx_impl(M6502* cpu) { cpu->inx(); }
+    static inline void iny_impl(M6502* cpu) { cpu->iny(); }
 
-    // code=$E8, len=1, cycle=2
-    static inline void inx_impl(M6502* cpu)
-    {
-        cpu->inx();
-    }
-
-    // code=$C8, len=1, cycle=2
-    static inline void iny_impl(M6502* cpu)
-    {
-        cpu->iny();
-    }
-
-    // code=$4C, len=3, cycle=3
     static inline void jmp_abs(M6502* cpu)
     {
         unsigned char low = cpu->fetch();
@@ -986,7 +618,6 @@ class M6502
         cpu->R.pc = addr;
     }
 
-    // code=$6C, len=3, cycle=5
     static inline void jmp_ind(M6502* cpu)
     {
         unsigned char low = cpu->fetch();
@@ -1000,7 +631,6 @@ class M6502
         cpu->R.pc = addr;
     }
 
-    // code=$20, len=3, cycle=6
     static inline void jsr_abs(M6502* cpu)
     {
         unsigned char low = cpu->fetch();
@@ -1013,7 +643,6 @@ class M6502
         cpu->consumeClock();
     }
 
-    // code=$60, len=1, cycle=6
     static inline void rts(M6502* cpu)
     {
         unsigned char low = cpu->pop();
@@ -1026,161 +655,35 @@ class M6502
         cpu->consumeClock();
     }
 
-    // code=$A9, len=2, cycle=2
-    static inline void lda_imm(M6502* cpu)
-    {
-        cpu->lda(cpu->fetch());
-    }
+    static inline void lda_imm(M6502* cpu) { cpu->lda(cpu->fetch()); }
+    static inline void lda_zpg(M6502* cpu) { cpu->lda(cpu->readZeroPage(NULL)); }
+    static inline void lda_zpg_x(M6502* cpu) { cpu->lda(cpu->readZeroPageX(NULL)); }
+    static inline void lda_abs(M6502* cpu) { cpu->lda(cpu->readAbsolute(NULL)); }
+    static inline void lda_abs_x(M6502* cpu) { cpu->lda(cpu->readAbsoluteX(NULL)); }
+    static inline void lda_abs_y(M6502* cpu) { cpu->lda(cpu->readAbsoluteY(NULL)); }
+    static inline void lda_x_ind(M6502* cpu) { cpu->lda(cpu->readIndirectX(NULL)); }
+    static inline void lda_ind_y(M6502* cpu) { cpu->lda(cpu->readIndirectY(NULL)); }
 
-    // code=$A5, len=2, cycle=3
-    static inline void lda_zpg(M6502* cpu)
-    {
-        cpu->lda(cpu->readZeroPage(NULL));
-    }
+    static inline void ldx_imm(M6502* cpu) { cpu->ldx(cpu->fetch()); }
+    static inline void ldx_zpg(M6502* cpu) { cpu->ldx(cpu->readZeroPage(NULL)); }
+    static inline void ldx_zpg_y(M6502* cpu) { cpu->ldx(cpu->readZeroPageY(NULL)); }
+    static inline void ldx_abs(M6502* cpu) { cpu->ldx(cpu->readAbsolute(NULL)); }
+    static inline void ldx_abs_y(M6502* cpu) { cpu->ldx(cpu->readAbsoluteY(NULL)); }
 
-    // code=$B5, len=2, cycle=4
-    static inline void lda_zpg_x(M6502* cpu)
-    {
-        cpu->lda(cpu->readZeroPageX(NULL));
-    }
+    static inline void ldy_imm(M6502* cpu) { cpu->ldy(cpu->fetch()); }
+    static inline void ldy_zpg(M6502* cpu) { cpu->ldy(cpu->readZeroPage(NULL)); }
+    static inline void ldy_zpg_x(M6502* cpu) { cpu->ldy(cpu->readZeroPageX(NULL)); }
+    static inline void ldy_abs(M6502* cpu) { cpu->ldy(cpu->readAbsolute(NULL)); }
+    static inline void ldy_abs_x(M6502* cpu) { cpu->ldy(cpu->readAbsoluteX(NULL)); }
 
-    // code=$AD, len=3, cycle=4
-    static inline void lda_abs(M6502* cpu)
-    {
-        cpu->lda(cpu->readAbsolute(NULL));
-    }
-
-    // code=$BD, len=3, cycle=4 or 5
-    static inline void lda_abs_x(M6502* cpu)
-    {
-        cpu->lda(cpu->readAbsoluteX(NULL));
-    }
-
-    // code=$B9, len=3, cycle=4 or 5
-    static inline void lda_abs_y(M6502* cpu)
-    {
-        cpu->lda(cpu->readAbsoluteY(NULL));
-    }
-
-    // code=$A1, len=2, cycle=6
-    static inline void lda_x_ind(M6502* cpu)
-    {
-        cpu->lda(cpu->readIndirectX(NULL));
-    }
-
-    // code=$B11, len=2, cycle=5 or 6
-    static inline void lda_ind_y(M6502* cpu)
-    {
-        cpu->lda(cpu->readIndirectY(NULL));
-    }
-
-    // code=$A2, len=2, cycle=2
-    static inline void ldx_imm(M6502* cpu)
-    {
-        cpu->ldx(cpu->fetch());
-    }
-
-    // code=$A6, len=2, cycle=3
-    static inline void ldx_zpg(M6502* cpu)
-    {
-        cpu->ldx(cpu->readZeroPage(NULL));
-    }
-
-    // code=$B6, len=2, cycle=4
-    static inline void ldx_zpg_y(M6502* cpu)
-    {
-        cpu->ldx(cpu->readZeroPageY(NULL));
-    }
-
-    // code=$AE, len=3, cycle=4
-    static inline void ldx_abs(M6502* cpu)
-    {
-        cpu->ldx(cpu->readAbsolute(NULL));
-    }
-
-    // code=$BE, len=3, cycle=4 or 5
-    static inline void ldx_abs_y(M6502* cpu)
-    {
-        cpu->ldx(cpu->readAbsoluteY(NULL));
-    }
-
-    // code=$A0, len=2, cycle=2
-    static inline void ldy_imm(M6502* cpu)
-    {
-        cpu->ldy(cpu->fetch());
-    }
-
-    // code=$A4, len=2, cycle=3
-    static inline void ldy_zpg(M6502* cpu)
-    {
-        cpu->ldy(cpu->readZeroPage(NULL));
-    }
-
-    // code=$B4, len=2, cycle=4
-    static inline void ldy_zpg_x(M6502* cpu)
-    {
-        cpu->ldy(cpu->readZeroPageX(NULL));
-    }
-
-    // code=$AC, len=3, cycle=4
-    static inline void ldy_abs(M6502* cpu)
-    {
-        cpu->ldy(cpu->readAbsolute(NULL));
-    }
-
-    // code=$BC, len=3, cycle=4 or 5
-    static inline void ldy_abs_x(M6502* cpu)
-    {
-        cpu->ldy(cpu->readAbsoluteX(NULL));
-    }
-
-    // code=$09, len=2, cycle=2
-    static inline void ora_imm(M6502* cpu)
-    {
-        cpu->ora(cpu->fetch());
-    }
-
-    // code=$05, len=2, cycle=3
-    static inline void ora_zpg(M6502* cpu)
-    {
-        cpu->ora(cpu->readZeroPage(NULL));
-    }
-
-    // code=$15, len=2, cycle=4
-    static inline void ora_zpg_x(M6502* cpu)
-    {
-        cpu->ora(cpu->readZeroPageX(NULL));
-    }
-
-    // code=$0D, len=3, cycle=4
-    static inline void ora_abs(M6502* cpu)
-    {
-        cpu->ora(cpu->readAbsolute(NULL));
-    }
-
-    // code=$1D, len=3, cycle=4 or 5
-    static inline void ora_abs_x(M6502* cpu)
-    {
-        cpu->ora(cpu->readAbsoluteX(NULL));
-    }
-
-    // code=$19, len=3, cycle=4 or 5
-    static inline void ora_abs_y(M6502* cpu)
-    {
-        cpu->ora(cpu->readAbsoluteY(NULL));
-    }
-
-    // code=$01, len=2, cycle=6
-    static inline void ora_x_ind(M6502* cpu)
-    {
-        cpu->ora(cpu->readIndirectX(NULL));
-    }
-
-    // code=$11, len=2, cycle=5 or 6
-    static inline void ora_ind_y(M6502* cpu)
-    {
-        cpu->ora(cpu->readIndirectY(NULL));
-    }
+    static inline void ora_imm(M6502* cpu) { cpu->ora(cpu->fetch()); }
+    static inline void ora_zpg(M6502* cpu) { cpu->ora(cpu->readZeroPage(NULL)); }
+    static inline void ora_zpg_x(M6502* cpu) { cpu->ora(cpu->readZeroPageX(NULL)); }
+    static inline void ora_abs(M6502* cpu) { cpu->ora(cpu->readAbsolute(NULL)); }
+    static inline void ora_abs_x(M6502* cpu) { cpu->ora(cpu->readAbsoluteX(NULL)); }
+    static inline void ora_abs_y(M6502* cpu) { cpu->ora(cpu->readAbsoluteY(NULL)); }
+    static inline void ora_x_ind(M6502* cpu) { cpu->ora(cpu->readIndirectX(NULL)); }
+    static inline void ora_ind_y(M6502* cpu) { cpu->ora(cpu->readIndirectY(NULL)); }
 
     static inline void php_impl(M6502* cpu)
     {
