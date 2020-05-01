@@ -1050,6 +1050,23 @@ class M6502
     static inline void pla(M6502* cpu) { cpu->pl("PLA", &cpu->R.a); }
     static inline void plp(M6502* cpu) { cpu->pl("PLP", &cpu->R.p); }
 
+    inline void transfer(const char* mne, unsigned char src, unsigned char* dst, bool updateStatus)
+    {
+        if (CB.debugMessage) strcpy(DD.mne, mne);
+        *dst = src;
+        if (updateStatus) {
+            updateStatusN(src & 0x80);
+            updateStatusZ(src == 0);
+        }
+        cpu->consumeClock();
+    }
+    static inline void tax(M6502* cpu) { cpu->transfer("TAX", cpu->R.a, &cpu->R.x, true); }
+    static inline void txa(M6502* cpu) { cpu->transfer("TXA", cpu->R.x, &cpu->R.a, true); }
+    static inline void tay(M6502* cpu) { cpu->transfer("TAY", cpu->R.a, &cpu->R.y, true); }
+    static inline void tya(M6502* cpu) { cpu->transfer("TYA", cpu->R.y, &cpu->R.a, true); }
+    static inline void tsx(M6502* cpu) { cpu->transfer("TSX", cpu->R.s, &cpu->R.x, true); }
+    static inline void txs(M6502* cpu) { cpu->transfer("TXS", cpu->R.x, &cpu->R.s, false); }
+
     void setupOperands()
     {
         memset(operands, 0, sizeof(operands));
@@ -1225,6 +1242,13 @@ class M6502
         operands[0x19] = ora_abs_y;
         operands[0x01] = ora_x_ind;
         operands[0x11] = ora_ind_y;
+
+        operands[0xAA] = tax;
+        operands[0x8A] = txa;
+        operands[0xA8] = tay;
+        operands[0x98] = tya;
+        operands[0xBA] = tsx;
+        operands[0x9A] = txs;
     }
 };
 
