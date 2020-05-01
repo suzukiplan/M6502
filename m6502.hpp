@@ -351,9 +351,10 @@ class M6502
         return readMemory(addr);
     }
 
-    inline void updateStatusN(bool n)
+    inline void updateStatusN(bool n, bool consume = false)
     {
         n ? R.p |= 0b10000000 : R.p &= 0b01111111;
+        if (consume) consumeClock();
     }
 
     inline bool getStatusN()
@@ -361,9 +362,10 @@ class M6502
         return R.p & 0b10000000 ? true : false;
     }
 
-    inline void updateStatusV(bool v)
+    inline void updateStatusV(bool v, bool consume = false)
     {
         v ? R.p |= 0b01000000 : R.p &= 0b10111111;
+        if (consume) consumeClock();
     }
 
     inline bool getStatusV()
@@ -371,9 +373,10 @@ class M6502
         return R.p & 0b01000000 ? true : false;
     }
 
-    inline void updateStatusB(bool b)
+    inline void updateStatusB(bool b, bool consume = false)
     {
         b ? R.p |= 0b00010000 : R.p &= 0b11101111;
+        if (consume) consumeClock();
     }
 
     inline bool getStatusB()
@@ -381,9 +384,10 @@ class M6502
         return R.p & 0b00010000 ? true : false;
     }
 
-    inline void updateStatusD(bool d)
+    inline void updateStatusD(bool d, bool consume = false)
     {
         d ? R.p |= 0b00001000 : R.p &= 0b11110111;
+        if (consume) consumeClock();
     }
 
     inline bool getStatusD()
@@ -391,9 +395,10 @@ class M6502
         return R.p & 0b00001000 ? true : false;
     }
 
-    inline void updateStatusI(bool i)
+    inline void updateStatusI(bool i, bool consume = false)
     {
         i ? R.p |= 0b00000100 : R.p &= 0b11111011;
+        if (consume) consumeClock();
     }
 
     inline bool getStatusI()
@@ -401,9 +406,10 @@ class M6502
         return R.p & 0b00000100 ? true : false;
     }
 
-    inline void updateStatusZ(bool z)
+    inline void updateStatusZ(bool z, bool consume = false)
     {
         z ? R.p |= 0b00000010 : R.p &= 0b11111101;
+        if (consume) consumeClock();
     }
 
     inline bool getStatusZ()
@@ -411,9 +417,10 @@ class M6502
         return R.p & 0b00000010 ? true : false;
     }
 
-    inline void updateStatusC(bool c)
+    inline void updateStatusC(bool c, bool consume = false)
     {
         c ? R.p |= 0b00000001 : R.p &= 0b11111110;
+        if (consume) consumeClock();
     }
 
     inline bool getStatusC()
@@ -778,43 +785,6 @@ class M6502
         cpu->writeMemory(addr, m);
     }
 
-    static inline void clc(M6502* cpu)
-    {
-        cpu->updateStatusC(false);
-        cpu->consumeClock();
-    }
-    static inline void cld(M6502* cpu)
-    {
-        cpu->updateStatusD(false);
-        cpu->consumeClock();
-    }
-    static inline void cli(M6502* cpu)
-    {
-        cpu->updateStatusI(false);
-        cpu->consumeClock();
-    }
-    static inline void clv(M6502* cpu)
-    {
-        cpu->updateStatusV(false);
-        cpu->consumeClock();
-    }
-
-    static inline void sec(M6502* cpu)
-    {
-        cpu->updateStatusC(true);
-        cpu->consumeClock();
-    }
-    static inline void sed(M6502* cpu)
-    {
-        cpu->updateStatusD(true);
-        cpu->consumeClock();
-    }
-    static inline void sei(M6502* cpu)
-    {
-        cpu->updateStatusI(true);
-        cpu->consumeClock();
-    }
-
     static inline void dec_zpg(M6502* cpu)
     {
         unsigned short addr;
@@ -1050,6 +1020,13 @@ class M6502
     static inline void ora_abs_y(M6502* cpu) { cpu->ora(cpu->readAbsoluteY(NULL)); }
     static inline void ora_x_ind(M6502* cpu) { cpu->ora(cpu->readIndirectX(NULL)); }
     static inline void ora_ind_y(M6502* cpu) { cpu->ora(cpu->readIndirectY(NULL)); }
+    static inline void clc(M6502* cpu) { cpu->updateStatusC(false, true); }
+    static inline void cld(M6502* cpu) { cpu->updateStatusD(false, true); }
+    static inline void cli(M6502* cpu) { cpu->updateStatusI(false, true); }
+    static inline void clv(M6502* cpu) { cpu->updateStatusV(false, true); }
+    static inline void sec(M6502* cpu) { cpu->updateStatusC(true, true); }
+    static inline void sed(M6502* cpu) { cpu->updateStatusD(true, true); }
+    static inline void sei(M6502* cpu) { cpu->updateStatusI(true, true); }
 
     void setupOperands()
     {
