@@ -725,10 +725,22 @@ class M6502
     static inline void ora_x_ind(M6502* cpu) { cpu->ora(cpu->readIndirectX(NULL)); }
     static inline void ora_ind_y(M6502* cpu) { cpu->ora(cpu->readIndirectY(NULL)); }
 
-    static inline void php_impl(M6502* cpu)
+    inline void ph(unsigned char r)
     {
-        // TODO
+        push(r);
+        consumeClock();
     }
+    static inline void pha(M6502* cpu) { cpu->ph(cpu->R.a); }
+    static inline void php(M6502* cpu) { cpu->ph(cpu->R.p); }
+
+    inline void pl(unsigned char* r)
+    {
+        cpu->consumeClock();
+        *r = cpu->pop();
+        cpu->consumeClock();
+    }
+    static inline void pla(M6502* cpu) { cpu->pl(&cpu->R.a); }
+    static inline void plp(M6502* cpu) { cpu->pl(&cpu->R.p); }
 
     void setupOperands()
     {
@@ -854,6 +866,11 @@ class M6502
         operands[0xBC] = ldy_abs_x;
 
         operands[0xEA] = nop;
+
+        operands[0x48] = pha;
+        operands[0x08] = php;
+        operands[0x68] = pla;
+        operands[0x28] = plp;
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
