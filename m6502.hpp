@@ -240,6 +240,7 @@ private:
         return R.p & 0b00000001 ? true : false;
     }
 
+    // use no cycle
     inline void adc(unsigned char value) {
         unsigned int a = cpu->R.a;
         a += value;
@@ -250,12 +251,14 @@ private:
         cpu->updateStatusC(a & 0xFF00 ? true : false);
     }
 
+    // use no cycle
     inline void and(unsigned char value) {
         cpu->R.a &= value;
         cpu->updateStatusN(cpu->R.a & 0x80);
         cpu->updateStatusZ(cpu->R.a == 0);
     }
 
+    // use 1 cycle
     inline unsigned char asl(unsigned char value) {
         int work = value;
         work <<= 1;
@@ -278,6 +281,13 @@ private:
         addr += rel;
         R.pc = addr;
         consumeClock();
+    }
+
+    // use no cycle
+    inline void ora(unsigned char value) {
+        R.a |= value;
+        updateStatusN(R.a & 0x80);
+        updateStatusZ(R.a == 0);
     }
 
     // code=$69, len=2, cycle=2
@@ -453,73 +463,49 @@ private:
 
     // code=$09, len=2, cycle=2
     static inline void ora_imm(M6502* cpu) {
-        unsigned char value = cpu->fetch();
-        cpu->R.a |= value;
-        cpu->updateStatusN(cpu->R.a & 0x80);
-        cpu->updateStatusZ(cpu->R.a == 0);
+        cpu->ora(cpu->fetch());
     }
 
     // code=$05, len=2, cycle=3
     static inline void ora_zpg(M6502* cpu) {
         unsigned char addr;
-        unsigned char value = cpu->readZeroPage(&addr);
-        cpu->R.a |= value;
-        cpu->updateStatusN(cpu->R.a & 0x80);
-        cpu->updateStatusZ(cpu->R.a == 0);
+        cpu->ora(cpu->readZeroPage(&addr));
     }
 
     // code=$15, len=2, cycle=4
     static inline void ora_zpg_x(M6502* cpu) {
         unsigned char addr;
-        unsigned char value = cpu->readZeroPageX(&addr);
-        cpu->R.a |= value;
-        cpu->updateStatusN(cpu->R.a & 0x80);
-        cpu->updateStatusZ(cpu->R.a == 0);
+        cpu->ora(cpu->readZeroPageX(&addr));
     }
 
     // code=$0D, len=3, cycle=4
     static inline void ora_abs(M6502* cpu) {
         unsigned short addr;
-        unsigned char value = cpu->readAbsolute(&addr);
-        cpu->R.a |= value;
-        cpu->updateStatusN(cpu->R.a & 0x80);
-        cpu->updateStatusZ(cpu->R.a == 0);
+        cpu->ora(cpu->readAbsolute(&addr));
     }
 
     // code=$1D, len=3, cycle=4 or 5
     static inline void ora_abs_x(M6502* cpu) {
         unsigned short addr;
-        unsigned char value = cpu->readAbsoluteX(&addr);
-        cpu->R.a |= value;
-        cpu->updateStatusN(cpu->R.a & 0x80);
-        cpu->updateStatusZ(cpu->R.a == 0);
+        cpu->ora(cpu->readAbsoluteX(&addr));
     }
 
     // code=$19, len=3, cycle=4 or 5
     static inline void ora_abs_y(M6502* cpu) {
         unsigned short addr;
-        unsigned char value = cpu->readAbsoluteY(&addr);
-        cpu->R.a |= value;
-        cpu->updateStatusN(cpu->R.a & 0x80);
-        cpu->updateStatusZ(cpu->R.a == 0);
+        cpu->ora(cpu->readAbsoluteY(&addr));
     }
 
     // code=$01, len=2, cycle=6
     static inline void ora_x_ind(M6502* cpu) {
         unsigned short addr;
-        unsigned char value = cpu->readIndirectX(&addr);
-        cpu->R.a |= value;
-        cpu->updateStatusN(cpu->R.a & 0x80);
-        cpu->updateStatusZ(cpu->R.a == 0);
+        cpu->ora(cpu->readIndirectX(&addr));
     }
 
     // code=$11, len=2, cycle=5 or 6
     static inline void ora_ind_y(M6502* cpu) {
         unsigned short addr;
-        unsigned char value = cpu->readIndirectY(&addr);
-        cpu->R.a |= value;
-        cpu->updateStatusN(cpu->R.a & 0x80);
-        cpu->updateStatusZ(cpu->R.a == 0);
+        cpu->ora(cpu->readIndirectY(&addr));
     }
 
     static inline void php_impl(M6502* cpu) {
