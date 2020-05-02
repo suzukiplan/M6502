@@ -122,9 +122,11 @@ class M6502
         updateStatusB(false);
         consumeClock();
         push(0);
-        R.pc = readMemory(0xFFFD);
+        unsigned char pcL = readMemory(0xFFFC);
+        unsigned char pcH = readMemory(0xFFFD);
+        R.pc = pcH;
         R.pc <<= 8;
-        R.pc |= readMemory(0xFFFC);
+        R.pc |= pcL;
         consumeClock();
         consumeClock();
         consumeClock();
