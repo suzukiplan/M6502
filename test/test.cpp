@@ -358,6 +358,35 @@ int main(int argc, char** argv)
         CHECK(cpu.R.a == 0x99);
     }
 
+    puts("\n===== TEST:LDX immediate =====");
+    {
+        int clocks, len, pc;
+        // load zero
+        mmu.ram[cpu.R.pc + 0] = 0xA2;
+        mmu.ram[cpu.R.pc + 1] = 0x00;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000010);
+        CHECK(cpu.R.x == 0x00);
+        // load plus
+        mmu.ram[cpu.R.pc + 0] = 0xA2;
+        mmu.ram[cpu.R.pc + 1] = 0x7F;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.x == 0x7F);
+        // load minus
+        mmu.ram[cpu.R.pc + 0] = 0xA2;
+        mmu.ram[cpu.R.pc + 1] = 0x80;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b10000000);
+        CHECK(cpu.R.x == 0x80);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     return 0;
 }
