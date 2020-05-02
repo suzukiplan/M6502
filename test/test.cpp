@@ -33,13 +33,18 @@ static void consumeClock(void* arg) { totalClocks++; }
 static void debugMessage(void* arg, const char* message) { printf("%s\n", message); }
 static void printRegister(M6502* cpu) { printf("<REGISTER-DUMP> PC:$%04X A:$%02X X:$%02X Y:$%02X S:$%02X P:$%02X\n", cpu->R.pc, cpu->R.a, cpu->R.x, cpu->R.y, cpu->R.s, cpu->R.p); }
 
-static void check(bool succeed)
+static void check(int line, bool succeed)
 {
     if (!succeed) {
-        puts("TEST FAILED!");
+        printf("TEST FAILED! (line: %d)\n", line);
         exit(255);
     }
 }
+#define CHECK(X) check(__LINE__, X)
+#define EXECUTE()                \
+    printRegister(&cpu);         \
+    int clocks = cpu.execute(1); \
+    printRegister(&cpu)
 
 int main(int argc, char** argv)
 {
@@ -48,33 +53,38 @@ int main(int argc, char** argv)
     M6502 cpu(readMemory, writeMemory, &mmu);
     cpu.setConsumeClock(consumeClock);
     cpu.setDebugMessage(debugMessage);
-    check(cpu.R.p == 0b00000100);
-    check(cpu.R.pc == 0x8000);
+    CHECK(cpu.R.p == 0b00000100);
+    CHECK(cpu.R.pc == 0x8000);
 
-    // ステータスチェック & クリアしつつCLIをテスト
     puts("\n===== TEST:CLI =====");
     {
         mmu.ram[0x8000] = 0x58;
-        printRegister(&cpu);
-        int clocks = cpu.execute(1);
-        printRegister(&cpu);
-        check(clocks == 2);
-        check(cpu.R.p == 0);
-        check(cpu.R.pc == 0x8001);
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(cpu.R.p == 0);
+        CHECK(cpu.R.pc == 0x8001);
     }
 
-    // BRKをテストしつつプログラムカウンタを$0000へ移す
     puts("\n===== TEST:BRK =====");
     {
         unsigned char s = cpu.R.s;
         cpu.R.p = 0;
-        printRegister(&cpu);
-        int clocks = cpu.execute(1);
-        printRegister(&cpu);
-        check(clocks == 7);
-        check(cpu.R.pc == 0);
-        check(cpu.R.p == 0b00010100);
-        check(cpu.R.s + 3 == s);
+        EXECUTE();
+        CHECK(clocks == 7);
+        CHECK(cpu.R.pc == 0);
+        CHECK(cpu.R.p == 0b00010100);
+        CHECK(cpu.R.s + 3 == s);
+    }
+
+    puts("\n===== TEST:RTI =====");
+    {
+        unsigned char s = cpu.R.s;
+        mmu.ram[0] = 0x40;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(cpu.R.pc == 0x8003);
+        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.s - 3 == s);
     }
 
     printf("\ntotal clocks: %d\n", totalClocks);
