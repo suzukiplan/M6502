@@ -87,6 +87,32 @@ int main(int argc, char** argv)
         CHECK(cpu.R.s - 3 == s);
     }
 
+    puts("\n===== TEST:LDA immediate =====");
+    { // load zero
+        mmu.ram[cpu.R.pc + 0] = 0xA9;
+        mmu.ram[cpu.R.pc + 1] = 0x00;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(cpu.R.pc == 0x8005);
+        CHECK(cpu.R.p == 0b00000010);
+    }
+    { // load plus
+        mmu.ram[cpu.R.pc + 0] = 0xA9;
+        mmu.ram[cpu.R.pc + 1] = 0x7F;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(cpu.R.pc == 0x8007);
+        CHECK(cpu.R.p == 0b00000000);
+    }
+    { // load negative
+        mmu.ram[cpu.R.pc + 0] = 0xA9;
+        mmu.ram[cpu.R.pc + 1] = 0x80;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(cpu.R.pc == 0x8009);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     return 0;
 }
