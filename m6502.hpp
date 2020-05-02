@@ -354,7 +354,10 @@ class M6502
     inline void updateStatusN(bool n, bool consume = false)
     {
         n ? R.p |= 0b10000000 : R.p &= 0b01111111;
-        if (consume) consumeClock();
+        if (consume) {
+            consumeClock();
+            if (CB.debugMessage) strcpy(DD.mne, n ? "SEN" : "CLN");
+        }
     }
 
     inline bool getStatusN()
@@ -365,7 +368,10 @@ class M6502
     inline void updateStatusV(bool v, bool consume = false)
     {
         v ? R.p |= 0b01000000 : R.p &= 0b10111111;
-        if (consume) consumeClock();
+        if (consume) {
+            consumeClock();
+            if (CB.debugMessage) strcpy(DD.mne, v ? "SEV" : "CLV");
+        }
     }
 
     inline bool getStatusV()
@@ -376,7 +382,10 @@ class M6502
     inline void updateStatusB(bool b, bool consume = false)
     {
         b ? R.p |= 0b00010000 : R.p &= 0b11101111;
-        if (consume) consumeClock();
+        if (consume) {
+            consumeClock();
+            if (CB.debugMessage) strcpy(DD.mne, b ? "SEB" : "CLB");
+        }
     }
 
     inline bool getStatusB()
@@ -387,7 +396,10 @@ class M6502
     inline void updateStatusD(bool d, bool consume = false)
     {
         d ? R.p |= 0b00001000 : R.p &= 0b11110111;
-        if (consume) consumeClock();
+        if (consume) {
+            consumeClock();
+            if (CB.debugMessage) strcpy(DD.mne, d ? "SED" : "CLD");
+        }
     }
 
     inline bool getStatusD()
@@ -398,7 +410,10 @@ class M6502
     inline void updateStatusI(bool i, bool consume = false)
     {
         i ? R.p |= 0b00000100 : R.p &= 0b11111011;
-        if (consume) consumeClock();
+        if (consume) {
+            consumeClock();
+            if (CB.debugMessage) strcpy(DD.mne, i ? "SEI" : "CLI");
+        }
     }
 
     inline bool getStatusI()
@@ -409,7 +424,10 @@ class M6502
     inline void updateStatusZ(bool z, bool consume = false)
     {
         z ? R.p |= 0b00000010 : R.p &= 0b11111101;
-        if (consume) consumeClock();
+        if (consume) {
+            consumeClock();
+            if (CB.debugMessage) strcpy(DD.mne, z ? "SEZ" : "CLZ");
+        }
     }
 
     inline bool getStatusZ()
@@ -420,7 +438,10 @@ class M6502
     inline void updateStatusC(bool c, bool consume = false)
     {
         c ? R.p |= 0b00000001 : R.p &= 0b11111110;
-        if (consume) consumeClock();
+        if (consume) {
+            consumeClock();
+            if (CB.debugMessage) strcpy(DD.mne, c ? "SEC" : "CLC");
+        }
     }
 
     inline bool getStatusC()
