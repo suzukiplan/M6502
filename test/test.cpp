@@ -53,22 +53,30 @@ int main(int argc, char** argv)
 
     // ステータスチェック & クリアしつつCLIをテスト
     puts("\n===== TEST:CLI =====");
-    mmu.ram[0x8000] = 0x58; // CLI
-    totalClocks = 0;
-    printRegister(&cpu);
-    cpu.execute(1);
-    printRegister(&cpu);
-    check(totalClocks == 2);
-    check(cpu.R.p == 0);
-    check(cpu.R.pc == 0x8001);
+    {
+        mmu.ram[0x8000] = 0x58;
+        printRegister(&cpu);
+        int clocks = cpu.execute(1);
+        printRegister(&cpu);
+        check(clocks == 2);
+        check(cpu.R.p == 0);
+        check(cpu.R.pc == 0x8001);
+    }
 
     // BRKをテストしつつプログラムカウンタを$0000へ移す
     puts("\n===== TEST:BRK =====");
-    totalClocks = 0;
-    printRegister(&cpu);
-    cpu.execute(1);
-    printRegister(&cpu);
-    check(totalClocks == 7);
-    check(cpu.R.p & 0b00010000);
+    {
+        unsigned char s = cpu.R.s;
+        cpu.R.p = 0;
+        printRegister(&cpu);
+        int clocks = cpu.execute(1);
+        printRegister(&cpu);
+        check(clocks == 7);
+        check(cpu.R.pc == 0);
+        check((cpu.R.p & 0b00010100) == 0b00010100);
+        check(cpu.R.s + 3 == s);
+    }
+
+    printf("\ntotal clocks: %d\n", totalClocks);
     return 0;
 }
