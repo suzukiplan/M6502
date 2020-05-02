@@ -73,7 +73,7 @@ int main(int argc, char** argv)
         printRegister(&cpu);
         check(clocks == 7);
         check(cpu.R.pc == 0);
-        check((cpu.R.p & 0b00010100) == 0b00010100);
+        check(cpu.R.p == 0b00010100);
         check(cpu.R.s + 3 == s);
     }
 
