@@ -21,6 +21,28 @@
 - Perfect debuging features
 - Commercially available license (MIT)
 
+## How to test
+
+Operating system requirements:
+
+- Any UNIX / Linux
+- macOS
+- _Windows (please use the WSL/WSL2)_
+
+You need following middlewares:
+
+- clang
+- git (CLI)
+- GNU make
+
+Use can test in the commandline as following:
+
+```shell
+git clone https://github.com/suzukiplan/M6502.git
+cd M6502/test
+make
+```
+
 ## Usage
 
 ```text
