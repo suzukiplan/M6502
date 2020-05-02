@@ -11,6 +11,7 @@
 |LDA zpg |$A5 |2  |3    |*| | | | |*| ||
 |LDA imm |$A9 |2  |2    |*| | | | |*| ||
 |LDA abs |$AD |3  |4    |*| | | | |*| ||
-|LDA absY|$B9 |3  |4,5  |*| | | | |*| |cycle penalty |
-|LDA absX|$BD |3  |4,5  |*| | | | |*| |cycle penalty |
+|LDA indY|$B1 |2  |5,6  |*| | | | |*| |cycle penalty|
+|LDA absY|$B9 |3  |4,5  |*| | | | |*| |cycle penalty|
+|LDA absX|$BD |3  |4,5  |*| | | | |*| |cycle penalty|
 |LDA zpgX|$B5 |2  |4    |*| | | | |*| ||

@@ -42,7 +42,6 @@ static void check(int line, bool succeed)
 }
 #define CHECK(X) check(__LINE__, X)
 #define EXECUTE()            \
-    printRegister(&cpu);     \
     pc = cpu.R.pc;           \
     clocks = cpu.execute(1); \
     len = cpu.R.pc - pc;     \
@@ -331,6 +330,32 @@ int main(int argc, char** argv)
         CHECK(len == 2);
         CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0x88);
+    }
+
+    puts("\n===== TEST:LDA indirect, Y =====");
+    {
+        mmu.ram[0x0010] = 0x01;
+        mmu.ram[0x0011] = 0x02;
+        mmu.ram[0x0203] = 0x55;
+        mmu.ram[0x0300] = 0x99;
+        cpu.R.y = 0x02;
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0xB1;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.a == 0x55);
+        // page overflow
+        cpu.R.y = 0xFF;
+        mmu.ram[cpu.R.pc + 0] = 0xB1;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b10000000);
+        CHECK(cpu.R.a == 0x99);
     }
 
     printf("\ntotal clocks: %d\n", totalClocks);
