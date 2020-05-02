@@ -462,26 +462,36 @@ class M6502
     inline void adc(unsigned char value)
     {
         if (CB.debugMessage) strcpy(DD.mne, "ADC");
-        unsigned int a = R.a;
-        a += value;
-        a += getStatusC() ? 1 : 0;
-        R.a = a & 0xFF;
+        signed char a = R.a;
+        signed int iA = a;
+        signed int iV = (signed char)value;
+        int c = getStatusC() ? 1 : 0;
+        a += (signed char)value;
+        a += c;
+        R.a = a;
+        signed int i = iA + iV + c;
         updateStatusN(R.a & 0x80);
+        updateStatusV(i != a);
         updateStatusZ(R.a == 0);
-        updateStatusC(a & 0xFF00 ? true : false);
+        updateStatusC(i < -128 || 127 < i);
     }
 
     // use no cycle
     inline void sbc(unsigned char value)
     {
         if (CB.debugMessage) strcpy(DD.mne, "SBC");
-        unsigned int a = R.a;
-        a -= value;
-        a -= getStatusC() ? 0 : 1;
-        R.a = a & 0xFF;
+        signed char a = R.a;
+        signed int iA = a;
+        signed int iV = (signed char)value;
+        int c = getStatusC() ? 0 : 1;
+        a -= (signed char)value;
+        a -= c;
+        R.a = a;
+        signed int i = iA - iV - c;
         updateStatusN(R.a & 0x80);
+        updateStatusV(i != a);
         updateStatusZ(R.a == 0);
-        updateStatusC(a & 0xFF00 ? true : false);
+        updateStatusC(i < -128 || 127 < i);
     }
 
     // use no cycle
