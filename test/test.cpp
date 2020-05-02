@@ -43,7 +43,9 @@ static void check(int line, bool succeed)
 #define CHECK(X) check(__LINE__, X)
 #define EXECUTE()            \
     printRegister(&cpu);     \
+    pc = cpu.R.pc;           \
     clocks = cpu.execute(1); \
+    len = cpu.R.pc - pc;     \
     printRegister(&cpu)
 
 int main(int argc, char** argv)
@@ -58,17 +60,17 @@ int main(int argc, char** argv)
 
     puts("\n===== TEST:CLI =====");
     {
-        int clocks;
+        int clocks, len, pc;
         mmu.ram[0x8000] = 0x58;
         EXECUTE();
         CHECK(clocks == 2);
         CHECK(cpu.R.p == 0);
-        CHECK(cpu.R.pc == 0x8001);
+        CHECK(len == 1);
     }
 
     puts("\n===== TEST:BRK =====");
     {
-        int clocks;
+        int clocks, len, pc;
         unsigned char s = cpu.R.s;
         cpu.R.p = 0;
         EXECUTE();
@@ -80,7 +82,7 @@ int main(int argc, char** argv)
 
     puts("\n===== TEST:RTI =====");
     {
-        int clocks;
+        int clocks, len, pc;
         unsigned char s = cpu.R.s;
         mmu.ram[0] = 0x40;
         EXECUTE();
@@ -92,13 +94,13 @@ int main(int argc, char** argv)
 
     puts("\n===== TEST:LDA immediate =====");
     {
-        int clocks;
+        int clocks, len, pc;
         // load zero
         mmu.ram[cpu.R.pc + 0] = 0xA9;
         mmu.ram[cpu.R.pc + 1] = 0x00;
         EXECUTE();
         CHECK(clocks == 2);
-        CHECK(cpu.R.pc == 0x8005);
+        CHECK(len == 2);
         CHECK(cpu.R.p == 0b00000010);
         CHECK(cpu.R.a == 0x00);
         // load plus
@@ -106,7 +108,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x7F;
         EXECUTE();
         CHECK(clocks == 2);
-        CHECK(cpu.R.pc == 0x8007);
+        CHECK(len == 2);
         CHECK(cpu.R.p == 0b00000000);
         CHECK(cpu.R.a == 0x7F);
         // load minus
@@ -114,7 +116,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x80;
         EXECUTE();
         CHECK(clocks == 2);
-        CHECK(cpu.R.pc == 0x8009);
+        CHECK(len == 2);
         CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0x80);
     }
@@ -124,26 +126,26 @@ int main(int argc, char** argv)
         mmu.ram[0] = 0x00;
         mmu.ram[1] = 0x7F;
         mmu.ram[2] = 0x80;
-        int clocks;
+        int clocks, len, pc;
         mmu.ram[cpu.R.pc + 0] = 0xA5;
         mmu.ram[cpu.R.pc + 1] = 0x00;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == 0x800B);
+        CHECK(len == 2);
         CHECK(cpu.R.p == 0b00000010);
         CHECK(cpu.R.a == 0x00);
         mmu.ram[cpu.R.pc + 0] = 0xA5;
         mmu.ram[cpu.R.pc + 1] = 0x01;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == 0x800D);
+        CHECK(len == 2);
         CHECK(cpu.R.p == 0b00000000);
         CHECK(cpu.R.a == 0x7F);
         mmu.ram[cpu.R.pc + 0] = 0xA5;
         mmu.ram[cpu.R.pc + 1] = 0x02;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == 0x800F);
+        CHECK(len == 2);
         CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0x80);
     }
@@ -154,26 +156,26 @@ int main(int argc, char** argv)
         mmu.ram[0xF1] = 0x7F;
         mmu.ram[0xF2] = 0x80;
         cpu.R.x = 0xF0;
-        int clocks;
+        int clocks, len, pc;
         mmu.ram[cpu.R.pc + 0] = 0xB5;
         mmu.ram[cpu.R.pc + 1] = 0x00;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x8011);
+        CHECK(len == 2);
         CHECK(cpu.R.p == 0b00000010);
         CHECK(cpu.R.a == 0x00);
         mmu.ram[cpu.R.pc + 0] = 0xB5;
         mmu.ram[cpu.R.pc + 1] = 0x01;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x8013);
+        CHECK(len == 2);
         CHECK(cpu.R.p == 0b00000000);
         CHECK(cpu.R.a == 0x7F);
         mmu.ram[cpu.R.pc + 0] = 0xB5;
         mmu.ram[cpu.R.pc + 1] = 0x02;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x8015);
+        CHECK(len == 2);
         CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0x80);
         // page overflow
@@ -181,7 +183,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x10;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x8017);
+        CHECK(len == 2);
         CHECK(cpu.R.p == 0b00000010);
         CHECK(cpu.R.a == 0x00);
     }
@@ -191,13 +193,13 @@ int main(int argc, char** argv)
         mmu.ram[0x2000] = 0x00;
         mmu.ram[0x2001] = 0x7F;
         mmu.ram[0x2002] = 0x80;
-        int clocks;
+        int clocks, len, pc;
         mmu.ram[cpu.R.pc + 0] = 0xAD;
         mmu.ram[cpu.R.pc + 1] = 0x00;
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x801A);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b00000010);
         CHECK(cpu.R.a == 0x00);
         mmu.ram[cpu.R.pc + 0] = 0xAD;
@@ -205,7 +207,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x801D);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b00000000);
         CHECK(cpu.R.a == 0x7F);
         mmu.ram[cpu.R.pc + 0] = 0xAD;
@@ -213,7 +215,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x8020);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0x80);
     }
@@ -225,13 +227,13 @@ int main(int argc, char** argv)
         mmu.ram[0x20F2] = 0x80;
         mmu.ram[0x2100] = 0xCC;
         cpu.R.x = 0xF0;
-        int clocks;
+        int clocks, len, pc;
         mmu.ram[cpu.R.pc + 0] = 0xBD;
         mmu.ram[cpu.R.pc + 1] = 0x00;
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x8023);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b00000010);
         CHECK(cpu.R.a == 0x00);
         mmu.ram[cpu.R.pc + 0] = 0xBD;
@@ -239,7 +241,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x8026);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b00000000);
         CHECK(cpu.R.a == 0x7F);
         mmu.ram[cpu.R.pc + 0] = 0xBD;
@@ -247,7 +249,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x8029);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0x80);
         // page overflow
@@ -256,7 +258,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 5);
-        CHECK(cpu.R.pc == 0x802C);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0xCC);
     }
@@ -268,13 +270,13 @@ int main(int argc, char** argv)
         mmu.ram[0x20F2] = 0x80;
         mmu.ram[0x2100] = 0xCC;
         cpu.R.y = 0xF0;
-        int clocks;
+        int clocks, len, pc;
         mmu.ram[cpu.R.pc + 0] = 0xB9;
         mmu.ram[cpu.R.pc + 1] = 0x00;
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x802F);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b00000010);
         CHECK(cpu.R.a == 0x00);
         mmu.ram[cpu.R.pc + 0] = 0xB9;
@@ -282,7 +284,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x8032);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b00000000);
         CHECK(cpu.R.a == 0x7F);
         mmu.ram[cpu.R.pc + 0] = 0xB9;
@@ -290,7 +292,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == 0x8035);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0x80);
         // page overflow
@@ -299,7 +301,7 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 2] = 0x20;
         EXECUTE();
         CHECK(clocks == 5);
-        CHECK(cpu.R.pc == 0x8038);
+        CHECK(len == 3);
         CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0xCC);
     }
