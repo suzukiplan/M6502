@@ -132,6 +132,13 @@ class M6502
         consumeClock();
     }
 
+    void consumeClock(int clocks)
+    {
+        for (int i = 0; i < clocks; i++) {
+            consumeClock();
+        }
+    }
+
   private:
     inline void executeInterrupt(unsigned short addr)
     {
