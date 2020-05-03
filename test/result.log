@@ -556,5 +556,9 @@ read memory: $80CE -> $69
 read memory: $80CF -> $01
 [$80CE] ADC #$01
 <REGISTER-DUMP> PC:$80D0 A:$FE X:$11 Y:$C0 S:$FF P:$80
+read memory: $80D0 -> $69
+read memory: $80D1 -> $F6
+[$80D0] ADC #$F6
+<REGISTER-DUMP> PC:$80D2 A:$00 X:$11 Y:$C0 S:$FF P:$03
 
-total clocks: 342
+total clocks: 344

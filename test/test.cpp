@@ -1029,6 +1029,16 @@ int main(int argc, char** argv)
         CHECK(len == 2);
         CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == (unsigned char)-2);
+        // zero + carry
+        mmu.ram[cpu.R.pc + 0] = 0x69;
+        mmu.ram[cpu.R.pc + 1] = -10;
+        cpu.R.a = 10;
+        cpu.R.p = 0;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000011);
+        CHECK(cpu.R.a == 0);
     }
 
     printf("\ntotal clocks: %d\n", totalClocks);
