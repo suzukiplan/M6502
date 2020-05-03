@@ -432,35 +432,33 @@ class M6502
     inline void adc(unsigned char value)
     {
         if (CB.debugMessage) strcpy(DD.mne, "ADC");
-        signed char a = R.a;
-        signed int iA = a;
-        signed int iV = (signed char)value;
+        int pa = R.a;
+        int a = R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a;
+        int v = value & 0x80 ? -((value ^ 0xFF) + 1) : value;
         int c = getStatusC() ? 1 : 0;
-        a += (signed char)value;
+        a += v;
         a += c;
         R.a = a;
-        signed int i = iA + iV + c;
         updateStatusN(R.a & 0x80);
-        updateStatusV(i != a);
+        updateStatusV((R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a) != a);
         updateStatusZ(R.a == 0);
-        updateStatusC(i < -128 || 127 < i);
+        updateStatusC(255 < pa + value);
     }
 
     inline void sbc(unsigned char value)
     {
         if (CB.debugMessage) strcpy(DD.mne, "SBC");
-        signed char a = R.a;
-        signed int iA = a;
-        signed int iV = (signed char)value;
+        int pa = R.a;
+        int a = R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a;
+        int v = value & 0x80 ? -((value ^ 0xFF) + 1) : value;
         int c = getStatusC() ? 0 : 1;
-        a -= (signed char)value;
+        a -= v;
         a -= c;
         R.a = a;
-        signed int i = iA - iV - c;
         updateStatusN(R.a & 0x80);
-        updateStatusV(i != a);
+        updateStatusV((R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a) != a);
         updateStatusZ(R.a == 0);
-        updateStatusC(i < -128 || 127 < i);
+        updateStatusC(pa < value);
     }
 
     inline void and_(unsigned char value)
