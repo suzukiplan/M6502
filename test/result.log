@@ -236,4 +236,24 @@ read memory: $0000 -> $00
 [$8052] LDX $10,Y<$F0>
 <REGISTER-DUMP> PC:$8054 A:$99 X:$00 Y:$F0 S:$FF P:$02
 
-total clocks: 146
+===== TEST:LDX absolute =====
+read memory: $8054 -> $AE
+read memory: $8055 -> $00
+read memory: $8056 -> $20
+read memory: $2000 -> $00
+[$8054] LDX $2000
+<REGISTER-DUMP> PC:$8057 A:$99 X:$00 Y:$F0 S:$FF P:$02
+read memory: $8057 -> $AE
+read memory: $8058 -> $01
+read memory: $8059 -> $20
+read memory: $2001 -> $7F
+[$8057] LDX $2001
+<REGISTER-DUMP> PC:$805A A:$99 X:$7F Y:$F0 S:$FF P:$00
+read memory: $805A -> $AE
+read memory: $805B -> $02
+read memory: $805C -> $20
+read memory: $2002 -> $80
+[$805A] LDX $2002
+<REGISTER-DUMP> PC:$805D A:$99 X:$80 Y:$F0 S:$FF P:$80
+
+total clocks: 158
