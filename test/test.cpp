@@ -416,6 +416,44 @@ int main(int argc, char** argv)
         CHECK(cpu.R.x == 0x80);
     }
 
+    puts("\n===== TEST:LDX zeropage, Y =====");
+    {
+        mmu.ram[0xF0] = 0x00;
+        mmu.ram[0xF1] = 0x7F;
+        mmu.ram[0xF2] = 0x80;
+        cpu.R.y = 0xF0;
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0xB6;
+        mmu.ram[cpu.R.pc + 1] = 0x00;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000010);
+        CHECK(cpu.R.x == 0x00);
+        mmu.ram[cpu.R.pc + 0] = 0xB6;
+        mmu.ram[cpu.R.pc + 1] = 0x01;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.x == 0x7F);
+        mmu.ram[cpu.R.pc + 0] = 0xB6;
+        mmu.ram[cpu.R.pc + 1] = 0x02;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b10000000);
+        CHECK(cpu.R.x == 0x80);
+        // page overflow
+        mmu.ram[cpu.R.pc + 0] = 0xB6;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000010);
+        CHECK(cpu.R.x == 0x00);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     return 0;
 }
