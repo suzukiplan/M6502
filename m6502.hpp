@@ -191,7 +191,7 @@ class M6502
     inline unsigned char readImmediate()
     {
         unsigned short value = fetch();
-        sprintf(DD.opp, "#$%02X", value);
+        if (CB.debugMessage) sprintf(DD.opp, "#$%02X", value);
         return value;
     }
 
@@ -199,7 +199,7 @@ class M6502
     inline unsigned short zeroPage()
     {
         unsigned short addr = fetch();
-        sprintf(DD.opp, "$%02X", addr);
+        if (CB.debugMessage) sprintf(DD.opp, "$%02X", addr);
         return addr;
     }
 
@@ -215,7 +215,7 @@ class M6502
     inline unsigned short zeroPageX()
     {
         unsigned short addr = fetch();
-        sprintf(DD.opp, "$%02X,X<$%02X>", addr, R.x);
+        if (CB.debugMessage) sprintf(DD.opp, "$%02X,X<$%02X>", addr, R.x);
         addr += R.x;
         addr &= 0xFF;
         consumeClock();
@@ -234,7 +234,7 @@ class M6502
     inline unsigned short zeroPageY()
     {
         unsigned short addr = fetch();
-        sprintf(DD.opp, "$%02X,Y<$%02X>", addr, R.y);
+        if (CB.debugMessage) sprintf(DD.opp, "$%02X,Y<$%02X>", addr, R.y);
         addr += R.y;
         addr &= 0xFF;
         consumeClock();
@@ -256,7 +256,7 @@ class M6502
         unsigned short addr = fetch();
         addr <<= 8;
         addr |= low;
-        sprintf(DD.opp, "$%04X", addr);
+        if (CB.debugMessage) sprintf(DD.opp, "$%04X", addr);
         return addr;
     }
 
@@ -275,7 +275,7 @@ class M6502
         unsigned short addr = fetch();
         addr <<= 8;
         addr |= low;
-        sprintf(DD.opp, "$%04X,X<$%02X>", addr, R.x);
+        if (CB.debugMessage) sprintf(DD.opp, "$%04X,X<$%02X>", addr, R.x);
         addr += R.x;
         if (alwaysPenalty || 0xFF < R.x + low) {
             consumeClock(); // consume a penalty cycle
@@ -298,7 +298,7 @@ class M6502
         unsigned short addr = fetch();
         addr <<= 8;
         addr |= low;
-        sprintf(DD.opp, "$%04X,Y<$%02X>", addr, R.y);
+        if (CB.debugMessage) sprintf(DD.opp, "$%04X,Y<$%02X>", addr, R.y);
         addr += R.y;
         if (alwaysPenalty || 0xFF < R.y + low) {
             consumeClock(); // consume a penalty cycle
@@ -318,7 +318,7 @@ class M6502
     inline unsigned short indirectX()
     {
         unsigned char zero = fetch();
-        sprintf(DD.opp, "($%02X,X<$%02X>)", zero, R.x);
+        if (CB.debugMessage) sprintf(DD.opp, "($%02X,X<$%02X>)", zero, R.x);
         zero += R.x;
         unsigned char low = readMemory(zero++);
         unsigned short addr = readMemory(zero);
@@ -340,7 +340,7 @@ class M6502
     inline unsigned short indirectY(bool alwaysPenalty)
     {
         unsigned char zero = fetch();
-        sprintf(DD.opp, "($%02X),Y<$%02X>", zero, R.y);
+        if (CB.debugMessage) sprintf(DD.opp, "($%02X),Y<$%02X>", zero, R.y);
         unsigned int low = readMemory(zero++);
         unsigned short addr = readMemory(zero);
         addr <<= 8;
