@@ -36,7 +36,7 @@ static void printRegister(M6502* cpu) { printf("<REGISTER-DUMP> PC:$%04X A:$%02X
 static void check(int line, bool succeed)
 {
     if (!succeed) {
-        printf("TEST FAILED! (line: %d)\n", line);
+        fprintf(stderr, "TEST FAILED! (line: %d)\n", line);
         exit(255);
     }
 }
@@ -710,6 +710,26 @@ int main(int argc, char** argv)
         CHECK(clocks == 3);
         CHECK(len == 2);
         CHECK(mmu.ram[0xCD] == 0xAB);
+    }
+
+    puts("\n===== TEST:STA zeropage, X =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0xAA;
+        cpu.R.x = 0x11;
+        mmu.ram[cpu.R.pc + 0] = 0x95;
+        mmu.ram[cpu.R.pc + 1] = 0xCD;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0xDE] == 0xAA);
+        // overflow
+        mmu.ram[cpu.R.pc + 0] = 0x95;
+        mmu.ram[cpu.R.pc + 1] = 0xEF;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x00] == 0xAA);
     }
 
     printf("\ntotal clocks: %d\n", totalClocks);

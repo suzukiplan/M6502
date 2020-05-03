@@ -388,4 +388,16 @@ write memory: $00CD <- $AB
 [$8092] STA $CD
 <REGISTER-DUMP> PC:$8094 A:$AB X:$F0 Y:$CC S:$FF P:$80
 
-total clocks: 238
+===== TEST:STA zeropage, X =====
+read memory: $8094 -> $95
+read memory: $8095 -> $CD
+write memory: $00DE <- $AA
+[$8094] STA $CD,X<$11>
+<REGISTER-DUMP> PC:$8096 A:$AA X:$11 Y:$CC S:$FF P:$80
+read memory: $8096 -> $95
+read memory: $8097 -> $EF
+write memory: $0000 <- $AA
+[$8096] STA $EF,X<$11>
+<REGISTER-DUMP> PC:$8098 A:$AA X:$11 Y:$CC S:$FF P:$80
+
+total clocks: 246
