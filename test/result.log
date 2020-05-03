@@ -468,4 +468,31 @@ write memory: $0500 <- $FF
 [$80AD] STA ($10),Y<$FF>
 <REGISTER-DUMP> PC:$80AF A:$FF X:$20 Y:$FF S:$FF P:$80
 
-total clocks: 294
+===== TEST:STX zeropage =====
+read memory: $80AF -> $86
+read memory: $80B0 -> $50
+write memory: $0050 <- $22
+[$80AF] STX $50
+<REGISTER-DUMP> PC:$80B1 A:$FF X:$22 Y:$FF S:$FF P:$80
+
+===== TEST:STX zeropage, Y =====
+read memory: $80B1 -> $96
+read memory: $80B2 -> $51
+write memory: $0062 <- $AA
+[$80B1] STX $51,Y<$11>
+<REGISTER-DUMP> PC:$80B3 A:$FF X:$AA Y:$11 S:$FF P:$80
+read memory: $80B3 -> $96
+read memory: $80B4 -> $FF
+write memory: $0010 <- $AA
+[$80B3] STX $FF,Y<$11>
+<REGISTER-DUMP> PC:$80B5 A:$FF X:$AA Y:$11 S:$FF P:$80
+
+===== TEST:STX absolute =====
+read memory: $80B5 -> $8E
+read memory: $80B6 -> $CD
+read memory: $80B7 -> $40
+write memory: $40CD <- $DE
+[$80B5] STX $40CD
+<REGISTER-DUMP> PC:$80B8 A:$FF X:$DE Y:$11 S:$FF P:$80
+
+total clocks: 309
