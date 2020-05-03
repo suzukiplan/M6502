@@ -117,10 +117,8 @@ class M6502
     {
         R.s = 0;
         consumeClock();
-        updateStatusI(true);
-        consumeClock();
-        updateStatusB(false);
-        consumeClock();
+        updateStatusI(true, true);
+        updateStatusB(false, true);
         push(0);
         unsigned char pcL = readMemory(0xFFFC);
         unsigned char pcH = readMemory(0xFFFD);
