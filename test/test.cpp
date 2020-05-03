@@ -745,6 +745,28 @@ int main(int argc, char** argv)
         CHECK(mmu.ram[0x30CD] == 0xEF);
     }
 
+    puts("\n===== TEST:STA absolute, X =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0xBB;
+        cpu.R.x = 0x11;
+        mmu.ram[cpu.R.pc + 0] = 0x9D;
+        mmu.ram[cpu.R.pc + 1] = 0xCD;
+        mmu.ram[cpu.R.pc + 2] = 0x30;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(len == 3);
+        CHECK(mmu.ram[0x30DE] == 0xBB);
+        // next page
+        mmu.ram[cpu.R.pc + 0] = 0x9D;
+        mmu.ram[cpu.R.pc + 1] = 0xEF;
+        mmu.ram[cpu.R.pc + 2] = 0x30;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(len == 3);
+        CHECK(mmu.ram[0x3100] == 0xBB);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     return 0;
 }
