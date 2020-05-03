@@ -42,3 +42,4 @@
 |LDA absX|$BD |3  |4,5  |*| | | | |*| |cycle penalty|
 |LDX absY|$BE |3  |4,5  |*| | | | |*| |cycle penalty|
 |LDA zpgX|$B5 |2  |4    |*| | | | |*| ||
+|SBC imm |$E9 |2  |2    |*|*| | | |*|*||

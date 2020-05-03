@@ -1041,6 +1041,96 @@ int main(int argc, char** argv)
         CHECK(cpu.R.a == 0);
     }
 
+    puts("\n===== TEST:SBC immediate =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0x22;
+        cpu.R.p = 0b00000001;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 0x11;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x11);
+        CHECK(cpu.R.p == 0b00000000);
+
+        cpu.R.a = 0x22;
+        cpu.R.p = 0b00000000;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 0x11;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x10);
+        CHECK(cpu.R.p == 0b00000000);
+
+        // overflow
+        cpu.R.a = -128;
+        cpu.R.p = 0b00000001;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 0x01;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 127);
+        CHECK(cpu.R.p == 0b01000000);
+
+        // overflow
+        cpu.R.a = 1;
+        cpu.R.p = 0b00000001;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = -128;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 129);
+        CHECK(cpu.R.p == 0b11000001);
+
+        // carry
+        cpu.R.a = 1;
+        cpu.R.p = 0b00000001;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 0x02;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0xFF);
+        CHECK(cpu.R.p == 0b10000001);
+
+        // carry (negative)
+        cpu.R.a = 129;
+        cpu.R.p = 0b00000001;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 130;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0xFF);
+        CHECK(cpu.R.p == 0b10000001);
+
+        // zero
+        cpu.R.a = 0x20;
+        cpu.R.p = 0b00000001;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 0x20;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0);
+        CHECK(cpu.R.p == 0b00000010);
+
+        // unsigned
+        cpu.R.a = 235;
+        cpu.R.p = 0b00000001;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 199;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 36);
+        CHECK(cpu.R.p == 0b00000000);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

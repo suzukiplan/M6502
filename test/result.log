@@ -561,4 +561,38 @@ read memory: $80D1 -> $F6
 [$80D0] ADC #$F6
 <REGISTER-DUMP> PC:$80D2 A:$00 X:$11 Y:$C0 S:$FF P:$03
 
-total clocks: 344
+===== TEST:SBC immediate =====
+read memory: $80D2 -> $E9
+read memory: $80D3 -> $11
+[$80D2] SBC #$11
+<REGISTER-DUMP> PC:$80D4 A:$11 X:$11 Y:$C0 S:$FF P:$00
+read memory: $80D4 -> $E9
+read memory: $80D5 -> $11
+[$80D4] SBC #$11
+<REGISTER-DUMP> PC:$80D6 A:$10 X:$11 Y:$C0 S:$FF P:$00
+read memory: $80D6 -> $E9
+read memory: $80D7 -> $01
+[$80D6] SBC #$01
+<REGISTER-DUMP> PC:$80D8 A:$7F X:$11 Y:$C0 S:$FF P:$40
+read memory: $80D8 -> $E9
+read memory: $80D9 -> $80
+[$80D8] SBC #$80
+<REGISTER-DUMP> PC:$80DA A:$81 X:$11 Y:$C0 S:$FF P:$C1
+read memory: $80DA -> $E9
+read memory: $80DB -> $02
+[$80DA] SBC #$02
+<REGISTER-DUMP> PC:$80DC A:$FF X:$11 Y:$C0 S:$FF P:$81
+read memory: $80DC -> $E9
+read memory: $80DD -> $82
+[$80DC] SBC #$82
+<REGISTER-DUMP> PC:$80DE A:$FF X:$11 Y:$C0 S:$FF P:$81
+read memory: $80DE -> $E9
+read memory: $80DF -> $20
+[$80DE] SBC #$20
+<REGISTER-DUMP> PC:$80E0 A:$00 X:$11 Y:$C0 S:$FF P:$02
+read memory: $80E0 -> $E9
+read memory: $80E1 -> $C7
+[$80E0] SBC #$C7
+<REGISTER-DUMP> PC:$80E2 A:$24 X:$11 Y:$C0 S:$FF P:$00
+
+total clocks: 360
