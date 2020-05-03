@@ -732,6 +732,19 @@ int main(int argc, char** argv)
         CHECK(mmu.ram[0x00] == 0xAA);
     }
 
+    puts("\n===== TEST:STA absolute =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0xEF;
+        mmu.ram[cpu.R.pc + 0] = 0x8D;
+        mmu.ram[cpu.R.pc + 1] = 0xCD;
+        mmu.ram[cpu.R.pc + 2] = 0x30;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(mmu.ram[0x30CD] == 0xEF);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     return 0;
 }

@@ -400,4 +400,12 @@ write memory: $0000 <- $AA
 [$8096] STA $EF,X<$11>
 <REGISTER-DUMP> PC:$8098 A:$AA X:$11 Y:$CC S:$FF P:$80
 
-total clocks: 246
+===== TEST:STA absolute =====
+read memory: $8098 -> $8D
+read memory: $8099 -> $CD
+read memory: $809A -> $30
+write memory: $30CD <- $EF
+[$8098] STA $30CD
+<REGISTER-DUMP> PC:$809B A:$EF X:$11 Y:$CC S:$FF P:$80
+
+total clocks: 250
