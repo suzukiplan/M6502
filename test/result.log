@@ -422,4 +422,18 @@ write memory: $3100 <- $BB
 [$809E] STA $30EF,X<$11>
 <REGISTER-DUMP> PC:$80A1 A:$BB X:$11 Y:$CC S:$FF P:$80
 
-total clocks: 260
+===== TEST:STA absolute, Y =====
+read memory: $80A1 -> $99
+read memory: $80A2 -> $CD
+read memory: $80A3 -> $40
+write memory: $40DF <- $DD
+[$80A1] STA $40CD,Y<$12>
+<REGISTER-DUMP> PC:$80A4 A:$DD X:$11 Y:$12 S:$FF P:$80
+read memory: $80A4 -> $99
+read memory: $80A5 -> $EF
+read memory: $80A6 -> $40
+write memory: $4101 <- $DD
+[$80A4] STA $40EF,Y<$12>
+<REGISTER-DUMP> PC:$80A7 A:$DD X:$11 Y:$12 S:$FF P:$80
+
+total clocks: 270
