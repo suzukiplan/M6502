@@ -197,4 +197,21 @@ read memory: $8045 -> $80
 [$8044] LDX #$80
 <REGISTER-DUMP> PC:$8046 A:$99 X:$80 Y:$FF S:$FF P:$80
 
-total clocks: 121
+===== TEST:LDX zeropage =====
+read memory: $8046 -> $A6
+read memory: $8047 -> $00
+read memory: $0000 -> $00
+[$8046] LDX $00
+<REGISTER-DUMP> PC:$8048 A:$99 X:$00 Y:$FF S:$FF P:$02
+read memory: $8048 -> $A6
+read memory: $8049 -> $01
+read memory: $0001 -> $7F
+[$8048] LDX $01
+<REGISTER-DUMP> PC:$804A A:$99 X:$7F Y:$FF S:$FF P:$00
+read memory: $804A -> $A6
+read memory: $804B -> $02
+read memory: $0002 -> $80
+[$804A] LDX $02
+<REGISTER-DUMP> PC:$804C A:$99 X:$80 Y:$FF S:$FF P:$80
+
+total clocks: 130

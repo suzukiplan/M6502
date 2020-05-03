@@ -387,6 +387,35 @@ int main(int argc, char** argv)
         CHECK(cpu.R.x == 0x80);
     }
 
+    puts("\n===== TEST:LDX zeropage =====");
+    {
+        mmu.ram[0] = 0x00;
+        mmu.ram[1] = 0x7F;
+        mmu.ram[2] = 0x80;
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0xA6;
+        mmu.ram[cpu.R.pc + 1] = 0x00;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000010);
+        CHECK(cpu.R.x == 0x00);
+        mmu.ram[cpu.R.pc + 0] = 0xA6;
+        mmu.ram[cpu.R.pc + 1] = 0x01;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.x == 0x7F);
+        mmu.ram[cpu.R.pc + 0] = 0xA6;
+        mmu.ram[cpu.R.pc + 1] = 0x02;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b10000000);
+        CHECK(cpu.R.x == 0x80);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     return 0;
 }
