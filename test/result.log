@@ -282,4 +282,103 @@ read memory: $2100 -> $CC
 [$8066] LDX $2010,Y<$F0>
 <REGISTER-DUMP> PC:$8069 A:$99 X:$CC Y:$F0 S:$FF P:$80
 
-total clocks: 175
+===== TEST:LDY immediate =====
+read memory: $8069 -> $A0
+read memory: $806A -> $00
+[$8069] LDY #$00
+<REGISTER-DUMP> PC:$806B A:$99 X:$CC Y:$00 S:$FF P:$02
+read memory: $806B -> $A0
+read memory: $806C -> $7F
+[$806B] LDY #$7F
+<REGISTER-DUMP> PC:$806D A:$99 X:$CC Y:$7F S:$FF P:$00
+read memory: $806D -> $A0
+read memory: $806E -> $80
+[$806D] LDY #$80
+<REGISTER-DUMP> PC:$806F A:$99 X:$CC Y:$80 S:$FF P:$80
+
+===== TEST:LDY zeropage =====
+read memory: $806F -> $A4
+read memory: $8070 -> $00
+read memory: $0000 -> $00
+[$806F] LDY $00
+<REGISTER-DUMP> PC:$8071 A:$99 X:$CC Y:$00 S:$FF P:$02
+read memory: $8071 -> $A4
+read memory: $8072 -> $01
+read memory: $0001 -> $7F
+[$8071] LDY $01
+<REGISTER-DUMP> PC:$8073 A:$99 X:$CC Y:$7F S:$FF P:$00
+read memory: $8073 -> $A4
+read memory: $8074 -> $02
+read memory: $0002 -> $80
+[$8073] LDY $02
+<REGISTER-DUMP> PC:$8075 A:$99 X:$CC Y:$80 S:$FF P:$80
+
+===== TEST:LDY zeropage, X =====
+read memory: $8075 -> $B4
+read memory: $8076 -> $00
+read memory: $00F0 -> $00
+[$8075] LDY $00,X<$F0>
+<REGISTER-DUMP> PC:$8077 A:$99 X:$F0 Y:$00 S:$FF P:$02
+read memory: $8077 -> $B4
+read memory: $8078 -> $01
+read memory: $00F1 -> $7F
+[$8077] LDY $01,X<$F0>
+<REGISTER-DUMP> PC:$8079 A:$99 X:$F0 Y:$7F S:$FF P:$00
+read memory: $8079 -> $B4
+read memory: $807A -> $02
+read memory: $00F2 -> $80
+[$8079] LDY $02,X<$F0>
+<REGISTER-DUMP> PC:$807B A:$99 X:$F0 Y:$80 S:$FF P:$80
+read memory: $807B -> $B4
+read memory: $807C -> $10
+read memory: $0000 -> $00
+[$807B] LDY $10,X<$F0>
+<REGISTER-DUMP> PC:$807D A:$99 X:$F0 Y:$00 S:$FF P:$02
+
+===== TEST:LDY absolute =====
+read memory: $807D -> $AC
+read memory: $807E -> $00
+read memory: $807F -> $20
+read memory: $2000 -> $00
+[$807D] LDY $2000
+<REGISTER-DUMP> PC:$8080 A:$99 X:$F0 Y:$00 S:$FF P:$02
+read memory: $8080 -> $AC
+read memory: $8081 -> $01
+read memory: $8082 -> $20
+read memory: $2001 -> $7F
+[$8080] LDY $2001
+<REGISTER-DUMP> PC:$8083 A:$99 X:$F0 Y:$7F S:$FF P:$00
+read memory: $8083 -> $AC
+read memory: $8084 -> $02
+read memory: $8085 -> $20
+read memory: $2002 -> $80
+[$8083] LDY $2002
+<REGISTER-DUMP> PC:$8086 A:$99 X:$F0 Y:$80 S:$FF P:$80
+
+===== TEST:LDY absolute, X =====
+read memory: $8086 -> $BC
+read memory: $8087 -> $00
+read memory: $8088 -> $20
+read memory: $20F0 -> $00
+[$8086] LDY $2000,X<$F0>
+<REGISTER-DUMP> PC:$8089 A:$99 X:$F0 Y:$00 S:$FF P:$02
+read memory: $8089 -> $BC
+read memory: $808A -> $01
+read memory: $808B -> $20
+read memory: $20F1 -> $7F
+[$8089] LDY $2001,X<$F0>
+<REGISTER-DUMP> PC:$808C A:$99 X:$F0 Y:$7F S:$FF P:$00
+read memory: $808C -> $BC
+read memory: $808D -> $02
+read memory: $808E -> $20
+read memory: $20F2 -> $80
+[$808C] LDY $2002,X<$F0>
+<REGISTER-DUMP> PC:$808F A:$99 X:$F0 Y:$80 S:$FF P:$80
+read memory: $808F -> $BC
+read memory: $8090 -> $10
+read memory: $8091 -> $20
+read memory: $2100 -> $CC
+[$808F] LDY $2010,X<$F0>
+<REGISTER-DUMP> PC:$8092 A:$99 X:$F0 Y:$CC S:$FF P:$80
+
+total clocks: 235
