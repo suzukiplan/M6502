@@ -1,5 +1,5 @@
 /**
- * SUZUKI PLAN - MOS6502 Emulator
+ * SUZUKI PLAN - Perfect MOS6502 Emulator
  * -----------------------------------------------------------------------------
  * The MIT License (MIT)
  * 
