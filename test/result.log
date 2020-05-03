@@ -548,5 +548,13 @@ read memory: $80CA -> $18
 read memory: $80CB -> $B8
 [$80CB] CLV 
 <REGISTER-DUMP> PC:$80CC A:$7F X:$11 Y:$C0 S:$FF P:$00
+read memory: $80CC -> $69
+read memory: $80CD -> $FF
+[$80CC] ADC #$FF
+<REGISTER-DUMP> PC:$80CE A:$FE X:$11 Y:$C0 S:$FF P:$81
+read memory: $80CE -> $69
+read memory: $80CF -> $01
+[$80CE] ADC #$01
+<REGISTER-DUMP> PC:$80D0 A:$FE X:$11 Y:$C0 S:$FF P:$80
 
-total clocks: 338
+total clocks: 342
