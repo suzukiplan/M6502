@@ -909,6 +909,51 @@ int main(int argc, char** argv)
         CHECK(mmu.ram[0x40CD] == 0xDE);
     }
 
+    puts("\n===== TEST:STY zeropage =====");
+    {
+        int clocks, len, pc;
+        cpu.R.y = 0x33;
+        mmu.ram[cpu.R.pc + 0] = 0x84;
+        mmu.ram[cpu.R.pc + 1] = 0x55;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x55] == 0x33);
+    }
+
+    puts("\n===== TEST:STY zeropage, X =====");
+    {
+        int clocks, len, pc;
+        cpu.R.y = 0xBB;
+        cpu.R.x = 0x11;
+        mmu.ram[cpu.R.pc + 0] = 0x94;
+        mmu.ram[cpu.R.pc + 1] = 0x52;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x63] == 0xBB);
+        // overflow
+        mmu.ram[cpu.R.pc + 0] = 0x94;
+        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x10] == 0xBB);
+    }
+
+    puts("\n===== TEST:STY absolute =====");
+    {
+        int clocks, len, pc;
+        cpu.R.y = 0xC0;
+        mmu.ram[cpu.R.pc + 0] = 0x8C;
+        mmu.ram[cpu.R.pc + 1] = 0xCE;
+        mmu.ram[cpu.R.pc + 2] = 0x40;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(mmu.ram[0x40CE] == 0xC0);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;
