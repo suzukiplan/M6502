@@ -1,4 +1,5 @@
 #include "../m6502.hpp"
+#include <ctype.h>
 
 class TestMMU
 {
@@ -24,6 +25,28 @@ class TestMMU
         printf("write memory: $%04X <- $%02X\n", addr, value);
         ram[addr] = value;
     }
+
+    void outputMemoryDump()
+    {
+        FILE* fp = fopen("result.dump", "wt");
+        if (fp) {
+            char buf[256];
+            char ascii[17];
+            ascii[16] = '\0';
+            for (int i = 0; i < 4096; i++) {
+                unsigned short addr = i * 16;
+                sprintf(buf, "$%04X:", addr);
+                for (int j = 0; j < 16; j++) {
+                    if (j == 8) strcat(buf, " -");
+                    unsigned char c = ram[addr++];
+                    sprintf(&buf[strlen(buf)], " %02X", c);
+                    ascii[j] = isprint(c) ? c : '.';
+                }
+                fprintf(fp, "%s : %s\n", buf, ascii);
+            }
+            fclose(fp);
+        }
+    }
 };
 
 static int totalClocks;
@@ -33,14 +56,15 @@ static void consumeClock(void* arg) { totalClocks++; }
 static void debugMessage(void* arg, const char* message) { printf("%s\n", message); }
 static void printRegister(M6502* cpu) { printf("<REGISTER-DUMP> PC:$%04X A:$%02X X:$%02X Y:$%02X S:$%02X P:$%02X\n", cpu->R.pc, cpu->R.a, cpu->R.x, cpu->R.y, cpu->R.s, cpu->R.p); }
 
-static void check(int line, bool succeed)
+static void check(int line, TestMMU* mmu, bool succeed)
 {
     if (!succeed) {
         fprintf(stderr, "TEST FAILED! (line: %d)\n", line);
+        mmu->outputMemoryDump();
         exit(255);
     }
 }
-#define CHECK(X) check(__LINE__, X)
+#define CHECK(X) check(__LINE__, &mmu, X)
 #define EXECUTE()            \
     pc = cpu.R.pc;           \
     clocks = cpu.execute(1); \
@@ -816,5 +840,6 @@ int main(int argc, char** argv)
     }
 
     printf("\ntotal clocks: %d\n", totalClocks);
+    mmu.outputMemoryDump();
     return 0;
 }
