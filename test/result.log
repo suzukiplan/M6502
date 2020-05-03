@@ -1,0 +1,200 @@
+===== INIT =====
+write memory: $0100 <- $00
+read memory: $FFFC -> $00
+read memory: $FFFD -> $80
+
+===== TEST:CLI =====
+read memory: $8000 -> $58
+[$8000] CLI 
+<REGISTER-DUMP> PC:$8001 A:$00 X:$00 Y:$00 S:$FF P:$00
+
+===== TEST:BRK =====
+read memory: $8001 -> $00
+write memory: $01FF <- $80
+write memory: $01FE <- $03
+write memory: $01FD <- $00
+read memory: $FFFE -> $00
+read memory: $FFFF -> $00
+[$8001] BRK 
+<REGISTER-DUMP> PC:$0000 A:$00 X:$00 Y:$00 S:$FC P:$14
+
+===== TEST:RTI =====
+read memory: $0000 -> $40
+read memory: $01FD -> $00
+read memory: $01FE -> $03
+read memory: $01FF -> $80
+[$0000] RTI 
+<REGISTER-DUMP> PC:$8003 A:$00 X:$00 Y:$00 S:$FF P:$00
+
+===== TEST:LDA immediate =====
+read memory: $8003 -> $A9
+read memory: $8004 -> $00
+[$8003] LDA #$00
+<REGISTER-DUMP> PC:$8005 A:$00 X:$00 Y:$00 S:$FF P:$02
+read memory: $8005 -> $A9
+read memory: $8006 -> $7F
+[$8005] LDA #$7F
+<REGISTER-DUMP> PC:$8007 A:$7F X:$00 Y:$00 S:$FF P:$00
+read memory: $8007 -> $A9
+read memory: $8008 -> $80
+[$8007] LDA #$80
+<REGISTER-DUMP> PC:$8009 A:$80 X:$00 Y:$00 S:$FF P:$80
+
+===== TEST:LDA zeropage =====
+read memory: $8009 -> $A5
+read memory: $800A -> $00
+read memory: $0000 -> $00
+[$8009] LDA $00
+<REGISTER-DUMP> PC:$800B A:$00 X:$00 Y:$00 S:$FF P:$02
+read memory: $800B -> $A5
+read memory: $800C -> $01
+read memory: $0001 -> $7F
+[$800B] LDA $01
+<REGISTER-DUMP> PC:$800D A:$7F X:$00 Y:$00 S:$FF P:$00
+read memory: $800D -> $A5
+read memory: $800E -> $02
+read memory: $0002 -> $80
+[$800D] LDA $02
+<REGISTER-DUMP> PC:$800F A:$80 X:$00 Y:$00 S:$FF P:$80
+
+===== TEST:LDA zeropage, X =====
+read memory: $800F -> $B5
+read memory: $8010 -> $00
+read memory: $00F0 -> $00
+[$800F] LDA $00,X<$F0>
+<REGISTER-DUMP> PC:$8011 A:$00 X:$F0 Y:$00 S:$FF P:$02
+read memory: $8011 -> $B5
+read memory: $8012 -> $01
+read memory: $00F1 -> $7F
+[$8011] LDA $01,X<$F0>
+<REGISTER-DUMP> PC:$8013 A:$7F X:$F0 Y:$00 S:$FF P:$00
+read memory: $8013 -> $B5
+read memory: $8014 -> $02
+read memory: $00F2 -> $80
+[$8013] LDA $02,X<$F0>
+<REGISTER-DUMP> PC:$8015 A:$80 X:$F0 Y:$00 S:$FF P:$80
+read memory: $8015 -> $B5
+read memory: $8016 -> $10
+read memory: $0000 -> $00
+[$8015] LDA $10,X<$F0>
+<REGISTER-DUMP> PC:$8017 A:$00 X:$F0 Y:$00 S:$FF P:$02
+
+===== TEST:LDA absolute =====
+read memory: $8017 -> $AD
+read memory: $8018 -> $00
+read memory: $8019 -> $20
+read memory: $2000 -> $00
+[$8017] LDA $2000
+<REGISTER-DUMP> PC:$801A A:$00 X:$F0 Y:$00 S:$FF P:$02
+read memory: $801A -> $AD
+read memory: $801B -> $01
+read memory: $801C -> $20
+read memory: $2001 -> $7F
+[$801A] LDA $2001
+<REGISTER-DUMP> PC:$801D A:$7F X:$F0 Y:$00 S:$FF P:$00
+read memory: $801D -> $AD
+read memory: $801E -> $02
+read memory: $801F -> $20
+read memory: $2002 -> $80
+[$801D] LDA $2002
+<REGISTER-DUMP> PC:$8020 A:$80 X:$F0 Y:$00 S:$FF P:$80
+
+===== TEST:LDA absolute, X =====
+read memory: $8020 -> $BD
+read memory: $8021 -> $00
+read memory: $8022 -> $20
+read memory: $20F0 -> $00
+[$8020] LDA $2000,X<$F0>
+<REGISTER-DUMP> PC:$8023 A:$00 X:$F0 Y:$00 S:$FF P:$02
+read memory: $8023 -> $BD
+read memory: $8024 -> $01
+read memory: $8025 -> $20
+read memory: $20F1 -> $7F
+[$8023] LDA $2001,X<$F0>
+<REGISTER-DUMP> PC:$8026 A:$7F X:$F0 Y:$00 S:$FF P:$00
+read memory: $8026 -> $BD
+read memory: $8027 -> $02
+read memory: $8028 -> $20
+read memory: $20F2 -> $80
+[$8026] LDA $2002,X<$F0>
+<REGISTER-DUMP> PC:$8029 A:$80 X:$F0 Y:$00 S:$FF P:$80
+read memory: $8029 -> $BD
+read memory: $802A -> $10
+read memory: $802B -> $20
+read memory: $2100 -> $CC
+[$8029] LDA $2010,X<$F0>
+<REGISTER-DUMP> PC:$802C A:$CC X:$F0 Y:$00 S:$FF P:$80
+
+===== TEST:LDA absolute, Y =====
+read memory: $802C -> $B9
+read memory: $802D -> $00
+read memory: $802E -> $20
+read memory: $20F0 -> $00
+[$802C] LDA $2000,Y<$F0>
+<REGISTER-DUMP> PC:$802F A:$00 X:$F0 Y:$F0 S:$FF P:$02
+read memory: $802F -> $B9
+read memory: $8030 -> $01
+read memory: $8031 -> $20
+read memory: $20F1 -> $7F
+[$802F] LDA $2001,Y<$F0>
+<REGISTER-DUMP> PC:$8032 A:$7F X:$F0 Y:$F0 S:$FF P:$00
+read memory: $8032 -> $B9
+read memory: $8033 -> $02
+read memory: $8034 -> $20
+read memory: $20F2 -> $80
+[$8032] LDA $2002,Y<$F0>
+<REGISTER-DUMP> PC:$8035 A:$80 X:$F0 Y:$F0 S:$FF P:$80
+read memory: $8035 -> $B9
+read memory: $8036 -> $10
+read memory: $8037 -> $20
+read memory: $2100 -> $CC
+[$8035] LDA $2010,Y<$F0>
+<REGISTER-DUMP> PC:$8038 A:$CC X:$F0 Y:$F0 S:$FF P:$80
+
+===== TEST:LDA indirect, X =====
+read memory: $8038 -> $A1
+read memory: $8039 -> $10
+read memory: $0030 -> $03
+read memory: $0031 -> $02
+read memory: $0203 -> $44
+[$8038] LDA ($10,X<$20>)
+<REGISTER-DUMP> PC:$803A A:$44 X:$20 Y:$F0 S:$FF P:$00
+read memory: $803A -> $A1
+read memory: $803B -> $F0
+read memory: $0010 -> $04
+read memory: $0011 -> $02
+read memory: $0204 -> $88
+[$803A] LDA ($F0,X<$20>)
+<REGISTER-DUMP> PC:$803C A:$88 X:$20 Y:$F0 S:$FF P:$80
+
+===== TEST:LDA indirect, Y =====
+read memory: $803C -> $B1
+read memory: $803D -> $10
+read memory: $0010 -> $01
+read memory: $0011 -> $02
+read memory: $0203 -> $55
+[$803C] LDA ($10),Y<$02>
+<REGISTER-DUMP> PC:$803E A:$55 X:$20 Y:$02 S:$FF P:$00
+read memory: $803E -> $B1
+read memory: $803F -> $10
+read memory: $0010 -> $01
+read memory: $0011 -> $02
+read memory: $0300 -> $99
+[$803E] LDA ($10),Y<$FF>
+<REGISTER-DUMP> PC:$8040 A:$99 X:$20 Y:$FF S:$FF P:$80
+
+===== TEST:LDX immediate =====
+read memory: $8040 -> $A2
+read memory: $8041 -> $00
+[$8040] LDX #$00
+<REGISTER-DUMP> PC:$8042 A:$99 X:$00 Y:$FF S:$FF P:$02
+read memory: $8042 -> $A2
+read memory: $8043 -> $7F
+[$8042] LDX #$7F
+<REGISTER-DUMP> PC:$8044 A:$99 X:$7F Y:$FF S:$FF P:$00
+read memory: $8044 -> $A2
+read memory: $8045 -> $80
+[$8044] LDX #$80
+<REGISTER-DUMP> PC:$8046 A:$99 X:$80 Y:$FF S:$FF P:$80
+
+total clocks: 121
