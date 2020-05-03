@@ -543,8 +543,8 @@ class M6502
 
     inline void push(unsigned char value)
     {
-        writeMemory(0x0100 + R.s, value);
         R.s--;
+        writeMemory(0x0100 + R.s, value);
     }
     inline void ph(const char* mne, unsigned char r)
     {
@@ -557,8 +557,8 @@ class M6502
 
     inline unsigned char pull()
     {
-        R.s++;
         unsigned char result = readMemory(0x0100 + R.s);
+        R.s++;
         return result;
     }
     inline void pl(const char* mne, unsigned char* r)

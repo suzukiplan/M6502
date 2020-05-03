@@ -1,5 +1,5 @@
 ===== INIT =====
-write memory: $0100 <- $00
+write memory: $01FF <- $00
 read memory: $FFFC -> $00
 read memory: $FFFD -> $80
 
@@ -10,9 +10,9 @@ read memory: $8000 -> $58
 
 ===== TEST:BRK =====
 read memory: $8001 -> $00
-write memory: $01FF <- $80
-write memory: $01FE <- $03
-write memory: $01FD <- $00
+write memory: $01FE <- $80
+write memory: $01FD <- $03
+write memory: $01FC <- $00
 read memory: $FFFE -> $00
 read memory: $FFFF -> $00
 [$8001] BRK 
@@ -20,9 +20,9 @@ read memory: $FFFF -> $00
 
 ===== TEST:RTI =====
 read memory: $0000 -> $40
-read memory: $01FD -> $00
-read memory: $01FE -> $03
-read memory: $01FF -> $80
+read memory: $01FC -> $00
+read memory: $01FD -> $03
+read memory: $01FE -> $80
 [$0000] RTI 
 <REGISTER-DUMP> PC:$8003 A:$00 X:$00 Y:$00 S:$FF P:$00
 
