@@ -522,4 +522,31 @@ write memory: $40CE <- $C0
 [$80BE] STY $40CE
 <REGISTER-DUMP> PC:$80C1 A:$FF X:$11 Y:$C0 S:$FF P:$80
 
-total clocks: 324
+===== TEST:ADC immediate + SEC/CLC/CLV =====
+read memory: $80C1 -> $69
+read memory: $80C2 -> $22
+[$80C1] ADC #$22
+<REGISTER-DUMP> PC:$80C3 A:$33 X:$11 Y:$C0 S:$FF P:$00
+read memory: $80C3 -> $38
+[$80C3] SEC 
+<REGISTER-DUMP> PC:$80C4 A:$33 X:$11 Y:$C0 S:$FF P:$01
+read memory: $80C4 -> $69
+read memory: $80C5 -> $22
+[$80C4] ADC #$22
+<REGISTER-DUMP> PC:$80C6 A:$56 X:$11 Y:$C0 S:$FF P:$00
+read memory: $80C6 -> $69
+read memory: $80C7 -> $7F
+[$80C6] ADC #$7F
+<REGISTER-DUMP> PC:$80C8 A:$80 X:$11 Y:$C0 S:$FF P:$C0
+read memory: $80C8 -> $69
+read memory: $80C9 -> $FF
+[$80C8] ADC #$FF
+<REGISTER-DUMP> PC:$80CA A:$7F X:$11 Y:$C0 S:$FF P:$41
+read memory: $80CA -> $18
+[$80CA] CLC 
+<REGISTER-DUMP> PC:$80CB A:$7F X:$11 Y:$C0 S:$FF P:$40
+read memory: $80CB -> $B8
+[$80CB] CLV 
+<REGISTER-DUMP> PC:$80CC A:$7F X:$11 Y:$C0 S:$FF P:$00
+
+total clocks: 338

@@ -54,17 +54,18 @@ static unsigned char readMemory(void* arg, unsigned short addr) { return ((TestM
 static void writeMemory(void* arg, unsigned short addr, unsigned char value) { ((TestMMU*)arg)->writeMemory(addr, value); }
 static void consumeClock(void* arg) { totalClocks++; }
 static void debugMessage(void* arg, const char* message) { printf("%s\n", message); }
-static void printRegister(M6502* cpu) { printf("<REGISTER-DUMP> PC:$%04X A:$%02X X:$%02X Y:$%02X S:$%02X P:$%02X\n", cpu->R.pc, cpu->R.a, cpu->R.x, cpu->R.y, cpu->R.s, cpu->R.p); }
+static void printRegister(M6502* cpu, FILE* fp = stdout) { fprintf(fp, "<REGISTER-DUMP> PC:$%04X A:$%02X X:$%02X Y:$%02X S:$%02X P:$%02X\n", cpu->R.pc, cpu->R.a, cpu->R.x, cpu->R.y, cpu->R.s, cpu->R.p); }
 
-static void check(int line, TestMMU* mmu, bool succeed)
+static void check(int line, M6502* cpu, TestMMU* mmu, bool succeed)
 {
     if (!succeed) {
         fprintf(stderr, "TEST FAILED! (line: %d)\n", line);
+        printRegister(cpu, stderr);
         mmu->outputMemoryDump();
         exit(255);
     }
 }
-#define CHECK(X) check(__LINE__, &mmu, X)
+#define CHECK(X) check(__LINE__, &cpu, &mmu, X)
 #define EXECUTE()            \
     pc = cpu.R.pc;           \
     clocks = cpu.execute(1); \
@@ -952,6 +953,63 @@ int main(int argc, char** argv)
         CHECK(clocks == 4);
         CHECK(len == 3);
         CHECK(mmu.ram[0x40CE] == 0xC0);
+    }
+
+    puts("\n===== TEST:ADC immediate + SEC/CLC/CLV =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0x11;
+        cpu.R.p = 0;
+        mmu.ram[cpu.R.pc + 0] = 0x69;
+        mmu.ram[cpu.R.pc + 1] = 0x22;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x33);
+        CHECK(cpu.R.p == 0b00000000);
+        // SEC
+        mmu.ram[cpu.R.pc + 0] = 0x38;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.p == 0b00000001);
+        // add with carry
+        mmu.ram[cpu.R.pc + 0] = 0x69;
+        mmu.ram[cpu.R.pc + 1] = 0x22;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x56);
+        CHECK(cpu.R.p == 0b00000000);
+        // negative + overflow
+        mmu.ram[cpu.R.pc + 0] = 0x69;
+        mmu.ram[cpu.R.pc + 1] = 127;
+        cpu.R.a = 1;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b11000000);
+        CHECK(cpu.R.a == 0x80);
+        // carry + overflow
+        mmu.ram[cpu.R.pc + 0] = 0x69;
+        mmu.ram[cpu.R.pc + 1] = -1;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b01000001);
+        CHECK(cpu.R.a == 127);
+        // CLC
+        mmu.ram[cpu.R.pc + 0] = 0x18;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.p == 0b01000000);
+        // CLV
+        mmu.ram[cpu.R.pc + 0] = 0xB8;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.p == 0b00000000);
     }
 
     printf("\ntotal clocks: %d\n", totalClocks);

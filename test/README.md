@@ -5,8 +5,11 @@
 |MNEMONIC|CODE|LEN|Hz   |N|V|B|D|I|Z|C|NOTE|
 |--------|----|:-:|:---:|-|-|-|-|-|-|-|:-|
 |BRK     |$00 |1  |7    | | |1| |1| | ||
+|CLC     |$18 |1  |2    | | | | | | |0||
+|SEC     |$38 |1  |2    | | | | | | |1||
 |RTI     |$40 |1  |6    |s|s|s|s|s|s|s||
 |CLI     |$58 |1  |2    | | | | |0| | ||
+|ADC imm |$69 |2  |2    |*|*| | | |*|*||
 |STA indX|$81 |2  |6    | | | | | | | ||
 |STY zpg |$84 |2  |3    | | | | | | | ||
 |STA zpg |$85 |2  |3    | | | | | | | ||
@@ -33,6 +36,7 @@
 |LDA indY|$B1 |2  |5,6  |*| | | | |*| |cycle penalty|
 |LDY zpgX|$B4 |2  |4    |*| | | | |*| ||
 |LDX zpgY|$B6 |2  |4    |*| | | | |*| ||
+|CLV     |$B8 |1  |2    | |0| | | | | ||
 |LDA absY|$B9 |3  |4,5  |*| | | | |*| |cycle penalty|
 |LDY absX|$BC |3  |4,5  |*| | | | |*| |cycle penalty|
 |LDA absX|$BD |3  |4,5  |*| | | | |*| |cycle penalty|
