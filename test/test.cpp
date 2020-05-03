@@ -700,6 +700,18 @@ int main(int argc, char** argv)
         CHECK(cpu.R.y == 0xCC);
     }
 
+    puts("\n===== TEST:STA zeropage =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0xAB;
+        mmu.ram[cpu.R.pc + 0] = 0x85;
+        mmu.ram[cpu.R.pc + 1] = 0xCD;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0xCD] == 0xAB);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     return 0;
 }

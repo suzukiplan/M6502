@@ -381,4 +381,11 @@ read memory: $2100 -> $CC
 [$808F] LDY $2010,X<$F0>
 <REGISTER-DUMP> PC:$8092 A:$99 X:$F0 Y:$CC S:$FF P:$80
 
-total clocks: 235
+===== TEST:STA zeropage =====
+read memory: $8092 -> $85
+read memory: $8093 -> $CD
+write memory: $00CD <- $AB
+[$8092] STA $CD
+<REGISTER-DUMP> PC:$8094 A:$AB X:$F0 Y:$CC S:$FF P:$80
+
+total clocks: 238
