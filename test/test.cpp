@@ -789,6 +789,32 @@ int main(int argc, char** argv)
         CHECK(mmu.ram[0x4101] == 0xDD);
     }
 
+    puts("\n===== TEST:STA indirect, X =====");
+    {
+        mmu.ram[0x0010] = 0x04;
+        mmu.ram[0x0011] = 0x02;
+        mmu.ram[0x0030] = 0x03;
+        mmu.ram[0x0031] = 0x02;
+        mmu.ram[0x0203] = 0x44;
+        mmu.ram[0x0204] = 0x88;
+        cpu.R.a = 0xFF;
+        cpu.R.x = 0x20;
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0x81;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x0203] == 0xFF);
+        // page overflow
+        mmu.ram[cpu.R.pc + 0] = 0x81;
+        mmu.ram[cpu.R.pc + 1] = 0xF0;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x0204] == 0xFF);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     return 0;
 }

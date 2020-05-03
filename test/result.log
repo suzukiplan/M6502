@@ -436,4 +436,20 @@ write memory: $4101 <- $DD
 [$80A4] STA $40EF,Y<$12>
 <REGISTER-DUMP> PC:$80A7 A:$DD X:$11 Y:$12 S:$FF P:$80
 
-total clocks: 270
+===== TEST:STA indirect, X =====
+read memory: $80A7 -> $81
+read memory: $80A8 -> $10
+read memory: $0030 -> $03
+read memory: $0031 -> $02
+write memory: $0203 <- $FF
+[$80A7] STA ($10,X<$20>)
+<REGISTER-DUMP> PC:$80A9 A:$FF X:$20 Y:$12 S:$FF P:$80
+read memory: $80A9 -> $81
+read memory: $80AA -> $F0
+read memory: $0010 -> $04
+read memory: $0011 -> $02
+write memory: $0204 <- $FF
+[$80A9] STA ($F0,X<$20>)
+<REGISTER-DUMP> PC:$80AB A:$FF X:$20 Y:$12 S:$FF P:$80
+
+total clocks: 282
