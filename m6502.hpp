@@ -458,7 +458,7 @@ class M6502
         updateStatusN(R.a & 0x80);
         updateStatusV((R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a) != a);
         updateStatusZ(R.a == 0);
-        updateStatusC(pa < value);
+        updateStatusC(pa - value < 0);
     }
 
     inline void and_(unsigned char value)
