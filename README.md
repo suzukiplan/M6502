@@ -18,8 +18,8 @@
 - Perfect cycle penalty implementation
 - Perfect synchronization (syncable with every 1 clock)
 - Perfect responsibility separation of MMU (Memory Management Unit) implementation
-- Perfect quoality (executed FULL TEST)
-- Perfect readable code
+- Perfect quality via execute full test automatically _(NOT FULL IN CURRENTLY)_
+- Perfect readable code?
 - Perfect debuging features
 
 ## Support Operating System
