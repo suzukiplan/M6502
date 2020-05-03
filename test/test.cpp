@@ -486,6 +486,49 @@ int main(int argc, char** argv)
         CHECK(cpu.R.x == 0x80);
     }
 
+    puts("\n===== TEST:LDX absolute, Y =====");
+    {
+        mmu.ram[0x20F0] = 0x00;
+        mmu.ram[0x20F1] = 0x7F;
+        mmu.ram[0x20F2] = 0x80;
+        mmu.ram[0x2100] = 0xCC;
+        cpu.R.y = 0xF0;
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0xBE;
+        mmu.ram[cpu.R.pc + 1] = 0x00;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(cpu.R.p == 0b00000010);
+        CHECK(cpu.R.x == 0x00);
+        mmu.ram[cpu.R.pc + 0] = 0xBE;
+        mmu.ram[cpu.R.pc + 1] = 0x01;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.x == 0x7F);
+        mmu.ram[cpu.R.pc + 0] = 0xBE;
+        mmu.ram[cpu.R.pc + 1] = 0x02;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(cpu.R.p == 0b10000000);
+        CHECK(cpu.R.x == 0x80);
+        // page overflow
+        mmu.ram[cpu.R.pc + 0] = 0xBE;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(len == 3);
+        CHECK(cpu.R.p == 0b10000000);
+        CHECK(cpu.R.x == 0xCC);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     return 0;
 }
