@@ -22,6 +22,12 @@
 - Perfect readable code
 - Perfect debuging features
 
+## Support operating system
+
+- Supports 32-bit or 64-bit Operating System that can use C standard functions and C++.
+- Endian free (Compatible with both Big Endian and Little Endian)
+- Thread free (supports multiple thread)
+
 ## License
 
 MIT (described in the [m6502.hpp](m6502.hpp))
