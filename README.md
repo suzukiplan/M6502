@@ -22,7 +22,7 @@
 - Perfect readable code
 - Perfect debuging features
 
-## Support operating system
+## Support Operating System
 
 - Supports 32-bit or 64-bit Operating System that can use C standard functions and C++.
 - Endian free (Compatible with both Big Endian and Little Endian)
