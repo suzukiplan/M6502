@@ -56,6 +56,7 @@ class M6502
     int clockConsumed;
     void (*operands[256])(M6502*);
     int mode;
+    inline bool isSupportBCD() { return this->mode == M6502_MODE_NORMAL; }
 
   public:
     /**
@@ -1203,7 +1204,8 @@ class M6502
         operands[0xB8] = clv;
         operands[0x38] = sec;
         operands[0x78] = sei;
-        if (mode != M6502_MODE_RP2A03) {
+
+        if (isSupportBCD()) {
             operands[0xD8] = cld;
             operands[0xF8] = sed;
         }
