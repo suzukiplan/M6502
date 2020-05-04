@@ -78,7 +78,7 @@ static void writeMemory(void* arg, unsigned short addr, unsigned char value) {
 }
 ```
 
-### 3) Make M6502 instance & use it
+### 3) Make M6502 instance & execute
 
 ```c++
     M6502* cpu = new M6502(M6502_MODE_NORMAL, readMemory, writeMemory, NULL);
