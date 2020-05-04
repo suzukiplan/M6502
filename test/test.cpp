@@ -1160,6 +1160,15 @@ int main(int argc, char** argv)
         CHECK(len == 2);
         CHECK(cpu.R.a == 0x35);
         CHECK(cpu.R.p == 0b00000000);
+        // overflow
+        mmu.ram[cpu.R.pc + 0] = 0x75;
+        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[0x00] = 0x25;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x5A);
+        CHECK(cpu.R.p == 0b00000000);
     }
 
     printf("\ntotal clocks: %d\n", totalClocks);

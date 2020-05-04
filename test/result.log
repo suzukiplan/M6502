@@ -608,5 +608,10 @@ read memory: $80E5 -> $50
 read memory: $0051 -> $24
 [$80E4] ADC $50,X<$01>
 <REGISTER-DUMP> PC:$80E6 A:$35 X:$01 Y:$C0 S:$FF P:$00
+read memory: $80E6 -> $75
+read memory: $80E7 -> $FF
+read memory: $0000 -> $25
+[$80E6] ADC $FF,X<$01>
+<REGISTER-DUMP> PC:$80E8 A:$5A X:$01 Y:$C0 S:$FF P:$00
 
-total clocks: 367
+total clocks: 371
