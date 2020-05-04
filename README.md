@@ -82,7 +82,7 @@ static void writeMemory(void* arg, unsigned short addr, unsigned char value) {
 
 ```c++
     M6502* cpu = new M6502(M6502_MODE_NORMAL, readMemory, writeMemory, NULL);
-    int clocks = cpu->execute(1789773 / 60); // execute
+    int clocks = cpu->execute(1789773 / 60);
     printf("executed %d Hz\n", clocks);
     delete cpu;
 ```
