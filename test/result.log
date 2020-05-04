@@ -622,4 +622,32 @@ read memory: $2050 -> $24
 [$80E8] ADC $2050
 <REGISTER-DUMP> PC:$80EB A:$35 X:$01 Y:$C0 S:$FF P:$00
 
-total clocks: 375
+===== TEST:ADC absolute, X =====
+read memory: $80EB -> $7D
+read memory: $80EC -> $7F
+read memory: $80ED -> $20
+read memory: $20FF -> $30
+[$80EB] ADC $207F,X<$80>
+<REGISTER-DUMP> PC:$80EE A:$41 X:$80 Y:$C0 S:$FF P:$00
+read memory: $80EE -> $7D
+read memory: $80EF -> $8F
+read memory: $80F0 -> $20
+read memory: $210F -> $44
+[$80EE] ADC $208F,X<$80>
+<REGISTER-DUMP> PC:$80F1 A:$85 X:$80 Y:$C0 S:$FF P:$C0
+
+===== TEST:ADC absolute, Y =====
+read memory: $80F1 -> $79
+read memory: $80F2 -> $7F
+read memory: $80F3 -> $20
+read memory: $20FF -> $30
+[$80F1] ADC $207F,Y<$80>
+<REGISTER-DUMP> PC:$80F4 A:$41 X:$80 Y:$80 S:$FF P:$00
+read memory: $80F4 -> $79
+read memory: $80F5 -> $8F
+read memory: $80F6 -> $20
+read memory: $210F -> $44
+[$80F4] ADC $208F,Y<$80>
+<REGISTER-DUMP> PC:$80F7 A:$85 X:$80 Y:$80 S:$FF P:$C0
+
+total clocks: 393
