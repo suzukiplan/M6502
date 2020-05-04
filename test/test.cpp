@@ -76,7 +76,7 @@ int main(int argc, char** argv)
 {
     puts("===== INIT =====");
     TestMMU mmu;
-    M6502 cpu(readMemory, writeMemory, &mmu);
+    M6502 cpu(M6502_MODE_NORMAL, readMemory, writeMemory, &mmu);
     cpu.setConsumeClock(consumeClock);
     cpu.setDebugMessage(debugMessage);
     CHECK(cpu.R.p == 0b00000100);

@@ -32,6 +32,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Emulation modes
+ */
+#define M6502_MODE_NORMAL 0 // Normal MOS6502 emulation
+
 class M6502
 {
   private:
@@ -49,8 +54,14 @@ class M6502
     } DD;
     int clockConsumed;
     void (*operands[256])(M6502*);
+    int mode;
 
   public:
+    /**
+     * Register context
+     * Please save this contents, if you would like to save CPU state snapshot.
+     * And also, load if you would like to load CPU state.
+     */
     struct Register {
         unsigned short pc;
         unsigned char a;
@@ -60,8 +71,16 @@ class M6502
         unsigned char s;
     } R;
 
-    M6502(unsigned char (*readMemory)(void* arg, unsigned short addr), void (*writeMemory)(void* arg, unsigned short addr, unsigned char value), void* arg)
+    /**
+     * Constructor
+     * - [i] mode: emulation mode (Specify M6502_MODE_XXX)
+     * - [i] readMemory: callback function pointer of read memory
+     * - [i] writeMemory: callback function pointer of write memory
+     * - [i] arg: argument when calling the callback functions
+     */
+    M6502(int mode, unsigned char (*readMemory)(void* arg, unsigned short addr), void (*writeMemory)(void* arg, unsigned short addr, unsigned char value), void* arg)
     {
+        this->mode = mode;
         memset(&R, 0, sizeof(R));
         memset(&CB, 0, sizeof(CB));
         CB.readMemory = readMemory;
@@ -71,16 +90,29 @@ class M6502
         reset();
     }
 
+    /**
+     * Set the callback function that called when consumed a CPU clock
+     * - [i] callback: function pointer
+     */
     void setConsumeClock(void (*callback)(void* arg))
     {
         CB.consumeClock = callback;
     }
 
+    /**
+     * Set the callback function that called when executed an operand
+     * - [i] callback: function pointer
+     */
     void setDebugMessage(void (*callback)(void* arg, const char* message))
     {
         CB.debugMessage = callback;
     }
 
+    /**
+     * Execute
+     * - [i] clocks: number of clocks expected to execute CPU
+     * - return: number of clocks actually executed
+     */
     int execute(int clocks)
     {
         this->clockConsumed = 0;
@@ -103,17 +135,26 @@ class M6502
         return this->clockConsumed;
     }
 
+    /**
+     * Execute an interrupt request (IRQ)
+     */
     void IRQ()
     {
         if (getStatusI()) return;
         executeInterrupt(0xFFFE, false);
     }
 
+    /**
+     * Execute a non-maskable interrupt (NMI)
+     */
     void NMI()
     {
         executeInterrupt(0xFFFA, false);
     }
 
+    /**
+     * Execute a reset interrupt
+     */
     void reset()
     {
         R.s = 0;
@@ -131,6 +172,10 @@ class M6502
         consumeClock();
     }
 
+    /**
+     * Explicit consume of the CPU clock(s)
+     * - return: number of CPU clocks to consume
+     */
     void consumeClock(int clocks)
     {
         for (int i = 0; i < clocks; i++) {
