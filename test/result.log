@@ -854,7 +854,7 @@ read memory: $0204 -> $88
 [$8139] AND ($F0,X<$20>)
 <REGISTER-DUMP> PC:$813B A:$00 X:$20 Y:$80 S:$FF P:$02
 
-===== TEST:SBC indirect, Y =====
+===== TEST:AND indirect, Y =====
 read memory: $813B -> $31
 read memory: $813C -> $10
 read memory: $0010 -> $01

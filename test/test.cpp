@@ -1635,7 +1635,7 @@ int main(int argc, char** argv)
         CHECK(cpu.R.a == 0x00);
     }
 
-    puts("\n===== TEST:SBC indirect, Y =====");
+    puts("\n===== TEST:AND indirect, Y =====");
     {
         mmu.ram[0x0010] = 0x01;
         mmu.ram[0x0011] = 0x02;
