@@ -36,6 +36,7 @@
  * Emulation modes
  */
 #define M6502_MODE_NORMAL 0 // Normal MOS6502 emulation
+#define M6502_MODE_RP2A03 1 // Ricoh 2A03 emulation
 
 class M6502
 {
@@ -1198,13 +1199,14 @@ class M6502
         operands[0x2C] = bit_abs;
 
         operands[0x18] = clc;
-        operands[0xD8] = cld;
         operands[0x58] = cli;
         operands[0xB8] = clv;
-
         operands[0x38] = sec;
-        operands[0xF8] = sed;
         operands[0x78] = sei;
+        if (mode != M6502_MODE_RP2A03) {
+            operands[0xD8] = cld;
+            operands[0xF8] = sed;
+        }
 
         operands[0x30] = bmi_rel;
         operands[0x10] = bpl_rel;
