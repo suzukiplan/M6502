@@ -595,4 +595,11 @@ read memory: $80E1 -> $C7
 [$80E0] SBC #$C7
 <REGISTER-DUMP> PC:$80E2 A:$24 X:$11 Y:$C0 S:$FF P:$00
 
-total clocks: 360
+===== TEST:ADC zeropage =====
+read memory: $80E2 -> $65
+read memory: $80E3 -> $50
+read memory: $0050 -> $23
+[$80E2] ADC $50
+<REGISTER-DUMP> PC:$80E4 A:$34 X:$11 Y:$C0 S:$FF P:$00
+
+total clocks: 363
