@@ -614,4 +614,12 @@ read memory: $0000 -> $25
 [$80E6] ADC $FF,X<$01>
 <REGISTER-DUMP> PC:$80E8 A:$5A X:$01 Y:$C0 S:$FF P:$00
 
-total clocks: 371
+===== TEST:ADC absolute =====
+read memory: $80E8 -> $6D
+read memory: $80E9 -> $50
+read memory: $80EA -> $20
+read memory: $2050 -> $24
+[$80E8] ADC $2050
+<REGISTER-DUMP> PC:$80EB A:$35 X:$01 Y:$C0 S:$FF P:$00
+
+total clocks: 375

@@ -1096,8 +1096,8 @@ class M6502
         operands[0x69] = adc_imm;
         operands[0x65] = adc_zpg;
         operands[0x75] = adc_zpg_x;
-        // --- TODO: ここまでテスト済み ---
         operands[0x6D] = adc_abs;
+        // --- TODO: ここまでテスト済み ---
         operands[0x7D] = adc_abs_x;
         operands[0x79] = adc_abs_y;
         operands[0x61] = adc_x_ind;

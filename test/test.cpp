@@ -1171,6 +1171,22 @@ int main(int argc, char** argv)
         CHECK(cpu.R.p == 0b00000000);
     }
 
+    puts("\n===== TEST:ADC absolute =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0x11;
+        cpu.R.p = 0;
+        mmu.ram[cpu.R.pc + 0] = 0x6D;
+        mmu.ram[cpu.R.pc + 1] = 0x50;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x2050] = 0x24;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(cpu.R.a == 0x35);
+        CHECK(cpu.R.p == 0b00000000);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;
