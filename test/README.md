@@ -5,13 +5,21 @@
 |MNEMONIC|CODE|LEN|Hz   |N|V|B|D|I|Z|C|NOTE|
 |--------|----|:-:|:---:|-|-|-|-|-|-|-|:-|
 |BRK     |$00 |1  |7    | | |1| |1| | ||
+|ORA indX|$01 |2  |6    |*| | | | |*| ||
+|ORA zpg |$05 |2  |3    |*| | | | |*| ||
+|ORA imm |$09 |2  |2    |*| | | | |*| ||
+|ORA abs |$0D |3  |4    |*| | | | |*| ||
+|ORA indY|$11 |2  |5,6  |*| | | | |*| |cycle penalty|
+|ORA zpgX|$15 |2  |4    |*| | | | |*| ||
 |CLC     |$18 |1  |2    | | | | | | |0||
+|ORA absY|$19 |3  |4,5  |*| | | | |*| |cycle penalty|
+|ORA absX|$1D |3  |4,5  |*| | | | |*| |cycle penalty|
 |AND indX|$21 |2  |6    |*| | | | |*| ||
 |AND zpg |$25 |2  |3    |*| | | | |*| ||
 |AND imm |$29 |2  |2    |*| | | | |*| ||
-|AND zpgX|$25 |2  |4    |*| | | | |*| ||
 |AND abs |$2D |3  |4    |*| | | | |*| ||
 |AND indY|$31 |2  |5,6  |*| | | | |*| |cycle penalty|
+|AND zpgX|$35 |2  |4    |*| | | | |*| ||
 |AND absY|$39 |3  |4,5  |*| | | | |*| |cycle penalty|
 |AND absX|$3D |3  |4,5  |*| | | | |*| |cycle penalty|
 |SEC     |$38 |1  |2    | | | | | | |1||
@@ -20,9 +28,9 @@
 |ADC indX|$61 |2  |6    |*|*| | | |*|*||
 |ADC zpg |$65 |2  |3    |*|*| | | |*|*||
 |ADC imm |$69 |2  |2    |*|*| | | |*|*||
-|ADC zpgX|$65 |2  |4    |*|*| | | |*|*||
 |ADC abs |$6D |3  |4    |*|*| | | |*|*||
 |ADC indY|$71 |2  |5,6  |*|*| | | |*|*|cycle penalty|
+|ADC zpgX|$75 |2  |4    |*|*| | | |*|*||
 |ADC absY|$79 |3  |4,5  |*|*| | | |*|*|cycle penalty|
 |ADC absX|$7D |3  |4,5  |*|*| | | |*|*|cycle penalty|
 |STA indX|$81 |2  |6    | | | | | | | ||
@@ -60,8 +68,8 @@
 |SBC indX|$E1 |2  |6    |*|*| | | |*|*||
 |SBC zpg |$E5 |2  |3    |*|*| | | |*|*||
 |SBC imm |$E9 |2  |2    |*|*| | | |*|*||
-|SBC zpgX|$E5 |2  |4    |*|*| | | |*|*||
 |SBC abs |$ED |3  |4    |*|*| | | |*|*||
 |SBC indY|$F1 |2  |5,6  |*|*| | | |*|*|cycle penalty|
+|SBC zpgX|$F5 |2  |4    |*|*| | | |*|*||
 |SBC absY|$F9 |3  |4,5  |*|*| | | |*|*|cycle penalty|
 |SBC absX|$FD |3  |4,5  |*|*| | | |*|*|cycle penalty|
