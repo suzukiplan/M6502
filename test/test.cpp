@@ -1296,6 +1296,173 @@ int main(int argc, char** argv)
         CHECK(cpu.R.a == 0x0E);
     }
 
+    puts("\n===== TEST:SBC zeropage =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0x11;
+        cpu.R.p = 0;
+        mmu.ram[cpu.R.pc + 0] = 0xE5;
+        mmu.ram[cpu.R.pc + 1] = 0x50;
+        mmu.ram[0x50] = 0x23;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0xED);
+        CHECK(cpu.R.p == 0b10000001);
+    }
+
+    puts("\n===== TEST:SBC zeropage, X =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0x11;
+        cpu.R.p = 0;
+        cpu.R.x = 1;
+        mmu.ram[cpu.R.pc + 0] = 0xF5;
+        mmu.ram[cpu.R.pc + 1] = 0x50;
+        mmu.ram[0x51] = 0x24;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0xEC);
+        CHECK(cpu.R.p == 0b10000001);
+        // overflow
+        mmu.ram[cpu.R.pc + 0] = 0xF5;
+        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[0x00] = 0x25;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0xC7);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
+    puts("\n===== TEST:SBC absolute =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0x11;
+        cpu.R.p = 0;
+        mmu.ram[cpu.R.pc + 0] = 0xED;
+        mmu.ram[cpu.R.pc + 1] = 0x50;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x2050] = 0x24;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(cpu.R.a == 0xEC);
+        CHECK(cpu.R.p == 0b10000001);
+    }
+
+    puts("\n===== TEST:SBC absolute, X =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0x11;
+        cpu.R.p = 0;
+        cpu.R.x = 0x80;
+        mmu.ram[cpu.R.pc + 0] = 0xFD;
+        mmu.ram[cpu.R.pc + 1] = 0x7F;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x20FF] = 0x30;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(cpu.R.a == 0xE0);
+        CHECK(cpu.R.p == 0b10000001);
+        // next page
+        mmu.ram[cpu.R.pc + 0] = 0xFD;
+        mmu.ram[cpu.R.pc + 1] = 0x8F;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x210F] = 0x44;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(len == 3);
+        CHECK(cpu.R.a == 0x9C);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
+    puts("\n===== TEST:SBC absolute, Y =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0x11;
+        cpu.R.p = 0;
+        cpu.R.y = 0x80;
+        mmu.ram[cpu.R.pc + 0] = 0xF9;
+        mmu.ram[cpu.R.pc + 1] = 0x7F;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x20FF] = 0x30;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(cpu.R.a == 0xE0);
+        CHECK(cpu.R.p == 0b10000001);
+        // next page
+        mmu.ram[cpu.R.pc + 0] = 0xF9;
+        mmu.ram[cpu.R.pc + 1] = 0x8F;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x210F] = 0x44;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(len == 3);
+        CHECK(cpu.R.a == 0x9C);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
+    puts("\n===== TEST:SBC indirect, X =====");
+    {
+        mmu.ram[0x0010] = 0x04;
+        mmu.ram[0x0011] = 0x02;
+        mmu.ram[0x0030] = 0x03;
+        mmu.ram[0x0031] = 0x02;
+        mmu.ram[0x0203] = 0x44;
+        mmu.ram[0x0204] = 0x88;
+        cpu.R.x = 0x20;
+        cpu.R.a = 0x10;
+        cpu.R.p = 0;
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0xE1;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.a == 0xCB);
+        // page overflow
+        mmu.ram[cpu.R.pc + 0] = 0xE1;
+        mmu.ram[cpu.R.pc + 1] = 0xF0;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.a == 0x43);
+    }
+
+    puts("\n===== TEST:SBC indirect, Y =====");
+    {
+        mmu.ram[0x0010] = 0x01;
+        mmu.ram[0x0011] = 0x02;
+        mmu.ram[0x0203] = 0x55;
+        mmu.ram[0x0300] = 0x99;
+        cpu.R.y = 0x02;
+        cpu.R.a = 0x20;
+        cpu.R.p = 0;
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0xF1;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.a == 0xCA);
+        // page overflow
+        cpu.R.y = 0xFF;
+        mmu.ram[cpu.R.pc + 0] = 0xF1;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.a == 0x31);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

@@ -1103,7 +1103,6 @@ class M6502
         operands[0x71] = adc_ind_y;
 
         operands[0xE9] = sbc_imm;
-        // --- TODO: ここまでテスト済み ---
         operands[0xE5] = sbc_zpg;
         operands[0xF5] = sbc_zpg_x;
         operands[0xED] = sbc_abs;
@@ -1111,6 +1110,8 @@ class M6502
         operands[0xF9] = sbc_abs_y;
         operands[0xE1] = sbc_x_ind;
         operands[0xF1] = sbc_ind_y;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0x29] = and_imm;
         operands[0x25] = and_zpg;

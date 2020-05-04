@@ -49,4 +49,11 @@
 |LDA absX|$BD |3  |4,5  |*| | | | |*| |cycle penalty|
 |LDX absY|$BE |3  |4,5  |*| | | | |*| |cycle penalty|
 |LDA zpgX|$B5 |2  |4    |*| | | | |*| ||
+|SBC indX|$E1 |2  |6    |*|*| | | |*|*||
+|SBC zpg |$E5 |2  |3    |*|*| | | |*|*||
 |SBC imm |$E9 |2  |2    |*|*| | | |*|*||
+|SBC zpgX|$E5 |2  |4    |*|*| | | |*|*||
+|SBC abs |$ED |3  |4    |*|*| | | |*|*||
+|SBC indY|$F1 |2  |5,6  |*|*| | | |*|*|cycle penalty|
+|SBC absY|$F9 |3  |4,5  |*|*| | | |*|*|cycle penalty|
+|SBC absX|$FD |3  |4,5  |*|*| | | |*|*|cycle penalty|
