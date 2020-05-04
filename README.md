@@ -92,3 +92,8 @@ static void writeMemory(void* arg, unsigned short addr, unsigned char value) {
 ## Advanced usage
 
 TODO: need describe
+
+## Special thanks
+
+- [virtual 6502 - https://www.masswerk.at/6502/](https://www.masswerk.at/6502/)
+  - [6502 Instruction Set](https://www.masswerk.at/6502/6502_instruction_set.html)
