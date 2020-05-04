@@ -1241,6 +1241,61 @@ int main(int argc, char** argv)
         CHECK(cpu.R.p == 0b11000000);
     }
 
+    puts("\n===== TEST:ADC indirect, X =====");
+    {
+        mmu.ram[0x0010] = 0x04;
+        mmu.ram[0x0011] = 0x02;
+        mmu.ram[0x0030] = 0x03;
+        mmu.ram[0x0031] = 0x02;
+        mmu.ram[0x0203] = 0x44;
+        mmu.ram[0x0204] = 0x88;
+        cpu.R.x = 0x20;
+        cpu.R.a = 0x10;
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0x61;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.a == 0x54);
+        // page overflow
+        mmu.ram[cpu.R.pc + 0] = 0x61;
+        mmu.ram[cpu.R.pc + 1] = 0xF0;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b10000000);
+        CHECK(cpu.R.a == 0xDC);
+    }
+
+    puts("\n===== TEST:ADC indirect, Y =====");
+    {
+        mmu.ram[0x0010] = 0x01;
+        mmu.ram[0x0011] = 0x02;
+        mmu.ram[0x0203] = 0x55;
+        mmu.ram[0x0300] = 0x99;
+        cpu.R.y = 0x02;
+        cpu.R.a = 0x20;
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0x71;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.a == 0x75);
+        // page overflow
+        cpu.R.y = 0xFF;
+        mmu.ram[cpu.R.pc + 0] = 0x71;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(cpu.R.p == 0b00000001);
+        CHECK(cpu.R.a == 0x0E);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

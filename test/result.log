@@ -650,4 +650,36 @@ read memory: $210F -> $44
 [$80F4] ADC $208F,Y<$80>
 <REGISTER-DUMP> PC:$80F7 A:$85 X:$80 Y:$80 S:$FF P:$C0
 
-total clocks: 393
+===== TEST:ADC indirect, X =====
+read memory: $80F7 -> $61
+read memory: $80F8 -> $10
+read memory: $0030 -> $03
+read memory: $0031 -> $02
+read memory: $0203 -> $44
+[$80F7] ADC ($10,X<$20>)
+<REGISTER-DUMP> PC:$80F9 A:$54 X:$20 Y:$80 S:$FF P:$00
+read memory: $80F9 -> $61
+read memory: $80FA -> $F0
+read memory: $0010 -> $04
+read memory: $0011 -> $02
+read memory: $0204 -> $88
+[$80F9] ADC ($F0,X<$20>)
+<REGISTER-DUMP> PC:$80FB A:$DC X:$20 Y:$80 S:$FF P:$80
+
+===== TEST:ADC indirect, Y =====
+read memory: $80FB -> $71
+read memory: $80FC -> $10
+read memory: $0010 -> $01
+read memory: $0011 -> $02
+read memory: $0203 -> $55
+[$80FB] ADC ($10),Y<$02>
+<REGISTER-DUMP> PC:$80FD A:$75 X:$20 Y:$02 S:$FF P:$00
+read memory: $80FD -> $71
+read memory: $80FE -> $10
+read memory: $0010 -> $01
+read memory: $0011 -> $02
+read memory: $0300 -> $99
+[$80FD] ADC ($10),Y<$FF>
+<REGISTER-DUMP> PC:$80FF A:$0E X:$20 Y:$FF S:$FF P:$01
+
+total clocks: 416
