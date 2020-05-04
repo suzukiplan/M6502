@@ -769,4 +769,105 @@ read memory: $0300 -> $99
 [$811A] SBC ($10),Y<$FF>
 <REGISTER-DUMP> PC:$811C A:$31 X:$20 Y:$FF S:$FF P:$00
 
-total clocks: 472
+===== TEST:AND immediate =====
+read memory: $811C -> $29
+read memory: $811D -> $AA
+[$811C] AND #$AA
+<REGISTER-DUMP> PC:$811E A:$00 X:$20 Y:$FF S:$FF P:$02
+read memory: $811E -> $29
+read memory: $811F -> $AA
+[$811E] AND #$AA
+<REGISTER-DUMP> PC:$8120 A:$80 X:$20 Y:$FF S:$FF P:$80
+read memory: $8120 -> $29
+read memory: $8121 -> $AA
+[$8120] AND #$AA
+<REGISTER-DUMP> PC:$8122 A:$0A X:$20 Y:$FF S:$FF P:$00
+
+===== TEST:AND zeropage =====
+read memory: $8122 -> $25
+read memory: $8123 -> $50
+read memory: $0050 -> $23
+[$8122] AND $50
+<REGISTER-DUMP> PC:$8124 A:$01 X:$20 Y:$FF S:$FF P:$00
+
+===== TEST:AND zeropage, X =====
+read memory: $8124 -> $35
+read memory: $8125 -> $50
+read memory: $0051 -> $25
+[$8124] AND $50,X<$01>
+<REGISTER-DUMP> PC:$8126 A:$01 X:$01 Y:$FF S:$FF P:$00
+read memory: $8126 -> $35
+read memory: $8127 -> $FF
+read memory: $0000 -> $35
+[$8126] AND $FF,X<$01>
+<REGISTER-DUMP> PC:$8128 A:$11 X:$01 Y:$FF S:$FF P:$00
+
+===== TEST:AND absolute =====
+read memory: $8128 -> $2D
+read memory: $8129 -> $50
+read memory: $812A -> $20
+read memory: $2050 -> $FF
+[$8128] AND $2050
+<REGISTER-DUMP> PC:$812B A:$11 X:$01 Y:$FF S:$FF P:$00
+
+===== TEST:AND absolute, X =====
+read memory: $812B -> $3D
+read memory: $812C -> $7F
+read memory: $812D -> $20
+read memory: $20FF -> $30
+[$812B] AND $207F,X<$80>
+<REGISTER-DUMP> PC:$812E A:$10 X:$80 Y:$FF S:$FF P:$00
+read memory: $812E -> $3D
+read memory: $812F -> $8F
+read memory: $8130 -> $20
+read memory: $210F -> $F0
+[$812E] AND $208F,X<$80>
+<REGISTER-DUMP> PC:$8131 A:$10 X:$80 Y:$FF S:$FF P:$00
+
+===== TEST:AND absolute, Y =====
+read memory: $8131 -> $39
+read memory: $8132 -> $7F
+read memory: $8133 -> $20
+read memory: $20FF -> $30
+[$8131] AND $207F,Y<$80>
+<REGISTER-DUMP> PC:$8134 A:$10 X:$80 Y:$80 S:$FF P:$00
+read memory: $8134 -> $39
+read memory: $8135 -> $8F
+read memory: $8136 -> $20
+read memory: $210F -> $44
+[$8134] AND $208F,Y<$80>
+<REGISTER-DUMP> PC:$8137 A:$00 X:$80 Y:$80 S:$FF P:$02
+
+===== TEST:AND indirect, X =====
+read memory: $8137 -> $21
+read memory: $8138 -> $10
+read memory: $0030 -> $03
+read memory: $0031 -> $02
+read memory: $0203 -> $77
+[$8137] AND ($10,X<$20>)
+<REGISTER-DUMP> PC:$8139 A:$10 X:$20 Y:$80 S:$FF P:$00
+read memory: $8139 -> $21
+read memory: $813A -> $F0
+read memory: $0010 -> $04
+read memory: $0011 -> $02
+read memory: $0204 -> $88
+[$8139] AND ($F0,X<$20>)
+<REGISTER-DUMP> PC:$813B A:$00 X:$20 Y:$80 S:$FF P:$02
+
+===== TEST:SBC indirect, Y =====
+read memory: $813B -> $31
+read memory: $813C -> $10
+read memory: $0010 -> $01
+read memory: $0011 -> $02
+read memory: $0203 -> $55
+[$813B] AND ($10),Y<$02>
+<REGISTER-DUMP> PC:$813D A:$55 X:$20 Y:$02 S:$FF P:$00
+read memory: $813D -> $31
+read memory: $813E -> $10
+read memory: $0010 -> $01
+read memory: $0011 -> $02
+read memory: $0300 -> $44
+[$813D] AND ($10),Y<$FF>
+<REGISTER-DUMP> PC:$813F A:$44 X:$20 Y:$FF S:$FF P:$00
+
+total clocks: 534

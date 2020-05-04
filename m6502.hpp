@@ -1111,8 +1111,6 @@ class M6502
         operands[0xE1] = sbc_x_ind;
         operands[0xF1] = sbc_ind_y;
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0x29] = and_imm;
         operands[0x25] = and_zpg;
         operands[0x35] = and_zpg_x;
@@ -1121,6 +1119,8 @@ class M6502
         operands[0x39] = and_abs_y;
         operands[0x21] = and_x_ind;
         operands[0x31] = and_ind_y;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0x09] = ora_imm;
         operands[0x05] = ora_zpg;
