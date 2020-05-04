@@ -479,6 +479,11 @@ class M6502
     inline void adc(unsigned char value)
     {
         if (CB.debugMessage) strcpy(DD.mne, "ADC");
+        if (isSupportBCD() && getStatusD()) {
+            // TODO: not implemented BCD mode
+            fprintf(stderr, "TODO: not implemented BCD mode");
+            return;
+        }
         int pa = R.a;
         int a = R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a;
         int v = value & 0x80 ? -((value ^ 0xFF) + 1) : value;
@@ -495,6 +500,11 @@ class M6502
     inline void sbc(unsigned char value)
     {
         if (CB.debugMessage) strcpy(DD.mne, "SBC");
+        if (isSupportBCD() && getStatusD()) {
+            // TODO: not implemented BCD mode
+            fprintf(stderr, "TODO: not implemented BCD mode");
+            return;
+        }
         int pa = R.a;
         int a = R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a;
         int v = value & 0x80 ? -((value ^ 0xFF) + 1) : value;
