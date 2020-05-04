@@ -4,6 +4,10 @@
 
 - [x] implement all operands
 - [ ] implement decimal mode
+- [ ] implement break point (program counter)
+- [ ] implement break point (specific operand featch)
+- [ ] implement break point (specific address read)
+- [ ] implement break point (specific address write)
 - [ ] create driver program for test
 - [ ] CI
 
@@ -54,8 +58,40 @@ cd M6502/test
 make
 ```
 
-## Usage
+## Basic usage
 
-```text
-TODO: describe after WIP
+### 1) Include header
+
+```c++
+#include "m6502.hpp"
 ```
+
+### 2) Implement memory read/write function for your MMU
+
+```c++
+unsigned char ram[0x10000];
+static unsigned char readMemory(void* arg, unsigned short addr) {
+    return ram[addr];
+}
+static void writeMemory(void* arg, unsigned short addr, unsigned char value) {
+    ram[addr] = value;
+}
+```
+
+### 3) Make M6502 instance & use it
+
+```c++
+    M6502* cpu = new M6502(M6502_MODE_NORMAL, readMemory, writeMemory, NULL);
+    int clocks = cpu->execute(1789773 / 60); // execute
+    cpu->reset(); // execute interrupt (RESET)
+    cpu->IRQ(); // execute interrupt (IRQ)
+    cpu->NMI(); // execute interrupt (NMI)
+    printf("executed %d Hz\n", clocks);
+    delete cpu;
+```
+
+> **NOTE:** Please check the `public` section of [m6502.hpp](m6502.hpp).
+
+## Advanced usage
+
+TODO: need describe
