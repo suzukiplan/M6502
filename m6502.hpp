@@ -1129,8 +1129,6 @@ class M6502
         operands[0x01] = ora_x_ind;
         operands[0x11] = ora_ind_y;
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0x49] = eor_imm;
         operands[0x45] = eor_zpg;
         operands[0x55] = eor_zpg_x;
@@ -1139,6 +1137,8 @@ class M6502
         operands[0x59] = eor_abs_y;
         operands[0x41] = eor_x_ind;
         operands[0x51] = eor_ind_y;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0xC9] = cmp_imm;
         operands[0xC5] = cmp_zpg;

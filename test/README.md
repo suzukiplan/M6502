@@ -24,7 +24,15 @@
 |AND absX|$3D |3  |4,5  |*| | | | |*| |cycle penalty|
 |SEC     |$38 |1  |2    | | | | | | |1||
 |RTI     |$40 |1  |6    |s|s|s|s|s|s|s||
+|EOR indX|$41 |2  |6    |*| | | | |*| ||
+|EOR zpg |$45 |2  |3    |*| | | | |*| ||
+|EOR imm |$49 |2  |2    |*| | | | |*| ||
+|EOR abs |$4D |3  |4    |*| | | | |*| ||
+|EOR indY|$51 |2  |5,6  |*| | | | |*| |cycle penalty|
+|EOR zpgX|$55 |2  |4    |*| | | | |*| ||
 |CLI     |$58 |1  |2    | | | | |0| | ||
+|EOR absY|$59 |3  |4,5  |*| | | | |*| |cycle penalty|
+|EOR absX|$5D |3  |4,5  |*| | | | |*| |cycle penalty|
 |ADC indX|$61 |2  |6    |*|*| | | |*|*||
 |ADC zpg |$65 |2  |3    |*|*| | | |*|*||
 |ADC imm |$69 |2  |2    |*|*| | | |*|*||
