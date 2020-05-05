@@ -1175,8 +1175,6 @@ class M6502
         operands[0x6E] = ror_abs;
         operands[0x7E] = ror_abs_x;
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0xC6] = dec_zpg;
         operands[0xD6] = dec_zpg_x;
         operands[0xCE] = dec_abs;
@@ -1190,6 +1188,8 @@ class M6502
         operands[0xFE] = inc_abs_x;
         operands[0xE8] = inx;
         operands[0xC8] = iny;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0x24] = bit_zpg;
         operands[0x2C] = bit_abs;

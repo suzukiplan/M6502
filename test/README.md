@@ -69,6 +69,7 @@
 |STY zpg |$84 |2  |3    | | | | | | | ||
 |STA zpg |$85 |2  |3    | | | | | | | ||
 |STX zpg |$86 |2  |3    | | | | | | | ||
+|DEY     |$88 |1  |2    |*| | | | |*| ||
 |TXA     |$8A |1  |2    |*| | | | |*| ||
 |STY abs |$8C |3  |4    | | | | | | | ||
 |STA abs |$8D |3  |4    | | | | | | | ||
@@ -107,21 +108,32 @@
 |CMP indX|$C1 |2  |6    |*| | | | |*|*||
 |CPY zpg |$C4 |2  |3    |*| | | | |*|*||
 |CMP zpg |$C5 |2  |3    |*| | | | |*|*||
+|DEC zpg |$C6 |1  |5    |*| | | | |*| ||
+|INY     |$C8 |1  |2    |*| | | | |*| ||
 |CMP imm |$C9 |2  |2    |*| | | | |*|*||
+|DEX     |$CA |1  |2    |*| | | | |*| ||
 |CPY abs |$CC |3  |4    |*| | | | |*|*||
 |CMP abs |$CD |3  |4    |*| | | | |*|*||
+|DEC abs |$CE |1  |6    |*| | | | |*| ||
 |CMP indY|$D1 |2  |5,6  |*| | | | |*|*|cycle penalty (page overflow)|
 |CMP zpgX|$D5 |2  |4    |*| | | | |*|*||
+|DEC zpgX|$D6 |1  |6    |*| | | | |*| ||
 |CMP absY|$D9 |3  |4,5  |*| | | | |*|*|cycle penalty (page overflow)|
 |CMP absX|$DD |3  |4,5  |*| | | | |*|*|cycle penalty (page overflow)|
+|DEC absX|$DE |1  |7    |*| | | | |*| ||
 |CPX imm |$E0 |2  |2    |*| | | | |*|*||
 |SBC indX|$E1 |2  |6    |*|*| | | |*|*||
 |CPX zpg |$E4 |2  |3    |*| | | | |*|*||
 |SBC zpg |$E5 |2  |3    |*|*| | | |*|*||
+|INC zpg |$E6 |1  |5    |*| | | | |*| ||
+|INX     |$E8 |1  |2    |*| | | | |*| ||
 |SBC imm |$E9 |2  |2    |*|*| | | |*|*||
 |CPX abs |$EC |3  |4    |*| | | | |*|*||
 |SBC abs |$ED |3  |4    |*|*| | | |*|*||
+|INC abs |$EE |1  |6    |*| | | | |*| ||
 |SBC indY|$F1 |2  |5,6  |*|*| | | |*|*|cycle penalty (page overflow)|
 |SBC zpgX|$F5 |2  |4    |*|*| | | |*|*||
+|INC zpgX|$F6 |1  |6    |*| | | | |*| ||
 |SBC absY|$F9 |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
 |SBC absX|$FD |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
+|INC absX|$FE |1  |7    |*| | | | |*| ||

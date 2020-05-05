@@ -5602,4 +5602,138 @@ write memory: $210F <- $87
 [$860C] ROR $208F,X<$80>
 <REGISTER-DUMP> PC:$860F A:$3F X:$80 Y:$12 S:$FF P:$81
 
-total clocks: 4520
+===== TEST:INC zeropage =====
+read memory: $860F -> $E6
+read memory: $8610 -> $50
+read memory: $0050 -> $23
+write memory: $0050 <- $24
+[$860F] INC $50
+<REGISTER-DUMP> PC:$8611 A:$3F X:$80 Y:$12 S:$FF P:$00
+read memory: $8611 -> $E6
+read memory: $8612 -> $51
+read memory: $0051 -> $7F
+write memory: $0051 <- $80
+[$8611] INC $51
+<REGISTER-DUMP> PC:$8613 A:$3F X:$80 Y:$12 S:$FF P:$80
+read memory: $8613 -> $E6
+read memory: $8614 -> $52
+read memory: $0052 -> $FF
+write memory: $0052 <- $00
+[$8613] INC $52
+<REGISTER-DUMP> PC:$8615 A:$3F X:$80 Y:$12 S:$FF P:$02
+
+===== TEST:INC zeropage, X =====
+read memory: $8615 -> $F6
+read memory: $8616 -> $50
+read memory: $0051 -> $25
+write memory: $0051 <- $26
+[$8615] INC $50,X<$01>
+<REGISTER-DUMP> PC:$8617 A:$3F X:$01 Y:$12 S:$FF P:$00
+read memory: $8617 -> $F6
+read memory: $8618 -> $FF
+read memory: $0000 -> $88
+write memory: $0000 <- $89
+[$8617] INC $FF,X<$01>
+<REGISTER-DUMP> PC:$8619 A:$3F X:$01 Y:$12 S:$FF P:$80
+
+===== TEST:INC absolute =====
+read memory: $8619 -> $EE
+read memory: $861A -> $60
+read memory: $861B -> $20
+read memory: $2060 -> $33
+write memory: $2060 <- $34
+[$8619] INC $2060
+<REGISTER-DUMP> PC:$861C A:$3F X:$01 Y:$12 S:$FF P:$00
+
+===== TEST:INC absolute, X =====
+read memory: $861C -> $FE
+read memory: $861D -> $7F
+read memory: $861E -> $20
+read memory: $20FF -> $3A
+write memory: $20FF <- $3B
+[$861C] INC $207F,X<$80>
+<REGISTER-DUMP> PC:$861F A:$3F X:$80 Y:$12 S:$FF P:$00
+read memory: $861F -> $FE
+read memory: $8620 -> $8F
+read memory: $8621 -> $20
+read memory: $210F -> $0F
+write memory: $210F <- $10
+[$861F] INC $208F,X<$80>
+<REGISTER-DUMP> PC:$8622 A:$3F X:$80 Y:$12 S:$FF P:$00
+
+===== TEST:INX, INY =====
+read memory: $8622 -> $E8
+[$8622] INX 
+<REGISTER-DUMP> PC:$8623 A:$3F X:$56 Y:$AA S:$FF P:$00
+read memory: $8623 -> $C8
+[$8623] INY 
+<REGISTER-DUMP> PC:$8624 A:$3F X:$56 Y:$AB S:$FF P:$80
+
+===== TEST:DEC zeropage =====
+read memory: $8624 -> $C6
+read memory: $8625 -> $50
+read memory: $0050 -> $23
+write memory: $0050 <- $22
+[$8624] DEC $50
+<REGISTER-DUMP> PC:$8626 A:$3F X:$56 Y:$AB S:$FF P:$00
+read memory: $8626 -> $C6
+read memory: $8627 -> $51
+read memory: $0051 -> $FF
+write memory: $0051 <- $FE
+[$8626] DEC $51
+<REGISTER-DUMP> PC:$8628 A:$3F X:$56 Y:$AB S:$FF P:$80
+read memory: $8628 -> $C6
+read memory: $8629 -> $52
+read memory: $0052 -> $01
+write memory: $0052 <- $00
+[$8628] DEC $52
+<REGISTER-DUMP> PC:$862A A:$3F X:$56 Y:$AB S:$FF P:$02
+
+===== TEST:DEC zeropage, X =====
+read memory: $862A -> $D6
+read memory: $862B -> $50
+read memory: $0051 -> $25
+write memory: $0051 <- $24
+[$862A] DEC $50,X<$01>
+<REGISTER-DUMP> PC:$862C A:$3F X:$01 Y:$AB S:$FF P:$00
+read memory: $862C -> $D6
+read memory: $862D -> $FF
+read memory: $0000 -> $88
+write memory: $0000 <- $87
+[$862C] DEC $FF,X<$01>
+<REGISTER-DUMP> PC:$862E A:$3F X:$01 Y:$AB S:$FF P:$80
+
+===== TEST:DEC absolute =====
+read memory: $862E -> $CE
+read memory: $862F -> $60
+read memory: $8630 -> $20
+read memory: $2060 -> $33
+write memory: $2060 <- $32
+[$862E] DEC $2060
+<REGISTER-DUMP> PC:$8631 A:$3F X:$01 Y:$AB S:$FF P:$00
+
+===== TEST:DEC absolute, X =====
+read memory: $8631 -> $DE
+read memory: $8632 -> $7F
+read memory: $8633 -> $20
+read memory: $20FF -> $3A
+write memory: $20FF <- $39
+[$8631] DEC $207F,X<$80>
+<REGISTER-DUMP> PC:$8634 A:$3F X:$80 Y:$AB S:$FF P:$00
+read memory: $8634 -> $DE
+read memory: $8635 -> $8F
+read memory: $8636 -> $20
+read memory: $210F -> $0F
+write memory: $210F <- $0E
+[$8634] DEC $208F,X<$80>
+<REGISTER-DUMP> PC:$8637 A:$3F X:$80 Y:$AB S:$FF P:$00
+
+===== TEST:DEX, DEY =====
+read memory: $8637 -> $CA
+[$8637] DEX 
+<REGISTER-DUMP> PC:$8638 A:$3F X:$54 Y:$AA S:$FF P:$00
+read memory: $8638 -> $88
+[$8638] DEY 
+<REGISTER-DUMP> PC:$8639 A:$3F X:$54 Y:$A9 S:$FF P:$80
+
+total clocks: 4622
