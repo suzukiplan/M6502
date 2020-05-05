@@ -1173,4 +1173,33 @@ read memory: $0300 -> $44
 [$81A6] CMP ($10),Y<$FF>
 <REGISTER-DUMP> PC:$81A8 A:$00 X:$20 Y:$FF S:$FF P:$80
 
-total clocks: 720
+===== TEST:CPX immediate =====
+read memory: $81A8 -> $E0
+read memory: $81A9 -> $58
+[$81A8] CPX #$58
+<REGISTER-DUMP> PC:$81AA A:$00 X:$58 Y:$FF S:$FF P:$03
+read memory: $81AA -> $E0
+read memory: $81AB -> $7B
+[$81AA] CPX #$7B
+<REGISTER-DUMP> PC:$81AC A:$00 X:$81 Y:$FF S:$FF P:$01
+read memory: $81AC -> $E0
+read memory: $81AD -> $83
+[$81AC] CPX #$83
+<REGISTER-DUMP> PC:$81AE A:$00 X:$7F Y:$FF S:$FF P:$80
+
+===== TEST:CPX zeropage =====
+read memory: $81AE -> $E4
+read memory: $81AF -> $50
+read memory: $0050 -> $23
+[$81AE] CPX $50
+<REGISTER-DUMP> PC:$81B0 A:$00 X:$11 Y:$FF S:$FF P:$80
+
+===== TEST:CPX absolute =====
+read memory: $81B0 -> $EC
+read memory: $81B1 -> $60
+read memory: $81B2 -> $20
+read memory: $2060 -> $33
+[$81B0] CPX $2060
+<REGISTER-DUMP> PC:$81B3 A:$00 X:$11 Y:$FF S:$FF P:$80
+
+total clocks: 733

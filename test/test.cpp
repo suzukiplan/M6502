@@ -2262,6 +2262,69 @@ int main(int argc, char** argv)
         CHECK(cpu.R.a == 0b00000000);
     }
 
+    puts("\n===== TEST:CPX immediate =====");
+    {
+        int clocks, len, pc;
+        // a == value
+        cpu.R.x = 88;
+        mmu.ram[cpu.R.pc + 0] = 0xE0;
+        mmu.ram[cpu.R.pc + 1] = 88;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.x == 88);
+        CHECK(cpu.R.p == 0b00000011);
+        // a >= value
+        cpu.R.x = 129;
+        mmu.ram[cpu.R.pc + 0] = 0xE0;
+        mmu.ram[cpu.R.pc + 1] = 123;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.x == 129);
+        CHECK(cpu.R.p == 0b00000001);
+        // a < value
+        cpu.R.x = 127;
+        mmu.ram[cpu.R.pc + 0] = 0xE0;
+        mmu.ram[cpu.R.pc + 1] = 131;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.x == 127);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
+    puts("\n===== TEST:CPX zeropage =====");
+    {
+        int clocks, len, pc;
+        cpu.R.x = 0b00010001;
+        cpu.R.p = 0;
+        mmu.ram[cpu.R.pc + 0] = 0xE4;
+        mmu.ram[cpu.R.pc + 1] = 0x50;
+        mmu.ram[0x50] = 0b00100011;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.x == 0b00010001);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
+    puts("\n===== TEST:CPX absolute =====");
+    {
+        int clocks, len, pc;
+        cpu.R.x = 0b00010001;
+        cpu.R.p = 0;
+        mmu.ram[cpu.R.pc + 0] = 0xEC;
+        mmu.ram[cpu.R.pc + 1] = 0x60;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x2060] = 0b00110011;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(cpu.R.x == 0b00010001);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;
