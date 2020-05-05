@@ -568,11 +568,9 @@ class M6502
     inline void cp(const char* mne, int m, unsigned char value)
     {
         if (CB.debugMessage) strcpy(DD.mne, mne);
-        m -= value;
-        unsigned char c = m & 0xFF;
-        updateStatusN(c & 0x80);
-        updateStatusZ(c == 0);
-        updateStatusC(m & 0xFF00 ? true : false);
+        updateStatusN((m - value) & 0x80 ? true : false);
+        updateStatusZ(m == value);
+        updateStatusC(m >= value);
     }
     inline void cmp(unsigned char value) { cp("CMP", R.a, value); }
     inline void cpx(unsigned char value) { cp("CPX", R.x, value); }
