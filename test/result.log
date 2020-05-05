@@ -5736,6 +5736,5 @@ read memory: $8638 -> $88
 [$8638] DEY 
 <REGISTER-DUMP> PC:$8639 A:$3F X:$54 Y:$A9 S:$FF P:$80
 
-total clocks: 4622
-
+TOTAL CLOCKS: 4622
 TEST PASSED!
