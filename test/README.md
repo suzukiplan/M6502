@@ -22,13 +22,18 @@
 |ASL absX|$1E |1  |7    |*| | | | |*|*||
 |AND indX|$21 |2  |6    |*| | | | |*| ||
 |AND zpg |$25 |2  |3    |*| | | | |*| ||
+|ROL zpg |$26 |1  |5    |*| | | | |*|*||
 |PLP     |$28 |1  |4    |s|s|s|s|s|s|s||
 |AND imm |$29 |2  |2    |*| | | | |*| ||
+|ROL A   |$2A |1  |2    |*| | | | |*|*||
 |AND abs |$2D |3  |4    |*| | | | |*| ||
+|ROL abs |$2E |1  |6    |*| | | | |*|*||
 |AND indY|$31 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
 |AND zpgX|$35 |2  |4    |*| | | | |*| ||
+|ROL zpgX|$36 |1  |6    |*| | | | |*|*||
 |AND absY|$39 |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |AND absX|$3D |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
+|ROL absX|$3E |1  |7    |*| | | | |*|*||
 |SEC     |$38 |1  |2    | | | | | | |1||
 |RTI     |$40 |1  |6    |s|s|s|s|s|s|s||
 |EOR indX|$41 |2  |6    |*| | | | |*| ||
@@ -48,13 +53,18 @@
 |LSR absX|$5E |3  |7    |0| | | | |*|*||
 |ADC indX|$61 |2  |6    |*|*| | | |*|*||
 |ADC zpg |$65 |2  |3    |*|*| | | |*|*||
+|ROR zpg |$66 |1  |5    |*| | | | |*|*||
 |PLA     |$68 |1  |4    | | | | | | | ||
 |ADC imm |$69 |2  |2    |*|*| | | |*|*||
+|ROR A   |$6A |1  |2    |*| | | | |*|*||
 |ADC abs |$6D |3  |4    |*|*| | | |*|*||
+|ROR abs |$6E |1  |6    |*| | | | |*|*||
 |ADC indY|$71 |2  |5,6  |*|*| | | |*|*|cycle penalty (page overflow)|
 |ADC zpgX|$75 |2  |4    |*|*| | | |*|*||
+|ROR zpgX|$76 |1  |6    |*| | | | |*|*||
 |ADC absY|$79 |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
 |ADC absX|$7D |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
+|ROR absX|$7E |1  |7    |*| | | | |*|*||
 |STA indX|$81 |2  |6    | | | | | | | ||
 |STY zpg |$84 |2  |3    | | | | | | | ||
 |STA zpg |$85 |2  |3    | | | | | | | ||

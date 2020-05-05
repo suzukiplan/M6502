@@ -5483,4 +5483,123 @@ write memory: $210F <- $07
 [$85E7] LSR $208F,X<$80>
 <REGISTER-DUMP> PC:$85EA A:$00 X:$80 Y:$12 S:$FF P:$01
 
-total clocks: 4432
+===== TEST:ROL =====
+read memory: $85EA -> $2A
+[$85EA] ROL A<$AA>
+<REGISTER-DUMP> PC:$85EB A:$55 X:$80 Y:$12 S:$FF P:$01
+read memory: $85EB -> $2A
+[$85EB] ROL A<$00>
+<REGISTER-DUMP> PC:$85EC A:$00 X:$80 Y:$12 S:$FF P:$02
+read memory: $85EC -> $2A
+[$85EC] ROL A<$7F>
+<REGISTER-DUMP> PC:$85ED A:$FE X:$80 Y:$12 S:$FF P:$80
+read memory: $85ED -> $2A
+[$85ED] ROL A<$FF>
+<REGISTER-DUMP> PC:$85EE A:$FF X:$80 Y:$12 S:$FF P:$81
+
+===== TEST:ROL zeropage =====
+read memory: $85EE -> $26
+read memory: $85EF -> $50
+read memory: $0050 -> $23
+write memory: $0050 <- $46
+[$85EE] ROL $50
+<REGISTER-DUMP> PC:$85F0 A:$FF X:$80 Y:$12 S:$FF P:$00
+
+===== TEST:ROL zeropage, X =====
+read memory: $85F0 -> $36
+read memory: $85F1 -> $50
+read memory: $0051 -> $25
+write memory: $0051 <- $4A
+[$85F0] ROL $50,X<$01>
+<REGISTER-DUMP> PC:$85F2 A:$FF X:$01 Y:$12 S:$FF P:$00
+read memory: $85F2 -> $36
+read memory: $85F3 -> $FF
+read memory: $0000 -> $88
+write memory: $0000 <- $11
+[$85F2] ROL $FF,X<$01>
+<REGISTER-DUMP> PC:$85F4 A:$FF X:$01 Y:$12 S:$FF P:$01
+
+===== TEST:ROL absolute =====
+read memory: $85F4 -> $2E
+read memory: $85F5 -> $60
+read memory: $85F6 -> $20
+read memory: $2060 -> $33
+write memory: $2060 <- $66
+[$85F4] ROL $2060
+<REGISTER-DUMP> PC:$85F7 A:$FF X:$01 Y:$12 S:$FF P:$00
+
+===== TEST:ROL absolute, X =====
+read memory: $85F7 -> $3E
+read memory: $85F8 -> $7F
+read memory: $85F9 -> $20
+read memory: $20FF -> $3A
+write memory: $20FF <- $74
+[$85F7] ROL $207F,X<$80>
+<REGISTER-DUMP> PC:$85FA A:$FF X:$80 Y:$12 S:$FF P:$00
+read memory: $85FA -> $3E
+read memory: $85FB -> $8F
+read memory: $85FC -> $20
+read memory: $210F -> $0F
+write memory: $210F <- $1E
+[$85FA] ROL $208F,X<$80>
+<REGISTER-DUMP> PC:$85FD A:$FF X:$80 Y:$12 S:$FF P:$00
+
+===== TEST:ROR =====
+read memory: $85FD -> $6A
+[$85FD] ROR A<$55>
+<REGISTER-DUMP> PC:$85FE A:$AA X:$80 Y:$12 S:$FF P:$81
+read memory: $85FE -> $6A
+[$85FE] ROR A<$00>
+<REGISTER-DUMP> PC:$85FF A:$00 X:$80 Y:$12 S:$FF P:$02
+read memory: $85FF -> $6A
+[$85FF] ROR A<$7E>
+<REGISTER-DUMP> PC:$8600 A:$3F X:$80 Y:$12 S:$FF P:$00
+
+===== TEST:ROR zeropage =====
+read memory: $8600 -> $66
+read memory: $8601 -> $50
+read memory: $0050 -> $23
+write memory: $0050 <- $91
+[$8600] ROR $50
+<REGISTER-DUMP> PC:$8602 A:$3F X:$80 Y:$12 S:$FF P:$81
+
+===== TEST:ROR zeropage, X =====
+read memory: $8602 -> $76
+read memory: $8603 -> $50
+read memory: $0051 -> $25
+write memory: $0051 <- $92
+[$8602] ROR $50,X<$01>
+<REGISTER-DUMP> PC:$8604 A:$3F X:$01 Y:$12 S:$FF P:$81
+read memory: $8604 -> $76
+read memory: $8605 -> $FF
+read memory: $0000 -> $88
+write memory: $0000 <- $44
+[$8604] ROR $FF,X<$01>
+<REGISTER-DUMP> PC:$8606 A:$3F X:$01 Y:$12 S:$FF P:$00
+
+===== TEST:ROR absolute =====
+read memory: $8606 -> $6E
+read memory: $8607 -> $60
+read memory: $8608 -> $20
+read memory: $2060 -> $33
+write memory: $2060 <- $99
+[$8606] ROR $2060
+<REGISTER-DUMP> PC:$8609 A:$3F X:$01 Y:$12 S:$FF P:$81
+
+===== TEST:ROR absolute, X =====
+read memory: $8609 -> $7E
+read memory: $860A -> $7F
+read memory: $860B -> $20
+read memory: $20FF -> $3A
+write memory: $20FF <- $1D
+[$8609] ROR $207F,X<$80>
+<REGISTER-DUMP> PC:$860C A:$3F X:$80 Y:$12 S:$FF P:$00
+read memory: $860C -> $7E
+read memory: $860D -> $8F
+read memory: $860E -> $20
+read memory: $210F -> $0F
+write memory: $210F <- $87
+[$860C] ROR $208F,X<$80>
+<REGISTER-DUMP> PC:$860F A:$3F X:$80 Y:$12 S:$FF P:$81
+
+total clocks: 4520

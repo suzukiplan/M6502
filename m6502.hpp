@@ -1169,8 +1169,6 @@ class M6502
         operands[0x4E] = lsr_abs;
         operands[0x5E] = lsr_abs_x;
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0x2A] = rol_a;
         operands[0x26] = rol_zpg;
         operands[0x36] = rol_zpg_x;
@@ -1182,6 +1180,8 @@ class M6502
         operands[0x76] = ror_zpg_x;
         operands[0x6E] = ror_abs;
         operands[0x7E] = ror_abs_x;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0xC6] = dec_zpg;
         operands[0xD6] = dec_zpg_x;
