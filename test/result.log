@@ -1086,4 +1086,91 @@ read memory: $818A -> $83
 [$8189] CMP #$83
 <REGISTER-DUMP> PC:$818B A:$7F X:$20 Y:$FF S:$FF P:$80
 
-total clocks: 664
+===== TEST:CMP zeropage =====
+read memory: $818B -> $C5
+read memory: $818C -> $50
+read memory: $0050 -> $23
+[$818B] CMP $50
+<REGISTER-DUMP> PC:$818D A:$11 X:$20 Y:$FF S:$FF P:$80
+
+===== TEST:CMP zeropage, X =====
+read memory: $818D -> $D5
+read memory: $818E -> $50
+read memory: $0051 -> $25
+[$818D] CMP $50,X<$01>
+<REGISTER-DUMP> PC:$818F A:$11 X:$01 Y:$FF S:$FF P:$80
+read memory: $818F -> $D5
+read memory: $8190 -> $FF
+read memory: $0000 -> $88
+[$818F] CMP $FF,X<$01>
+<REGISTER-DUMP> PC:$8191 A:$11 X:$01 Y:$FF S:$FF P:$80
+
+===== TEST:CMP absolute =====
+read memory: $8191 -> $CD
+read memory: $8192 -> $60
+read memory: $8193 -> $20
+read memory: $2060 -> $33
+[$8191] CMP $2060
+<REGISTER-DUMP> PC:$8194 A:$11 X:$01 Y:$FF S:$FF P:$80
+
+===== TEST:CMP absolute, X =====
+read memory: $8194 -> $DD
+read memory: $8195 -> $7F
+read memory: $8196 -> $20
+read memory: $20FF -> $3A
+[$8194] CMP $207F,X<$80>
+<REGISTER-DUMP> PC:$8197 A:$11 X:$80 Y:$FF S:$FF P:$80
+read memory: $8197 -> $DD
+read memory: $8198 -> $8F
+read memory: $8199 -> $20
+read memory: $210F -> $0F
+[$8197] CMP $208F,X<$80>
+<REGISTER-DUMP> PC:$819A A:$11 X:$80 Y:$FF S:$FF P:$01
+
+===== TEST:CMP absolute, Y =====
+read memory: $819A -> $D9
+read memory: $819B -> $7F
+read memory: $819C -> $20
+read memory: $20FF -> $30
+[$819A] CMP $207F,Y<$80>
+<REGISTER-DUMP> PC:$819D A:$11 X:$80 Y:$80 S:$FF P:$80
+read memory: $819D -> $D9
+read memory: $819E -> $8F
+read memory: $819F -> $20
+read memory: $210F -> $11
+[$819D] CMP $208F,Y<$80>
+<REGISTER-DUMP> PC:$81A0 A:$11 X:$80 Y:$80 S:$FF P:$03
+
+===== TEST:CMP indirect, X =====
+read memory: $81A0 -> $C1
+read memory: $81A1 -> $10
+read memory: $0030 -> $03
+read memory: $0031 -> $02
+read memory: $0203 -> $77
+[$81A0] CMP ($10,X<$20>)
+<REGISTER-DUMP> PC:$81A2 A:$17 X:$20 Y:$80 S:$FF P:$80
+read memory: $81A2 -> $C1
+read memory: $81A3 -> $F0
+read memory: $0010 -> $04
+read memory: $0011 -> $02
+read memory: $0204 -> $12
+[$81A2] CMP ($F0,X<$20>)
+<REGISTER-DUMP> PC:$81A4 A:$17 X:$20 Y:$80 S:$FF P:$01
+
+===== TEST:CMP indirect, Y =====
+read memory: $81A4 -> $D1
+read memory: $81A5 -> $10
+read memory: $0010 -> $01
+read memory: $0011 -> $02
+read memory: $0203 -> $55
+[$81A4] CMP ($10),Y<$02>
+<REGISTER-DUMP> PC:$81A6 A:$00 X:$20 Y:$02 S:$FF P:$80
+read memory: $81A6 -> $D1
+read memory: $81A7 -> $10
+read memory: $0010 -> $01
+read memory: $0011 -> $02
+read memory: $0300 -> $44
+[$81A6] CMP ($10),Y<$FF>
+<REGISTER-DUMP> PC:$81A8 A:$00 X:$20 Y:$FF S:$FF P:$80
+
+total clocks: 720

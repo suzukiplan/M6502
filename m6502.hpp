@@ -1128,8 +1128,6 @@ class M6502
         operands[0x41] = eor_x_ind;
         operands[0x51] = eor_ind_y;
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0xC9] = cmp_imm;
         operands[0xC5] = cmp_zpg;
         operands[0xD5] = cmp_zpg_x;
@@ -1138,6 +1136,8 @@ class M6502
         operands[0xD9] = cmp_abs_y;
         operands[0xC1] = cmp_x_ind;
         operands[0xD1] = cmp_ind_y;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0xE0] = cpx_imm;
         operands[0xE4] = cpx_zpg;
