@@ -2511,6 +2511,51 @@ int main(int argc, char** argv)
         CHECK(cpu.R.p == 0b00000000);
     }
 
+    puts("\n===== TEST:ASL =====");
+    {
+        int clocks, len, pc;
+        // carry
+        cpu.R.a = 0b10101010;
+        mmu.ram[cpu.R.pc + 0] = 0x0A;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.a == 0b01010100);
+        CHECK(cpu.R.p == 0b00000001);
+        // zero + carry
+        cpu.R.a = 0b10000000;
+        mmu.ram[cpu.R.pc + 0] = 0x0A;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.a == 0);
+        CHECK(cpu.R.p == 0b00000011);
+        // zero
+        cpu.R.a = 0;
+        mmu.ram[cpu.R.pc + 0] = 0x0A;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.a == 0);
+        CHECK(cpu.R.p == 0b00000010);
+        // negative
+        cpu.R.a = 0x7F;
+        mmu.ram[cpu.R.pc + 0] = 0x0A;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.a == 0xFE);
+        CHECK(cpu.R.p == 0b10000000);
+        // negative + carry
+        cpu.R.a = 0xFF;
+        mmu.ram[cpu.R.pc + 0] = 0x0A;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.a == 0xFE);
+        CHECK(cpu.R.p == 0b10000001);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

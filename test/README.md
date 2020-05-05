@@ -1,6 +1,6 @@
-# [WIP] Test program of SUZUKI PLAN - MOS6502 Emulator
+# [WIP] TEST PROGRAM - full operands
 
-## Test finished operands
+## CONFIRMED CHECK LIST: `M6502_MODE_NORMAL`
 
 |MNEMONIC|CODE|LEN|Hz   |N|V|B|D|I|Z|C|NOTE|
 |--------|----|:-:|:---:|-|-|-|-|-|-|-|:-|
@@ -9,6 +9,7 @@
 |ORA zpg |$05 |2  |3    |*| | | | |*| ||
 |PHP     |$08 |1  |3    | | | | | | | ||
 |ORA imm |$09 |2  |2    |*| | | | |*| ||
+|ASL A   |$0A |1  |2    |*| | | | |*|*||
 |ORA abs |$0D |3  |4    |*| | | | |*| ||
 |ORA indY|$11 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
 |ORA zpgX|$15 |2  |4    |*| | | | |*| ||

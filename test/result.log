@@ -5361,4 +5361,21 @@ read memory: $85C3 -> $9A
 [$85C3] TXS 
 <REGISTER-DUMP> PC:$85C4 A:$12 X:$FF Y:$12 S:$FF P:$00
 
-total clocks: 4342
+===== TEST:ASL =====
+read memory: $85C4 -> $0A
+[$85C4] ASL 
+<REGISTER-DUMP> PC:$85C5 A:$54 X:$FF Y:$12 S:$FF P:$01
+read memory: $85C5 -> $0A
+[$85C5] ASL 
+<REGISTER-DUMP> PC:$85C6 A:$00 X:$FF Y:$12 S:$FF P:$03
+read memory: $85C6 -> $0A
+[$85C6] ASL 
+<REGISTER-DUMP> PC:$85C7 A:$00 X:$FF Y:$12 S:$FF P:$02
+read memory: $85C7 -> $0A
+[$85C7] ASL 
+<REGISTER-DUMP> PC:$85C8 A:$FE X:$FF Y:$12 S:$FF P:$80
+read memory: $85C8 -> $0A
+[$85C8] ASL 
+<REGISTER-DUMP> PC:$85C9 A:$FE X:$FF Y:$12 S:$FF P:$81
+
+total clocks: 4352
