@@ -49,6 +49,7 @@
 |STY zpg |$84 |2  |3    | | | | | | | ||
 |STA zpg |$85 |2  |3    | | | | | | | ||
 |STX zpg |$86 |2  |3    | | | | | | | ||
+|TXA     |$8A |1  |2    |*| | | | |*| ||
 |STY abs |$8C |3  |4    | | | | | | | ||
 |STA abs |$8D |3  |4    | | | | | | | ||
 |STX abs |$8E |3  |4    | | | | | | | ||
@@ -56,7 +57,9 @@
 |STY zpgX|$94 |2  |4    | | | | | | | ||
 |STA zpgX|$95 |2  |4    | | | | | | | ||
 |STX zpgY|$96 |2  |4    | | | | | | | ||
+|TYA     |$98 |1  |2    |*| | | | |*| ||
 |STA absY|$99 |3  |5    | | | | | | | ||
+|TXS     |$9A |1  |2    | | | | | | | ||
 |STA absX|$9D |3  |5    | | | | | | | ||
 |LDY imm |$A0 |2  |2    |*| | | | |*| ||
 |LDA indX|$A1 |2  |6    |*| | | | |*| ||
@@ -64,7 +67,9 @@
 |LDY zpg |$A4 |2  |3    |*| | | | |*| ||
 |LDA zpg |$A5 |2  |3    |*| | | | |*| ||
 |LDX zpg |$A6 |2  |3    |*| | | | |*| ||
+|TAY     |$A8 |1  |2    |*| | | | |*| ||
 |LDA imm |$A9 |2  |2    |*| | | | |*| ||
+|TAX     |$AA |1  |2    |*| | | | |*| ||
 |LDY abs |$AC |3  |4    |*| | | | |*| ||
 |LDA abs |$AD |3  |4    |*| | | | |*| ||
 |LDX abs |$AE |3  |4    |*| | | | |*| ||
@@ -73,6 +78,7 @@
 |LDX zpgY|$B6 |2  |4    |*| | | | |*| ||
 |CLV     |$B8 |1  |2    | |0| | | | | ||
 |LDA absY|$B9 |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
+|TSX     |$BA |1  |2    |*| | | | |*| ||
 |LDY absX|$BC |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |LDA absX|$BD |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |LDX absY|$BE |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|

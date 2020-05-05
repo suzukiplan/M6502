@@ -5331,4 +5331,34 @@ read memory: $01FF -> $00
 [$85BD] PLP 
 <REGISTER-DUMP> PC:$85BE A:$00 X:$11 Y:$11 S:$00 P:$00
 
-total clocks: 4330
+===== TEST:TAX =====
+read memory: $85BE -> $AA
+[$85BE] TAX 
+<REGISTER-DUMP> PC:$85BF A:$7F X:$7F Y:$11 S:$00 P:$00
+
+===== TEST:TXA =====
+read memory: $85BF -> $8A
+[$85BF] TXA 
+<REGISTER-DUMP> PC:$85C0 A:$80 X:$80 Y:$11 S:$00 P:$80
+
+===== TEST:TAY =====
+read memory: $85C0 -> $A8
+[$85C0] TAY 
+<REGISTER-DUMP> PC:$85C1 A:$00 X:$80 Y:$00 S:$00 P:$02
+
+===== TEST:TYA =====
+read memory: $85C1 -> $98
+[$85C1] TYA 
+<REGISTER-DUMP> PC:$85C2 A:$12 X:$80 Y:$12 S:$00 P:$00
+
+===== TEST:TSX =====
+read memory: $85C2 -> $BA
+[$85C2] TSX 
+<REGISTER-DUMP> PC:$85C3 A:$12 X:$88 Y:$12 S:$88 P:$80
+
+===== TEST:TXS =====
+read memory: $85C3 -> $9A
+[$85C3] TXS 
+<REGISTER-DUMP> PC:$85C4 A:$12 X:$FF Y:$12 S:$FF P:$00
+
+total clocks: 4342

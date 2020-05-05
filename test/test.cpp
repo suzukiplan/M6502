@@ -2434,6 +2434,83 @@ int main(int argc, char** argv)
         }
     }
 
+    puts("\n===== TEST:TAX =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0x7F;
+        cpu.R.x = 0;
+        mmu.ram[cpu.R.pc + 0] = 0xAA;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.x == 0x7F);
+        CHECK(cpu.R.p == 0b00000000);
+    }
+
+    puts("\n===== TEST:TXA =====");
+    {
+        int clocks, len, pc;
+        cpu.R.x = 0x80;
+        mmu.ram[cpu.R.pc + 0] = 0x8A;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.a == 0x80);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
+    puts("\n===== TEST:TAY =====");
+    {
+        int clocks, len, pc;
+        cpu.R.a = 0x00;
+        cpu.R.y = 0xFF;
+        mmu.ram[cpu.R.pc + 0] = 0xA8;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.y == 0x00);
+        CHECK(cpu.R.p == 0b00000010);
+    }
+
+    puts("\n===== TEST:TYA =====");
+    {
+        int clocks, len, pc;
+        cpu.R.y = 0x12;
+        cpu.R.a = 0x00;
+        mmu.ram[cpu.R.pc + 0] = 0x98;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.a == 0x12);
+        CHECK(cpu.R.p == 0b00000000);
+    }
+
+    puts("\n===== TEST:TSX =====");
+    {
+        int clocks, len, pc;
+        cpu.R.s = 0x88;
+        cpu.R.x = 0;
+        mmu.ram[cpu.R.pc + 0] = 0xBA;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.x == 0x88);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
+    puts("\n===== TEST:TXS =====");
+    {
+        int clocks, len, pc;
+        cpu.R.x = 0xFF;
+        cpu.R.p = 0;
+        mmu.ram[cpu.R.pc + 0] = 0x9A;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.s == 0xFF);
+        CHECK(cpu.R.p == 0b00000000);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

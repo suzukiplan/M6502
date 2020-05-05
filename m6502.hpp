@@ -1150,14 +1150,14 @@ class M6502
         operands[0x68] = pla;
         operands[0x28] = plp;
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0xAA] = tax;
         operands[0x8A] = txa;
         operands[0xA8] = tay;
         operands[0x98] = tya;
         operands[0xBA] = tsx;
         operands[0x9A] = txs;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0x0A] = asl_a;
         operands[0x06] = asl_zpg;
