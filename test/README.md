@@ -21,11 +21,13 @@
 |ORA absX|$1D |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |ASL absX|$1E |1  |7    |*| | | | |*|*||
 |AND indX|$21 |2  |6    |*| | | | |*| ||
+|BIT zpg |$24 |2  |3    |m7|m6| | | |*| ||
 |AND zpg |$25 |2  |3    |*| | | | |*| ||
 |ROL zpg |$26 |1  |5    |*| | | | |*|*||
 |PLP     |$28 |1  |4    |s|s|s|s|s|s|s||
 |AND imm |$29 |2  |2    |*| | | | |*| ||
 |ROL A   |$2A |1  |2    |*| | | | |*|*||
+|BIT abs |$2C |3  |4    |m7|m6| | | |*| ||
 |AND abs |$2D |3  |4    |*| | | | |*| ||
 |ROL abs |$2E |1  |6    |*| | | | |*|*||
 |AND indY|$31 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|

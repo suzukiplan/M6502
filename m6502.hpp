@@ -1189,10 +1189,10 @@ class M6502
         operands[0xE8] = inx;
         operands[0xC8] = iny;
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0x24] = bit_zpg;
         operands[0x2C] = bit_abs;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0x18] = clc;
         operands[0x58] = cli;

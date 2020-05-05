@@ -3179,6 +3179,124 @@ int main(int argc, char** argv)
         CHECK(cpu.R.p == 0b10000000);
     }
 
+    puts("\n===== TEST:BIT zeropage =====");
+    {
+        int clocks, len, pc;
+        // no flag
+        cpu.R.p = 0;
+        cpu.R.a = 0b11111111;
+        mmu.ram[0x70] = 0b00111111;
+        mmu.ram[cpu.R.pc + 0] = 0x24;
+        mmu.ram[cpu.R.pc + 1] = 0x70;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0b11111111);
+        CHECK(mmu.ram[0x70] == 0b00111111);
+        CHECK(cpu.R.p == 0b00000000);
+        // zero
+        cpu.R.p = 0;
+        cpu.R.a = 0b11000000;
+        mmu.ram[0x70] = 0b00111111;
+        mmu.ram[cpu.R.pc + 0] = 0x24;
+        mmu.ram[cpu.R.pc + 1] = 0x70;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0b11000000);
+        CHECK(mmu.ram[0x70] == 0b00111111);
+        CHECK(cpu.R.p == 0b00000010);
+        // negative
+        cpu.R.p = 0;
+        cpu.R.a = 0b11000000;
+        mmu.ram[0x70] = 0b10111111;
+        mmu.ram[cpu.R.pc + 0] = 0x24;
+        mmu.ram[cpu.R.pc + 1] = 0x70;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0b11000000);
+        CHECK(mmu.ram[0x70] == 0b10111111);
+        CHECK(cpu.R.p == 0b10000000);
+        // negative + zero
+        cpu.R.p = 0;
+        cpu.R.a = 0b01000000;
+        mmu.ram[0x70] = 0b10111111;
+        mmu.ram[cpu.R.pc + 0] = 0x24;
+        mmu.ram[cpu.R.pc + 1] = 0x70;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0b01000000);
+        CHECK(mmu.ram[0x70] == 0b10111111);
+        CHECK(cpu.R.p == 0b10000010);
+        // overflow
+        cpu.R.p = 0;
+        cpu.R.a = 0b01000000;
+        mmu.ram[0x70] = 0b01111111;
+        mmu.ram[cpu.R.pc + 0] = 0x24;
+        mmu.ram[cpu.R.pc + 1] = 0x70;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0b01000000);
+        CHECK(mmu.ram[0x70] == 0b01111111);
+        CHECK(cpu.R.p == 0b01000000);
+        // overflow + zero
+        cpu.R.p = 0;
+        cpu.R.a = 0b10000000;
+        mmu.ram[0x70] = 0b01111111;
+        mmu.ram[cpu.R.pc + 0] = 0x24;
+        mmu.ram[cpu.R.pc + 1] = 0x70;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0b10000000);
+        CHECK(mmu.ram[0x70] == 0b01111111);
+        CHECK(cpu.R.p == 0b01000010);
+        // negative + overflow
+        cpu.R.p = 0;
+        cpu.R.a = 0b11000000;
+        mmu.ram[0x70] = 0b11111111;
+        mmu.ram[cpu.R.pc + 0] = 0x24;
+        mmu.ram[cpu.R.pc + 1] = 0x70;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0b11000000);
+        CHECK(mmu.ram[0x70] == 0b11111111);
+        CHECK(cpu.R.p == 0b11000000);
+        // negative + overflow + zero
+        cpu.R.p = 0;
+        cpu.R.a = 0b00000000;
+        mmu.ram[0x70] = 0b11111111;
+        mmu.ram[cpu.R.pc + 0] = 0x24;
+        mmu.ram[cpu.R.pc + 1] = 0x70;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0b00000000);
+        CHECK(mmu.ram[0x70] == 0b11111111);
+        CHECK(cpu.R.p == 0b11000010);
+    }
+
+    puts("\n===== TEST:BIT absolute =====");
+    {
+        int clocks, len, pc;
+        cpu.R.p = 0;
+        cpu.R.a = 0b00000000;
+        mmu.ram[0x2770] = 0b11111111;
+        mmu.ram[cpu.R.pc + 0] = 0x2C;
+        mmu.ram[cpu.R.pc + 1] = 0x70;
+        mmu.ram[cpu.R.pc + 2] = 0x27;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(cpu.R.a == 0b00000000);
+        CHECK(mmu.ram[0x2770] == 0b11111111);
+        CHECK(cpu.R.p == 0b11000010);
+    }
+
     printf("\nTOTAL CLOCKS: %d\nTEST PASSED!\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

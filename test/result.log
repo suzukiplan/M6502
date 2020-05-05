@@ -5736,5 +5736,55 @@ read memory: $8638 -> $88
 [$8638] DEY 
 <REGISTER-DUMP> PC:$8639 A:$3F X:$54 Y:$A9 S:$FF P:$80
 
-TOTAL CLOCKS: 4622
+===== TEST:BIT zeropage =====
+read memory: $8639 -> $24
+read memory: $863A -> $70
+read memory: $0070 -> $3F
+[$8639] BIT $70
+<REGISTER-DUMP> PC:$863B A:$FF X:$54 Y:$A9 S:$FF P:$00
+read memory: $863B -> $24
+read memory: $863C -> $70
+read memory: $0070 -> $3F
+[$863B] BIT $70
+<REGISTER-DUMP> PC:$863D A:$C0 X:$54 Y:$A9 S:$FF P:$02
+read memory: $863D -> $24
+read memory: $863E -> $70
+read memory: $0070 -> $BF
+[$863D] BIT $70
+<REGISTER-DUMP> PC:$863F A:$C0 X:$54 Y:$A9 S:$FF P:$80
+read memory: $863F -> $24
+read memory: $8640 -> $70
+read memory: $0070 -> $BF
+[$863F] BIT $70
+<REGISTER-DUMP> PC:$8641 A:$40 X:$54 Y:$A9 S:$FF P:$82
+read memory: $8641 -> $24
+read memory: $8642 -> $70
+read memory: $0070 -> $7F
+[$8641] BIT $70
+<REGISTER-DUMP> PC:$8643 A:$40 X:$54 Y:$A9 S:$FF P:$40
+read memory: $8643 -> $24
+read memory: $8644 -> $70
+read memory: $0070 -> $7F
+[$8643] BIT $70
+<REGISTER-DUMP> PC:$8645 A:$80 X:$54 Y:$A9 S:$FF P:$42
+read memory: $8645 -> $24
+read memory: $8646 -> $70
+read memory: $0070 -> $FF
+[$8645] BIT $70
+<REGISTER-DUMP> PC:$8647 A:$C0 X:$54 Y:$A9 S:$FF P:$C0
+read memory: $8647 -> $24
+read memory: $8648 -> $70
+read memory: $0070 -> $FF
+[$8647] BIT $70
+<REGISTER-DUMP> PC:$8649 A:$00 X:$54 Y:$A9 S:$FF P:$C2
+
+===== TEST:BIT absolute =====
+read memory: $8649 -> $2C
+read memory: $864A -> $70
+read memory: $864B -> $27
+read memory: $2770 -> $FF
+[$8649] BIT $2770
+<REGISTER-DUMP> PC:$864C A:$00 X:$54 Y:$A9 S:$FF P:$C2
+
+TOTAL CLOCKS: 4650
 TEST PASSED!
