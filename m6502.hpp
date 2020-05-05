@@ -792,14 +792,11 @@ class M6502
     inline unsigned char dec(const char* mne, unsigned char value)
     {
         if (CB.debugMessage) strcpy(DD.mne, mne);
-        int work = value;
-        work--;
-        unsigned char result = work & 0xFF;
-        updateStatusN(result & 0x80);
-        updateStatusZ(result == 0);
-        updateStatusC(work & 0xFF00 ? true : false);
+        value--;
+        updateStatusN(value & 0x80);
+        updateStatusZ(value == 0);
         consumeClock();
-        return result;
+        return value;
     }
     static inline void dec_zpg(M6502* cpu)
     {
@@ -831,14 +828,11 @@ class M6502
     inline unsigned char inc(const char* mne, unsigned char value)
     {
         if (CB.debugMessage) strcpy(DD.mne, mne);
-        int work = value;
-        work++;
-        unsigned char result = work & 0xFF;
-        updateStatusN(result & 0x80);
-        updateStatusZ(result == 0);
-        updateStatusC(work & 0xFF00 ? true : false);
+        value++;
+        updateStatusN(value & 0x80);
+        updateStatusZ(value == 0);
         consumeClock();
-        return result;
+        return value;
     }
     static inline void inc_zpg(M6502* cpu)
     {
