@@ -7,15 +7,19 @@
 |BRK     |$00 |1  |7    | | |1| |1| | ||
 |ORA indX|$01 |2  |6    |*| | | | |*| ||
 |ORA zpg |$05 |2  |3    |*| | | | |*| ||
+|ASL zpg |$06 |1  |5    |*| | | | |*|*||
 |PHP     |$08 |1  |3    | | | | | | | ||
 |ORA imm |$09 |2  |2    |*| | | | |*| ||
 |ASL A   |$0A |1  |2    |*| | | | |*|*||
 |ORA abs |$0D |3  |4    |*| | | | |*| ||
+|ASL abs |$0E |1  |6    |*| | | | |*|*||
 |ORA indY|$11 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
 |ORA zpgX|$15 |2  |4    |*| | | | |*| ||
+|ASL zpgX|$16 |1  |6    |*| | | | |*|*||
 |CLC     |$18 |1  |2    | | | | | | |0||
 |ORA absY|$19 |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |ORA absX|$1D |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
+|ASL absX|$1E |1  |7    |*| | | | |*|*||
 |AND indX|$21 |2  |6    |*| | | | |*| ||
 |AND zpg |$25 |2  |3    |*| | | | |*| ||
 |PLP     |$28 |1  |4    |s|s|s|s|s|s|s||

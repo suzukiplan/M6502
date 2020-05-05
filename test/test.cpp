@@ -2556,6 +2556,82 @@ int main(int argc, char** argv)
         CHECK(cpu.R.p == 0b10000001);
     }
 
+    puts("\n===== TEST:ASL zeropage =====");
+    {
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0x06;
+        mmu.ram[cpu.R.pc + 1] = 0x50;
+        mmu.ram[0x50] = 0b00100011;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x50] == 0b01000110);
+        CHECK(cpu.R.p == 0b00000000);
+    }
+
+    puts("\n===== TEST:ASL zeropage, X =====");
+    {
+        int clocks, len, pc;
+        cpu.R.x = 1;
+        mmu.ram[cpu.R.pc + 0] = 0x16;
+        mmu.ram[cpu.R.pc + 1] = 0x50;
+        mmu.ram[0x51] = 0b00100101;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x51] = 0b01001010);
+        CHECK(cpu.R.p == 0b00000000);
+        // overflow
+        mmu.ram[cpu.R.pc + 0] = 0x16;
+        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[0x00] = 0b10001000;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x00] == 0b00010000);
+        CHECK(cpu.R.p == 0b00000001);
+    }
+
+    puts("\n===== TEST:ASL absolute =====");
+    {
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0x0E;
+        mmu.ram[cpu.R.pc + 1] = 0x60;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x2060] = 0b00110011;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 3);
+        CHECK(mmu.ram[0x2060] == 0b01100110);
+        CHECK(cpu.R.p == 0b00000000);
+    }
+
+    puts("\n===== TEST:ASL absolute, X =====");
+    {
+        int clocks, len, pc;
+        cpu.R.x = 0x80;
+        mmu.ram[cpu.R.pc + 0] = 0x1E;
+        mmu.ram[cpu.R.pc + 1] = 0x7F;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x20FF] = 0b00111010;
+        EXECUTE();
+        CHECK(clocks == 7);
+        CHECK(len == 3);
+        CHECK(mmu.ram[0x20FF] == 0b01110100);
+        CHECK(cpu.R.p == 0b00000000);
+        // next page
+        mmu.ram[cpu.R.pc + 0] = 0x1E;
+        mmu.ram[cpu.R.pc + 1] = 0x8F;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x210F] = 0x0F;
+        EXECUTE();
+        CHECK(clocks == 7);
+        CHECK(len == 3);
+        CHECK(mmu.ram[0x210F] == 0x1E);
+        CHECK(cpu.R.p == 0b00000000);
+    }
+    exit(0);
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

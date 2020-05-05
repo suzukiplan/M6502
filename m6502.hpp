@@ -1158,11 +1158,12 @@ class M6502
         operands[0x9A] = txs;
 
         operands[0x0A] = asl_a;
-        // --- TODO: ここまでテスト済み ---
         operands[0x06] = asl_zpg;
         operands[0x16] = asl_zpg_x;
         operands[0x0E] = asl_abs;
         operands[0x1E] = asl_abs_x;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0x4A] = lsr_a;
         operands[0x46] = lsr_zpg;

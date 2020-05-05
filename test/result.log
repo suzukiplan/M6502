@@ -5378,4 +5378,49 @@ read memory: $85C8 -> $0A
 [$85C8] ASL 
 <REGISTER-DUMP> PC:$85C9 A:$FE X:$FF Y:$12 S:$FF P:$81
 
-total clocks: 4352
+===== TEST:ASL zeropage =====
+read memory: $85C9 -> $06
+read memory: $85CA -> $50
+read memory: $0050 -> $23
+write memory: $0050 <- $46
+[$85C9] ASL $50
+<REGISTER-DUMP> PC:$85CB A:$FE X:$FF Y:$12 S:$FF P:$00
+
+===== TEST:ASL zeropage, X =====
+read memory: $85CB -> $16
+read memory: $85CC -> $50
+read memory: $0051 -> $25
+write memory: $0051 <- $4A
+[$85CB] ASL $50,X<$01>
+<REGISTER-DUMP> PC:$85CD A:$FE X:$01 Y:$12 S:$FF P:$00
+read memory: $85CD -> $16
+read memory: $85CE -> $FF
+read memory: $0000 -> $88
+write memory: $0000 <- $10
+[$85CD] ASL $FF,X<$01>
+<REGISTER-DUMP> PC:$85CF A:$FE X:$01 Y:$12 S:$FF P:$01
+
+===== TEST:ASL absolute =====
+read memory: $85CF -> $0E
+read memory: $85D0 -> $60
+read memory: $85D1 -> $20
+read memory: $2060 -> $33
+write memory: $2060 <- $66
+[$85CF] ASL $2060
+<REGISTER-DUMP> PC:$85D2 A:$FE X:$01 Y:$12 S:$FF P:$00
+
+===== TEST:ASL absolute, X =====
+read memory: $85D2 -> $1E
+read memory: $85D3 -> $7F
+read memory: $85D4 -> $20
+read memory: $20FF -> $3A
+write memory: $20FF <- $74
+[$85D2] ASL $207F,X<$80>
+<REGISTER-DUMP> PC:$85D5 A:$FE X:$80 Y:$12 S:$FF P:$00
+read memory: $85D5 -> $1E
+read memory: $85D6 -> $8F
+read memory: $85D7 -> $20
+read memory: $210F -> $0F
+write memory: $210F <- $1E
+[$85D5] ASL $208F,X<$80>
+<REGISTER-DUMP> PC:$85D8 A:$FE X:$80 Y:$12 S:$FF P:$00
