@@ -3179,7 +3179,7 @@ int main(int argc, char** argv)
         CHECK(cpu.R.p == 0b10000000);
     }
 
-    printf("\ntotal clocks: %d\n", totalClocks);
+    printf("\ntotal clocks: %d\n\nTEST PASSED!\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;
 }
