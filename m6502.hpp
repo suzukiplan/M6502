@@ -506,7 +506,7 @@ class M6502
             fprintf(stderr, "TODO: not implemented BCD mode");
             return;
         } else {
-            add(value ^ 0xFF);
+            add(value ^ 0xFF); // To ones' complement (tobe two's complement, if carry is set)
         }
     }
 
