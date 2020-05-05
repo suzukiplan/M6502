@@ -2265,7 +2265,7 @@ int main(int argc, char** argv)
     puts("\n===== TEST:CPX immediate =====");
     {
         int clocks, len, pc;
-        // a == value
+        // x == value
         cpu.R.x = 88;
         mmu.ram[cpu.R.pc + 0] = 0xE0;
         mmu.ram[cpu.R.pc + 1] = 88;
@@ -2274,7 +2274,7 @@ int main(int argc, char** argv)
         CHECK(len == 2);
         CHECK(cpu.R.x == 88);
         CHECK(cpu.R.p == 0b00000011);
-        // a >= value
+        // x >= value
         cpu.R.x = 129;
         mmu.ram[cpu.R.pc + 0] = 0xE0;
         mmu.ram[cpu.R.pc + 1] = 123;
@@ -2283,7 +2283,7 @@ int main(int argc, char** argv)
         CHECK(len == 2);
         CHECK(cpu.R.x == 129);
         CHECK(cpu.R.p == 0b00000001);
-        // a < value
+        // x < value
         cpu.R.x = 127;
         mmu.ram[cpu.R.pc + 0] = 0xE0;
         mmu.ram[cpu.R.pc + 1] = 131;
@@ -2322,6 +2322,69 @@ int main(int argc, char** argv)
         CHECK(clocks == 4);
         CHECK(len == 3);
         CHECK(cpu.R.x == 0b00010001);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
+    puts("\n===== TEST:CPY immediate =====");
+    {
+        int clocks, len, pc;
+        // y == value
+        cpu.R.y = 88;
+        mmu.ram[cpu.R.pc + 0] = 0xC0;
+        mmu.ram[cpu.R.pc + 1] = 88;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.y == 88);
+        CHECK(cpu.R.p == 0b00000011);
+        // y >= value
+        cpu.R.y = 129;
+        mmu.ram[cpu.R.pc + 0] = 0xC0;
+        mmu.ram[cpu.R.pc + 1] = 123;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.y == 129);
+        CHECK(cpu.R.p == 0b00000001);
+        // y < value
+        cpu.R.y = 127;
+        mmu.ram[cpu.R.pc + 0] = 0xC0;
+        mmu.ram[cpu.R.pc + 1] = 131;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.y == 127);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
+    puts("\n===== TEST:CPY zeropage =====");
+    {
+        int clocks, len, pc;
+        cpu.R.y = 0b00010001;
+        cpu.R.p = 0;
+        mmu.ram[cpu.R.pc + 0] = 0xC4;
+        mmu.ram[cpu.R.pc + 1] = 0x50;
+        mmu.ram[0x50] = 0b00100011;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(len == 2);
+        CHECK(cpu.R.y == 0b00010001);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
+    puts("\n===== TEST:CPY absolute =====");
+    {
+        int clocks, len, pc;
+        cpu.R.y = 0b00010001;
+        cpu.R.p = 0;
+        mmu.ram[cpu.R.pc + 0] = 0xCC;
+        mmu.ram[cpu.R.pc + 1] = 0x60;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x2060] = 0b00110011;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(len == 3);
+        CHECK(cpu.R.y == 0b00010001);
         CHECK(cpu.R.p == 0b10000000);
     }
 

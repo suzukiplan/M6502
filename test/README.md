@@ -73,9 +73,12 @@
 |LDA absX|$BD |3  |4,5  |*| | | | |*| |cycle penalty|
 |LDX absY|$BE |3  |4,5  |*| | | | |*| |cycle penalty|
 |LDA zpgX|$B5 |2  |4    |*| | | | |*| ||
+|CPY imm |$C0 |2  |2    |*| | | | |*|*||
 |CMP indX|$C1 |2  |6    |*| | | | |*|*||
+|CPY zpg |$C4 |2  |3    |*| | | | |*|*||
 |CMP zpg |$C5 |2  |3    |*| | | | |*|*||
 |CMP imm |$C9 |2  |2    |*| | | | |*|*||
+|CPY abs |$EC |3  |4    |*| | | | |*|*||
 |CMP abs |$CD |3  |4    |*| | | | |*|*||
 |CMP indY|$D1 |2  |5,6  |*| | | | |*|*|cycle penalty|
 |CMP zpgX|$D5 |2  |4    |*| | | | |*|*||
@@ -86,7 +89,7 @@
 |CPX zpg |$E4 |2  |3    |*| | | | |*|*||
 |SBC zpg |$E5 |2  |3    |*|*| | | |*|*||
 |SBC imm |$E9 |2  |2    |*|*| | | |*|*||
-|CMP abs |$EC |3  |4    |*| | | | |*|*||
+|CPX abs |$EC |3  |4    |*| | | | |*|*||
 |SBC abs |$ED |3  |4    |*|*| | | |*|*||
 |SBC indY|$F1 |2  |5,6  |*|*| | | |*|*|cycle penalty|
 |SBC zpgX|$F5 |2  |4    |*|*| | | |*|*||

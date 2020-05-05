@@ -1141,11 +1141,11 @@ class M6502
         operands[0xE4] = cpx_zpg;
         operands[0xEC] = cpx_abs;
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0xC0] = cpy_imm;
         operands[0xC4] = cpy_zpg;
         operands[0xCC] = cpy_abs;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0x48] = pha;
         operands[0x08] = php;
