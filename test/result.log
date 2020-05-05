@@ -5424,3 +5424,63 @@ read memory: $210F -> $0F
 write memory: $210F <- $1E
 [$85D5] ASL $208F,X<$80>
 <REGISTER-DUMP> PC:$85D8 A:$FE X:$80 Y:$12 S:$FF P:$00
+
+===== TEST:LSR =====
+read memory: $85D8 -> $4A
+[$85D8] LSR A<$55>
+<REGISTER-DUMP> PC:$85D9 A:$2A X:$80 Y:$12 S:$FF P:$01
+read memory: $85D9 -> $4A
+[$85D9] LSR A<$01>
+<REGISTER-DUMP> PC:$85DA A:$00 X:$80 Y:$12 S:$FF P:$03
+read memory: $85DA -> $4A
+[$85DA] LSR A<$00>
+<REGISTER-DUMP> PC:$85DB A:$00 X:$80 Y:$12 S:$FF P:$02
+
+===== TEST:LSR zeropage =====
+read memory: $85DB -> $46
+read memory: $85DC -> $50
+read memory: $0050 -> $23
+write memory: $0050 <- $11
+[$85DB] LSR $50
+<REGISTER-DUMP> PC:$85DD A:$00 X:$80 Y:$12 S:$FF P:$01
+
+===== TEST:LSR zeropage, X =====
+read memory: $85DD -> $56
+read memory: $85DE -> $50
+read memory: $0051 -> $25
+write memory: $0051 <- $12
+[$85DD] LSR $50,X<$01>
+<REGISTER-DUMP> PC:$85DF A:$00 X:$01 Y:$12 S:$FF P:$01
+read memory: $85DF -> $56
+read memory: $85E0 -> $FF
+read memory: $0000 -> $88
+write memory: $0000 <- $44
+[$85DF] LSR $FF,X<$01>
+<REGISTER-DUMP> PC:$85E1 A:$00 X:$01 Y:$12 S:$FF P:$00
+
+===== TEST:LSR absolute =====
+read memory: $85E1 -> $4E
+read memory: $85E2 -> $60
+read memory: $85E3 -> $20
+read memory: $2060 -> $33
+write memory: $2060 <- $19
+[$85E1] LSR $2060
+<REGISTER-DUMP> PC:$85E4 A:$00 X:$01 Y:$12 S:$FF P:$01
+
+===== TEST:LSR absolute, X =====
+read memory: $85E4 -> $5E
+read memory: $85E5 -> $7F
+read memory: $85E6 -> $20
+read memory: $20FF -> $3A
+write memory: $20FF <- $1D
+[$85E4] LSR $207F,X<$80>
+<REGISTER-DUMP> PC:$85E7 A:$00 X:$80 Y:$12 S:$FF P:$00
+read memory: $85E7 -> $5E
+read memory: $85E8 -> $8F
+read memory: $85E9 -> $20
+read memory: $210F -> $0F
+write memory: $210F <- $07
+[$85E7] LSR $208F,X<$80>
+<REGISTER-DUMP> PC:$85EA A:$00 X:$80 Y:$12 S:$FF P:$01
+
+total clocks: 4432

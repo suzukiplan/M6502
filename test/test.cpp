@@ -2630,7 +2630,110 @@ int main(int argc, char** argv)
         CHECK(mmu.ram[0x210F] == 0x1E);
         CHECK(cpu.R.p == 0b00000000);
     }
-    exit(0);
+
+    puts("\n===== TEST:LSR =====");
+    {
+        int clocks, len, pc;
+        // carry
+        cpu.R.a = 0b01010101;
+        mmu.ram[cpu.R.pc + 0] = 0x4A;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.a == 0b00101010);
+        CHECK(cpu.R.p == 0b00000001);
+        // zero + carry
+        cpu.R.a = 0b00000001;
+        mmu.ram[cpu.R.pc + 0] = 0x4A;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.a == 0);
+        CHECK(cpu.R.p == 0b00000011);
+        // zero
+        cpu.R.a = 0;
+        mmu.ram[cpu.R.pc + 0] = 0x4A;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.a == 0);
+        CHECK(cpu.R.p == 0b00000010);
+    }
+
+    puts("\n===== TEST:LSR zeropage =====");
+    {
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0x46;
+        mmu.ram[cpu.R.pc + 1] = 0x50;
+        mmu.ram[0x50] = 0b00100011;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x50] == 0b00010001);
+        CHECK(cpu.R.p == 0b00000001);
+    }
+
+    puts("\n===== TEST:LSR zeropage, X =====");
+    {
+        int clocks, len, pc;
+        cpu.R.x = 1;
+        mmu.ram[cpu.R.pc + 0] = 0x56;
+        mmu.ram[cpu.R.pc + 1] = 0x50;
+        mmu.ram[0x51] = 0b00100101;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x51] = 0b00010010);
+        CHECK(cpu.R.p == 0b00000001);
+        // overflow
+        mmu.ram[cpu.R.pc + 0] = 0x56;
+        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[0x00] = 0b10001000;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 2);
+        CHECK(mmu.ram[0x00] == 0b01000100);
+        CHECK(cpu.R.p == 0b00000000);
+    }
+
+    puts("\n===== TEST:LSR absolute =====");
+    {
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0x4E;
+        mmu.ram[cpu.R.pc + 1] = 0x60;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x2060] = 0b00110011;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(len == 3);
+        CHECK(mmu.ram[0x2060] == 0b00011001);
+        CHECK(cpu.R.p == 0b00000001);
+    }
+
+    puts("\n===== TEST:LSR absolute, X =====");
+    {
+        int clocks, len, pc;
+        cpu.R.x = 0x80;
+        mmu.ram[cpu.R.pc + 0] = 0x5E;
+        mmu.ram[cpu.R.pc + 1] = 0x7F;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x20FF] = 0b00111010;
+        EXECUTE();
+        CHECK(clocks == 7);
+        CHECK(len == 3);
+        CHECK(mmu.ram[0x20FF] == 0b00011101);
+        CHECK(cpu.R.p == 0b00000000);
+        // next page
+        mmu.ram[cpu.R.pc + 0] = 0x5E;
+        mmu.ram[cpu.R.pc + 1] = 0x8F;
+        mmu.ram[cpu.R.pc + 2] = 0x20;
+        mmu.ram[0x210F] = 0x0F;
+        EXECUTE();
+        CHECK(clocks == 7);
+        CHECK(len == 3);
+        CHECK(mmu.ram[0x210F] == 0x07);
+        CHECK(cpu.R.p == 0b00000001);
+    }
 
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();

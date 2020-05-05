@@ -33,14 +33,19 @@
 |RTI     |$40 |1  |6    |s|s|s|s|s|s|s||
 |EOR indX|$41 |2  |6    |*| | | | |*| ||
 |EOR zpg |$45 |2  |3    |*| | | | |*| ||
+|LSR zpg |$46 |2  |5    |0| | | | |*|*||
 |PHA     |$48 |1  |3    | | | | | | | ||
 |EOR imm |$49 |2  |2    |*| | | | |*| ||
+|LSR A   |$4A |1  |2    |0| | | | |*|*||
 |EOR abs |$4D |3  |4    |*| | | | |*| ||
+|LSR abs |$4E |3  |6    |0| | | | |*|*||
 |EOR indY|$51 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
 |EOR zpgX|$55 |2  |4    |*| | | | |*| ||
+|LSR zpgX|$56 |2  |6    |0| | | | |*|*||
 |CLI     |$58 |1  |2    | | | | |0| | ||
 |EOR absY|$59 |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |EOR absX|$5D |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
+|LSR absX|$5E |3  |7    |0| | | | |*|*||
 |ADC indX|$61 |2  |6    |*|*| | | |*|*||
 |ADC zpg |$65 |2  |3    |*|*| | | |*|*||
 |PLA     |$68 |1  |4    | | | | | | | ||
