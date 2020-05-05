@@ -2062,6 +2062,38 @@ int main(int argc, char** argv)
         CHECK(cpu.R.a == 0b00010001);
     }
 
+    puts("\n===== TEST:CMP immediate =====");
+    {
+        int clocks, len, pc;
+        // a == value
+        cpu.R.a = 88;
+        mmu.ram[cpu.R.pc + 0] = 0xC9;
+        mmu.ram[cpu.R.pc + 1] = 88;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 88);
+        CHECK(cpu.R.p == 0b00000011);
+        // a >= value
+        cpu.R.a = 129;
+        mmu.ram[cpu.R.pc + 0] = 0xC9;
+        mmu.ram[cpu.R.pc + 1] = 123;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 129);
+        CHECK(cpu.R.p == 0b00000001);
+        // a < value
+        cpu.R.a = 127;
+        mmu.ram[cpu.R.pc + 0] = 0xC9;
+        mmu.ram[cpu.R.pc + 1] = 131;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 127);
+        CHECK(cpu.R.p == 0b10000000);
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

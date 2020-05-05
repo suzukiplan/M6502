@@ -1072,4 +1072,18 @@ read memory: $0300 -> $44
 [$8183] EOR ($10),Y<$FF>
 <REGISTER-DUMP> PC:$8185 A:$11 X:$20 Y:$FF S:$FF P:$00
 
-total clocks: 658
+===== TEST:CMP immediate =====
+read memory: $8185 -> $C9
+read memory: $8186 -> $58
+[$8185] CMP #$58
+<REGISTER-DUMP> PC:$8187 A:$58 X:$20 Y:$FF S:$FF P:$03
+read memory: $8187 -> $C9
+read memory: $8188 -> $7B
+[$8187] CMP #$7B
+<REGISTER-DUMP> PC:$8189 A:$81 X:$20 Y:$FF S:$FF P:$01
+read memory: $8189 -> $C9
+read memory: $818A -> $83
+[$8189] CMP #$83
+<REGISTER-DUMP> PC:$818B A:$7F X:$20 Y:$FF S:$FF P:$80
+
+total clocks: 664
