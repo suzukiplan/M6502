@@ -1145,12 +1145,12 @@ class M6502
         operands[0xC4] = cpy_zpg;
         operands[0xCC] = cpy_abs;
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0x48] = pha;
         operands[0x08] = php;
         operands[0x68] = pla;
         operands[0x28] = plp;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0xAA] = tax;
         operands[0x8A] = txa;

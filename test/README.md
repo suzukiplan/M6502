@@ -7,6 +7,7 @@
 |BRK     |$00 |1  |7    | | |1| |1| | ||
 |ORA indX|$01 |2  |6    |*| | | | |*| ||
 |ORA zpg |$05 |2  |3    |*| | | | |*| ||
+|PHP     |$08 |1  |3    | | | | | | | ||
 |ORA imm |$09 |2  |2    |*| | | | |*| ||
 |ORA abs |$0D |3  |4    |*| | | | |*| ||
 |ORA indY|$11 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
@@ -16,6 +17,7 @@
 |ORA absX|$1D |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |AND indX|$21 |2  |6    |*| | | | |*| ||
 |AND zpg |$25 |2  |3    |*| | | | |*| ||
+|PLP     |$28 |1  |4    |s|s|s|s|s|s|s||
 |AND imm |$29 |2  |2    |*| | | | |*| ||
 |AND abs |$2D |3  |4    |*| | | | |*| ||
 |AND indY|$31 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
@@ -26,6 +28,7 @@
 |RTI     |$40 |1  |6    |s|s|s|s|s|s|s||
 |EOR indX|$41 |2  |6    |*| | | | |*| ||
 |EOR zpg |$45 |2  |3    |*| | | | |*| ||
+|PHA     |$48 |1  |3    | | | | | | | ||
 |EOR imm |$49 |2  |2    |*| | | | |*| ||
 |EOR abs |$4D |3  |4    |*| | | | |*| ||
 |EOR indY|$51 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
@@ -35,6 +38,7 @@
 |EOR absX|$5D |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |ADC indX|$61 |2  |6    |*|*| | | |*|*||
 |ADC zpg |$65 |2  |3    |*|*| | | |*|*||
+|PLA     |$68 |1  |4    | | | | | | | ||
 |ADC imm |$69 |2  |2    |*|*| | | |*|*||
 |ADC abs |$6D |3  |4    |*|*| | | |*|*||
 |ADC indY|$71 |2  |5,6  |*|*| | | |*|*|cycle penalty (page overflow)|

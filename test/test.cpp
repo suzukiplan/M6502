@@ -2388,6 +2388,52 @@ int main(int argc, char** argv)
         CHECK(cpu.R.p == 0b10000000);
     }
 
+    puts("\n===== TEST:PHA,PLA =====");
+    {
+        int clocks, len, pc;
+        cpu.R.p = 0;
+        cpu.R.s = 0;
+        memset(&mmu.ram[0x100], 0, 0x100);
+        for (int i = 0; i < 256; i++) {
+            cpu.R.a = i;
+            mmu.ram[cpu.R.pc + 0] = 0x48;
+            EXECUTE();
+            CHECK(clocks == 3);
+            CHECK(len == 1);
+            CHECK(mmu.ram[0x100 + cpu.R.s] == i);
+        }
+        for (int i = 0; i < 256; i++) {
+            mmu.ram[cpu.R.pc + 0] = 0x68;
+            EXECUTE();
+            CHECK(clocks == 4);
+            CHECK(len == 1);
+            CHECK(cpu.R.a == 255 - i);
+        }
+    }
+
+    puts("\n===== TEST:PHP,PLP =====");
+    {
+        int clocks, len, pc;
+        cpu.R.p = 0;
+        cpu.R.s = 0;
+        memset(&mmu.ram[0x100], 0, 0x100);
+        for (int i = 0; i < 256; i++) {
+            cpu.R.p = i;
+            mmu.ram[cpu.R.pc + 0] = 0x08;
+            EXECUTE();
+            CHECK(clocks == 3);
+            CHECK(len == 1);
+            CHECK(mmu.ram[0x100 + cpu.R.s] == i);
+        }
+        for (int i = 0; i < 256; i++) {
+            mmu.ram[cpu.R.pc + 0] = 0x28;
+            EXECUTE();
+            CHECK(clocks == 4);
+            CHECK(len == 1);
+            CHECK(cpu.R.p == 255 - i);
+        }
+    }
+
     printf("\ntotal clocks: %d\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;
