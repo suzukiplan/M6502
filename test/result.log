@@ -565,35 +565,35 @@ read memory: $80D1 -> $F6
 read memory: $80D2 -> $E9
 read memory: $80D3 -> $11
 [$80D2] SBC #$11
-<REGISTER-DUMP> PC:$80D4 A:$11 X:$11 Y:$C0 S:$FF P:$00
+<REGISTER-DUMP> PC:$80D4 A:$11 X:$11 Y:$C0 S:$FF P:$01
 read memory: $80D4 -> $E9
 read memory: $80D5 -> $11
 [$80D4] SBC #$11
-<REGISTER-DUMP> PC:$80D6 A:$10 X:$11 Y:$C0 S:$FF P:$00
+<REGISTER-DUMP> PC:$80D6 A:$10 X:$11 Y:$C0 S:$FF P:$01
 read memory: $80D6 -> $E9
 read memory: $80D7 -> $01
 [$80D6] SBC #$01
-<REGISTER-DUMP> PC:$80D8 A:$7F X:$11 Y:$C0 S:$FF P:$40
+<REGISTER-DUMP> PC:$80D8 A:$7F X:$11 Y:$C0 S:$FF P:$41
 read memory: $80D8 -> $E9
 read memory: $80D9 -> $80
 [$80D8] SBC #$80
-<REGISTER-DUMP> PC:$80DA A:$81 X:$11 Y:$C0 S:$FF P:$C1
+<REGISTER-DUMP> PC:$80DA A:$81 X:$11 Y:$C0 S:$FF P:$C0
 read memory: $80DA -> $E9
 read memory: $80DB -> $02
 [$80DA] SBC #$02
-<REGISTER-DUMP> PC:$80DC A:$FF X:$11 Y:$C0 S:$FF P:$81
+<REGISTER-DUMP> PC:$80DC A:$FF X:$11 Y:$C0 S:$FF P:$80
 read memory: $80DC -> $E9
 read memory: $80DD -> $82
 [$80DC] SBC #$82
-<REGISTER-DUMP> PC:$80DE A:$FF X:$11 Y:$C0 S:$FF P:$81
+<REGISTER-DUMP> PC:$80DE A:$FF X:$11 Y:$C0 S:$FF P:$80
 read memory: $80DE -> $E9
 read memory: $80DF -> $20
 [$80DE] SBC #$20
-<REGISTER-DUMP> PC:$80E0 A:$00 X:$11 Y:$C0 S:$FF P:$02
+<REGISTER-DUMP> PC:$80E0 A:$00 X:$11 Y:$C0 S:$FF P:$03
 read memory: $80E0 -> $E9
 read memory: $80E1 -> $C7
 [$80E0] SBC #$C7
-<REGISTER-DUMP> PC:$80E2 A:$24 X:$11 Y:$C0 S:$FF P:$00
+<REGISTER-DUMP> PC:$80E2 A:$24 X:$11 Y:$C0 S:$FF P:$01
 
 ===== TEST:ADC zeropage =====
 read memory: $80E2 -> $65
@@ -687,19 +687,19 @@ read memory: $80FF -> $E5
 read memory: $8100 -> $50
 read memory: $0050 -> $23
 [$80FF] SBC $50
-<REGISTER-DUMP> PC:$8101 A:$ED X:$20 Y:$FF S:$FF P:$81
+<REGISTER-DUMP> PC:$8101 A:$ED X:$20 Y:$FF S:$FF P:$80
 
 ===== TEST:SBC zeropage, X =====
 read memory: $8101 -> $F5
 read memory: $8102 -> $50
 read memory: $0051 -> $24
 [$8101] SBC $50,X<$01>
-<REGISTER-DUMP> PC:$8103 A:$EC X:$01 Y:$FF S:$FF P:$81
+<REGISTER-DUMP> PC:$8103 A:$EC X:$01 Y:$FF S:$FF P:$80
 read memory: $8103 -> $F5
 read memory: $8104 -> $FF
 read memory: $0000 -> $25
 [$8103] SBC $FF,X<$01>
-<REGISTER-DUMP> PC:$8105 A:$C7 X:$01 Y:$FF S:$FF P:$80
+<REGISTER-DUMP> PC:$8105 A:$C6 X:$01 Y:$FF S:$FF P:$81
 
 ===== TEST:SBC absolute =====
 read memory: $8105 -> $ED
@@ -707,7 +707,7 @@ read memory: $8106 -> $50
 read memory: $8107 -> $20
 read memory: $2050 -> $24
 [$8105] SBC $2050
-<REGISTER-DUMP> PC:$8108 A:$EC X:$01 Y:$FF S:$FF P:$81
+<REGISTER-DUMP> PC:$8108 A:$EC X:$01 Y:$FF S:$FF P:$80
 
 ===== TEST:SBC absolute, X =====
 read memory: $8108 -> $FD
@@ -715,13 +715,13 @@ read memory: $8109 -> $7F
 read memory: $810A -> $20
 read memory: $20FF -> $30
 [$8108] SBC $207F,X<$80>
-<REGISTER-DUMP> PC:$810B A:$E0 X:$80 Y:$FF S:$FF P:$81
+<REGISTER-DUMP> PC:$810B A:$E0 X:$80 Y:$FF S:$FF P:$80
 read memory: $810B -> $FD
 read memory: $810C -> $8F
 read memory: $810D -> $20
 read memory: $210F -> $44
 [$810B] SBC $208F,X<$80>
-<REGISTER-DUMP> PC:$810E A:$9C X:$80 Y:$FF S:$FF P:$80
+<REGISTER-DUMP> PC:$810E A:$9B X:$80 Y:$FF S:$FF P:$81
 
 ===== TEST:SBC absolute, Y =====
 read memory: $810E -> $F9
@@ -729,13 +729,13 @@ read memory: $810F -> $7F
 read memory: $8110 -> $20
 read memory: $20FF -> $30
 [$810E] SBC $207F,Y<$80>
-<REGISTER-DUMP> PC:$8111 A:$E0 X:$80 Y:$80 S:$FF P:$81
+<REGISTER-DUMP> PC:$8111 A:$E0 X:$80 Y:$80 S:$FF P:$80
 read memory: $8111 -> $F9
 read memory: $8112 -> $8F
 read memory: $8113 -> $20
 read memory: $210F -> $44
 [$8111] SBC $208F,Y<$80>
-<REGISTER-DUMP> PC:$8114 A:$9C X:$80 Y:$80 S:$FF P:$80
+<REGISTER-DUMP> PC:$8114 A:$9B X:$80 Y:$80 S:$FF P:$81
 
 ===== TEST:SBC indirect, X =====
 read memory: $8114 -> $E1
@@ -744,14 +744,14 @@ read memory: $0030 -> $03
 read memory: $0031 -> $02
 read memory: $0203 -> $44
 [$8114] SBC ($10,X<$20>)
-<REGISTER-DUMP> PC:$8116 A:$CB X:$20 Y:$80 S:$FF P:$81
+<REGISTER-DUMP> PC:$8116 A:$CB X:$20 Y:$80 S:$FF P:$80
 read memory: $8116 -> $E1
 read memory: $8117 -> $F0
 read memory: $0010 -> $04
 read memory: $0011 -> $02
 read memory: $0204 -> $88
 [$8116] SBC ($F0,X<$20>)
-<REGISTER-DUMP> PC:$8118 A:$43 X:$20 Y:$80 S:$FF P:$00
+<REGISTER-DUMP> PC:$8118 A:$42 X:$20 Y:$80 S:$FF P:$01
 
 ===== TEST:SBC indirect, Y =====
 read memory: $8118 -> $F1
@@ -760,14 +760,14 @@ read memory: $0010 -> $01
 read memory: $0011 -> $02
 read memory: $0203 -> $55
 [$8118] SBC ($10),Y<$02>
-<REGISTER-DUMP> PC:$811A A:$CA X:$20 Y:$02 S:$FF P:$81
+<REGISTER-DUMP> PC:$811A A:$CA X:$20 Y:$02 S:$FF P:$80
 read memory: $811A -> $F1
 read memory: $811B -> $10
 read memory: $0010 -> $01
 read memory: $0011 -> $02
 read memory: $0300 -> $99
 [$811A] SBC ($10),Y<$FF>
-<REGISTER-DUMP> PC:$811C A:$31 X:$20 Y:$FF S:$FF P:$00
+<REGISTER-DUMP> PC:$811C A:$30 X:$20 Y:$FF S:$FF P:$01
 
 ===== TEST:AND immediate =====
 read memory: $811C -> $29

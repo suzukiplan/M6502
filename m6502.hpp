@@ -476,6 +476,16 @@ class M6502
         return R.p & 0b00000001 ? true : false;
     }
 
+    inline void add(unsigned char value)
+    {
+        int result = (int)R.a + (int)value + (getStatusC() ? 1 : 0);
+        updateStatusN(result & 0x80 ? true : false);
+        updateStatusZ((result & 0xFF) == 0);
+        updateStatusV(~(R.a ^ value) & (R.a ^ result) & 0x80 ? true : false);
+        updateStatusC(0xFF < result);
+        R.a = (uint8_t)result;
+    }
+
     inline void adc(unsigned char value)
     {
         if (CB.debugMessage) strcpy(DD.mne, "ADC");
@@ -483,18 +493,9 @@ class M6502
             // TODO: not implemented BCD mode
             fprintf(stderr, "TODO: not implemented BCD mode");
             return;
+        } else {
+            add(value);
         }
-        int pa = R.a;
-        int a = R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a;
-        int v = value & 0x80 ? -((value ^ 0xFF) + 1) : value;
-        int c = getStatusC() ? 1 : 0;
-        a += v;
-        a += c;
-        R.a = a;
-        updateStatusN(R.a & 0x80);
-        updateStatusV((R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a) != a);
-        updateStatusZ(R.a == 0);
-        updateStatusC(255 < pa + value);
     }
 
     inline void sbc(unsigned char value)
@@ -504,18 +505,9 @@ class M6502
             // TODO: not implemented BCD mode
             fprintf(stderr, "TODO: not implemented BCD mode");
             return;
+        } else {
+            add(value ^ 0xFF);
         }
-        int pa = R.a;
-        int a = R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a;
-        int v = value & 0x80 ? -((value ^ 0xFF) + 1) : value;
-        int c = getStatusC() ? 0 : 1;
-        a -= v;
-        a -= c;
-        R.a = a;
-        updateStatusN(R.a & 0x80);
-        updateStatusV((R.a & 0x80 ? -((R.a ^ 0xFF) + 1) : R.a) != a);
-        updateStatusZ(R.a == 0);
-        updateStatusC(pa - value < 0);
     }
 
     inline void and_(unsigned char value)

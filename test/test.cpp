@@ -1052,7 +1052,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 2);
         CHECK(len == 2);
         CHECK(cpu.R.a == 0x11);
-        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.p == 0b00000001);
 
         cpu.R.a = 0x22;
         cpu.R.p = 0b00000000;
@@ -1062,7 +1062,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 2);
         CHECK(len == 2);
         CHECK(cpu.R.a == 0x10);
-        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.p == 0b00000001);
 
         // overflow
         cpu.R.a = -128;
@@ -1073,7 +1073,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 2);
         CHECK(len == 2);
         CHECK(cpu.R.a == 127);
-        CHECK(cpu.R.p == 0b01000000);
+        CHECK(cpu.R.p == 0b01000001);
 
         // overflow
         cpu.R.a = 1;
@@ -1084,7 +1084,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 2);
         CHECK(len == 2);
         CHECK(cpu.R.a == 129);
-        CHECK(cpu.R.p == 0b11000001);
+        CHECK(cpu.R.p == 0b11000000);
 
         // carry
         cpu.R.a = 1;
@@ -1095,7 +1095,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 2);
         CHECK(len == 2);
         CHECK(cpu.R.a == 0xFF);
-        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.p == 0b10000000);
 
         // carry (negative)
         cpu.R.a = 129;
@@ -1106,7 +1106,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 2);
         CHECK(len == 2);
         CHECK(cpu.R.a == 0xFF);
-        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.p == 0b10000000);
 
         // zero
         cpu.R.a = 0x20;
@@ -1117,7 +1117,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 2);
         CHECK(len == 2);
         CHECK(cpu.R.a == 0);
-        CHECK(cpu.R.p == 0b00000010);
+        CHECK(cpu.R.p == 0b00000011);
 
         // unsigned
         cpu.R.a = 235;
@@ -1128,7 +1128,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 2);
         CHECK(len == 2);
         CHECK(cpu.R.a == 36);
-        CHECK(cpu.R.p == 0b00000000);
+        CHECK(cpu.R.p == 0b00000001);
     }
 
     puts("\n===== TEST:ADC zeropage =====");
@@ -1308,7 +1308,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 3);
         CHECK(len == 2);
         CHECK(cpu.R.a == 0xED);
-        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.p == 0b10000000);
     }
 
     puts("\n===== TEST:SBC zeropage, X =====");
@@ -1324,7 +1324,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 4);
         CHECK(len == 2);
         CHECK(cpu.R.a == 0xEC);
-        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.p == 0b10000000);
         // overflow
         mmu.ram[cpu.R.pc + 0] = 0xF5;
         mmu.ram[cpu.R.pc + 1] = 0xFF;
@@ -1332,8 +1332,8 @@ int main(int argc, char** argv)
         EXECUTE();
         CHECK(clocks == 4);
         CHECK(len == 2);
-        CHECK(cpu.R.a == 0xC7);
-        CHECK(cpu.R.p == 0b10000000);
+        CHECK(cpu.R.a == 0xC6);
+        CHECK(cpu.R.p == 0b10000001);
     }
 
     puts("\n===== TEST:SBC absolute =====");
@@ -1349,7 +1349,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 4);
         CHECK(len == 3);
         CHECK(cpu.R.a == 0xEC);
-        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.p == 0b10000000);
     }
 
     puts("\n===== TEST:SBC absolute, X =====");
@@ -1366,7 +1366,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 4);
         CHECK(len == 3);
         CHECK(cpu.R.a == 0xE0);
-        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.p == 0b10000000);
         // next page
         mmu.ram[cpu.R.pc + 0] = 0xFD;
         mmu.ram[cpu.R.pc + 1] = 0x8F;
@@ -1375,8 +1375,8 @@ int main(int argc, char** argv)
         EXECUTE();
         CHECK(clocks == 5);
         CHECK(len == 3);
-        CHECK(cpu.R.a == 0x9C);
-        CHECK(cpu.R.p == 0b10000000);
+        CHECK(cpu.R.a == 0x9B);
+        CHECK(cpu.R.p == 0b10000001);
     }
 
     puts("\n===== TEST:SBC absolute, Y =====");
@@ -1393,7 +1393,7 @@ int main(int argc, char** argv)
         CHECK(clocks == 4);
         CHECK(len == 3);
         CHECK(cpu.R.a == 0xE0);
-        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.p == 0b10000000);
         // next page
         mmu.ram[cpu.R.pc + 0] = 0xF9;
         mmu.ram[cpu.R.pc + 1] = 0x8F;
@@ -1402,8 +1402,8 @@ int main(int argc, char** argv)
         EXECUTE();
         CHECK(clocks == 5);
         CHECK(len == 3);
-        CHECK(cpu.R.a == 0x9C);
-        CHECK(cpu.R.p == 0b10000000);
+        CHECK(cpu.R.a == 0x9B);
+        CHECK(cpu.R.p == 0b10000001);
     }
 
     puts("\n===== TEST:SBC indirect, X =====");
@@ -1423,7 +1423,7 @@ int main(int argc, char** argv)
         EXECUTE();
         CHECK(clocks == 6);
         CHECK(len == 2);
-        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0xCB);
         // page overflow
         mmu.ram[cpu.R.pc + 0] = 0xE1;
@@ -1431,8 +1431,8 @@ int main(int argc, char** argv)
         EXECUTE();
         CHECK(clocks == 6);
         CHECK(len == 2);
-        CHECK(cpu.R.p == 0b00000000);
-        CHECK(cpu.R.a == 0x43);
+        CHECK(cpu.R.p == 0b00000001);
+        CHECK(cpu.R.a == 0x42);
     }
 
     puts("\n===== TEST:SBC indirect, Y =====");
@@ -1450,7 +1450,7 @@ int main(int argc, char** argv)
         EXECUTE();
         CHECK(clocks == 5);
         CHECK(len == 2);
-        CHECK(cpu.R.p == 0b10000001);
+        CHECK(cpu.R.p == 0b10000000);
         CHECK(cpu.R.a == 0xCA);
         // page overflow
         cpu.R.y = 0xFF;
@@ -1459,8 +1459,9 @@ int main(int argc, char** argv)
         EXECUTE();
         CHECK(clocks == 6);
         CHECK(len == 2);
-        CHECK(cpu.R.p == 0b00000000);
-        CHECK(cpu.R.a == 0x31);
+        CHECK(cpu.R.p == 0b00000001);
+        CHECK(cpu.R.a == 0x30);
+        cpu.R.p = 0;
     }
 
     puts("\n===== TEST:AND immediate =====");
