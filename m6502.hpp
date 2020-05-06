@@ -28,6 +28,7 @@
 
 #ifndef INCLUDE_M6502_HPP
 #define INCLUDE_M6502_HPP
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -546,10 +547,11 @@ class M6502
     inline void branch(const char* mne, bool isBranch)
     {
         if (CB.debugMessage) strcpy(DD.mne, mne);
-        unsigned char rel = fetch();
-        if (!isBranch) return; // not branch
+        int rel = (signed char)fetch();
         unsigned addr = R.pc - 2;
-        if (0xFF < (addr & 0xFF) + rel) {
+        if (CB.debugMessage) sprintf(DD.opp, "$%04X%s$%02X", addr, rel & 0x80 ? "-" : "+", abs(rel));
+        if (!isBranch) return; // not branch
+        if ((addr & 0xFF00) != ((addr + rel) & 0xFF00)) {
             consumeClock(); // consume a penalty cycle
         }
         addr += rel;
@@ -1205,14 +1207,14 @@ class M6502
 
         // --- TODO: ここまでテスト済み ---
 
-        operands[0x30] = bmi_rel;
         operands[0x10] = bpl_rel;
-        operands[0x70] = bvs_rel;
+        operands[0x30] = bmi_rel;
         operands[0x50] = bvc_rel;
-        operands[0xF0] = beq_rel;
-        operands[0xD0] = bne_rel;
-        operands[0xB0] = bcs_rel;
+        operands[0x70] = bvs_rel;
         operands[0x90] = bcc_rel;
+        operands[0xB0] = bcs_rel;
+        operands[0xD0] = bne_rel;
+        operands[0xF0] = beq_rel;
 
         operands[0x4C] = jmp_abs;
         operands[0x6C] = jmp_ind;
