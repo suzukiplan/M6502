@@ -64,6 +64,7 @@
 |ADC indY|$71 |2  |5,6  |*|*| | | |*|*|cycle penalty (page overflow)|
 |ADC zpgX|$75 |2  |4    |*|*| | | |*|*||
 |ROR zpgX|$76 |1  |6    |*| | | | |*|*||
+|SEI     |$78 |1  |2    | | | | |1| | ||
 |ADC absY|$79 |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
 |ADC absX|$7D |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
 |ROR absX|$7E |1  |7    |*| | | | |*|*||
@@ -120,6 +121,7 @@
 |CMP indY|$D1 |2  |5,6  |*| | | | |*|*|cycle penalty (page overflow)|
 |CMP zpgX|$D5 |2  |4    |*| | | | |*|*||
 |DEC zpgX|$D6 |1  |6    |*| | | | |*| ||
+|CLD     |$D8 |1  |2    | | | |0| | | ||
 |CMP absY|$D9 |3  |4,5  |*| | | | |*|*|cycle penalty (page overflow)|
 |CMP absX|$DD |3  |4,5  |*| | | | |*|*|cycle penalty (page overflow)|
 |DEC absX|$DE |1  |7    |*| | | | |*| ||
@@ -136,6 +138,7 @@
 |SBC indY|$F1 |2  |5,6  |*|*| | | |*|*|cycle penalty (page overflow)|
 |SBC zpgX|$F5 |2  |4    |*|*| | | |*|*||
 |INC zpgX|$F6 |1  |6    |*| | | | |*| ||
+|SED     |$F8 |1  |2    | | | |1| | | ||
 |SBC absY|$F9 |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
 |SBC absX|$FD |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
 |INC absX|$FE |1  |7    |*| | | | |*| ||

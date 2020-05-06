@@ -5786,5 +5786,34 @@ read memory: $2770 -> $FF
 [$8649] BIT $2770
 <REGISTER-DUMP> PC:$864C A:$00 X:$54 Y:$A9 S:$FF P:$C2
 
-TOTAL CLOCKS: 4650
+===== TEST:SEC/CLC =====
+read memory: $864C -> $38
+[$864C] SEC 
+<REGISTER-DUMP> PC:$864D A:$00 X:$54 Y:$A9 S:$FF P:$01
+read memory: $864D -> $18
+[$864D] CLC 
+<REGISTER-DUMP> PC:$864E A:$00 X:$54 Y:$A9 S:$FF P:$FE
+
+===== TEST:SEI/CLI =====
+read memory: $864E -> $78
+[$864E] SEI 
+<REGISTER-DUMP> PC:$864F A:$00 X:$54 Y:$A9 S:$FF P:$04
+read memory: $864F -> $58
+[$864F] CLI 
+<REGISTER-DUMP> PC:$8650 A:$00 X:$54 Y:$A9 S:$FF P:$FB
+
+===== TEST:SED/CLD =====
+read memory: $8650 -> $F8
+[$8650] SED 
+<REGISTER-DUMP> PC:$8651 A:$00 X:$54 Y:$A9 S:$FF P:$08
+read memory: $8651 -> $D8
+[$8651] CLD 
+<REGISTER-DUMP> PC:$8652 A:$00 X:$54 Y:$A9 S:$FF P:$F7
+
+===== TEST:CLV =====
+read memory: $8652 -> $B8
+[$8652] CLV 
+<REGISTER-DUMP> PC:$8653 A:$00 X:$54 Y:$A9 S:$FF P:$BF
+
+TOTAL CLOCKS: 4664
 TEST PASSED!

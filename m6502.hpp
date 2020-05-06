@@ -1192,8 +1192,6 @@ class M6502
         operands[0x24] = bit_zpg;
         operands[0x2C] = bit_abs;
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0x18] = clc;
         operands[0x58] = cli;
         operands[0xB8] = clv;
@@ -1204,6 +1202,8 @@ class M6502
             operands[0xD8] = cld;
             operands[0xF8] = sed;
         }
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0x30] = bmi_rel;
         operands[0x10] = bpl_rel;

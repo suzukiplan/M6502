@@ -3297,6 +3297,68 @@ int main(int argc, char** argv)
         CHECK(cpu.R.p == 0b11000010);
     }
 
+    puts("\n===== TEST:SEC/CLC =====");
+    {
+        int clocks, len, pc;
+        cpu.R.p = 0b00000000;
+        mmu.ram[cpu.R.pc + 0] = 0x38;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.p == 0b00000001);
+        cpu.R.p = 0b11111111;
+        mmu.ram[cpu.R.pc + 0] = 0x18;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.p == 0b11111110);
+    }
+
+    puts("\n===== TEST:SEI/CLI =====");
+    {
+        int clocks, len, pc;
+        cpu.R.p = 0b00000000;
+        mmu.ram[cpu.R.pc + 0] = 0x78;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.p == 0b00000100);
+        cpu.R.p = 0b11111111;
+        mmu.ram[cpu.R.pc + 0] = 0x58;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.p == 0b11111011);
+    }
+
+    puts("\n===== TEST:SED/CLD =====");
+    {
+        int clocks, len, pc;
+        cpu.R.p = 0b00000000;
+        mmu.ram[cpu.R.pc + 0] = 0xF8;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.p == 0b00001000);
+        cpu.R.p = 0b11111111;
+        mmu.ram[cpu.R.pc + 0] = 0xD8;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.p == 0b11110111);
+    }
+
+    puts("\n===== TEST:CLV =====");
+    {
+        int clocks, len, pc;
+        cpu.R.p = 0b11111111;
+        mmu.ram[cpu.R.pc + 0] = 0xB8;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+        CHECK(cpu.R.p == 0b10111111);
+    }
+
     printf("\nTOTAL CLOCKS: %d\nTEST PASSED!\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;
