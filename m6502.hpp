@@ -1205,8 +1205,6 @@ class M6502
             operands[0xF8] = sed;
         }
 
-        // --- TODO: ここまでテスト済み ---
-
         operands[0x10] = bpl_rel;
         operands[0x30] = bmi_rel;
         operands[0x50] = bvc_rel;
@@ -1215,6 +1213,8 @@ class M6502
         operands[0xB0] = bcs_rel;
         operands[0xD0] = bne_rel;
         operands[0xF0] = beq_rel;
+
+        // --- TODO: ここまでテスト済み ---
 
         operands[0x4C] = jmp_abs;
         operands[0x6C] = jmp_ind;

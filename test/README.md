@@ -13,6 +13,7 @@
 |ASL A   |$0A |1  |2    |*| | | | |*|*||
 |ORA abs |$0D |3  |4    |*| | | | |*| ||
 |ASL abs |$0E |1  |6    |*| | | | |*|*||
+|BPL rel |$10 |2  |2,3,4|@| | | | | | |condition & page overflow|
 |ORA indY|$11 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
 |ORA zpgX|$15 |2  |4    |*| | | | |*| ||
 |ASL zpgX|$16 |1  |6    |*| | | | |*|*||
@@ -30,6 +31,7 @@
 |BIT abs |$2C |3  |4    |m7|m6| | | |*| ||
 |AND abs |$2D |3  |4    |*| | | | |*| ||
 |ROL abs |$2E |1  |6    |*| | | | |*|*||
+|BMI rel |$30 |2  |2,3,4|@| | | | | | |condition & page overflow|
 |AND indY|$31 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
 |AND zpgX|$35 |2  |4    |*| | | | |*| ||
 |ROL zpgX|$36 |1  |6    |*| | | | |*|*||
@@ -46,6 +48,7 @@
 |LSR A   |$4A |1  |2    |0| | | | |*|*||
 |EOR abs |$4D |3  |4    |*| | | | |*| ||
 |LSR abs |$4E |3  |6    |0| | | | |*|*||
+|BVC rel |$50 |2  |2,3,4| |@| | | | | |condition & page overflow|
 |EOR indY|$51 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
 |EOR zpgX|$55 |2  |4    |*| | | | |*| ||
 |LSR zpgX|$56 |2  |6    |0| | | | |*|*||
@@ -61,6 +64,7 @@
 |ROR A   |$6A |1  |2    |*| | | | |*|*||
 |ADC abs |$6D |3  |4    |*|*| | | |*|*||
 |ROR abs |$6E |1  |6    |*| | | | |*|*||
+|BVS rel |$70 |2  |2,3,4| |@| | | | | |condition & page overflow|
 |ADC indY|$71 |2  |5,6  |*|*| | | |*|*|cycle penalty (page overflow)|
 |ADC zpgX|$75 |2  |4    |*|*| | | |*|*||
 |ROR zpgX|$76 |1  |6    |*| | | | |*|*||
@@ -77,6 +81,7 @@
 |STY abs |$8C |3  |4    | | | | | | | ||
 |STA abs |$8D |3  |4    | | | | | | | ||
 |STX abs |$8E |3  |4    | | | | | | | ||
+|BCC rel |$90 |2  |2,3,4| | | | | | |@|condition & page overflow|
 |STA indY|$91 |2  |6    | | | | | | | ||
 |STY zpgX|$94 |2  |4    | | | | | | | ||
 |STA zpgX|$95 |2  |4    | | | | | | | ||
@@ -97,6 +102,7 @@
 |LDY abs |$AC |3  |4    |*| | | | |*| ||
 |LDA abs |$AD |3  |4    |*| | | | |*| ||
 |LDX abs |$AE |3  |4    |*| | | | |*| ||
+|BCS rel |$B0 |2  |2,3,4| | | | | | |@|condition & page overflow|
 |LDA indY|$B1 |2  |5,6  |*| | | | |*| |cycle penalty (page overflow)|
 |LDY zpgX|$B4 |2  |4    |*| | | | |*| ||
 |LDX zpgY|$B6 |2  |4    |*| | | | |*| ||
@@ -118,6 +124,7 @@
 |CPY abs |$CC |3  |4    |*| | | | |*|*||
 |CMP abs |$CD |3  |4    |*| | | | |*|*||
 |DEC abs |$CE |1  |6    |*| | | | |*| ||
+|BNE rel |$D0 |2  |2,3,4| | | | | |@| |condition & page overflow|
 |CMP indY|$D1 |2  |5,6  |*| | | | |*|*|cycle penalty (page overflow)|
 |CMP zpgX|$D5 |2  |4    |*| | | | |*|*||
 |DEC zpgX|$D6 |1  |6    |*| | | | |*| ||
@@ -135,6 +142,7 @@
 |CPX abs |$EC |3  |4    |*| | | | |*|*||
 |SBC abs |$ED |3  |4    |*|*| | | |*|*||
 |INC abs |$EE |1  |6    |*| | | | |*| ||
+|BEQ rel |$F0 |2  |2,3,4| | | | | |@| |condition & page overflow|
 |SBC indY|$F1 |2  |5,6  |*|*| | | |*|*|cycle penalty (page overflow)|
 |SBC zpgX|$F5 |2  |4    |*|*| | | |*|*||
 |INC zpgX|$F6 |1  |6    |*| | | | |*| ||
@@ -142,4 +150,3 @@
 |SBC absY|$F9 |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
 |SBC absX|$FD |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
 |INC absX|$FE |1  |7    |*| | | | |*| ||
-|BPL rel |$10 |2  |2,3,4|@| | | | | | |condition & page overflow|

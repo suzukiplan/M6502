@@ -5837,5 +5837,159 @@ read memory: $9100 -> $80
 [$90FF] BPL $90FF-$80
 <REGISTER-DUMP> PC:$907F A:$00 X:$54 Y:$A9 S:$FF P:$00
 
-TOTAL CLOCKS: 4680
+===== TEST:BMI =====
+read memory: $9180 -> $30
+read memory: $9181 -> $80
+[$9180] BMI $9180-$80
+<REGISTER-DUMP> PC:$9182 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $9182 -> $30
+read memory: $9183 -> $20
+[$9182] BMI $9182+$20
+<REGISTER-DUMP> PC:$91A2 A:$00 X:$54 Y:$A9 S:$FF P:$80
+read memory: $91A2 -> $30
+read memory: $91A3 -> $5E
+[$91A2] BMI $91A2+$5E
+<REGISTER-DUMP> PC:$9200 A:$00 X:$54 Y:$A9 S:$FF P:$80
+read memory: $9200 -> $30
+read memory: $9201 -> $FF
+[$9200] BMI $9200-$01
+<REGISTER-DUMP> PC:$91FF A:$00 X:$54 Y:$A9 S:$FF P:$80
+read memory: $91FF -> $30
+read memory: $9200 -> $80
+[$91FF] BMI $91FF-$80
+<REGISTER-DUMP> PC:$917F A:$00 X:$54 Y:$A9 S:$FF P:$80
+
+===== TEST:BVC =====
+read memory: $9280 -> $50
+read memory: $9281 -> $80
+[$9280] BVC $9280-$80
+<REGISTER-DUMP> PC:$9282 A:$00 X:$54 Y:$A9 S:$FF P:$40
+read memory: $9282 -> $50
+read memory: $9283 -> $20
+[$9282] BVC $9282+$20
+<REGISTER-DUMP> PC:$92A2 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $92A2 -> $50
+read memory: $92A3 -> $5E
+[$92A2] BVC $92A2+$5E
+<REGISTER-DUMP> PC:$9300 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $9300 -> $50
+read memory: $9301 -> $FF
+[$9300] BVC $9300-$01
+<REGISTER-DUMP> PC:$92FF A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $92FF -> $50
+read memory: $9300 -> $80
+[$92FF] BVC $92FF-$80
+<REGISTER-DUMP> PC:$927F A:$00 X:$54 Y:$A9 S:$FF P:$00
+
+===== TEST:BVS =====
+read memory: $9380 -> $70
+read memory: $9381 -> $80
+[$9380] BVS $9380-$80
+<REGISTER-DUMP> PC:$9382 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $9382 -> $70
+read memory: $9383 -> $20
+[$9382] BVS $9382+$20
+<REGISTER-DUMP> PC:$93A2 A:$00 X:$54 Y:$A9 S:$FF P:$40
+read memory: $93A2 -> $70
+read memory: $93A3 -> $5E
+[$93A2] BVS $93A2+$5E
+<REGISTER-DUMP> PC:$9400 A:$00 X:$54 Y:$A9 S:$FF P:$40
+read memory: $9400 -> $70
+read memory: $9401 -> $FF
+[$9400] BVS $9400-$01
+<REGISTER-DUMP> PC:$93FF A:$00 X:$54 Y:$A9 S:$FF P:$40
+read memory: $93FF -> $70
+read memory: $9400 -> $80
+[$93FF] BVS $93FF-$80
+<REGISTER-DUMP> PC:$937F A:$00 X:$54 Y:$A9 S:$FF P:$40
+
+===== TEST:BCC =====
+read memory: $9480 -> $90
+read memory: $9481 -> $80
+[$9480] BCC $9480-$80
+<REGISTER-DUMP> PC:$9482 A:$00 X:$54 Y:$A9 S:$FF P:$01
+read memory: $9482 -> $90
+read memory: $9483 -> $20
+[$9482] BCC $9482+$20
+<REGISTER-DUMP> PC:$94A2 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $94A2 -> $90
+read memory: $94A3 -> $5E
+[$94A2] BCC $94A2+$5E
+<REGISTER-DUMP> PC:$9500 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $9500 -> $90
+read memory: $9501 -> $FF
+[$9500] BCC $9500-$01
+<REGISTER-DUMP> PC:$94FF A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $94FF -> $90
+read memory: $9500 -> $80
+[$94FF] BCC $94FF-$80
+<REGISTER-DUMP> PC:$947F A:$00 X:$54 Y:$A9 S:$FF P:$00
+
+===== TEST:BCS =====
+read memory: $9580 -> $B0
+read memory: $9581 -> $80
+[$9580] BCS $9580-$80
+<REGISTER-DUMP> PC:$9582 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $9582 -> $B0
+read memory: $9583 -> $20
+[$9582] BCS $9582+$20
+<REGISTER-DUMP> PC:$95A2 A:$00 X:$54 Y:$A9 S:$FF P:$01
+read memory: $95A2 -> $B0
+read memory: $95A3 -> $5E
+[$95A2] BCS $95A2+$5E
+<REGISTER-DUMP> PC:$9600 A:$00 X:$54 Y:$A9 S:$FF P:$01
+read memory: $9600 -> $B0
+read memory: $9601 -> $FF
+[$9600] BCS $9600-$01
+<REGISTER-DUMP> PC:$95FF A:$00 X:$54 Y:$A9 S:$FF P:$01
+read memory: $95FF -> $B0
+read memory: $9600 -> $80
+[$95FF] BCS $95FF-$80
+<REGISTER-DUMP> PC:$957F A:$00 X:$54 Y:$A9 S:$FF P:$01
+
+===== TEST:BNE =====
+read memory: $9680 -> $D0
+read memory: $9681 -> $80
+[$9680] BNE $9680-$80
+<REGISTER-DUMP> PC:$9682 A:$00 X:$54 Y:$A9 S:$FF P:$02
+read memory: $9682 -> $D0
+read memory: $9683 -> $20
+[$9682] BNE $9682+$20
+<REGISTER-DUMP> PC:$96A2 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $96A2 -> $D0
+read memory: $96A3 -> $5E
+[$96A2] BNE $96A2+$5E
+<REGISTER-DUMP> PC:$9700 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $9700 -> $D0
+read memory: $9701 -> $FF
+[$9700] BNE $9700-$01
+<REGISTER-DUMP> PC:$96FF A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $96FF -> $D0
+read memory: $9700 -> $80
+[$96FF] BNE $96FF-$80
+<REGISTER-DUMP> PC:$967F A:$00 X:$54 Y:$A9 S:$FF P:$00
+
+===== TEST:BEQ =====
+read memory: $9780 -> $F0
+read memory: $9781 -> $80
+[$9780] BEQ $9780-$80
+<REGISTER-DUMP> PC:$9782 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $9782 -> $F0
+read memory: $9783 -> $20
+[$9782] BEQ $9782+$20
+<REGISTER-DUMP> PC:$97A2 A:$00 X:$54 Y:$A9 S:$FF P:$02
+read memory: $97A2 -> $F0
+read memory: $97A3 -> $5E
+[$97A2] BEQ $97A2+$5E
+<REGISTER-DUMP> PC:$9800 A:$00 X:$54 Y:$A9 S:$FF P:$02
+read memory: $9800 -> $F0
+read memory: $9801 -> $FF
+[$9800] BEQ $9800-$01
+<REGISTER-DUMP> PC:$97FF A:$00 X:$54 Y:$A9 S:$FF P:$02
+read memory: $97FF -> $F0
+read memory: $9800 -> $80
+[$97FF] BEQ $97FF-$80
+<REGISTER-DUMP> PC:$977F A:$00 X:$54 Y:$A9 S:$FF P:$02
+
+TOTAL CLOCKS: 4792
 TEST PASSED!
