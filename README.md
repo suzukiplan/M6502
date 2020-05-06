@@ -6,7 +6,7 @@
 - [ ] implement decimal mode
 - [x] implement break point (program counter)
 - [x] implement break point (specific operand featch)
-- [ ] implement break point (specific address read)
+- [x] implement break point (specific address read)
 - [ ] implement break point (specific address write)
 - [x] create driver program for test
 - [ ] CI
@@ -107,8 +107,19 @@ Arbitrary processing can be executed just before the PC (program counter) fetche
 Arbitrary processing can be executed immediately after fetching a specific operand code.
 
 ```c++
-    // break when detect the NOP
+    // break when detect the NOP($EA)
     cpu->addBreakOperand(0xEA, [](void* arg) {
+        // procedure after detected
+    });
+```
+
+### Memory read trap
+
+Arbitrary processing can be executed immediately after trying to read the specific memory address.
+
+```c++
+    // break when PC is $2525
+    cpu->addMemoryReadTrap(0x2525, [](void* arg) {
         // procedure after detected
     });
 ```
