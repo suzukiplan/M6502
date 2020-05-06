@@ -3713,6 +3713,22 @@ int main(int argc, char** argv)
         CHECK(cpu.R.pc == 0x5678);
     }
 
+    puts("\n===== TEST:JSR/RTS =====");
+    {
+        int clocks, len, pc;
+        cpu.R.pc = 0xC000;
+        mmu.ram[cpu.R.pc + 0] = 0x20;
+        mmu.ram[cpu.R.pc + 1] = 0x00;
+        mmu.ram[cpu.R.pc + 2] = 0xD0;
+        mmu.ram[0xD000] = 0x60;
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(cpu.R.pc == 0xD000);
+        EXECUTE();
+        CHECK(clocks == 6);
+        CHECK(cpu.R.pc == 0xC003);
+    }
+
     printf("\nTOTAL CLOCKS: %d\nTEST PASSED!\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

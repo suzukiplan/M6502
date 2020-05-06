@@ -1216,12 +1216,12 @@ class M6502
 
         operands[0x4C] = jmp_abs;
         operands[0x6C] = jmp_ind;
-        // --- TODO: ここまでテスト済み ---
         operands[0x20] = jsr_abs;
         operands[0x60] = rts;
         operands[0x00] = brk;
         operands[0x40] = rti;
 
+        // --- TODO: ここまでテスト済み ---
         operands[0xEA] = nop;
     }
 };

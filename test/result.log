@@ -6007,5 +6007,19 @@ read memory: $1235 -> $56
 [$B000] JMP ($1234)
 <REGISTER-DUMP> PC:$5678 A:$00 X:$54 Y:$A9 S:$FF P:$02
 
-TOTAL CLOCKS: 4800
+===== TEST:JSR/RTS =====
+read memory: $C000 -> $20
+read memory: $C001 -> $00
+read memory: $C002 -> $D0
+write memory: $01FE <- $03
+write memory: $01FD <- $C0
+[$C000] JMP $D000
+<REGISTER-DUMP> PC:$D000 A:$00 X:$54 Y:$A9 S:$FD P:$02
+read memory: $D000 -> $60
+read memory: $01FD -> $C0
+read memory: $01FE -> $03
+[$D000] RTS 
+<REGISTER-DUMP> PC:$C003 A:$00 X:$54 Y:$A9 S:$FF P:$02
+
+TOTAL CLOCKS: 4812
 TEST PASSED!

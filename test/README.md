@@ -21,6 +21,7 @@
 |ORA absY|$19 |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |ORA absX|$1D |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |ASL absX|$1E |1  |7    |*| | | | |*|*||
+|JSR abs |$20 |3  |6    | | | | | | | ||
 |AND indX|$21 |2  |6    |*| | | | |*| ||
 |BIT zpg |$24 |2  |3    |m7|m6| | | |*| ||
 |AND zpg |$25 |2  |3    |*| | | | |*| ||
@@ -57,6 +58,7 @@
 |EOR absY|$59 |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |EOR absX|$5D |3  |4,5  |*| | | | |*| |cycle penalty (page overflow)|
 |LSR absX|$5E |3  |7    |0| | | | |*|*||
+|RTS     |$60 |1  |6    | | | | | | | ||
 |ADC indX|$61 |2  |6    |*|*| | | |*|*||
 |ADC zpg |$65 |2  |3    |*|*| | | |*|*||
 |ROR zpg |$66 |1  |5    |*| | | | |*|*||
