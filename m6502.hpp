@@ -137,10 +137,14 @@ class M6502
             if (R.interrupt & 0b01) {
                 if (R.interrupt & 0b10) {
                     if (CB.debugMessage) CB.debugMessage(CB.arg, "EXECUTE NMI");
+                    consumeClock();
                     executeInterrupt(0xFFFA, false);
+                    consumeClock();
                 } else if (!getStatusI()) {
                     if (CB.debugMessage) CB.debugMessage(CB.arg, "EXECUTE IRQ");
+                    consumeClock();
                     executeInterrupt(0xFFFE, false);
+                    consumeClock();
                 }
                 R.interrupt = 0;
             }

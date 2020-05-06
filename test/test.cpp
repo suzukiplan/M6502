@@ -3752,7 +3752,7 @@ int main(int argc, char** argv)
         printRegister(&cpu);
         cpu.execute(1);
         printRegister(&cpu);
-        CHECK(totalClocks - clock == 5 + 2); // NOTE: is this true?
+        CHECK(totalClocks - clock == 7 + 2); // NOTE: is this true?
         CHECK(cpu.R.pc == 0xDEAD);
         mmu.ram[0xDEAD] = 0x40;
         CHECK(6 == cpu.execute(1));
@@ -3781,7 +3781,7 @@ int main(int argc, char** argv)
         printRegister(&cpu);
         cpu.execute(1);
         printRegister(&cpu);
-        CHECK(totalClocks - clock == 5 + 2); // NOTE: is this true?
+        CHECK(totalClocks - clock == 7 + 2); // NOTE: is this true?
         CHECK(cpu.R.pc == 0xBEEF);
     }
 
@@ -3800,7 +3800,7 @@ int main(int argc, char** argv)
         printRegister(&cpu);
         cpu.execute(1);
         printRegister(&cpu);
-        CHECK(totalClocks - clock == 5 + 2); // NOTE: is this true?
+        CHECK(totalClocks - clock == 7 + 2); // NOTE: is this true?
         CHECK(cpu.R.pc == 0xBEEF);
     }
 
