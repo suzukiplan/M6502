@@ -552,7 +552,7 @@ class M6502
         if (CB.debugMessage) sprintf(DD.opp, "$%04X%s$%02X", addr, rel & 0x80 ? "-" : "+", abs(rel));
         if (!isBranch) return; // not branch
         if ((addr & 0xFF00) != ((addr + rel) & 0xFF00)) {
-            consumeClock(); // consume a penalty cycle
+            consumeClock(); // consume a penalty cycle (page crossover)
         }
         addr += rel;
         R.pc = addr;
