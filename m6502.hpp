@@ -54,12 +54,25 @@ class M6502
         }
     };
 
+    class BreakOperand
+    {
+      public:
+        unsigned char operand;
+        void (*callback)(void* arg);
+        BreakOperand(unsigned char operand, void (*callback)(void* arg))
+        {
+            this->operand = operand;
+            this->callback = callback;
+        }
+    };
+
     struct Callback {
         unsigned char (*readMemory)(void* arg, unsigned short addr);
         void (*writeMemory)(void* arg, unsigned short addr, unsigned char value);
         void (*debugMessage)(void* arg, const char* message);
         void (*consumeClock)(void* arg);
         std::vector<BreakPoint*> breakPoints;
+        std::vector<BreakOperand*> breakOperands;
         void* arg;
     } CB;
 
@@ -164,6 +177,42 @@ class M6502
     }
 
     /**
+     * Add a break operand
+     * - [i] operand: operand code
+     * - [i] callback: detection callback function pointer
+     */
+    void addBreakOperand(unsigned char operand, void (*callback)(void*) = NULL)
+    {
+        CB.breakOperands.push_back(new BreakOperand(operand, callback));
+    }
+
+    /**
+     * Remove a break operand
+     * - [i] callback: detection callback function pointer to remove
+     */
+    void removeBreakOperand(void (*callback)(void*))
+    {
+        int index = 0;
+        for (auto bo : CB.breakOperands) {
+            if (bo->callback == callback) {
+                CB.breakOperands.erase(CB.breakOperands.begin() + index);
+                delete bo;
+                return;
+            }
+            index++;
+        }
+    }
+
+    /**
+     * Remove the all of break operands
+     */
+    void removeAllBreakOperands()
+    {
+        for (auto bo : CB.breakOperands) delete bo;
+        CB.breakOperands.clear();
+    }
+
+    /**
      * Execute
      * - [i] clocks: number of clocks expected to execute CPU
      * - return: number of clocks actually executed
@@ -180,7 +229,13 @@ class M6502
             DD.pc = R.pc;
             DD.mne[0] = '\0';
             DD.opp[0] = '\0';
-            void (*operand)(M6502*) = operands[fetch()];
+            unsigned char opcode = fetch();
+            for (auto bo : CB.breakOperands) {
+                if (bo->operand == opcode) {
+                    bo->callback(CB.arg);
+                }
+            }
+            void (*operand)(M6502*) = operands[opcode];
             if (operand) {
                 operand(this);
                 if (CB.debugMessage) {

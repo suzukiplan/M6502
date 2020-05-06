@@ -3821,6 +3821,24 @@ int main(int argc, char** argv)
         });
         cpu.execute(33);
         CHECK(mmu.ram[0x00] == 2);
+        cpu.removeAllBreakPoints();
+    }
+
+    puts("\n===== TEST:break-operand =====");
+    {
+        mmu.ram[0x00] = 0;
+        memset(&mmu.ram[0xE000], 0xEA, 0x100);
+        mmu.ram[0xE008] = 0xE8;
+        mmu.ram[0xE010] = 0xE8;
+        cpu.R.pc = 0xE000;
+        cpu.addBreakOperand(0xE8, [](void* arg) {
+            puts("DETECT INX");
+            TestMMU* mmu = (TestMMU*)arg;
+            mmu->ram[0x00]++;
+        });
+        cpu.execute(33);
+        CHECK(mmu.ram[0x00] == 2);
+        cpu.removeAllBreakOperands();
     }
 
     printf("\nTOTAL CLOCKS: %d\nTEST PASSED!\n", totalClocks);

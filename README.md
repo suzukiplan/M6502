@@ -5,7 +5,7 @@
 - [x] implement all operands
 - [ ] implement decimal mode
 - [x] implement break point (program counter)
-- [ ] implement break point (specific operand featch)
+- [x] implement break point (specific operand featch)
 - [ ] implement break point (specific address read)
 - [ ] implement break point (specific address write)
 - [x] create driver program for test
@@ -98,6 +98,17 @@ Arbitrary processing can be executed just before the PC (program counter) fetche
 ```c++
     // break when PC is $6502
     cpu->addBreakPoint(0x6502, [](void* arg) {
+        // procedure after detected
+    });
+```
+
+### Break operand
+
+Arbitrary processing can be executed immediately after fetching a specific operand code.
+
+```c++
+    // break when detect the NOP
+    cpu->addBreakOperand(0xEA, [](void* arg) {
         // procedure after detected
     });
 ```
