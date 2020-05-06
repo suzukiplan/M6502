@@ -6164,5 +6164,13 @@ DETECT READ $0020
 read memory: $0020 -> $FD
 [$E004] LDA $20
 
-TOTAL CLOCKS: 4926
+===== TEST:memory-write-trap =====
+read memory: $E000 -> $8D
+read memory: $E001 -> $21
+read memory: $E002 -> $43
+DETECT WRITE $4321<$11> <- $22
+write memory: $4321 <- $22
+[$E000] STA $4321
+
+TOTAL CLOCKS: 4930
 TEST PASSED!

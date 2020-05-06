@@ -7,7 +7,7 @@
 - [x] implement break point (program counter)
 - [x] implement break point (specific operand featch)
 - [x] implement break point (specific address read)
-- [ ] implement break point (specific address write)
+- [x] implement break point (specific address write)
 - [x] create driver program for test
 - [ ] CI
 
@@ -118,8 +118,19 @@ Arbitrary processing can be executed immediately after fetching a specific opera
 Arbitrary processing can be executed immediately after trying to read the specific memory address.
 
 ```c++
-    // break when PC is $2525
+    // break when read from $2525
     cpu->addMemoryReadTrap(0x2525, [](void* arg) {
+        // procedure after detected
+    });
+```
+
+### Memory write trap
+
+Arbitrary processing can be executed immediately after trying to write the specific memory address.
+
+```c++
+    // break when write to $0343
+    cpu->addMemoryWriteTrap(0x0343, [](void* arg, unsigned char valueToWrite) {
         // procedure after detected
     });
 ```
