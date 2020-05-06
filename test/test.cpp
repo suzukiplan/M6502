@@ -3729,6 +3729,43 @@ int main(int argc, char** argv)
         CHECK(cpu.R.pc == 0xC003);
     }
 
+    puts("\n===== TEST:NOP =====");
+    {
+        int clocks, len, pc;
+        mmu.ram[cpu.R.pc + 0] = 0xEA;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 1);
+    }
+
+    puts("\n===== TEST:IRQ =====");
+    {
+        int clock;
+        mmu.ram[0xFFFE] = 0xAD;
+        mmu.ram[0xFFFF] = 0xDE;
+        mmu.ram[0x1234] = 0xEA;
+        mmu.ram[0x1235] = 0xEA;
+        cpu.R.p = 0;
+        cpu.R.pc = 0x1234;
+        clock = totalClocks;
+        cpu.IRQ();
+        printRegister(&cpu);
+        cpu.execute(1);
+        printRegister(&cpu);
+        CHECK(totalClocks - clock == 5 + 2); // NOTE: is this true?
+        CHECK(cpu.R.pc == 0xDEAD);
+        mmu.ram[0xDEAD] = 0x40;
+        CHECK(6 == cpu.execute(1));
+        printRegister(&cpu);
+        CHECK(cpu.R.pc == 0x1235);
+        cpu.R.p = 0b00000100;
+        clock = totalClocks;
+        cpu.IRQ();
+        cpu.execute(1);
+        CHECK(totalClocks - clock == 2); // NOTE: is this true?
+        CHECK(cpu.R.pc == 0x1236);
+    }
+
     printf("\nTOTAL CLOCKS: %d\nTEST PASSED!\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

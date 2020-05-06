@@ -10,6 +10,7 @@ read memory: $8000 -> $58
 
 ===== TEST:BRK =====
 read memory: $8001 -> $00
+read memory: $8002 -> $00
 write memory: $01FE <- $80
 write memory: $01FD <- $03
 write memory: $01FC <- $00
@@ -6021,5 +6022,30 @@ read memory: $01FE -> $03
 [$D000] RTS 
 <REGISTER-DUMP> PC:$C003 A:$00 X:$54 Y:$A9 S:$FF P:$02
 
-TOTAL CLOCKS: 4812
+===== TEST:NOP =====
+read memory: $C003 -> $EA
+[$C003] NOP 
+<REGISTER-DUMP> PC:$C004 A:$00 X:$54 Y:$A9 S:$FF P:$02
+
+===== TEST:IRQ =====
+<REGISTER-DUMP> PC:$1234 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $1234 -> $EA
+[$1234] NOP 
+EXECUTE IRQ
+write memory: $01FE <- $12
+write memory: $01FD <- $35
+write memory: $01FC <- $00
+read memory: $FFFE -> $AD
+read memory: $FFFF -> $DE
+<REGISTER-DUMP> PC:$DEAD A:$00 X:$54 Y:$A9 S:$FC P:$04
+read memory: $DEAD -> $40
+read memory: $01FC -> $00
+read memory: $01FD -> $35
+read memory: $01FE -> $12
+[$DEAD] RTI 
+<REGISTER-DUMP> PC:$1235 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $1235 -> $EA
+[$1235] NOP 
+
+TOTAL CLOCKS: 4829
 TEST PASSED!
