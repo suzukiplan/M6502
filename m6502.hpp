@@ -154,6 +154,99 @@ class M6502
     }
 
     /**
+     * Execute
+     * - [i] clocks: number of clocks expected to execute CPU
+     * - return: number of clocks actually executed
+     */
+    int execute(int clocks)
+    {
+        this->clockConsumed = 0;
+        while (this->clockConsumed < clocks) {
+            for (auto bp : CB.breakPoints) {
+                if (bp->addr == R.pc) {
+                    bp->callback(CB.arg);
+                }
+            }
+            DD.pc = R.pc;
+            DD.mne[0] = '\0';
+            DD.opp[0] = '\0';
+            unsigned char opcode = fetch();
+            for (auto bo : CB.breakOperands) {
+                if (bo->operand == opcode) {
+                    bo->callback(CB.arg);
+                }
+            }
+            void (*operand)(M6502*) = operands[opcode];
+            if (operand) {
+                operand(this);
+                if (CB.debugMessage) {
+                    char buf[1024];
+                    sprintf(buf, "[$%04X] %s %s", DD.pc, DD.mne, DD.opp);
+                    CB.debugMessage(CB.arg, buf);
+                }
+            } else {
+                // TODO: halt (unknown operand)
+            }
+            if (R.interrupt & 0b01) {
+                if (R.interrupt & 0b10) {
+                    if (CB.debugMessage) CB.debugMessage(CB.arg, "EXECUTE NMI");
+                    consumeClock();
+                    executeInterrupt(0xFFFA, false);
+                    consumeClock();
+                } else if (!getStatusI()) {
+                    if (CB.debugMessage) CB.debugMessage(CB.arg, "EXECUTE IRQ");
+                    consumeClock();
+                    executeInterrupt(0xFFFE, false);
+                    consumeClock();
+                }
+                R.interrupt = 0;
+            }
+        }
+        return this->clockConsumed;
+    }
+
+    /**
+     * Execute an interrupt request (IRQ)
+     */
+    void IRQ() { R.interrupt |= 0b01; }
+
+    /**
+     * Execute a non-maskable interrupt (NMI)
+     */
+    void NMI() { R.interrupt |= 0b11; }
+
+    /**
+     * Execute a reset interrupt
+     */
+    void reset()
+    {
+        R.s = 0;
+        consumeClock();
+        updateStatusI(true, true);
+        updateStatusB(false, true);
+        push(0);
+        unsigned char pcL = readMemory(0xFFFC);
+        unsigned char pcH = readMemory(0xFFFD);
+        R.pc = pcH;
+        R.pc <<= 8;
+        R.pc |= pcL;
+        consumeClock();
+        consumeClock();
+        consumeClock();
+    }
+
+    /**
+     * Explicit consume of the CPU clock(s)
+     * - return: number of CPU clocks to consume
+     */
+    void consumeClock(int clocks)
+    {
+        for (int i = 0; i < clocks; i++) {
+            consumeClock();
+        }
+    }
+
+    /**
      * Set the callback function that called when consumed a CPU clock
      * - [i] callback: function pointer
      */
@@ -313,99 +406,6 @@ class M6502
     {
         for (auto mwt : CB.memoryWriteTraps) delete mwt;
         CB.memoryWriteTraps.clear();
-    }
-
-    /**
-     * Execute
-     * - [i] clocks: number of clocks expected to execute CPU
-     * - return: number of clocks actually executed
-     */
-    int execute(int clocks)
-    {
-        this->clockConsumed = 0;
-        while (this->clockConsumed < clocks) {
-            for (auto bp : CB.breakPoints) {
-                if (bp->addr == R.pc) {
-                    bp->callback(CB.arg);
-                }
-            }
-            DD.pc = R.pc;
-            DD.mne[0] = '\0';
-            DD.opp[0] = '\0';
-            unsigned char opcode = fetch();
-            for (auto bo : CB.breakOperands) {
-                if (bo->operand == opcode) {
-                    bo->callback(CB.arg);
-                }
-            }
-            void (*operand)(M6502*) = operands[opcode];
-            if (operand) {
-                operand(this);
-                if (CB.debugMessage) {
-                    char buf[1024];
-                    sprintf(buf, "[$%04X] %s %s", DD.pc, DD.mne, DD.opp);
-                    CB.debugMessage(CB.arg, buf);
-                }
-            } else {
-                // TODO: halt (unknown operand)
-            }
-            if (R.interrupt & 0b01) {
-                if (R.interrupt & 0b10) {
-                    if (CB.debugMessage) CB.debugMessage(CB.arg, "EXECUTE NMI");
-                    consumeClock();
-                    executeInterrupt(0xFFFA, false);
-                    consumeClock();
-                } else if (!getStatusI()) {
-                    if (CB.debugMessage) CB.debugMessage(CB.arg, "EXECUTE IRQ");
-                    consumeClock();
-                    executeInterrupt(0xFFFE, false);
-                    consumeClock();
-                }
-                R.interrupt = 0;
-            }
-        }
-        return this->clockConsumed;
-    }
-
-    /**
-     * Execute an interrupt request (IRQ)
-     */
-    void IRQ() { R.interrupt |= 0b01; }
-
-    /**
-     * Execute a non-maskable interrupt (NMI)
-     */
-    void NMI() { R.interrupt |= 0b11; }
-
-    /**
-     * Execute a reset interrupt
-     */
-    void reset()
-    {
-        R.s = 0;
-        consumeClock();
-        updateStatusI(true, true);
-        updateStatusB(false, true);
-        push(0);
-        unsigned char pcL = readMemory(0xFFFC);
-        unsigned char pcH = readMemory(0xFFFD);
-        R.pc = pcH;
-        R.pc <<= 8;
-        R.pc |= pcL;
-        consumeClock();
-        consumeClock();
-        consumeClock();
-    }
-
-    /**
-     * Explicit consume of the CPU clock(s)
-     * - return: number of CPU clocks to consume
-     */
-    void consumeClock(int clocks)
-    {
-        for (int i = 0; i < clocks; i++) {
-            consumeClock();
-        }
     }
 
   private:

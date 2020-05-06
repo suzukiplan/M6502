@@ -1,15 +1,4 @@
-# [WIP] SUZUKI PLAN - Perfect MOS6502 Emulator
-
-## WIP status
-
-- [x] implement all operands
-- [x] implement decimal mode
-- [x] implement break point (program counter)
-- [x] implement break point (specific operand featch)
-- [x] implement break point (specific address read)
-- [x] implement break point (specific address write)
-- [x] create driver program for test
-- [ ] CI
+# SUZUKI PLAN - Perfect MOS6502 Emulator
 
 ## About
 
