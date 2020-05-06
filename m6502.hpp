@@ -1,5 +1,4 @@
 /**
- * [WIP] TODO: testing...
  * SUZUKI PLAN - Perfect MOS6502 Emulator
  * -----------------------------------------------------------------------------
  * The MIT License (MIT)
@@ -72,6 +71,7 @@ class M6502
         unsigned char y;
         unsigned char p;
         unsigned char s;
+        unsigned char interrupt;
     } R;
 
     /**
@@ -134,6 +134,16 @@ class M6502
             } else {
                 // TODO: halt (unknown operand)
             }
+            if (R.interrupt & 0b01) {
+                if (R.interrupt & 0b10) {
+                    if (CB.debugMessage) CB.debugMessage(CB.arg, "EXECUTE NMI");
+                    executeInterrupt(0xFFFA, false);
+                } else if (!getStatusI()) {
+                    if (CB.debugMessage) CB.debugMessage(CB.arg, "EXECUTE IRQ");
+                    executeInterrupt(0xFFFE, false);
+                }
+                R.interrupt = 0;
+            }
         }
         return this->clockConsumed;
     }
@@ -141,19 +151,12 @@ class M6502
     /**
      * Execute an interrupt request (IRQ)
      */
-    void IRQ()
-    {
-        if (getStatusI()) return;
-        executeInterrupt(0xFFFE, false);
-    }
+    void IRQ() { R.interrupt |= 0b01; }
 
     /**
      * Execute a non-maskable interrupt (NMI)
      */
-    void NMI()
-    {
-        executeInterrupt(0xFFFA, false);
-    }
+    void NMI() { R.interrupt |= 0b11; }
 
     /**
      * Execute a reset interrupt
@@ -189,9 +192,8 @@ class M6502
   private:
     inline void executeInterrupt(unsigned short addr, bool isBreak)
     {
-        unsigned short pc = R.pc + 1;
-        unsigned char pcH = (pc & 0xFF00) >> 8;
-        unsigned char pcL = pc & 0x00FF;
+        unsigned char pcH = (R.pc & 0xFF00) >> 8;
+        unsigned char pcL = R.pc & 0x00FF;
         push(pcH);
         push(pcL);
         push(R.p);
@@ -202,7 +204,6 @@ class M6502
         R.pc = pcH;
         R.pc <<= 8;
         R.pc |= pcL;
-        consumeClock();
     }
 
     inline void consumeClock()
@@ -919,6 +920,7 @@ class M6502
     static inline void brk(M6502* cpu)
     {
         if (cpu->CB.debugMessage) strcpy(cpu->DD.mne, "BRK");
+        cpu->fetch(); // read boundary
         cpu->executeInterrupt(0xFFFE, true);
     }
 
@@ -932,6 +934,12 @@ class M6502
         cpu->R.pc <<= 8;
         cpu->R.pc |= pcL;
         cpu->consumeClock();
+        cpu->consumeClock();
+    }
+
+    static inline void nop(M6502* cpu)
+    {
+        if (cpu->CB.debugMessage) strcpy(cpu->DD.mne, "NOP");
         cpu->consumeClock();
     }
 
@@ -1022,7 +1030,6 @@ class M6502
     static inline void sty_zpg(M6502* cpu) { cpu->sty(cpu->zeroPage()); }
     static inline void sty_zpg_x(M6502* cpu) { cpu->sty(cpu->zeroPageX()); }
     static inline void sty_abs(M6502* cpu) { cpu->sty(cpu->absolute()); }
-    static inline void nop(M6502* cpu) { cpu->consumeClock(); }
     static inline void ora_imm(M6502* cpu) { cpu->ora(cpu->readImmediate()); }
     static inline void ora_zpg(M6502* cpu) { cpu->ora(cpu->readZeroPage(NULL)); }
     static inline void ora_zpg_x(M6502* cpu) { cpu->ora(cpu->readZeroPageX(NULL)); }
@@ -1221,7 +1228,6 @@ class M6502
         operands[0x00] = brk;
         operands[0x40] = rti;
 
-        // --- TODO: ここまでテスト済み ---
         operands[0xEA] = nop;
     }
 };
