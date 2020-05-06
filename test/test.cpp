@@ -3766,6 +3766,44 @@ int main(int argc, char** argv)
         CHECK(cpu.R.pc == 0x1236);
     }
 
+    puts("\n===== TEST:NMI =====");
+    {
+        int clock;
+        mmu.ram[0xFFFA] = 0xEF;
+        mmu.ram[0xFFFB] = 0xBE;
+        mmu.ram[0xFFFE] = 0xAD;
+        mmu.ram[0xFFFF] = 0xDE;
+        mmu.ram[0x1234] = 0xEA;
+        cpu.R.p = 0;
+        cpu.R.pc = 0x1234;
+        clock = totalClocks;
+        cpu.NMI();
+        printRegister(&cpu);
+        cpu.execute(1);
+        printRegister(&cpu);
+        CHECK(totalClocks - clock == 5 + 2); // NOTE: is this true?
+        CHECK(cpu.R.pc == 0xBEEF);
+    }
+
+    puts("\n===== TEST:NMI (ignores mask) =====");
+    {
+        int clock;
+        mmu.ram[0xFFFA] = 0xEF;
+        mmu.ram[0xFFFB] = 0xBE;
+        mmu.ram[0xFFFE] = 0xAD;
+        mmu.ram[0xFFFF] = 0xDE;
+        mmu.ram[0x1234] = 0xEA;
+        cpu.R.p = 0b00000100;
+        cpu.R.pc = 0x1234;
+        clock = totalClocks;
+        cpu.NMI();
+        printRegister(&cpu);
+        cpu.execute(1);
+        printRegister(&cpu);
+        CHECK(totalClocks - clock == 5 + 2); // NOTE: is this true?
+        CHECK(cpu.R.pc == 0xBEEF);
+    }
+
     printf("\nTOTAL CLOCKS: %d\nTEST PASSED!\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

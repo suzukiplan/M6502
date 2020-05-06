@@ -6047,5 +6047,29 @@ read memory: $01FE -> $12
 read memory: $1235 -> $EA
 [$1235] NOP 
 
-TOTAL CLOCKS: 4829
+===== TEST:NMI =====
+<REGISTER-DUMP> PC:$1234 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $1234 -> $EA
+[$1234] NOP 
+EXECUTE NMI
+write memory: $01FE <- $12
+write memory: $01FD <- $35
+write memory: $01FC <- $00
+read memory: $FFFA -> $EF
+read memory: $FFFB -> $BE
+<REGISTER-DUMP> PC:$BEEF A:$00 X:$54 Y:$A9 S:$FC P:$04
+
+===== TEST:NMI (ignores mask) =====
+<REGISTER-DUMP> PC:$1234 A:$00 X:$54 Y:$A9 S:$FC P:$04
+read memory: $1234 -> $EA
+[$1234] NOP 
+EXECUTE NMI
+write memory: $01FB <- $12
+write memory: $01FA <- $35
+write memory: $01F9 <- $04
+read memory: $FFFA -> $EF
+read memory: $FFFB -> $BE
+<REGISTER-DUMP> PC:$BEEF A:$00 X:$54 Y:$A9 S:$F9 P:$04
+
+TOTAL CLOCKS: 4843
 TEST PASSED!
