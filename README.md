@@ -80,6 +80,22 @@ static void writeMemory(void* arg, unsigned short addr, unsigned char value) {
 
 ## Advanced usage
 
+### Dynamic disassemble
+
+```c++
+    cpu->setDebugMessage([](void* arg, const char* message) {
+        printf("%s\n", message);
+    });
+```
+
+### CPU error detection
+
+```c++
+    cpu->setOnError([](void* arg, int errorCode) {
+        // procedure after detected
+    });
+```
+
 ### Clock consume detection
 
 Detect 1Hz CPU clock cycle consumed timing.
