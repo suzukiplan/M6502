@@ -8,7 +8,7 @@
 - [ ] implement break point (specific operand featch)
 - [ ] implement break point (specific address read)
 - [ ] implement break point (specific address write)
-- [ ] create driver program for test
+- [x] create driver program for test
 - [ ] CI
 
 ## About
@@ -95,5 +95,6 @@ TODO: need describe
 
 ## Special thanks
 
+- [6502.org - http://6502.org/](http://6502.org/)
 - [virtual 6502 - https://www.masswerk.at/6502/](https://www.masswerk.at/6502/)
   - [6502 Instruction Set](https://www.masswerk.at/6502/6502_instruction_set.html)

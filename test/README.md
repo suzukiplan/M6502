@@ -1,4 +1,4 @@
-# [WIP] TEST PROGRAM - full operands
+# TEST PROGRAM - full operands
 
 ## CONFIRMED CHECK LIST: `M6502_MODE_NORMAL`
 
