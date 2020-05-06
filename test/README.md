@@ -142,3 +142,4 @@
 |SBC absY|$F9 |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
 |SBC absX|$FD |3  |4,5  |*|*| | | |*|*|cycle penalty (page overflow)|
 |INC absX|$FE |1  |7    |*| | | | |*| ||
+|BPL rel |$10 |2  |2,3,4| | | | | | | |condition & cycle penalty (page overflow)|

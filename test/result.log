@@ -5815,5 +5815,27 @@ read memory: $8652 -> $B8
 [$8652] CLV 
 <REGISTER-DUMP> PC:$8653 A:$00 X:$54 Y:$A9 S:$FF P:$BF
 
-TOTAL CLOCKS: 4664
+===== TEST:BPL =====
+read memory: $9080 -> $10
+read memory: $9081 -> $80
+[$9080] BPL $9080-$80
+<REGISTER-DUMP> PC:$9082 A:$00 X:$54 Y:$A9 S:$FF P:$80
+read memory: $9082 -> $10
+read memory: $9083 -> $20
+[$9082] BPL $9082+$20
+<REGISTER-DUMP> PC:$90A2 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $90A2 -> $10
+read memory: $90A3 -> $5E
+[$90A2] BPL $90A2+$5E
+<REGISTER-DUMP> PC:$9100 A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $9100 -> $10
+read memory: $9101 -> $FF
+[$9100] BPL $9100-$01
+<REGISTER-DUMP> PC:$90FF A:$00 X:$54 Y:$A9 S:$FF P:$00
+read memory: $90FF -> $10
+read memory: $9100 -> $80
+[$90FF] BPL $90FF-$80
+<REGISTER-DUMP> PC:$907F A:$00 X:$54 Y:$A9 S:$FF P:$00
+
+TOTAL CLOCKS: 4680
 TEST PASSED!

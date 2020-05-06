@@ -3359,6 +3359,47 @@ int main(int argc, char** argv)
         CHECK(cpu.R.p == 0b10111111);
     }
 
+    puts("\n===== TEST:BPL =====");
+    {
+        int clocks, len, pc;
+        cpu.R.pc = 0x9080;
+        // no branch
+        cpu.R.p = 0b10000000;
+        mmu.ram[cpu.R.pc + 0] = 0x10;
+        mmu.ram[cpu.R.pc + 1] = 0x80;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(cpu.R.pc == pc + 2);
+        // branch bottom (not crossover)
+        cpu.R.p = 0b00000000;
+        mmu.ram[cpu.R.pc + 0] = 0x10;
+        mmu.ram[cpu.R.pc + 1] = 0x20;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(cpu.R.pc == pc + 0x20);
+        // branch bottom (crossover)
+        cpu.R.p = 0b00000000;
+        mmu.ram[cpu.R.pc + 0] = 0x10;
+        mmu.ram[cpu.R.pc + 1] = 0x5E;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(cpu.R.pc == pc + 0x5E);
+        // branch upper (crossover)
+        cpu.R.p = 0b00000000;
+        mmu.ram[cpu.R.pc + 0] = 0x10;
+        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        EXECUTE();
+        CHECK(clocks == 4);
+        CHECK(cpu.R.pc == pc - 1);
+        // branch upper (not crossover)
+        cpu.R.p = 0b00000000;
+        mmu.ram[cpu.R.pc + 0] = 0x10;
+        mmu.ram[cpu.R.pc + 1] = 0x80;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(cpu.R.pc == pc - 128);
+    }
+
     printf("\nTOTAL CLOCKS: %d\nTEST PASSED!\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;
