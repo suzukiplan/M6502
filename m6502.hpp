@@ -906,8 +906,8 @@ class M6502
     static inline void rts(M6502* cpu)
     {
         if (cpu->CB.debugMessage) strcpy(cpu->DD.mne, "RTS");
-        unsigned char low = cpu->pull();
         unsigned short addr = cpu->pull();
+        unsigned char low = cpu->pull();
         addr <<= 8;
         cpu->consumeClock();
         addr |= low;
