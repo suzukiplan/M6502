@@ -3,4 +3,4 @@ all: test
 	cat result.log
 
 test: test.cpp ../m6502.hpp
-	clang++ -o test test.cpp
+	clang++ -std=c++14 -o test test.cpp

@@ -4,7 +4,7 @@
 
 - [x] implement all operands
 - [ ] implement decimal mode
-- [ ] implement break point (program counter)
+- [x] implement break point (program counter)
 - [ ] implement break point (specific operand featch)
 - [ ] implement break point (specific address read)
 - [ ] implement break point (specific address write)
@@ -91,7 +91,16 @@ static void writeMemory(void* arg, unsigned short addr, unsigned char value) {
 
 ## Advanced usage
 
-TODO: need describe
+### Break point
+
+Arbitrary processing can be executed just before the PC (program counter) fetches an instruction with a specific value.
+
+```c++
+    // break when PC is $6502
+    cpu->addBreakPoint(0x6502, [](void* arg) {
+        // procedure after detected
+    });
+```
 
 ## Special thanks
 

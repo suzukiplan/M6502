@@ -31,6 +31,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <vector>
 
 /**
  * Emulation modes
@@ -41,18 +42,33 @@
 class M6502
 {
   private:
+    class BreakPoint
+    {
+      public:
+        unsigned short addr;
+        void (*callback)(void* arg);
+        BreakPoint(unsigned short addr, void (*callback)(void* arg))
+        {
+            this->addr = addr;
+            this->callback = callback;
+        }
+    };
+
     struct Callback {
         unsigned char (*readMemory)(void* arg, unsigned short addr);
         void (*writeMemory)(void* arg, unsigned short addr, unsigned char value);
         void (*debugMessage)(void* arg, const char* message);
         void (*consumeClock)(void* arg);
+        std::vector<BreakPoint*> breakPoints;
         void* arg;
     } CB;
+
     struct DebugData {
         unsigned short pc;
         char mne[4];
         char opp[32];
     } DD;
+
     int clockConsumed;
     void (*operands[256])(M6502*);
     int mode;
@@ -112,6 +128,42 @@ class M6502
     }
 
     /**
+     * Add a break point
+     * - [i] addr: address
+     * - [i] callback: detection callback function pointer
+     */
+    void addBreakPoint(unsigned short addr, void (*callback)(void*) = NULL)
+    {
+        CB.breakPoints.push_back(new BreakPoint(addr, callback));
+    }
+
+    /**
+     * Remove a break point
+     * - [i] callback: detection callback function pointer to remove
+     */
+    void removeBreakPoint(void (*callback)(void*))
+    {
+        int index = 0;
+        for (auto bp : CB.breakPoints) {
+            if (bp->callback == callback) {
+                CB.breakPoints.erase(CB.breakPoints.begin() + index);
+                delete bp;
+                return;
+            }
+            index++;
+        }
+    }
+
+    /**
+     * Remove the all of break points
+     */
+    void removeAllBreakPoints()
+    {
+        for (auto bp : CB.breakPoints) delete bp;
+        CB.breakPoints.clear();
+    }
+
+    /**
      * Execute
      * - [i] clocks: number of clocks expected to execute CPU
      * - return: number of clocks actually executed
@@ -120,6 +172,11 @@ class M6502
     {
         this->clockConsumed = 0;
         while (this->clockConsumed < clocks) {
+            for (auto bp : CB.breakPoints) {
+                if (bp->addr == R.pc) {
+                    bp->callback(CB.arg);
+                }
+            }
             DD.pc = R.pc;
             DD.mne[0] = '\0';
             DD.opp[0] = '\0';

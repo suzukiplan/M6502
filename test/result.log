@@ -6071,5 +6071,43 @@ read memory: $FFFA -> $EF
 read memory: $FFFB -> $BE
 <REGISTER-DUMP> PC:$BEEF A:$00 X:$54 Y:$A9 S:$F9 P:$04
 
-TOTAL CLOCKS: 4849
+===== TEST:break-point =====
+read memory: $E000 -> $EA
+[$E000] NOP 
+read memory: $E001 -> $EA
+[$E001] NOP 
+read memory: $E002 -> $EA
+[$E002] NOP 
+read memory: $E003 -> $EA
+[$E003] NOP 
+read memory: $E004 -> $EA
+[$E004] NOP 
+read memory: $E005 -> $EA
+[$E005] NOP 
+read memory: $E006 -> $EA
+[$E006] NOP 
+read memory: $E007 -> $EA
+[$E007] NOP 
+read memory: $E008 -> $EA
+[$E008] NOP 
+read memory: $E009 -> $EA
+[$E009] NOP 
+read memory: $E00A -> $EA
+[$E00A] NOP 
+read memory: $E00B -> $EA
+[$E00B] NOP 
+read memory: $E00C -> $EA
+[$E00C] NOP 
+read memory: $E00D -> $EA
+[$E00D] NOP 
+read memory: $E00E -> $EA
+[$E00E] NOP 
+read memory: $E00F -> $EA
+[$E00F] NOP 
+BREAK1
+BREAK2
+read memory: $E010 -> $EA
+[$E010] NOP 
+
+TOTAL CLOCKS: 4883
 TEST PASSED!

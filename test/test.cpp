@@ -3804,6 +3804,25 @@ int main(int argc, char** argv)
         CHECK(cpu.R.pc == 0xBEEF);
     }
 
+    puts("\n===== TEST:break-point =====");
+    {
+        mmu.ram[0x00] = 0;
+        memset(&mmu.ram[0xE000], 0xEA, 0x100);
+        cpu.R.pc = 0xE000;
+        cpu.addBreakPoint(0xE010, [](void* arg) {
+            puts("BREAK1");
+            TestMMU* mmu = (TestMMU*)arg;
+            mmu->ram[0x00]++;
+        });
+        cpu.addBreakPoint(0xE010, [](void* arg) {
+            puts("BREAK2");
+            TestMMU* mmu = (TestMMU*)arg;
+            mmu->ram[0x00]++;
+        });
+        cpu.execute(33);
+        CHECK(mmu.ram[0x00] == 2);
+    }
+
     printf("\nTOTAL CLOCKS: %d\nTEST PASSED!\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;
