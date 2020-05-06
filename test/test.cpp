@@ -79,6 +79,10 @@ int main(int argc, char** argv)
     M6502 cpu(M6502_MODE_NORMAL, readMemory, writeMemory, &mmu);
     cpu.setConsumeClock(consumeClock);
     cpu.setDebugMessage(debugMessage);
+    cpu.setOnError([](void* arg, int errorCode) {
+        fprintf(stderr, "ERROR: %08X\n", errorCode);
+        exit(-1);
+    });
     CHECK(cpu.R.p == 0b00000100);
     CHECK(cpu.R.pc == 0x8000);
 

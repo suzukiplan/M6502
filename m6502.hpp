@@ -39,6 +39,12 @@
 #define M6502_MODE_NORMAL 0 // Normal MOS6502 emulation
 #define M6502_MODE_RP2A03 1 // Ricoh 2A03 emulation
 
+/**
+ * Error codes
+ */
+#define M6502_ERROR_UNKNOWN_OPERAND 0xDEAD0001 // Unknown operation
+#define M6502_ERROR_BRANCH_ZERO 0xDEAD0002     // Relative address of branch operand has zero
+
 class M6502
 {
   private:
@@ -95,6 +101,7 @@ class M6502
         void (*writeMemory)(void* arg, unsigned short addr, unsigned char value);
         void (*debugMessage)(void* arg, const char* message);
         void (*consumeClock)(void* arg);
+        void (*onError)(void* arg, int error);
         std::vector<BreakPoint*> breakPoints;
         std::vector<BreakOperand*> breakOperands;
         std::vector<MemoryReadTrap*> memoryReadTraps;
@@ -185,7 +192,7 @@ class M6502
                     CB.debugMessage(CB.arg, buf);
                 }
             } else {
-                // TODO: halt (unknown operand)
+                if (CB.onError) CB.onError(CB.arg, M6502_ERROR_UNKNOWN_OPERAND);
             }
             if (R.interrupt & 0b01) {
                 if (R.interrupt & 0b10) {
@@ -262,6 +269,15 @@ class M6502
     void setDebugMessage(void (*callback)(void* arg, const char* message) = NULL)
     {
         CB.debugMessage = callback;
+    }
+
+    /**
+     * Set the callback function that called when detected an error
+     * - [i] callback: function pointer
+     */
+    void setOnError(void (*callback)(void* arg, int errorCode) = NULL)
+    {
+        CB.onError = callback;
     }
 
     /**
@@ -801,6 +817,9 @@ class M6502
     {
         if (CB.debugMessage) strcpy(DD.mne, mne);
         int rel = (signed char)fetch();
+        if (0 == rel) {
+            if (CB.onError) CB.onError(CB.arg, M6502_ERROR_BRANCH_ZERO);
+        }
         unsigned addr = R.pc - 2;
         if (CB.debugMessage) sprintf(DD.opp, "$%04X%s$%02X", addr, rel & 0x80 ? "-" : "+", abs(rel));
         if (!isBranch) return; // not branch
