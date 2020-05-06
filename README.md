@@ -80,6 +80,16 @@ static void writeMemory(void* arg, unsigned short addr, unsigned char value) {
 
 ## Advanced usage
 
+### Clock consume detection
+
+Detect 1Hz CPU clock cycle consumed timing.
+
+```c++
+    cpu->setConsumeClock([](void* arg) {
+        // procedure after detected
+    });
+```
+
 ### Break point
 
 Arbitrary processing can be executed just before the PC (program counter) fetches an instruction with a specific value.
