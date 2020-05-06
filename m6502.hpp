@@ -72,30 +72,6 @@ class M6502
         }
     };
 
-    class MemoryReadTrap
-    {
-      public:
-        unsigned short addr;
-        void (*callback)(void* arg);
-        MemoryReadTrap(unsigned short addr, void (*callback)(void* arg))
-        {
-            this->addr = addr;
-            this->callback = callback;
-        }
-    };
-
-    class MemoryWriteTrap
-    {
-      public:
-        unsigned short addr;
-        void (*callback)(void* arg, unsigned char valueToWrite);
-        MemoryWriteTrap(unsigned short addr, void (*callback)(void* arg, unsigned char valueToWrite))
-        {
-            this->addr = addr;
-            this->callback = callback;
-        }
-    };
-
     struct Callback {
         unsigned char (*readMemory)(void* arg, unsigned short addr);
         void (*writeMemory)(void* arg, unsigned short addr, unsigned char value);
@@ -104,8 +80,6 @@ class M6502
         void (*onError)(void* arg, int error);
         std::vector<BreakPoint*> breakPoints;
         std::vector<BreakOperand*> breakOperands;
-        std::vector<MemoryReadTrap*> memoryReadTraps;
-        std::vector<MemoryWriteTrap*> memoryWriteTraps;
         void* arg;
     } CB;
 
@@ -153,8 +127,6 @@ class M6502
         CB.consumeClock = NULL;
         CB.breakPoints.clear();
         CB.breakOperands.clear();
-        CB.memoryReadTraps.clear();
-        CB.memoryWriteTraps.clear();
         CB.arg = arg;
         setupOperands();
         reset();
@@ -352,78 +324,6 @@ class M6502
         CB.breakOperands.clear();
     }
 
-    /**
-     * Add a memory read trap
-     * - [i] addr: address
-     * - [i] callback: detection callback function pointer
-     */
-    void addMemoryReadTrap(unsigned short addr, void (*callback)(void*))
-    {
-        CB.memoryReadTraps.push_back(new MemoryReadTrap(addr, callback));
-    }
-
-    /**
-     * Remove a memory read trap
-     * - [i] callback: detection callback function pointer to remove
-     */
-    void removeMemoryReadTrap(void (*callback)(void*))
-    {
-        int index = 0;
-        for (auto mrt : CB.memoryReadTraps) {
-            if (mrt->callback == callback) {
-                CB.memoryReadTraps.erase(CB.memoryReadTraps.begin() + index);
-                delete mrt;
-                return;
-            }
-            index++;
-        }
-    }
-
-    /**
-     * Remove the all of memory read traps
-     */
-    void removeAllMemoryReadTraps()
-    {
-        for (auto mrt : CB.memoryReadTraps) delete mrt;
-        CB.memoryReadTraps.clear();
-    }
-
-    /**
-     * Add a memory write trap
-     * - [i] addr: address
-     * - [i] callback: detection callback function pointer
-     */
-    void addMemoryWriteTrap(unsigned short addr, void (*callback)(void*, unsigned char))
-    {
-        CB.memoryWriteTraps.push_back(new MemoryWriteTrap(addr, callback));
-    }
-
-    /**
-     * Remove a memory write trap
-     * - [i] callback: detection callback function pointer to remove
-     */
-    void removeMemoryWriteTrap(void (*callback)(void*, unsigned char))
-    {
-        int index = 0;
-        for (auto mwt : CB.memoryWriteTraps) {
-            if (mwt->callback == callback) {
-                CB.memoryWriteTraps.erase(CB.memoryWriteTraps.begin() + index);
-                delete mwt;
-                return;
-            }
-            index++;
-        }
-    }
-
-    /**
-     * Remove the all of memory write traps
-     */
-    void removeAllMemoryWriteTraps()
-    {
-        for (auto mwt : CB.memoryWriteTraps) delete mwt;
-        CB.memoryWriteTraps.clear();
-    }
-
   private:
     inline void executeInterrupt(unsigned short addr, bool isBreak)
     {
@@ -451,11 +351,6 @@ class M6502
 
     inline unsigned char readMemory(unsigned short addr)
     {
-        for (auto mrt : CB.memoryReadTraps) {
-            if (mrt->addr == addr) {
-                mrt->callback(CB.arg);
-            }
-        }
         unsigned char result = CB.readMemory ? CB.readMemory(CB.arg, addr) : 0;
         consumeClock();
         return result;
@@ -463,11 +358,6 @@ class M6502
 
     inline void writeMemory(unsigned short addr, unsigned char value)
     {
-        for (auto mwt : CB.memoryWriteTraps) {
-            if (mwt->addr == addr) {
-                mwt->callback(CB.arg, value);
-            }
-        }
         if (CB.writeMemory) CB.writeMemory(CB.arg, addr, value);
         consumeClock();
     }

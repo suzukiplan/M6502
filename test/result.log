@@ -6147,74 +6147,49 @@ read memory: $E010 -> $E8
 DETECT INX
 [$E010] INX 
 
-===== TEST:memory-read-trap =====
-read memory: $E000 -> $A5
-read memory: $E001 -> $00
-DETECT READ $0000
-read memory: $0000 -> $FF
-[$E000] LDA $00
-read memory: $E002 -> $A5
-read memory: $E003 -> $10
-DETECT READ $0010
-read memory: $0010 -> $FE
-[$E002] LDA $10
-read memory: $E004 -> $A5
-read memory: $E005 -> $20
-DETECT READ $0020
-read memory: $0020 -> $FD
-[$E004] LDA $20
-
-===== TEST:memory-write-trap =====
-read memory: $E000 -> $8D
-read memory: $E001 -> $21
-read memory: $E002 -> $43
-DETECT WRITE $4321<$11> <- $22
-write memory: $4321 <- $22
-[$E000] STA $4321
-
 ===== TEST:ADC decimal mode =====
-read memory: $E003 -> $69
-read memory: $E004 -> $01
-[$E003] ADC #$01
-<REGISTER-DUMP> PC:$E005 A:$10 X:$56 Y:$A9 S:$F9 P:$08
-read memory: $E005 -> $69
-read memory: $E006 -> $01
-[$E005] ADC #$01
-<REGISTER-DUMP> PC:$E007 A:$11 X:$56 Y:$A9 S:$F9 P:$08
-read memory: $E007 -> $69
-read memory: $E008 -> $65
-[$E007] ADC #$65
-<REGISTER-DUMP> PC:$E009 A:$01 X:$56 Y:$A9 S:$F9 P:$09
-read memory: $E009 -> $69
-read memory: $E00A -> $65
-[$E009] ADC #$65
-<REGISTER-DUMP> PC:$E00B A:$00 X:$56 Y:$A9 S:$F9 P:$0B
-read memory: $E00B -> $69
-read memory: $E00C -> $86
-[$E00B] ADC #$86
-<REGISTER-DUMP> PC:$E00D A:$21 X:$56 Y:$A9 S:$F9 P:$09
+read memory: $E011 -> $69
+read memory: $E012 -> $01
+[$E011] ADC #$01
+<REGISTER-DUMP> PC:$E013 A:$10 X:$56 Y:$A9 S:$F9 P:$08
+read memory: $E013 -> $69
+read memory: $E014 -> $01
+[$E013] ADC #$01
+<REGISTER-DUMP> PC:$E015 A:$11 X:$56 Y:$A9 S:$F9 P:$08
+read memory: $E015 -> $69
+read memory: $E016 -> $65
+[$E015] ADC #$65
+<REGISTER-DUMP> PC:$E017 A:$01 X:$56 Y:$A9 S:$F9 P:$09
+read memory: $E017 -> $69
+read memory: $E018 -> $65
+[$E017] ADC #$65
+<REGISTER-DUMP> PC:$E019 A:$00 X:$56 Y:$A9 S:$F9 P:$0B
+read memory: $E019 -> $69
+read memory: $E01A -> $86
+[$E019] ADC #$86
+<REGISTER-DUMP> PC:$E01B A:$21 X:$56 Y:$A9 S:$F9 P:$09
 
 ===== TEST:SBC decimal mode =====
-read memory: $E00D -> $E9
-read memory: $E00E -> $01
-[$E00D] SBC #$01
-<REGISTER-DUMP> PC:$E00F A:$09 X:$56 Y:$A9 S:$F9 P:$09
-read memory: $E00F -> $E9
-read memory: $E010 -> $11
-[$E00F] SBC #$11
-<REGISTER-DUMP> PC:$E011 A:$99 X:$56 Y:$A9 S:$F9 P:$08
-read memory: $E011 -> $E9
-read memory: $E012 -> $10
-[$E011] SBC #$10
-<REGISTER-DUMP> PC:$E013 A:$00 X:$56 Y:$A9 S:$F9 P:$0B
-read memory: $E013 -> $E9
-read memory: $E014 -> $01
-[$E013] SBC #$01
-<REGISTER-DUMP> PC:$E015 A:$08 X:$56 Y:$A9 S:$F9 P:$09
-read memory: $E015 -> $E9
-read memory: $E016 -> $23
-[$E015] SBC #$23
-<REGISTER-DUMP> PC:$E017 A:$33 X:$56 Y:$A9 S:$F9 P:$09
+read memory: $E01B -> $E9
+read memory: $E01C -> $01
+[$E01B] SBC #$01
+<REGISTER-DUMP> PC:$E01D A:$09 X:$56 Y:$A9 S:$F9 P:$09
+read memory: $E01D -> $E9
+read memory: $E01E -> $11
+[$E01D] SBC #$11
+<REGISTER-DUMP> PC:$E01F A:$99 X:$56 Y:$A9 S:$F9 P:$08
+read memory: $E01F -> $E9
+read memory: $E020 -> $10
+[$E01F] SBC #$10
+<REGISTER-DUMP> PC:$E021 A:$00 X:$56 Y:$A9 S:$F9 P:$0B
+read memory: $E021 -> $E9
+read memory: $E022 -> $01
+[$E021] SBC #$01
+<REGISTER-DUMP> PC:$E023 A:$08 X:$56 Y:$A9 S:$F9 P:$09
+read memory: $E023 -> $E9
+read memory: $E024 -> $23
+[$E023] SBC #$23
+<REGISTER-DUMP> PC:$E025 A:$33 X:$56 Y:$A9 S:$F9 P:$09
 
-TOTAL CLOCKS: 4950
+TOTAL CLOCKS: 4937
 TEST PASSED!

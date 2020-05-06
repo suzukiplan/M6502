@@ -128,28 +128,6 @@ Arbitrary processing can be executed immediately after fetching a specific opera
     });
 ```
 
-### Memory read trap
-
-Arbitrary processing can be executed immediately after trying to read the specific memory address.
-
-```c++
-    // break when read from $2525
-    cpu->addMemoryReadTrap(0x2525, [](void* arg) {
-        // procedure after detected
-    });
-```
-
-### Memory write trap
-
-Arbitrary processing can be executed immediately after trying to write the specific memory address.
-
-```c++
-    // break when write to $0343
-    cpu->addMemoryWriteTrap(0x0343, [](void* arg, unsigned char valueToWrite) {
-        // procedure after detected
-    });
-```
-
 ## Special thanks
 
 - [6502.org - http://6502.org/](http://6502.org/)

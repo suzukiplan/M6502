@@ -3845,59 +3845,6 @@ int main(int argc, char** argv)
         cpu.removeAllBreakOperands();
     }
 
-    puts("\n===== TEST:memory-read-trap =====");
-    {
-        cpu.R.pc = 0xE000;
-        mmu.ram[cpu.R.pc + 0] = 0xA5;
-        mmu.ram[cpu.R.pc + 1] = 0x00;
-        mmu.ram[cpu.R.pc + 2] = 0xA5;
-        mmu.ram[cpu.R.pc + 3] = 0x10;
-        mmu.ram[cpu.R.pc + 4] = 0xA5;
-        mmu.ram[cpu.R.pc + 5] = 0x20;
-        cpu.addMemoryReadTrap(0x0000, [](void* arg) {
-            puts("DETECT READ $0000");
-            TestMMU* mmu = (TestMMU*)arg;
-            mmu->ram[0x00] = 0xFF;
-        });
-        cpu.addMemoryReadTrap(0x0010, [](void* arg) {
-            puts("DETECT READ $0010");
-            TestMMU* mmu = (TestMMU*)arg;
-            mmu->ram[0x10] = 0xFE;
-        });
-        cpu.addMemoryReadTrap(0x0020, [](void* arg) {
-            puts("DETECT READ $0020");
-            TestMMU* mmu = (TestMMU*)arg;
-            mmu->ram[0x20] = 0xFD;
-        });
-        cpu.execute(1);
-        CHECK(cpu.R.a == 0xFF);
-        cpu.execute(1);
-        CHECK(cpu.R.a == 0xFE);
-        cpu.execute(1);
-        CHECK(cpu.R.a == 0xFD);
-        cpu.removeAllMemoryReadTraps();
-    }
-
-    puts("\n===== TEST:memory-write-trap =====");
-    {
-        cpu.R.pc = 0xE000;
-        cpu.R.a = 0x22;
-        mmu.ram[cpu.R.pc + 0] = 0x8D;
-        mmu.ram[cpu.R.pc + 1] = 0x21;
-        mmu.ram[cpu.R.pc + 2] = 0x43;
-        mmu.ram[0x4321] = 0x11;
-        cpu.addMemoryWriteTrap(0x4321, [](void* arg, unsigned char valueToWrite) {
-            TestMMU* mmu = (TestMMU*)arg;
-            printf("DETECT WRITE $4321<$%02X> <- $%02X\n", mmu->ram[0x4321], valueToWrite);
-            mmu->ram[0x50] = mmu->ram[0x4321];
-            mmu->ram[0x5050] = valueToWrite;
-        });
-        cpu.execute(1);
-        CHECK(mmu.ram[0x50 == 0x11]);
-        CHECK(mmu.ram[0x5050 == 0x22]);
-        cpu.removeAllMemoryWriteTraps();
-    }
-
     puts("\n===== TEST:ADC decimal mode =====");
     {
         int clocks, len, pc;
