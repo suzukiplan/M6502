@@ -3,7 +3,7 @@
 ## WIP status
 
 - [x] implement all operands
-- [ ] implement decimal mode
+- [x] implement decimal mode
 - [x] implement break point (program counter)
 - [x] implement break point (specific operand featch)
 - [x] implement break point (specific address read)

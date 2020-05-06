@@ -721,9 +721,18 @@ class M6502
     {
         if (CB.debugMessage) strcpy(DD.mne, "ADC");
         if (isSupportBCD() && getStatusD()) {
-            // TODO: not implemented BCD mode
-            fprintf(stderr, "TODO: not implemented BCD mode");
-            return;
+            int aH = ((R.a & 0b11110000) >> 4) % 10;
+            int aL = (R.a & 0b00001111) % 10;
+            int vH = ((value & 0b11110000) >> 4) % 10;
+            int vL = (value & 0b00001111) % 10;
+            aL += vL + (getStatusC() ? 1 : 0);
+            int halfCarry = aL / 10 ? 1 : 0;
+            aL %= 10;
+            aH += vH + halfCarry;
+            updateStatusC(aH / 10 ? true : false);
+            aH %= 10;
+            R.a = (aH << 4) + aL;
+            updateStatusZ(R.a == 0);
         } else {
             add(value);
         }
@@ -733,9 +742,23 @@ class M6502
     {
         if (CB.debugMessage) strcpy(DD.mne, "SBC");
         if (isSupportBCD() && getStatusD()) {
-            // TODO: not implemented BCD mode
-            fprintf(stderr, "TODO: not implemented BCD mode");
-            return;
+            int aH = ((R.a & 0b11110000) >> 4) % 10;
+            int aL = (R.a & 0b00001111) % 10;
+            int a = aH * 10 + aL;
+            int vH = ((value & 0b11110000) >> 4) % 10;
+            int vL = (value & 0b00001111) % 10;
+            int v = vH * 10 + vL;
+            a -= v + (getStatusC() ? 0 : 1);
+            if (a < 0) {
+                a += 100;
+                updateStatusC(false);
+            } else {
+                updateStatusC(true);
+            }
+            aH = a / 10;
+            aL = a % 10;
+            R.a = (aH << 4) + aL;
+            updateStatusZ(R.a == 0);
         } else {
             add(value ^ 0xFF); // To ones' complement (tobe two's complement, if carry is set)
         }

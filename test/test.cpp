@@ -3894,6 +3894,115 @@ int main(int argc, char** argv)
         cpu.removeAllMemoryWriteTraps();
     }
 
+    puts("\n===== TEST:ADC decimal mode =====");
+    {
+        int clocks, len, pc;
+        cpu.R.p = 0b00001000;
+        cpu.R.a = 0x09;
+        mmu.ram[cpu.R.pc + 0] = 0x69;
+        mmu.ram[cpu.R.pc + 1] = 0x01;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x10);
+        CHECK(cpu.R.p == 0b00001000);
+        // plus carry
+        cpu.R.p = 0b00001001;
+        cpu.R.a = 0x09;
+        mmu.ram[cpu.R.pc + 0] = 0x69;
+        mmu.ram[cpu.R.pc + 1] = 0x01;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x11);
+        CHECK(cpu.R.p == 0b00001000);
+        // set carry
+        cpu.R.p = 0b00001001;
+        cpu.R.a = 0x35;
+        mmu.ram[cpu.R.pc + 0] = 0x69;
+        mmu.ram[cpu.R.pc + 1] = 0x65;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x01);
+        CHECK(cpu.R.p == 0b00001001);
+        // set zero + carry
+        cpu.R.p = 0b00001000;
+        cpu.R.a = 0x35;
+        mmu.ram[cpu.R.pc + 0] = 0x69;
+        mmu.ram[cpu.R.pc + 1] = 0x65;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x00);
+        CHECK(cpu.R.p == 0b00001011);
+        // set carry
+        cpu.R.p = 0b00001000;
+        cpu.R.a = 0x35;
+        mmu.ram[cpu.R.pc + 0] = 0x69;
+        mmu.ram[cpu.R.pc + 1] = 0x86;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x21);
+        CHECK(cpu.R.p == 0b00001001);
+    }
+
+    puts("\n===== TEST:SBC decimal mode =====");
+    {
+        int clocks, len, pc;
+
+        cpu.R.p = 0b00001001;
+        cpu.R.a = 0x10;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 0x01;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x09);
+        CHECK(cpu.R.p == 0b00001001);
+
+        cpu.R.p = 0b00001001;
+        cpu.R.a = 0x10;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 0x11;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x99);
+        CHECK(cpu.R.p == 0b00001000);
+
+        cpu.R.p = 0b00001001;
+        cpu.R.a = 0x10;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 0x10;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x00);
+        CHECK(cpu.R.p == 0b00001011);
+
+        cpu.R.p = 0b00001000;
+        cpu.R.a = 0x10;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 0x01;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x08);
+        CHECK(cpu.R.p == 0b00001001);
+
+        cpu.R.p = 0b00001001;
+        cpu.R.a = 0x56;
+        mmu.ram[cpu.R.pc + 0] = 0xE9;
+        mmu.ram[cpu.R.pc + 1] = 0x23;
+        EXECUTE();
+        CHECK(clocks == 2);
+        CHECK(len == 2);
+        CHECK(cpu.R.a == 0x33);
+        CHECK(cpu.R.p == 0b00001001);
+    }
+
     printf("\nTOTAL CLOCKS: %d\nTEST PASSED!\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;

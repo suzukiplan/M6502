@@ -6172,5 +6172,49 @@ DETECT WRITE $4321<$11> <- $22
 write memory: $4321 <- $22
 [$E000] STA $4321
 
-TOTAL CLOCKS: 4930
+===== TEST:ADC decimal mode =====
+read memory: $E003 -> $69
+read memory: $E004 -> $01
+[$E003] ADC #$01
+<REGISTER-DUMP> PC:$E005 A:$10 X:$56 Y:$A9 S:$F9 P:$08
+read memory: $E005 -> $69
+read memory: $E006 -> $01
+[$E005] ADC #$01
+<REGISTER-DUMP> PC:$E007 A:$11 X:$56 Y:$A9 S:$F9 P:$08
+read memory: $E007 -> $69
+read memory: $E008 -> $65
+[$E007] ADC #$65
+<REGISTER-DUMP> PC:$E009 A:$01 X:$56 Y:$A9 S:$F9 P:$09
+read memory: $E009 -> $69
+read memory: $E00A -> $65
+[$E009] ADC #$65
+<REGISTER-DUMP> PC:$E00B A:$00 X:$56 Y:$A9 S:$F9 P:$0B
+read memory: $E00B -> $69
+read memory: $E00C -> $86
+[$E00B] ADC #$86
+<REGISTER-DUMP> PC:$E00D A:$21 X:$56 Y:$A9 S:$F9 P:$09
+
+===== TEST:SBC decimal mode =====
+read memory: $E00D -> $E9
+read memory: $E00E -> $01
+[$E00D] SBC #$01
+<REGISTER-DUMP> PC:$E00F A:$09 X:$56 Y:$A9 S:$F9 P:$09
+read memory: $E00F -> $E9
+read memory: $E010 -> $11
+[$E00F] SBC #$11
+<REGISTER-DUMP> PC:$E011 A:$99 X:$56 Y:$A9 S:$F9 P:$08
+read memory: $E011 -> $E9
+read memory: $E012 -> $10
+[$E011] SBC #$10
+<REGISTER-DUMP> PC:$E013 A:$00 X:$56 Y:$A9 S:$F9 P:$0B
+read memory: $E013 -> $E9
+read memory: $E014 -> $01
+[$E013] SBC #$01
+<REGISTER-DUMP> PC:$E015 A:$08 X:$56 Y:$A9 S:$F9 P:$09
+read memory: $E015 -> $E9
+read memory: $E016 -> $23
+[$E015] SBC #$23
+<REGISTER-DUMP> PC:$E017 A:$33 X:$56 Y:$A9 S:$F9 P:$09
+
+TOTAL CLOCKS: 4950
 TEST PASSED!
