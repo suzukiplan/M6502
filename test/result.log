@@ -5991,5 +5991,21 @@ read memory: $9800 -> $80
 [$97FF] BEQ $97FF-$80
 <REGISTER-DUMP> PC:$977F A:$00 X:$54 Y:$A9 S:$FF P:$02
 
-TOTAL CLOCKS: 4792
+===== TEST:JMP absolute =====
+read memory: $A000 -> $4C
+read memory: $A001 -> $34
+read memory: $A002 -> $12
+[$A000] JMP $1234
+<REGISTER-DUMP> PC:$1234 A:$00 X:$54 Y:$A9 S:$FF P:$02
+
+===== TEST:JMP indirect =====
+read memory: $B000 -> $6C
+read memory: $B001 -> $34
+read memory: $B002 -> $12
+read memory: $1234 -> $78
+read memory: $1235 -> $56
+[$B000] JMP ($1234)
+<REGISTER-DUMP> PC:$5678 A:$00 X:$54 Y:$A9 S:$FF P:$02
+
+TOTAL CLOCKS: 4800
 TEST PASSED!

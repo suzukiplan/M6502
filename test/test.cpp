@@ -3687,6 +3687,32 @@ int main(int argc, char** argv)
         CHECK(cpu.R.pc == pc - 128);
     }
 
+    puts("\n===== TEST:JMP absolute =====");
+    {
+        int clocks, len, pc;
+        cpu.R.pc = 0xA000;
+        mmu.ram[cpu.R.pc + 0] = 0x4C;
+        mmu.ram[cpu.R.pc + 1] = 0x34;
+        mmu.ram[cpu.R.pc + 2] = 0x12;
+        EXECUTE();
+        CHECK(clocks == 3);
+        CHECK(cpu.R.pc == 0x1234);
+    }
+
+    puts("\n===== TEST:JMP indirect =====");
+    {
+        int clocks, len, pc;
+        cpu.R.pc = 0xB000;
+        mmu.ram[cpu.R.pc + 0] = 0x6C;
+        mmu.ram[cpu.R.pc + 1] = 0x34;
+        mmu.ram[cpu.R.pc + 2] = 0x12;
+        mmu.ram[0x1234 + 0] = 0x78;
+        mmu.ram[0x1234 + 1] = 0x56;
+        EXECUTE();
+        CHECK(clocks == 5);
+        CHECK(cpu.R.pc == 0x5678);
+    }
+
     printf("\nTOTAL CLOCKS: %d\nTEST PASSED!\n", totalClocks);
     mmu.outputMemoryDump();
     return 0;
