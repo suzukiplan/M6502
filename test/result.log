@@ -6014,7 +6014,7 @@ read memory: $C001 -> $00
 read memory: $C002 -> $D0
 write memory: $01FE <- $03
 write memory: $01FD <- $C0
-[$C000] JMP $D000
+[$C000] JSR $D000
 <REGISTER-DUMP> PC:$D000 A:$00 X:$54 Y:$A9 S:$FD P:$02
 read memory: $D000 -> $60
 read memory: $01FD -> $C0

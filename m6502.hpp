@@ -1053,7 +1053,7 @@ class M6502
 
     static inline void jsr_abs(M6502* cpu)
     {
-        if (cpu->CB.debugMessage) strcpy(cpu->DD.mne, "JMP");
+        if (cpu->CB.debugMessage) strcpy(cpu->DD.mne, "JSR");
         unsigned char low = cpu->fetch();
         unsigned short addr = cpu->fetch();
         addr <<= 8;
