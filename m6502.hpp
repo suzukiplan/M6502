@@ -710,14 +710,12 @@ class M6502
         if (0 == rel) {
             if (CB.onError) CB.onError(CB.arg, M6502_ERROR_BRANCH_ZERO);
         }
-        unsigned addr = R.pc - 2;
-        if (CB.debugMessage) sprintf(DD.opp, "$%04X%s$%02X", addr, rel & 0x80 ? "-" : "+", abs(rel));
+        if (CB.debugMessage) sprintf(DD.opp, "$%04X%s$%02X", R.pc, rel & 0x80 ? "-" : "+", abs(rel));
         if (!isBranch) return; // not branch
-        if ((addr & 0xFF00) != ((addr + rel) & 0xFF00)) {
+        if ((R.pc & 0xFF00) != ((R.pc + rel) & 0xFF00)) {
             consumeClock(); // consume a penalty cycle (page crossover)
         }
-        addr += rel;
-        R.pc = addr;
+        R.pc += rel;
         consumeClock();
     }
 
