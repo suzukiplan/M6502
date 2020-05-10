@@ -135,12 +135,13 @@ class M6502
     /**
      * Execute
      * - [i] clocks: number of clocks expected to execute CPU
+     * - [i] executeUntilNMI: execute CPU until NMI (clocks will be ignored)
      * - return: number of clocks actually executed
      */
-    int execute(int clocks)
+    int execute(int clocks, bool executeUntilNMI = false)
     {
         this->clockConsumed = 0;
-        while (this->clockConsumed < clocks) {
+        while (this->clockConsumed < clocks || executeUntilNMI) {
             for (auto bp : CB.breakPoints) {
                 if (bp->addr == R.pc) {
                     bp->callback(CB.arg);
@@ -172,6 +173,7 @@ class M6502
                     consumeClock();
                     executeInterrupt(0xFFFA, false);
                     consumeClock();
+                    executeUntilNMI = false;
                 } else if (!getStatusI()) {
                     if (CB.debugMessage) CB.debugMessage(CB.arg, "EXECUTE IRQ");
                     consumeClock();
