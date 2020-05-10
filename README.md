@@ -43,7 +43,7 @@ Use can test in the commandline as following:
 
 ```shell
 git clone https://github.com/suzukiplan/M6502.git
-cd M6502/test
+cd M6502
 make
 ```
 
