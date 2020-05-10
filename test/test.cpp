@@ -3380,28 +3380,28 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x20;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc + 0x20);
+        CHECK(cpu.R.pc == pc + 0x22);
         // branch bottom (crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0x10;
-        mmu.ram[cpu.R.pc + 1] = 0x5E;
+        mmu.ram[cpu.R.pc + 1] = 0x5C;
         EXECUTE();
         CHECK(clocks == 4);
         CHECK(cpu.R.pc == pc + 0x5E);
         // branch upper (crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0x10;
-        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[cpu.R.pc + 1] = 0xF0;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc - 1);
+        CHECK(cpu.R.pc == pc - 14);
         // branch upper (not crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0x10;
         mmu.ram[cpu.R.pc + 1] = 0x80;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc - 128);
+        CHECK(cpu.R.pc == pc - 126);
     }
 
     puts("\n===== TEST:BMI =====");
@@ -3421,28 +3421,28 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x20;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc + 0x20);
+        CHECK(cpu.R.pc == pc + 0x22);
         // branch bottom (crossover)
         cpu.R.p = 0b10000000;
         mmu.ram[cpu.R.pc + 0] = 0x30;
         mmu.ram[cpu.R.pc + 1] = 0x5E;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc + 0x5E);
+        CHECK(cpu.R.pc == pc + 0x60);
         // branch upper (crossover)
         cpu.R.p = 0b10000000;
         mmu.ram[cpu.R.pc + 0] = 0x30;
-        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[cpu.R.pc + 1] = 0xF7;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc - 1);
+        CHECK(cpu.R.pc == pc - 7);
         // branch upper (not crossover)
         cpu.R.p = 0b10000000;
         mmu.ram[cpu.R.pc + 0] = 0x30;
         mmu.ram[cpu.R.pc + 1] = 0x80;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc - 128);
+        CHECK(cpu.R.pc == pc - 126);
     }
 
     puts("\n===== TEST:BVC =====");
@@ -3462,28 +3462,28 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x20;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc + 0x20);
+        CHECK(cpu.R.pc == pc + 0x22);
         // branch bottom (crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0x50;
         mmu.ram[cpu.R.pc + 1] = 0x5E;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc + 0x5E);
+        CHECK(cpu.R.pc == pc + 0x60);
         // branch upper (crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0x50;
-        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[cpu.R.pc + 1] = 0xF7;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc - 1);
+        CHECK(cpu.R.pc == pc - 7);
         // branch upper (not crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0x50;
         mmu.ram[cpu.R.pc + 1] = 0x80;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc - 128);
+        CHECK(cpu.R.pc == pc - 126);
     }
 
     puts("\n===== TEST:BVS =====");
@@ -3503,28 +3503,28 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x20;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc + 0x20);
+        CHECK(cpu.R.pc == pc + 0x22);
         // branch bottom (crossover)
         cpu.R.p = 0b01000000;
         mmu.ram[cpu.R.pc + 0] = 0x70;
         mmu.ram[cpu.R.pc + 1] = 0x5E;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc + 0x5E);
+        CHECK(cpu.R.pc == pc + 0x60);
         // branch upper (crossover)
         cpu.R.p = 0b01000000;
         mmu.ram[cpu.R.pc + 0] = 0x70;
-        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[cpu.R.pc + 1] = 0xF7;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc - 1);
+        CHECK(cpu.R.pc == pc - 7);
         // branch upper (not crossover)
         cpu.R.p = 0b01000000;
         mmu.ram[cpu.R.pc + 0] = 0x70;
         mmu.ram[cpu.R.pc + 1] = 0x80;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc - 128);
+        CHECK(cpu.R.pc == pc - 126);
     }
 
     puts("\n===== TEST:BCC =====");
@@ -3544,28 +3544,28 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x20;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc + 0x20);
+        CHECK(cpu.R.pc == pc + 0x22);
         // branch bottom (crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0x90;
         mmu.ram[cpu.R.pc + 1] = 0x5E;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc + 0x5E);
+        CHECK(cpu.R.pc == pc + 0x60);
         // branch upper (crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0x90;
-        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[cpu.R.pc + 1] = 0xF7;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc - 1);
+        CHECK(cpu.R.pc == pc - 7);
         // branch upper (not crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0x90;
         mmu.ram[cpu.R.pc + 1] = 0x80;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc - 128);
+        CHECK(cpu.R.pc == pc - 126);
     }
 
     puts("\n===== TEST:BCS =====");
@@ -3585,28 +3585,28 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x20;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc + 0x20);
+        CHECK(cpu.R.pc == pc + 0x22);
         // branch bottom (crossover)
         cpu.R.p = 0b00000001;
         mmu.ram[cpu.R.pc + 0] = 0xB0;
         mmu.ram[cpu.R.pc + 1] = 0x5E;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc + 0x5E);
+        CHECK(cpu.R.pc == pc + 0x60);
         // branch upper (crossover)
         cpu.R.p = 0b00000001;
         mmu.ram[cpu.R.pc + 0] = 0xB0;
-        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[cpu.R.pc + 1] = 0xF7;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc - 1);
+        CHECK(cpu.R.pc == pc - 7);
         // branch upper (not crossover)
         cpu.R.p = 0b00000001;
         mmu.ram[cpu.R.pc + 0] = 0xB0;
         mmu.ram[cpu.R.pc + 1] = 0x80;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc - 128);
+        CHECK(cpu.R.pc == pc - 126);
     }
 
     puts("\n===== TEST:BNE =====");
@@ -3626,28 +3626,28 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x20;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc + 0x20);
+        CHECK(cpu.R.pc == pc + 0x22);
         // branch bottom (crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0xD0;
         mmu.ram[cpu.R.pc + 1] = 0x5E;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc + 0x5E);
+        CHECK(cpu.R.pc == pc + 0x60);
         // branch upper (crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0xD0;
-        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[cpu.R.pc + 1] = 0xF7;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc - 1);
+        CHECK(cpu.R.pc == pc - 7);
         // branch upper (not crossover)
         cpu.R.p = 0b00000000;
         mmu.ram[cpu.R.pc + 0] = 0xD0;
         mmu.ram[cpu.R.pc + 1] = 0x80;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc - 128);
+        CHECK(cpu.R.pc == pc - 126);
     }
 
     puts("\n===== TEST:BEQ =====");
@@ -3667,28 +3667,28 @@ int main(int argc, char** argv)
         mmu.ram[cpu.R.pc + 1] = 0x20;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc + 0x20);
+        CHECK(cpu.R.pc == pc + 0x22);
         // branch bottom (crossover)
         cpu.R.p = 0b00000010;
         mmu.ram[cpu.R.pc + 0] = 0xF0;
         mmu.ram[cpu.R.pc + 1] = 0x5E;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc + 0x5E);
+        CHECK(cpu.R.pc == pc + 0x60);
         // branch upper (crossover)
         cpu.R.p = 0b00000010;
         mmu.ram[cpu.R.pc + 0] = 0xF0;
-        mmu.ram[cpu.R.pc + 1] = 0xFF;
+        mmu.ram[cpu.R.pc + 1] = 0xF7;
         EXECUTE();
         CHECK(clocks == 4);
-        CHECK(cpu.R.pc == pc - 1);
+        CHECK(cpu.R.pc == pc - 7);
         // branch upper (not crossover)
         cpu.R.p = 0b00000010;
         mmu.ram[cpu.R.pc + 0] = 0xF0;
         mmu.ram[cpu.R.pc + 1] = 0x80;
         EXECUTE();
         CHECK(clocks == 3);
-        CHECK(cpu.R.pc == pc - 128);
+        CHECK(cpu.R.pc == pc - 126);
     }
 
     puts("\n===== TEST:JMP absolute =====");
