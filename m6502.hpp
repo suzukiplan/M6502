@@ -132,6 +132,12 @@ class M6502
         reset();
     }
 
+    ~M6502()
+    {
+        removeAllBreakPoints();
+        removeAllBreakOperands();
+    }
+
     /**
      * Execute
      * - [i] clocks: number of clocks expected to execute CPU
