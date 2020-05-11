@@ -1,4 +1,4 @@
-# SUZUKI PLAN - Perfect MOS6502 Emulator
+# SUZUKI PLAN - Perfect MOS6502 Emulator [![Build Status](https://travis-ci.org/suzukiplan/M6502.svg?branch=master)](https://travis-ci.org/suzukiplan/M6502)
 
 ## About
 
