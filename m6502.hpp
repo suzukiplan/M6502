@@ -628,7 +628,7 @@ class M6502
         updateStatusZ((result & 0xFF) == 0);
         updateStatusV(~(R.a ^ value) & (R.a ^ result) & 0x80 ? true : false);
         updateStatusC(0xFF < result);
-        R.a = (uint8_t)result;
+        R.a = (unsigned char)result;
     }
 
     inline void adc(unsigned char value)
