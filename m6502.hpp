@@ -448,10 +448,15 @@ class M6502
         unsigned int low = fetch();
         unsigned short addr = fetch();
         addr <<= 8;
+        unsigned short dummyReadAddr = addr;
         addr |= low;
         if (CB.debugMessage) sprintf(DD.opp, "$%04X,X<$%02X>", addr, R.x);
         addr += R.x;
-        if (alwaysPenalty || 0xFF < R.x + low) {
+        if (0xFF < R.x + low) {
+            // consume a penalty cycle by dummy read
+            dummyReadAddr |= (R.x + low) & 0xFF;
+            readMemory(dummyReadAddr);
+        } else if (alwaysPenalty) {
             consumeClock(); // consume a penalty cycle
         }
         return addr;
@@ -468,10 +473,15 @@ class M6502
         unsigned int low = fetch();
         unsigned short addr = fetch();
         addr <<= 8;
+        unsigned short dummyReadAddr = addr;
         addr |= low;
         if (CB.debugMessage) sprintf(DD.opp, "$%04X,Y<$%02X>", addr, R.y);
         addr += R.y;
-        if (alwaysPenalty || 0xFF < R.y + low) {
+        if (0xFF < R.y + low) {
+            // consume a penalty cycle by dummy read
+            dummyReadAddr |= (R.y + low) & 0xFF;
+            readMemory(dummyReadAddr);
+        } else if (alwaysPenalty) {
             consumeClock(); // consume a penalty cycle
         }
         return addr;
@@ -509,9 +519,14 @@ class M6502
         unsigned int low = readMemory(zero++);
         unsigned short addr = readMemory(zero);
         addr <<= 8;
+        unsigned short dummyReadAddr = addr;
         addr |= low;
         addr += R.y;
-        if (alwaysPenalty || 0xFF < R.y + low) {
+        if (0xFF < R.y + low) {
+            // consume a penalty cycle by dummy read
+            dummyReadAddr |= (R.y + low) & 0xFF;
+            readMemory(dummyReadAddr);
+        } else if (alwaysPenalty) {
             consumeClock(); // consume a penalty cycle
         }
         return addr;

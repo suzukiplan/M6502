@@ -122,6 +122,7 @@ read memory: $20F2 -> $80
 read memory: $8029 -> $BD
 read memory: $802A -> $10
 read memory: $802B -> $20
+read memory: $2000 -> $00
 read memory: $2100 -> $CC
 [$8029] LDA $2010,X<$F0>
 <REGISTER-DUMP> PC:$802C A:$CC X:$F0 Y:$00 S:$FF P:$80
@@ -148,6 +149,7 @@ read memory: $20F2 -> $80
 read memory: $8035 -> $B9
 read memory: $8036 -> $10
 read memory: $8037 -> $20
+read memory: $2000 -> $00
 read memory: $2100 -> $CC
 [$8035] LDA $2010,Y<$F0>
 <REGISTER-DUMP> PC:$8038 A:$CC X:$F0 Y:$F0 S:$FF P:$80
@@ -180,6 +182,7 @@ read memory: $803E -> $B1
 read memory: $803F -> $10
 read memory: $0010 -> $01
 read memory: $0011 -> $02
+read memory: $0200 -> $00
 read memory: $0300 -> $99
 [$803E] LDA ($10),Y<$FF>
 <REGISTER-DUMP> PC:$8040 A:$99 X:$20 Y:$FF S:$FF P:$80
@@ -279,6 +282,7 @@ read memory: $20F2 -> $80
 read memory: $8066 -> $BE
 read memory: $8067 -> $10
 read memory: $8068 -> $20
+read memory: $2000 -> $00
 read memory: $2100 -> $CC
 [$8066] LDX $2010,Y<$F0>
 <REGISTER-DUMP> PC:$8069 A:$99 X:$CC Y:$F0 S:$FF P:$80
@@ -378,6 +382,7 @@ read memory: $20F2 -> $80
 read memory: $808F -> $BC
 read memory: $8090 -> $10
 read memory: $8091 -> $20
+read memory: $2000 -> $00
 read memory: $2100 -> $CC
 [$808F] LDY $2010,X<$F0>
 <REGISTER-DUMP> PC:$8092 A:$99 X:$F0 Y:$CC S:$FF P:$80
@@ -419,6 +424,7 @@ write memory: $30DE <- $BB
 read memory: $809E -> $9D
 read memory: $809F -> $EF
 read memory: $80A0 -> $30
+read memory: $3000 -> $00
 write memory: $3100 <- $BB
 [$809E] STA $30EF,X<$11>
 <REGISTER-DUMP> PC:$80A1 A:$BB X:$11 Y:$CC S:$FF P:$80
@@ -433,6 +439,7 @@ write memory: $40DF <- $DD
 read memory: $80A4 -> $99
 read memory: $80A5 -> $EF
 read memory: $80A6 -> $40
+read memory: $4001 -> $00
 write memory: $4101 <- $DD
 [$80A4] STA $40EF,Y<$12>
 <REGISTER-DUMP> PC:$80A7 A:$DD X:$11 Y:$12 S:$FF P:$80
@@ -465,6 +472,7 @@ read memory: $80AD -> $91
 read memory: $80AE -> $10
 read memory: $0010 -> $01
 read memory: $0011 -> $04
+read memory: $0400 -> $00
 write memory: $0500 <- $FF
 [$80AD] STA ($10),Y<$FF>
 <REGISTER-DUMP> PC:$80AF A:$FF X:$20 Y:$FF S:$FF P:$80
@@ -633,6 +641,7 @@ read memory: $20FF -> $30
 read memory: $80EE -> $7D
 read memory: $80EF -> $8F
 read memory: $80F0 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $44
 [$80EE] ADC $208F,X<$80>
 <REGISTER-DUMP> PC:$80F1 A:$85 X:$80 Y:$C0 S:$FF P:$C0
@@ -647,6 +656,7 @@ read memory: $20FF -> $30
 read memory: $80F4 -> $79
 read memory: $80F5 -> $8F
 read memory: $80F6 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $44
 [$80F4] ADC $208F,Y<$80>
 <REGISTER-DUMP> PC:$80F7 A:$85 X:$80 Y:$80 S:$FF P:$C0
@@ -679,6 +689,7 @@ read memory: $80FD -> $71
 read memory: $80FE -> $10
 read memory: $0010 -> $01
 read memory: $0011 -> $02
+read memory: $0200 -> $00
 read memory: $0300 -> $99
 [$80FD] ADC ($10),Y<$FF>
 <REGISTER-DUMP> PC:$80FF A:$0E X:$20 Y:$FF S:$FF P:$01
@@ -720,6 +731,7 @@ read memory: $20FF -> $30
 read memory: $810B -> $FD
 read memory: $810C -> $8F
 read memory: $810D -> $20
+read memory: $200F -> $00
 read memory: $210F -> $44
 [$810B] SBC $208F,X<$80>
 <REGISTER-DUMP> PC:$810E A:$9B X:$80 Y:$FF S:$FF P:$81
@@ -734,6 +746,7 @@ read memory: $20FF -> $30
 read memory: $8111 -> $F9
 read memory: $8112 -> $8F
 read memory: $8113 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $44
 [$8111] SBC $208F,Y<$80>
 <REGISTER-DUMP> PC:$8114 A:$9B X:$80 Y:$80 S:$FF P:$81
@@ -766,6 +779,7 @@ read memory: $811A -> $F1
 read memory: $811B -> $10
 read memory: $0010 -> $01
 read memory: $0011 -> $02
+read memory: $0200 -> $00
 read memory: $0300 -> $99
 [$811A] SBC ($10),Y<$FF>
 <REGISTER-DUMP> PC:$811C A:$30 X:$20 Y:$FF S:$FF P:$01
@@ -821,6 +835,7 @@ read memory: $20FF -> $30
 read memory: $812E -> $3D
 read memory: $812F -> $8F
 read memory: $8130 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $F0
 [$812E] AND $208F,X<$80>
 <REGISTER-DUMP> PC:$8131 A:$10 X:$80 Y:$FF S:$FF P:$00
@@ -835,6 +850,7 @@ read memory: $20FF -> $30
 read memory: $8134 -> $39
 read memory: $8135 -> $8F
 read memory: $8136 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $44
 [$8134] AND $208F,Y<$80>
 <REGISTER-DUMP> PC:$8137 A:$00 X:$80 Y:$80 S:$FF P:$02
@@ -867,6 +883,7 @@ read memory: $813D -> $31
 read memory: $813E -> $10
 read memory: $0010 -> $01
 read memory: $0011 -> $02
+read memory: $0200 -> $00
 read memory: $0300 -> $44
 [$813D] AND ($10),Y<$FF>
 <REGISTER-DUMP> PC:$813F A:$44 X:$20 Y:$FF S:$FF P:$00
@@ -922,6 +939,7 @@ read memory: $20FF -> $30
 read memory: $8151 -> $1D
 read memory: $8152 -> $8F
 read memory: $8153 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $0F
 [$8151] ORA $208F,X<$80>
 <REGISTER-DUMP> PC:$8154 A:$3F X:$80 Y:$FF S:$FF P:$00
@@ -936,6 +954,7 @@ read memory: $20FF -> $30
 read memory: $8157 -> $19
 read memory: $8158 -> $8F
 read memory: $8159 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $44
 [$8157] ORA $208F,Y<$80>
 <REGISTER-DUMP> PC:$815A A:$75 X:$80 Y:$80 S:$FF P:$00
@@ -968,6 +987,7 @@ read memory: $8160 -> $11
 read memory: $8161 -> $10
 read memory: $0010 -> $01
 read memory: $0011 -> $02
+read memory: $0200 -> $00
 read memory: $0300 -> $44
 [$8160] ORA ($10),Y<$FF>
 <REGISTER-DUMP> PC:$8162 A:$55 X:$20 Y:$FF S:$FF P:$00
@@ -1023,6 +1043,7 @@ read memory: $20FF -> $3A
 read memory: $8174 -> $5D
 read memory: $8175 -> $8F
 read memory: $8176 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $0F
 [$8174] EOR $208F,X<$80>
 <REGISTER-DUMP> PC:$8177 A:$24 X:$80 Y:$FF S:$FF P:$00
@@ -1037,6 +1058,7 @@ read memory: $20FF -> $30
 read memory: $817A -> $59
 read memory: $817B -> $8F
 read memory: $817C -> $20
+read memory: $200F -> $00
 read memory: $210F -> $44
 [$817A] EOR $208F,Y<$80>
 <REGISTER-DUMP> PC:$817D A:$65 X:$80 Y:$80 S:$FF P:$00
@@ -1069,6 +1091,7 @@ read memory: $8183 -> $51
 read memory: $8184 -> $10
 read memory: $0010 -> $01
 read memory: $0011 -> $02
+read memory: $0200 -> $00
 read memory: $0300 -> $44
 [$8183] EOR ($10),Y<$FF>
 <REGISTER-DUMP> PC:$8185 A:$11 X:$20 Y:$FF S:$FF P:$00
@@ -1124,6 +1147,7 @@ read memory: $20FF -> $3A
 read memory: $8197 -> $DD
 read memory: $8198 -> $8F
 read memory: $8199 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $0F
 [$8197] CMP $208F,X<$80>
 <REGISTER-DUMP> PC:$819A A:$11 X:$80 Y:$FF S:$FF P:$01
@@ -1138,6 +1162,7 @@ read memory: $20FF -> $30
 read memory: $819D -> $D9
 read memory: $819E -> $8F
 read memory: $819F -> $20
+read memory: $200F -> $00
 read memory: $210F -> $11
 [$819D] CMP $208F,Y<$80>
 <REGISTER-DUMP> PC:$81A0 A:$11 X:$80 Y:$80 S:$FF P:$03
@@ -1170,6 +1195,7 @@ read memory: $81A6 -> $D1
 read memory: $81A7 -> $10
 read memory: $0010 -> $01
 read memory: $0011 -> $02
+read memory: $0200 -> $00
 read memory: $0300 -> $44
 [$81A6] CMP ($10),Y<$FF>
 <REGISTER-DUMP> PC:$81A8 A:$00 X:$20 Y:$FF S:$FF P:$80
@@ -5421,6 +5447,7 @@ write memory: $20FF <- $74
 read memory: $85D5 -> $1E
 read memory: $85D6 -> $8F
 read memory: $85D7 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $0F
 write memory: $210F <- $1E
 [$85D5] ASL $208F,X<$80>
@@ -5479,6 +5506,7 @@ write memory: $20FF <- $1D
 read memory: $85E7 -> $5E
 read memory: $85E8 -> $8F
 read memory: $85E9 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $0F
 write memory: $210F <- $07
 [$85E7] LSR $208F,X<$80>
@@ -5540,6 +5568,7 @@ write memory: $20FF <- $74
 read memory: $85FA -> $3E
 read memory: $85FB -> $8F
 read memory: $85FC -> $20
+read memory: $200F -> $00
 read memory: $210F -> $0F
 write memory: $210F <- $1E
 [$85FA] ROL $208F,X<$80>
@@ -5598,6 +5627,7 @@ write memory: $20FF <- $1D
 read memory: $860C -> $7E
 read memory: $860D -> $8F
 read memory: $860E -> $20
+read memory: $200F -> $00
 read memory: $210F -> $0F
 write memory: $210F <- $87
 [$860C] ROR $208F,X<$80>
@@ -5657,6 +5687,7 @@ write memory: $20FF <- $3B
 read memory: $861F -> $FE
 read memory: $8620 -> $8F
 read memory: $8621 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $0F
 write memory: $210F <- $10
 [$861F] INC $208F,X<$80>
@@ -5724,6 +5755,7 @@ write memory: $20FF <- $39
 read memory: $8634 -> $DE
 read memory: $8635 -> $8F
 read memory: $8636 -> $20
+read memory: $200F -> $00
 read memory: $210F -> $0F
 write memory: $210F <- $0E
 [$8634] DEC $208F,X<$80>
