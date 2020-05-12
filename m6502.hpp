@@ -101,6 +101,7 @@ class M6502
      * And also, load if you would like to load CPU state.
      */
     struct Register {
+        unsigned int tickCount;
         unsigned short pc;
         unsigned char a;
         unsigned char x;
@@ -148,6 +149,7 @@ class M6502
     {
         this->clockConsumed = 0;
         while (this->clockConsumed < clocks || executeUntilNMI) {
+            R.tickCount++;
             for (auto bp : CB.breakPoints) {
                 if (bp->addr == R.pc) {
                     bp->callback(CB.arg);
@@ -207,6 +209,7 @@ class M6502
      */
     void reset()
     {
+        R.tickCount = 0;
         R.s = 0;
         consumeClock();
         updateStatusI(true, true);
