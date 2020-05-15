@@ -5409,6 +5409,7 @@ read memory: $85C8 -> $0A
 read memory: $85C9 -> $06
 read memory: $85CA -> $50
 read memory: $0050 -> $23
+write memory: $0050 <- $23
 write memory: $0050 <- $46
 [$85C9] ASL $50
 <REGISTER-DUMP> PC:$85CB A:$FE X:$FF Y:$12 S:$FF P:$00
@@ -5417,12 +5418,14 @@ write memory: $0050 <- $46
 read memory: $85CB -> $16
 read memory: $85CC -> $50
 read memory: $0051 -> $25
+write memory: $0051 <- $25
 write memory: $0051 <- $4A
 [$85CB] ASL $50,X<$01>
 <REGISTER-DUMP> PC:$85CD A:$FE X:$01 Y:$12 S:$FF P:$00
 read memory: $85CD -> $16
 read memory: $85CE -> $FF
 read memory: $0000 -> $88
+write memory: $0000 <- $88
 write memory: $0000 <- $10
 [$85CD] ASL $FF,X<$01>
 <REGISTER-DUMP> PC:$85CF A:$FE X:$01 Y:$12 S:$FF P:$01
@@ -5432,6 +5435,7 @@ read memory: $85CF -> $0E
 read memory: $85D0 -> $60
 read memory: $85D1 -> $20
 read memory: $2060 -> $33
+write memory: $2060 <- $33
 write memory: $2060 <- $66
 [$85CF] ASL $2060
 <REGISTER-DUMP> PC:$85D2 A:$FE X:$01 Y:$12 S:$FF P:$00
@@ -5441,6 +5445,7 @@ read memory: $85D2 -> $1E
 read memory: $85D3 -> $7F
 read memory: $85D4 -> $20
 read memory: $20FF -> $3A
+write memory: $20FF <- $3A
 write memory: $20FF <- $74
 [$85D2] ASL $207F,X<$80>
 <REGISTER-DUMP> PC:$85D5 A:$FE X:$80 Y:$12 S:$FF P:$00
@@ -5449,6 +5454,7 @@ read memory: $85D6 -> $8F
 read memory: $85D7 -> $20
 read memory: $200F -> $00
 read memory: $210F -> $0F
+write memory: $210F <- $0F
 write memory: $210F <- $1E
 [$85D5] ASL $208F,X<$80>
 <REGISTER-DUMP> PC:$85D8 A:$FE X:$80 Y:$12 S:$FF P:$00
@@ -5468,6 +5474,7 @@ read memory: $85DA -> $4A
 read memory: $85DB -> $46
 read memory: $85DC -> $50
 read memory: $0050 -> $23
+write memory: $0050 <- $23
 write memory: $0050 <- $11
 [$85DB] LSR $50
 <REGISTER-DUMP> PC:$85DD A:$00 X:$80 Y:$12 S:$FF P:$01
@@ -5476,12 +5483,14 @@ write memory: $0050 <- $11
 read memory: $85DD -> $56
 read memory: $85DE -> $50
 read memory: $0051 -> $25
+write memory: $0051 <- $25
 write memory: $0051 <- $12
 [$85DD] LSR $50,X<$01>
 <REGISTER-DUMP> PC:$85DF A:$00 X:$01 Y:$12 S:$FF P:$01
 read memory: $85DF -> $56
 read memory: $85E0 -> $FF
 read memory: $0000 -> $88
+write memory: $0000 <- $88
 write memory: $0000 <- $44
 [$85DF] LSR $FF,X<$01>
 <REGISTER-DUMP> PC:$85E1 A:$00 X:$01 Y:$12 S:$FF P:$00
@@ -5491,6 +5500,7 @@ read memory: $85E1 -> $4E
 read memory: $85E2 -> $60
 read memory: $85E3 -> $20
 read memory: $2060 -> $33
+write memory: $2060 <- $33
 write memory: $2060 <- $19
 [$85E1] LSR $2060
 <REGISTER-DUMP> PC:$85E4 A:$00 X:$01 Y:$12 S:$FF P:$01
@@ -5500,6 +5510,7 @@ read memory: $85E4 -> $5E
 read memory: $85E5 -> $7F
 read memory: $85E6 -> $20
 read memory: $20FF -> $3A
+write memory: $20FF <- $3A
 write memory: $20FF <- $1D
 [$85E4] LSR $207F,X<$80>
 <REGISTER-DUMP> PC:$85E7 A:$00 X:$80 Y:$12 S:$FF P:$00
@@ -5508,6 +5519,7 @@ read memory: $85E8 -> $8F
 read memory: $85E9 -> $20
 read memory: $200F -> $00
 read memory: $210F -> $0F
+write memory: $210F <- $0F
 write memory: $210F <- $07
 [$85E7] LSR $208F,X<$80>
 <REGISTER-DUMP> PC:$85EA A:$00 X:$80 Y:$12 S:$FF P:$01
@@ -5530,6 +5542,7 @@ read memory: $85ED -> $2A
 read memory: $85EE -> $26
 read memory: $85EF -> $50
 read memory: $0050 -> $23
+write memory: $0050 <- $23
 write memory: $0050 <- $46
 [$85EE] ROL $50
 <REGISTER-DUMP> PC:$85F0 A:$FF X:$80 Y:$12 S:$FF P:$00
@@ -5538,12 +5551,14 @@ write memory: $0050 <- $46
 read memory: $85F0 -> $36
 read memory: $85F1 -> $50
 read memory: $0051 -> $25
+write memory: $0051 <- $25
 write memory: $0051 <- $4A
 [$85F0] ROL $50,X<$01>
 <REGISTER-DUMP> PC:$85F2 A:$FF X:$01 Y:$12 S:$FF P:$00
 read memory: $85F2 -> $36
 read memory: $85F3 -> $FF
 read memory: $0000 -> $88
+write memory: $0000 <- $88
 write memory: $0000 <- $11
 [$85F2] ROL $FF,X<$01>
 <REGISTER-DUMP> PC:$85F4 A:$FF X:$01 Y:$12 S:$FF P:$01
@@ -5553,6 +5568,7 @@ read memory: $85F4 -> $2E
 read memory: $85F5 -> $60
 read memory: $85F6 -> $20
 read memory: $2060 -> $33
+write memory: $2060 <- $33
 write memory: $2060 <- $66
 [$85F4] ROL $2060
 <REGISTER-DUMP> PC:$85F7 A:$FF X:$01 Y:$12 S:$FF P:$00
@@ -5562,6 +5578,7 @@ read memory: $85F7 -> $3E
 read memory: $85F8 -> $7F
 read memory: $85F9 -> $20
 read memory: $20FF -> $3A
+write memory: $20FF <- $3A
 write memory: $20FF <- $74
 [$85F7] ROL $207F,X<$80>
 <REGISTER-DUMP> PC:$85FA A:$FF X:$80 Y:$12 S:$FF P:$00
@@ -5570,6 +5587,7 @@ read memory: $85FB -> $8F
 read memory: $85FC -> $20
 read memory: $200F -> $00
 read memory: $210F -> $0F
+write memory: $210F <- $0F
 write memory: $210F <- $1E
 [$85FA] ROL $208F,X<$80>
 <REGISTER-DUMP> PC:$85FD A:$FF X:$80 Y:$12 S:$FF P:$00
@@ -5589,6 +5607,7 @@ read memory: $85FF -> $6A
 read memory: $8600 -> $66
 read memory: $8601 -> $50
 read memory: $0050 -> $23
+write memory: $0050 <- $23
 write memory: $0050 <- $91
 [$8600] ROR $50
 <REGISTER-DUMP> PC:$8602 A:$3F X:$80 Y:$12 S:$FF P:$81
@@ -5597,12 +5616,14 @@ write memory: $0050 <- $91
 read memory: $8602 -> $76
 read memory: $8603 -> $50
 read memory: $0051 -> $25
+write memory: $0051 <- $25
 write memory: $0051 <- $92
 [$8602] ROR $50,X<$01>
 <REGISTER-DUMP> PC:$8604 A:$3F X:$01 Y:$12 S:$FF P:$81
 read memory: $8604 -> $76
 read memory: $8605 -> $FF
 read memory: $0000 -> $88
+write memory: $0000 <- $88
 write memory: $0000 <- $44
 [$8604] ROR $FF,X<$01>
 <REGISTER-DUMP> PC:$8606 A:$3F X:$01 Y:$12 S:$FF P:$00
@@ -5612,6 +5633,7 @@ read memory: $8606 -> $6E
 read memory: $8607 -> $60
 read memory: $8608 -> $20
 read memory: $2060 -> $33
+write memory: $2060 <- $33
 write memory: $2060 <- $99
 [$8606] ROR $2060
 <REGISTER-DUMP> PC:$8609 A:$3F X:$01 Y:$12 S:$FF P:$81
@@ -5621,6 +5643,7 @@ read memory: $8609 -> $7E
 read memory: $860A -> $7F
 read memory: $860B -> $20
 read memory: $20FF -> $3A
+write memory: $20FF <- $3A
 write memory: $20FF <- $1D
 [$8609] ROR $207F,X<$80>
 <REGISTER-DUMP> PC:$860C A:$3F X:$80 Y:$12 S:$FF P:$00
@@ -5629,6 +5652,7 @@ read memory: $860D -> $8F
 read memory: $860E -> $20
 read memory: $200F -> $00
 read memory: $210F -> $0F
+write memory: $210F <- $0F
 write memory: $210F <- $87
 [$860C] ROR $208F,X<$80>
 <REGISTER-DUMP> PC:$860F A:$3F X:$80 Y:$12 S:$FF P:$81
@@ -5637,18 +5661,21 @@ write memory: $210F <- $87
 read memory: $860F -> $E6
 read memory: $8610 -> $50
 read memory: $0050 -> $23
+write memory: $0050 <- $23
 write memory: $0050 <- $24
 [$860F] INC $50
 <REGISTER-DUMP> PC:$8611 A:$3F X:$80 Y:$12 S:$FF P:$00
 read memory: $8611 -> $E6
 read memory: $8612 -> $51
 read memory: $0051 -> $7F
+write memory: $0051 <- $7F
 write memory: $0051 <- $80
 [$8611] INC $51
 <REGISTER-DUMP> PC:$8613 A:$3F X:$80 Y:$12 S:$FF P:$80
 read memory: $8613 -> $E6
 read memory: $8614 -> $52
 read memory: $0052 -> $FF
+write memory: $0052 <- $FF
 write memory: $0052 <- $00
 [$8613] INC $52
 <REGISTER-DUMP> PC:$8615 A:$3F X:$80 Y:$12 S:$FF P:$02
@@ -5657,12 +5684,14 @@ write memory: $0052 <- $00
 read memory: $8615 -> $F6
 read memory: $8616 -> $50
 read memory: $0051 -> $25
+write memory: $0051 <- $25
 write memory: $0051 <- $26
 [$8615] INC $50,X<$01>
 <REGISTER-DUMP> PC:$8617 A:$3F X:$01 Y:$12 S:$FF P:$00
 read memory: $8617 -> $F6
 read memory: $8618 -> $FF
 read memory: $0000 -> $88
+write memory: $0000 <- $88
 write memory: $0000 <- $89
 [$8617] INC $FF,X<$01>
 <REGISTER-DUMP> PC:$8619 A:$3F X:$01 Y:$12 S:$FF P:$80
@@ -5672,6 +5701,7 @@ read memory: $8619 -> $EE
 read memory: $861A -> $60
 read memory: $861B -> $20
 read memory: $2060 -> $33
+write memory: $2060 <- $33
 write memory: $2060 <- $34
 [$8619] INC $2060
 <REGISTER-DUMP> PC:$861C A:$3F X:$01 Y:$12 S:$FF P:$00
@@ -5681,6 +5711,7 @@ read memory: $861C -> $FE
 read memory: $861D -> $7F
 read memory: $861E -> $20
 read memory: $20FF -> $3A
+write memory: $20FF <- $3A
 write memory: $20FF <- $3B
 [$861C] INC $207F,X<$80>
 <REGISTER-DUMP> PC:$861F A:$3F X:$80 Y:$12 S:$FF P:$00
@@ -5689,6 +5720,7 @@ read memory: $8620 -> $8F
 read memory: $8621 -> $20
 read memory: $200F -> $00
 read memory: $210F -> $0F
+write memory: $210F <- $0F
 write memory: $210F <- $10
 [$861F] INC $208F,X<$80>
 <REGISTER-DUMP> PC:$8622 A:$3F X:$80 Y:$12 S:$FF P:$00
@@ -5705,18 +5737,21 @@ read memory: $8623 -> $C8
 read memory: $8624 -> $C6
 read memory: $8625 -> $50
 read memory: $0050 -> $23
+write memory: $0050 <- $23
 write memory: $0050 <- $22
 [$8624] DEC $50
 <REGISTER-DUMP> PC:$8626 A:$3F X:$56 Y:$AB S:$FF P:$00
 read memory: $8626 -> $C6
 read memory: $8627 -> $51
 read memory: $0051 -> $FF
+write memory: $0051 <- $FF
 write memory: $0051 <- $FE
 [$8626] DEC $51
 <REGISTER-DUMP> PC:$8628 A:$3F X:$56 Y:$AB S:$FF P:$80
 read memory: $8628 -> $C6
 read memory: $8629 -> $52
 read memory: $0052 -> $01
+write memory: $0052 <- $01
 write memory: $0052 <- $00
 [$8628] DEC $52
 <REGISTER-DUMP> PC:$862A A:$3F X:$56 Y:$AB S:$FF P:$02
@@ -5725,12 +5760,14 @@ write memory: $0052 <- $00
 read memory: $862A -> $D6
 read memory: $862B -> $50
 read memory: $0051 -> $25
+write memory: $0051 <- $25
 write memory: $0051 <- $24
 [$862A] DEC $50,X<$01>
 <REGISTER-DUMP> PC:$862C A:$3F X:$01 Y:$AB S:$FF P:$00
 read memory: $862C -> $D6
 read memory: $862D -> $FF
 read memory: $0000 -> $88
+write memory: $0000 <- $88
 write memory: $0000 <- $87
 [$862C] DEC $FF,X<$01>
 <REGISTER-DUMP> PC:$862E A:$3F X:$01 Y:$AB S:$FF P:$80
@@ -5740,6 +5777,7 @@ read memory: $862E -> $CE
 read memory: $862F -> $60
 read memory: $8630 -> $20
 read memory: $2060 -> $33
+write memory: $2060 <- $33
 write memory: $2060 <- $32
 [$862E] DEC $2060
 <REGISTER-DUMP> PC:$8631 A:$3F X:$01 Y:$AB S:$FF P:$00
@@ -5749,6 +5787,7 @@ read memory: $8631 -> $DE
 read memory: $8632 -> $7F
 read memory: $8633 -> $20
 read memory: $20FF -> $3A
+write memory: $20FF <- $3A
 write memory: $20FF <- $39
 [$8631] DEC $207F,X<$80>
 <REGISTER-DUMP> PC:$8634 A:$3F X:$80 Y:$AB S:$FF P:$00
@@ -5757,6 +5796,7 @@ read memory: $8635 -> $8F
 read memory: $8636 -> $20
 read memory: $200F -> $00
 read memory: $210F -> $0F
+write memory: $210F <- $0F
 write memory: $210F <- $0E
 [$8634] DEC $208F,X<$80>
 <REGISTER-DUMP> PC:$8637 A:$3F X:$80 Y:$AB S:$FF P:$00

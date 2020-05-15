@@ -869,7 +869,7 @@ class M6502
     static inline void asl_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char before = cpu->readAbsoluteX(&addr, true);
         unsigned char after = cpu->asl(before);
         cpu->writeMemoryWithDummy(addr, before, after);
     }
@@ -911,7 +911,7 @@ class M6502
     static inline void lsr_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char before = cpu->readAbsoluteX(&addr, true);
         unsigned char after = cpu->lsr(before);
         cpu->writeMemoryWithDummy(addr, before, after);
     }
@@ -954,7 +954,7 @@ class M6502
     static inline void rol_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char before = cpu->readAbsoluteX(&addr, true);
         unsigned char after = cpu->rol(before);
         cpu->writeMemoryWithDummy(addr, before, after);
     }
@@ -997,7 +997,7 @@ class M6502
     static inline void ror_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char before = cpu->readAbsoluteX(&addr, true);
         unsigned char after = cpu->ror(before);
         cpu->writeMemoryWithDummy(addr, before, after);
     }
@@ -1035,7 +1035,7 @@ class M6502
     static inline void dec_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char before = cpu->readAbsoluteX(&addr, true);
         unsigned char after = cpu->dec("DEC", before);
         cpu->writeMemoryWithDummy(addr, before, after);
     }
@@ -1075,7 +1075,7 @@ class M6502
     static inline void inc_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char before = cpu->readAbsoluteX(&addr, true);
         unsigned char after = cpu->inc("INC", before);
         cpu->writeMemoryWithDummy(addr, before, after);
     }
