@@ -1,5 +1,5 @@
 ===== INIT =====
-write memory: $01FF <- $00
+write memory: $0100 <- $00
 read memory: $FFFC -> $00
 read memory: $FFFD -> $80
 
@@ -11,9 +11,9 @@ read memory: $8000 -> $58
 ===== TEST:BRK =====
 read memory: $8001 -> $00
 read memory: $8002 -> $00
-write memory: $01FE <- $80
-write memory: $01FD <- $03
-write memory: $01FC <- $00
+write memory: $01FF <- $80
+write memory: $01FE <- $03
+write memory: $01FD <- $00
 read memory: $FFFE -> $00
 read memory: $FFFF -> $00
 [$8001] BRK 
@@ -21,9 +21,9 @@ read memory: $FFFF -> $00
 
 ===== TEST:RTI =====
 read memory: $0000 -> $40
-read memory: $01FC -> $00
-read memory: $01FD -> $03
-read memory: $01FE -> $80
+read memory: $01FD -> $00
+read memory: $01FE -> $03
+read memory: $01FF -> $80
 [$0000] RTI 
 <REGISTER-DUMP> PC:$8003 A:$00 X:$00 Y:$00 S:$FF P:$00
 
@@ -1260,4101 +1260,4101 @@ read memory: $2060 -> $33
 
 ===== TEST:PHA,PLA =====
 read memory: $81BE -> $48
-write memory: $01FF <- $00
+write memory: $0100 <- $00
 [$81BE] PHA 
 <REGISTER-DUMP> PC:$81BF A:$00 X:$11 Y:$11 S:$FF P:$00
 read memory: $81BF -> $48
-write memory: $01FE <- $01
+write memory: $01FF <- $01
 [$81BF] PHA 
 <REGISTER-DUMP> PC:$81C0 A:$01 X:$11 Y:$11 S:$FE P:$00
 read memory: $81C0 -> $48
-write memory: $01FD <- $02
+write memory: $01FE <- $02
 [$81C0] PHA 
 <REGISTER-DUMP> PC:$81C1 A:$02 X:$11 Y:$11 S:$FD P:$00
 read memory: $81C1 -> $48
-write memory: $01FC <- $03
+write memory: $01FD <- $03
 [$81C1] PHA 
 <REGISTER-DUMP> PC:$81C2 A:$03 X:$11 Y:$11 S:$FC P:$00
 read memory: $81C2 -> $48
-write memory: $01FB <- $04
+write memory: $01FC <- $04
 [$81C2] PHA 
 <REGISTER-DUMP> PC:$81C3 A:$04 X:$11 Y:$11 S:$FB P:$00
 read memory: $81C3 -> $48
-write memory: $01FA <- $05
+write memory: $01FB <- $05
 [$81C3] PHA 
 <REGISTER-DUMP> PC:$81C4 A:$05 X:$11 Y:$11 S:$FA P:$00
 read memory: $81C4 -> $48
-write memory: $01F9 <- $06
+write memory: $01FA <- $06
 [$81C4] PHA 
 <REGISTER-DUMP> PC:$81C5 A:$06 X:$11 Y:$11 S:$F9 P:$00
 read memory: $81C5 -> $48
-write memory: $01F8 <- $07
+write memory: $01F9 <- $07
 [$81C5] PHA 
 <REGISTER-DUMP> PC:$81C6 A:$07 X:$11 Y:$11 S:$F8 P:$00
 read memory: $81C6 -> $48
-write memory: $01F7 <- $08
+write memory: $01F8 <- $08
 [$81C6] PHA 
 <REGISTER-DUMP> PC:$81C7 A:$08 X:$11 Y:$11 S:$F7 P:$00
 read memory: $81C7 -> $48
-write memory: $01F6 <- $09
+write memory: $01F7 <- $09
 [$81C7] PHA 
 <REGISTER-DUMP> PC:$81C8 A:$09 X:$11 Y:$11 S:$F6 P:$00
 read memory: $81C8 -> $48
-write memory: $01F5 <- $0A
+write memory: $01F6 <- $0A
 [$81C8] PHA 
 <REGISTER-DUMP> PC:$81C9 A:$0A X:$11 Y:$11 S:$F5 P:$00
 read memory: $81C9 -> $48
-write memory: $01F4 <- $0B
+write memory: $01F5 <- $0B
 [$81C9] PHA 
 <REGISTER-DUMP> PC:$81CA A:$0B X:$11 Y:$11 S:$F4 P:$00
 read memory: $81CA -> $48
-write memory: $01F3 <- $0C
+write memory: $01F4 <- $0C
 [$81CA] PHA 
 <REGISTER-DUMP> PC:$81CB A:$0C X:$11 Y:$11 S:$F3 P:$00
 read memory: $81CB -> $48
-write memory: $01F2 <- $0D
+write memory: $01F3 <- $0D
 [$81CB] PHA 
 <REGISTER-DUMP> PC:$81CC A:$0D X:$11 Y:$11 S:$F2 P:$00
 read memory: $81CC -> $48
-write memory: $01F1 <- $0E
+write memory: $01F2 <- $0E
 [$81CC] PHA 
 <REGISTER-DUMP> PC:$81CD A:$0E X:$11 Y:$11 S:$F1 P:$00
 read memory: $81CD -> $48
-write memory: $01F0 <- $0F
+write memory: $01F1 <- $0F
 [$81CD] PHA 
 <REGISTER-DUMP> PC:$81CE A:$0F X:$11 Y:$11 S:$F0 P:$00
 read memory: $81CE -> $48
-write memory: $01EF <- $10
+write memory: $01F0 <- $10
 [$81CE] PHA 
 <REGISTER-DUMP> PC:$81CF A:$10 X:$11 Y:$11 S:$EF P:$00
 read memory: $81CF -> $48
-write memory: $01EE <- $11
+write memory: $01EF <- $11
 [$81CF] PHA 
 <REGISTER-DUMP> PC:$81D0 A:$11 X:$11 Y:$11 S:$EE P:$00
 read memory: $81D0 -> $48
-write memory: $01ED <- $12
+write memory: $01EE <- $12
 [$81D0] PHA 
 <REGISTER-DUMP> PC:$81D1 A:$12 X:$11 Y:$11 S:$ED P:$00
 read memory: $81D1 -> $48
-write memory: $01EC <- $13
+write memory: $01ED <- $13
 [$81D1] PHA 
 <REGISTER-DUMP> PC:$81D2 A:$13 X:$11 Y:$11 S:$EC P:$00
 read memory: $81D2 -> $48
-write memory: $01EB <- $14
+write memory: $01EC <- $14
 [$81D2] PHA 
 <REGISTER-DUMP> PC:$81D3 A:$14 X:$11 Y:$11 S:$EB P:$00
 read memory: $81D3 -> $48
-write memory: $01EA <- $15
+write memory: $01EB <- $15
 [$81D3] PHA 
 <REGISTER-DUMP> PC:$81D4 A:$15 X:$11 Y:$11 S:$EA P:$00
 read memory: $81D4 -> $48
-write memory: $01E9 <- $16
+write memory: $01EA <- $16
 [$81D4] PHA 
 <REGISTER-DUMP> PC:$81D5 A:$16 X:$11 Y:$11 S:$E9 P:$00
 read memory: $81D5 -> $48
-write memory: $01E8 <- $17
+write memory: $01E9 <- $17
 [$81D5] PHA 
 <REGISTER-DUMP> PC:$81D6 A:$17 X:$11 Y:$11 S:$E8 P:$00
 read memory: $81D6 -> $48
-write memory: $01E7 <- $18
+write memory: $01E8 <- $18
 [$81D6] PHA 
 <REGISTER-DUMP> PC:$81D7 A:$18 X:$11 Y:$11 S:$E7 P:$00
 read memory: $81D7 -> $48
-write memory: $01E6 <- $19
+write memory: $01E7 <- $19
 [$81D7] PHA 
 <REGISTER-DUMP> PC:$81D8 A:$19 X:$11 Y:$11 S:$E6 P:$00
 read memory: $81D8 -> $48
-write memory: $01E5 <- $1A
+write memory: $01E6 <- $1A
 [$81D8] PHA 
 <REGISTER-DUMP> PC:$81D9 A:$1A X:$11 Y:$11 S:$E5 P:$00
 read memory: $81D9 -> $48
-write memory: $01E4 <- $1B
+write memory: $01E5 <- $1B
 [$81D9] PHA 
 <REGISTER-DUMP> PC:$81DA A:$1B X:$11 Y:$11 S:$E4 P:$00
 read memory: $81DA -> $48
-write memory: $01E3 <- $1C
+write memory: $01E4 <- $1C
 [$81DA] PHA 
 <REGISTER-DUMP> PC:$81DB A:$1C X:$11 Y:$11 S:$E3 P:$00
 read memory: $81DB -> $48
-write memory: $01E2 <- $1D
+write memory: $01E3 <- $1D
 [$81DB] PHA 
 <REGISTER-DUMP> PC:$81DC A:$1D X:$11 Y:$11 S:$E2 P:$00
 read memory: $81DC -> $48
-write memory: $01E1 <- $1E
+write memory: $01E2 <- $1E
 [$81DC] PHA 
 <REGISTER-DUMP> PC:$81DD A:$1E X:$11 Y:$11 S:$E1 P:$00
 read memory: $81DD -> $48
-write memory: $01E0 <- $1F
+write memory: $01E1 <- $1F
 [$81DD] PHA 
 <REGISTER-DUMP> PC:$81DE A:$1F X:$11 Y:$11 S:$E0 P:$00
 read memory: $81DE -> $48
-write memory: $01DF <- $20
+write memory: $01E0 <- $20
 [$81DE] PHA 
 <REGISTER-DUMP> PC:$81DF A:$20 X:$11 Y:$11 S:$DF P:$00
 read memory: $81DF -> $48
-write memory: $01DE <- $21
+write memory: $01DF <- $21
 [$81DF] PHA 
 <REGISTER-DUMP> PC:$81E0 A:$21 X:$11 Y:$11 S:$DE P:$00
 read memory: $81E0 -> $48
-write memory: $01DD <- $22
+write memory: $01DE <- $22
 [$81E0] PHA 
 <REGISTER-DUMP> PC:$81E1 A:$22 X:$11 Y:$11 S:$DD P:$00
 read memory: $81E1 -> $48
-write memory: $01DC <- $23
+write memory: $01DD <- $23
 [$81E1] PHA 
 <REGISTER-DUMP> PC:$81E2 A:$23 X:$11 Y:$11 S:$DC P:$00
 read memory: $81E2 -> $48
-write memory: $01DB <- $24
+write memory: $01DC <- $24
 [$81E2] PHA 
 <REGISTER-DUMP> PC:$81E3 A:$24 X:$11 Y:$11 S:$DB P:$00
 read memory: $81E3 -> $48
-write memory: $01DA <- $25
+write memory: $01DB <- $25
 [$81E3] PHA 
 <REGISTER-DUMP> PC:$81E4 A:$25 X:$11 Y:$11 S:$DA P:$00
 read memory: $81E4 -> $48
-write memory: $01D9 <- $26
+write memory: $01DA <- $26
 [$81E4] PHA 
 <REGISTER-DUMP> PC:$81E5 A:$26 X:$11 Y:$11 S:$D9 P:$00
 read memory: $81E5 -> $48
-write memory: $01D8 <- $27
+write memory: $01D9 <- $27
 [$81E5] PHA 
 <REGISTER-DUMP> PC:$81E6 A:$27 X:$11 Y:$11 S:$D8 P:$00
 read memory: $81E6 -> $48
-write memory: $01D7 <- $28
+write memory: $01D8 <- $28
 [$81E6] PHA 
 <REGISTER-DUMP> PC:$81E7 A:$28 X:$11 Y:$11 S:$D7 P:$00
 read memory: $81E7 -> $48
-write memory: $01D6 <- $29
+write memory: $01D7 <- $29
 [$81E7] PHA 
 <REGISTER-DUMP> PC:$81E8 A:$29 X:$11 Y:$11 S:$D6 P:$00
 read memory: $81E8 -> $48
-write memory: $01D5 <- $2A
+write memory: $01D6 <- $2A
 [$81E8] PHA 
 <REGISTER-DUMP> PC:$81E9 A:$2A X:$11 Y:$11 S:$D5 P:$00
 read memory: $81E9 -> $48
-write memory: $01D4 <- $2B
+write memory: $01D5 <- $2B
 [$81E9] PHA 
 <REGISTER-DUMP> PC:$81EA A:$2B X:$11 Y:$11 S:$D4 P:$00
 read memory: $81EA -> $48
-write memory: $01D3 <- $2C
+write memory: $01D4 <- $2C
 [$81EA] PHA 
 <REGISTER-DUMP> PC:$81EB A:$2C X:$11 Y:$11 S:$D3 P:$00
 read memory: $81EB -> $48
-write memory: $01D2 <- $2D
+write memory: $01D3 <- $2D
 [$81EB] PHA 
 <REGISTER-DUMP> PC:$81EC A:$2D X:$11 Y:$11 S:$D2 P:$00
 read memory: $81EC -> $48
-write memory: $01D1 <- $2E
+write memory: $01D2 <- $2E
 [$81EC] PHA 
 <REGISTER-DUMP> PC:$81ED A:$2E X:$11 Y:$11 S:$D1 P:$00
 read memory: $81ED -> $48
-write memory: $01D0 <- $2F
+write memory: $01D1 <- $2F
 [$81ED] PHA 
 <REGISTER-DUMP> PC:$81EE A:$2F X:$11 Y:$11 S:$D0 P:$00
 read memory: $81EE -> $48
-write memory: $01CF <- $30
+write memory: $01D0 <- $30
 [$81EE] PHA 
 <REGISTER-DUMP> PC:$81EF A:$30 X:$11 Y:$11 S:$CF P:$00
 read memory: $81EF -> $48
-write memory: $01CE <- $31
+write memory: $01CF <- $31
 [$81EF] PHA 
 <REGISTER-DUMP> PC:$81F0 A:$31 X:$11 Y:$11 S:$CE P:$00
 read memory: $81F0 -> $48
-write memory: $01CD <- $32
+write memory: $01CE <- $32
 [$81F0] PHA 
 <REGISTER-DUMP> PC:$81F1 A:$32 X:$11 Y:$11 S:$CD P:$00
 read memory: $81F1 -> $48
-write memory: $01CC <- $33
+write memory: $01CD <- $33
 [$81F1] PHA 
 <REGISTER-DUMP> PC:$81F2 A:$33 X:$11 Y:$11 S:$CC P:$00
 read memory: $81F2 -> $48
-write memory: $01CB <- $34
+write memory: $01CC <- $34
 [$81F2] PHA 
 <REGISTER-DUMP> PC:$81F3 A:$34 X:$11 Y:$11 S:$CB P:$00
 read memory: $81F3 -> $48
-write memory: $01CA <- $35
+write memory: $01CB <- $35
 [$81F3] PHA 
 <REGISTER-DUMP> PC:$81F4 A:$35 X:$11 Y:$11 S:$CA P:$00
 read memory: $81F4 -> $48
-write memory: $01C9 <- $36
+write memory: $01CA <- $36
 [$81F4] PHA 
 <REGISTER-DUMP> PC:$81F5 A:$36 X:$11 Y:$11 S:$C9 P:$00
 read memory: $81F5 -> $48
-write memory: $01C8 <- $37
+write memory: $01C9 <- $37
 [$81F5] PHA 
 <REGISTER-DUMP> PC:$81F6 A:$37 X:$11 Y:$11 S:$C8 P:$00
 read memory: $81F6 -> $48
-write memory: $01C7 <- $38
+write memory: $01C8 <- $38
 [$81F6] PHA 
 <REGISTER-DUMP> PC:$81F7 A:$38 X:$11 Y:$11 S:$C7 P:$00
 read memory: $81F7 -> $48
-write memory: $01C6 <- $39
+write memory: $01C7 <- $39
 [$81F7] PHA 
 <REGISTER-DUMP> PC:$81F8 A:$39 X:$11 Y:$11 S:$C6 P:$00
 read memory: $81F8 -> $48
-write memory: $01C5 <- $3A
+write memory: $01C6 <- $3A
 [$81F8] PHA 
 <REGISTER-DUMP> PC:$81F9 A:$3A X:$11 Y:$11 S:$C5 P:$00
 read memory: $81F9 -> $48
-write memory: $01C4 <- $3B
+write memory: $01C5 <- $3B
 [$81F9] PHA 
 <REGISTER-DUMP> PC:$81FA A:$3B X:$11 Y:$11 S:$C4 P:$00
 read memory: $81FA -> $48
-write memory: $01C3 <- $3C
+write memory: $01C4 <- $3C
 [$81FA] PHA 
 <REGISTER-DUMP> PC:$81FB A:$3C X:$11 Y:$11 S:$C3 P:$00
 read memory: $81FB -> $48
-write memory: $01C2 <- $3D
+write memory: $01C3 <- $3D
 [$81FB] PHA 
 <REGISTER-DUMP> PC:$81FC A:$3D X:$11 Y:$11 S:$C2 P:$00
 read memory: $81FC -> $48
-write memory: $01C1 <- $3E
+write memory: $01C2 <- $3E
 [$81FC] PHA 
 <REGISTER-DUMP> PC:$81FD A:$3E X:$11 Y:$11 S:$C1 P:$00
 read memory: $81FD -> $48
-write memory: $01C0 <- $3F
+write memory: $01C1 <- $3F
 [$81FD] PHA 
 <REGISTER-DUMP> PC:$81FE A:$3F X:$11 Y:$11 S:$C0 P:$00
 read memory: $81FE -> $48
-write memory: $01BF <- $40
+write memory: $01C0 <- $40
 [$81FE] PHA 
 <REGISTER-DUMP> PC:$81FF A:$40 X:$11 Y:$11 S:$BF P:$00
 read memory: $81FF -> $48
-write memory: $01BE <- $41
+write memory: $01BF <- $41
 [$81FF] PHA 
 <REGISTER-DUMP> PC:$8200 A:$41 X:$11 Y:$11 S:$BE P:$00
 read memory: $8200 -> $48
-write memory: $01BD <- $42
+write memory: $01BE <- $42
 [$8200] PHA 
 <REGISTER-DUMP> PC:$8201 A:$42 X:$11 Y:$11 S:$BD P:$00
 read memory: $8201 -> $48
-write memory: $01BC <- $43
+write memory: $01BD <- $43
 [$8201] PHA 
 <REGISTER-DUMP> PC:$8202 A:$43 X:$11 Y:$11 S:$BC P:$00
 read memory: $8202 -> $48
-write memory: $01BB <- $44
+write memory: $01BC <- $44
 [$8202] PHA 
 <REGISTER-DUMP> PC:$8203 A:$44 X:$11 Y:$11 S:$BB P:$00
 read memory: $8203 -> $48
-write memory: $01BA <- $45
+write memory: $01BB <- $45
 [$8203] PHA 
 <REGISTER-DUMP> PC:$8204 A:$45 X:$11 Y:$11 S:$BA P:$00
 read memory: $8204 -> $48
-write memory: $01B9 <- $46
+write memory: $01BA <- $46
 [$8204] PHA 
 <REGISTER-DUMP> PC:$8205 A:$46 X:$11 Y:$11 S:$B9 P:$00
 read memory: $8205 -> $48
-write memory: $01B8 <- $47
+write memory: $01B9 <- $47
 [$8205] PHA 
 <REGISTER-DUMP> PC:$8206 A:$47 X:$11 Y:$11 S:$B8 P:$00
 read memory: $8206 -> $48
-write memory: $01B7 <- $48
+write memory: $01B8 <- $48
 [$8206] PHA 
 <REGISTER-DUMP> PC:$8207 A:$48 X:$11 Y:$11 S:$B7 P:$00
 read memory: $8207 -> $48
-write memory: $01B6 <- $49
+write memory: $01B7 <- $49
 [$8207] PHA 
 <REGISTER-DUMP> PC:$8208 A:$49 X:$11 Y:$11 S:$B6 P:$00
 read memory: $8208 -> $48
-write memory: $01B5 <- $4A
+write memory: $01B6 <- $4A
 [$8208] PHA 
 <REGISTER-DUMP> PC:$8209 A:$4A X:$11 Y:$11 S:$B5 P:$00
 read memory: $8209 -> $48
-write memory: $01B4 <- $4B
+write memory: $01B5 <- $4B
 [$8209] PHA 
 <REGISTER-DUMP> PC:$820A A:$4B X:$11 Y:$11 S:$B4 P:$00
 read memory: $820A -> $48
-write memory: $01B3 <- $4C
+write memory: $01B4 <- $4C
 [$820A] PHA 
 <REGISTER-DUMP> PC:$820B A:$4C X:$11 Y:$11 S:$B3 P:$00
 read memory: $820B -> $48
-write memory: $01B2 <- $4D
+write memory: $01B3 <- $4D
 [$820B] PHA 
 <REGISTER-DUMP> PC:$820C A:$4D X:$11 Y:$11 S:$B2 P:$00
 read memory: $820C -> $48
-write memory: $01B1 <- $4E
+write memory: $01B2 <- $4E
 [$820C] PHA 
 <REGISTER-DUMP> PC:$820D A:$4E X:$11 Y:$11 S:$B1 P:$00
 read memory: $820D -> $48
-write memory: $01B0 <- $4F
+write memory: $01B1 <- $4F
 [$820D] PHA 
 <REGISTER-DUMP> PC:$820E A:$4F X:$11 Y:$11 S:$B0 P:$00
 read memory: $820E -> $48
-write memory: $01AF <- $50
+write memory: $01B0 <- $50
 [$820E] PHA 
 <REGISTER-DUMP> PC:$820F A:$50 X:$11 Y:$11 S:$AF P:$00
 read memory: $820F -> $48
-write memory: $01AE <- $51
+write memory: $01AF <- $51
 [$820F] PHA 
 <REGISTER-DUMP> PC:$8210 A:$51 X:$11 Y:$11 S:$AE P:$00
 read memory: $8210 -> $48
-write memory: $01AD <- $52
+write memory: $01AE <- $52
 [$8210] PHA 
 <REGISTER-DUMP> PC:$8211 A:$52 X:$11 Y:$11 S:$AD P:$00
 read memory: $8211 -> $48
-write memory: $01AC <- $53
+write memory: $01AD <- $53
 [$8211] PHA 
 <REGISTER-DUMP> PC:$8212 A:$53 X:$11 Y:$11 S:$AC P:$00
 read memory: $8212 -> $48
-write memory: $01AB <- $54
+write memory: $01AC <- $54
 [$8212] PHA 
 <REGISTER-DUMP> PC:$8213 A:$54 X:$11 Y:$11 S:$AB P:$00
 read memory: $8213 -> $48
-write memory: $01AA <- $55
+write memory: $01AB <- $55
 [$8213] PHA 
 <REGISTER-DUMP> PC:$8214 A:$55 X:$11 Y:$11 S:$AA P:$00
 read memory: $8214 -> $48
-write memory: $01A9 <- $56
+write memory: $01AA <- $56
 [$8214] PHA 
 <REGISTER-DUMP> PC:$8215 A:$56 X:$11 Y:$11 S:$A9 P:$00
 read memory: $8215 -> $48
-write memory: $01A8 <- $57
+write memory: $01A9 <- $57
 [$8215] PHA 
 <REGISTER-DUMP> PC:$8216 A:$57 X:$11 Y:$11 S:$A8 P:$00
 read memory: $8216 -> $48
-write memory: $01A7 <- $58
+write memory: $01A8 <- $58
 [$8216] PHA 
 <REGISTER-DUMP> PC:$8217 A:$58 X:$11 Y:$11 S:$A7 P:$00
 read memory: $8217 -> $48
-write memory: $01A6 <- $59
+write memory: $01A7 <- $59
 [$8217] PHA 
 <REGISTER-DUMP> PC:$8218 A:$59 X:$11 Y:$11 S:$A6 P:$00
 read memory: $8218 -> $48
-write memory: $01A5 <- $5A
+write memory: $01A6 <- $5A
 [$8218] PHA 
 <REGISTER-DUMP> PC:$8219 A:$5A X:$11 Y:$11 S:$A5 P:$00
 read memory: $8219 -> $48
-write memory: $01A4 <- $5B
+write memory: $01A5 <- $5B
 [$8219] PHA 
 <REGISTER-DUMP> PC:$821A A:$5B X:$11 Y:$11 S:$A4 P:$00
 read memory: $821A -> $48
-write memory: $01A3 <- $5C
+write memory: $01A4 <- $5C
 [$821A] PHA 
 <REGISTER-DUMP> PC:$821B A:$5C X:$11 Y:$11 S:$A3 P:$00
 read memory: $821B -> $48
-write memory: $01A2 <- $5D
+write memory: $01A3 <- $5D
 [$821B] PHA 
 <REGISTER-DUMP> PC:$821C A:$5D X:$11 Y:$11 S:$A2 P:$00
 read memory: $821C -> $48
-write memory: $01A1 <- $5E
+write memory: $01A2 <- $5E
 [$821C] PHA 
 <REGISTER-DUMP> PC:$821D A:$5E X:$11 Y:$11 S:$A1 P:$00
 read memory: $821D -> $48
-write memory: $01A0 <- $5F
+write memory: $01A1 <- $5F
 [$821D] PHA 
 <REGISTER-DUMP> PC:$821E A:$5F X:$11 Y:$11 S:$A0 P:$00
 read memory: $821E -> $48
-write memory: $019F <- $60
+write memory: $01A0 <- $60
 [$821E] PHA 
 <REGISTER-DUMP> PC:$821F A:$60 X:$11 Y:$11 S:$9F P:$00
 read memory: $821F -> $48
-write memory: $019E <- $61
+write memory: $019F <- $61
 [$821F] PHA 
 <REGISTER-DUMP> PC:$8220 A:$61 X:$11 Y:$11 S:$9E P:$00
 read memory: $8220 -> $48
-write memory: $019D <- $62
+write memory: $019E <- $62
 [$8220] PHA 
 <REGISTER-DUMP> PC:$8221 A:$62 X:$11 Y:$11 S:$9D P:$00
 read memory: $8221 -> $48
-write memory: $019C <- $63
+write memory: $019D <- $63
 [$8221] PHA 
 <REGISTER-DUMP> PC:$8222 A:$63 X:$11 Y:$11 S:$9C P:$00
 read memory: $8222 -> $48
-write memory: $019B <- $64
+write memory: $019C <- $64
 [$8222] PHA 
 <REGISTER-DUMP> PC:$8223 A:$64 X:$11 Y:$11 S:$9B P:$00
 read memory: $8223 -> $48
-write memory: $019A <- $65
+write memory: $019B <- $65
 [$8223] PHA 
 <REGISTER-DUMP> PC:$8224 A:$65 X:$11 Y:$11 S:$9A P:$00
 read memory: $8224 -> $48
-write memory: $0199 <- $66
+write memory: $019A <- $66
 [$8224] PHA 
 <REGISTER-DUMP> PC:$8225 A:$66 X:$11 Y:$11 S:$99 P:$00
 read memory: $8225 -> $48
-write memory: $0198 <- $67
+write memory: $0199 <- $67
 [$8225] PHA 
 <REGISTER-DUMP> PC:$8226 A:$67 X:$11 Y:$11 S:$98 P:$00
 read memory: $8226 -> $48
-write memory: $0197 <- $68
+write memory: $0198 <- $68
 [$8226] PHA 
 <REGISTER-DUMP> PC:$8227 A:$68 X:$11 Y:$11 S:$97 P:$00
 read memory: $8227 -> $48
-write memory: $0196 <- $69
+write memory: $0197 <- $69
 [$8227] PHA 
 <REGISTER-DUMP> PC:$8228 A:$69 X:$11 Y:$11 S:$96 P:$00
 read memory: $8228 -> $48
-write memory: $0195 <- $6A
+write memory: $0196 <- $6A
 [$8228] PHA 
 <REGISTER-DUMP> PC:$8229 A:$6A X:$11 Y:$11 S:$95 P:$00
 read memory: $8229 -> $48
-write memory: $0194 <- $6B
+write memory: $0195 <- $6B
 [$8229] PHA 
 <REGISTER-DUMP> PC:$822A A:$6B X:$11 Y:$11 S:$94 P:$00
 read memory: $822A -> $48
-write memory: $0193 <- $6C
+write memory: $0194 <- $6C
 [$822A] PHA 
 <REGISTER-DUMP> PC:$822B A:$6C X:$11 Y:$11 S:$93 P:$00
 read memory: $822B -> $48
-write memory: $0192 <- $6D
+write memory: $0193 <- $6D
 [$822B] PHA 
 <REGISTER-DUMP> PC:$822C A:$6D X:$11 Y:$11 S:$92 P:$00
 read memory: $822C -> $48
-write memory: $0191 <- $6E
+write memory: $0192 <- $6E
 [$822C] PHA 
 <REGISTER-DUMP> PC:$822D A:$6E X:$11 Y:$11 S:$91 P:$00
 read memory: $822D -> $48
-write memory: $0190 <- $6F
+write memory: $0191 <- $6F
 [$822D] PHA 
 <REGISTER-DUMP> PC:$822E A:$6F X:$11 Y:$11 S:$90 P:$00
 read memory: $822E -> $48
-write memory: $018F <- $70
+write memory: $0190 <- $70
 [$822E] PHA 
 <REGISTER-DUMP> PC:$822F A:$70 X:$11 Y:$11 S:$8F P:$00
 read memory: $822F -> $48
-write memory: $018E <- $71
+write memory: $018F <- $71
 [$822F] PHA 
 <REGISTER-DUMP> PC:$8230 A:$71 X:$11 Y:$11 S:$8E P:$00
 read memory: $8230 -> $48
-write memory: $018D <- $72
+write memory: $018E <- $72
 [$8230] PHA 
 <REGISTER-DUMP> PC:$8231 A:$72 X:$11 Y:$11 S:$8D P:$00
 read memory: $8231 -> $48
-write memory: $018C <- $73
+write memory: $018D <- $73
 [$8231] PHA 
 <REGISTER-DUMP> PC:$8232 A:$73 X:$11 Y:$11 S:$8C P:$00
 read memory: $8232 -> $48
-write memory: $018B <- $74
+write memory: $018C <- $74
 [$8232] PHA 
 <REGISTER-DUMP> PC:$8233 A:$74 X:$11 Y:$11 S:$8B P:$00
 read memory: $8233 -> $48
-write memory: $018A <- $75
+write memory: $018B <- $75
 [$8233] PHA 
 <REGISTER-DUMP> PC:$8234 A:$75 X:$11 Y:$11 S:$8A P:$00
 read memory: $8234 -> $48
-write memory: $0189 <- $76
+write memory: $018A <- $76
 [$8234] PHA 
 <REGISTER-DUMP> PC:$8235 A:$76 X:$11 Y:$11 S:$89 P:$00
 read memory: $8235 -> $48
-write memory: $0188 <- $77
+write memory: $0189 <- $77
 [$8235] PHA 
 <REGISTER-DUMP> PC:$8236 A:$77 X:$11 Y:$11 S:$88 P:$00
 read memory: $8236 -> $48
-write memory: $0187 <- $78
+write memory: $0188 <- $78
 [$8236] PHA 
 <REGISTER-DUMP> PC:$8237 A:$78 X:$11 Y:$11 S:$87 P:$00
 read memory: $8237 -> $48
-write memory: $0186 <- $79
+write memory: $0187 <- $79
 [$8237] PHA 
 <REGISTER-DUMP> PC:$8238 A:$79 X:$11 Y:$11 S:$86 P:$00
 read memory: $8238 -> $48
-write memory: $0185 <- $7A
+write memory: $0186 <- $7A
 [$8238] PHA 
 <REGISTER-DUMP> PC:$8239 A:$7A X:$11 Y:$11 S:$85 P:$00
 read memory: $8239 -> $48
-write memory: $0184 <- $7B
+write memory: $0185 <- $7B
 [$8239] PHA 
 <REGISTER-DUMP> PC:$823A A:$7B X:$11 Y:$11 S:$84 P:$00
 read memory: $823A -> $48
-write memory: $0183 <- $7C
+write memory: $0184 <- $7C
 [$823A] PHA 
 <REGISTER-DUMP> PC:$823B A:$7C X:$11 Y:$11 S:$83 P:$00
 read memory: $823B -> $48
-write memory: $0182 <- $7D
+write memory: $0183 <- $7D
 [$823B] PHA 
 <REGISTER-DUMP> PC:$823C A:$7D X:$11 Y:$11 S:$82 P:$00
 read memory: $823C -> $48
-write memory: $0181 <- $7E
+write memory: $0182 <- $7E
 [$823C] PHA 
 <REGISTER-DUMP> PC:$823D A:$7E X:$11 Y:$11 S:$81 P:$00
 read memory: $823D -> $48
-write memory: $0180 <- $7F
+write memory: $0181 <- $7F
 [$823D] PHA 
 <REGISTER-DUMP> PC:$823E A:$7F X:$11 Y:$11 S:$80 P:$00
 read memory: $823E -> $48
-write memory: $017F <- $80
+write memory: $0180 <- $80
 [$823E] PHA 
 <REGISTER-DUMP> PC:$823F A:$80 X:$11 Y:$11 S:$7F P:$00
 read memory: $823F -> $48
-write memory: $017E <- $81
+write memory: $017F <- $81
 [$823F] PHA 
 <REGISTER-DUMP> PC:$8240 A:$81 X:$11 Y:$11 S:$7E P:$00
 read memory: $8240 -> $48
-write memory: $017D <- $82
+write memory: $017E <- $82
 [$8240] PHA 
 <REGISTER-DUMP> PC:$8241 A:$82 X:$11 Y:$11 S:$7D P:$00
 read memory: $8241 -> $48
-write memory: $017C <- $83
+write memory: $017D <- $83
 [$8241] PHA 
 <REGISTER-DUMP> PC:$8242 A:$83 X:$11 Y:$11 S:$7C P:$00
 read memory: $8242 -> $48
-write memory: $017B <- $84
+write memory: $017C <- $84
 [$8242] PHA 
 <REGISTER-DUMP> PC:$8243 A:$84 X:$11 Y:$11 S:$7B P:$00
 read memory: $8243 -> $48
-write memory: $017A <- $85
+write memory: $017B <- $85
 [$8243] PHA 
 <REGISTER-DUMP> PC:$8244 A:$85 X:$11 Y:$11 S:$7A P:$00
 read memory: $8244 -> $48
-write memory: $0179 <- $86
+write memory: $017A <- $86
 [$8244] PHA 
 <REGISTER-DUMP> PC:$8245 A:$86 X:$11 Y:$11 S:$79 P:$00
 read memory: $8245 -> $48
-write memory: $0178 <- $87
+write memory: $0179 <- $87
 [$8245] PHA 
 <REGISTER-DUMP> PC:$8246 A:$87 X:$11 Y:$11 S:$78 P:$00
 read memory: $8246 -> $48
-write memory: $0177 <- $88
+write memory: $0178 <- $88
 [$8246] PHA 
 <REGISTER-DUMP> PC:$8247 A:$88 X:$11 Y:$11 S:$77 P:$00
 read memory: $8247 -> $48
-write memory: $0176 <- $89
+write memory: $0177 <- $89
 [$8247] PHA 
 <REGISTER-DUMP> PC:$8248 A:$89 X:$11 Y:$11 S:$76 P:$00
 read memory: $8248 -> $48
-write memory: $0175 <- $8A
+write memory: $0176 <- $8A
 [$8248] PHA 
 <REGISTER-DUMP> PC:$8249 A:$8A X:$11 Y:$11 S:$75 P:$00
 read memory: $8249 -> $48
-write memory: $0174 <- $8B
+write memory: $0175 <- $8B
 [$8249] PHA 
 <REGISTER-DUMP> PC:$824A A:$8B X:$11 Y:$11 S:$74 P:$00
 read memory: $824A -> $48
-write memory: $0173 <- $8C
+write memory: $0174 <- $8C
 [$824A] PHA 
 <REGISTER-DUMP> PC:$824B A:$8C X:$11 Y:$11 S:$73 P:$00
 read memory: $824B -> $48
-write memory: $0172 <- $8D
+write memory: $0173 <- $8D
 [$824B] PHA 
 <REGISTER-DUMP> PC:$824C A:$8D X:$11 Y:$11 S:$72 P:$00
 read memory: $824C -> $48
-write memory: $0171 <- $8E
+write memory: $0172 <- $8E
 [$824C] PHA 
 <REGISTER-DUMP> PC:$824D A:$8E X:$11 Y:$11 S:$71 P:$00
 read memory: $824D -> $48
-write memory: $0170 <- $8F
+write memory: $0171 <- $8F
 [$824D] PHA 
 <REGISTER-DUMP> PC:$824E A:$8F X:$11 Y:$11 S:$70 P:$00
 read memory: $824E -> $48
-write memory: $016F <- $90
+write memory: $0170 <- $90
 [$824E] PHA 
 <REGISTER-DUMP> PC:$824F A:$90 X:$11 Y:$11 S:$6F P:$00
 read memory: $824F -> $48
-write memory: $016E <- $91
+write memory: $016F <- $91
 [$824F] PHA 
 <REGISTER-DUMP> PC:$8250 A:$91 X:$11 Y:$11 S:$6E P:$00
 read memory: $8250 -> $48
-write memory: $016D <- $92
+write memory: $016E <- $92
 [$8250] PHA 
 <REGISTER-DUMP> PC:$8251 A:$92 X:$11 Y:$11 S:$6D P:$00
 read memory: $8251 -> $48
-write memory: $016C <- $93
+write memory: $016D <- $93
 [$8251] PHA 
 <REGISTER-DUMP> PC:$8252 A:$93 X:$11 Y:$11 S:$6C P:$00
 read memory: $8252 -> $48
-write memory: $016B <- $94
+write memory: $016C <- $94
 [$8252] PHA 
 <REGISTER-DUMP> PC:$8253 A:$94 X:$11 Y:$11 S:$6B P:$00
 read memory: $8253 -> $48
-write memory: $016A <- $95
+write memory: $016B <- $95
 [$8253] PHA 
 <REGISTER-DUMP> PC:$8254 A:$95 X:$11 Y:$11 S:$6A P:$00
 read memory: $8254 -> $48
-write memory: $0169 <- $96
+write memory: $016A <- $96
 [$8254] PHA 
 <REGISTER-DUMP> PC:$8255 A:$96 X:$11 Y:$11 S:$69 P:$00
 read memory: $8255 -> $48
-write memory: $0168 <- $97
+write memory: $0169 <- $97
 [$8255] PHA 
 <REGISTER-DUMP> PC:$8256 A:$97 X:$11 Y:$11 S:$68 P:$00
 read memory: $8256 -> $48
-write memory: $0167 <- $98
+write memory: $0168 <- $98
 [$8256] PHA 
 <REGISTER-DUMP> PC:$8257 A:$98 X:$11 Y:$11 S:$67 P:$00
 read memory: $8257 -> $48
-write memory: $0166 <- $99
+write memory: $0167 <- $99
 [$8257] PHA 
 <REGISTER-DUMP> PC:$8258 A:$99 X:$11 Y:$11 S:$66 P:$00
 read memory: $8258 -> $48
-write memory: $0165 <- $9A
+write memory: $0166 <- $9A
 [$8258] PHA 
 <REGISTER-DUMP> PC:$8259 A:$9A X:$11 Y:$11 S:$65 P:$00
 read memory: $8259 -> $48
-write memory: $0164 <- $9B
+write memory: $0165 <- $9B
 [$8259] PHA 
 <REGISTER-DUMP> PC:$825A A:$9B X:$11 Y:$11 S:$64 P:$00
 read memory: $825A -> $48
-write memory: $0163 <- $9C
+write memory: $0164 <- $9C
 [$825A] PHA 
 <REGISTER-DUMP> PC:$825B A:$9C X:$11 Y:$11 S:$63 P:$00
 read memory: $825B -> $48
-write memory: $0162 <- $9D
+write memory: $0163 <- $9D
 [$825B] PHA 
 <REGISTER-DUMP> PC:$825C A:$9D X:$11 Y:$11 S:$62 P:$00
 read memory: $825C -> $48
-write memory: $0161 <- $9E
+write memory: $0162 <- $9E
 [$825C] PHA 
 <REGISTER-DUMP> PC:$825D A:$9E X:$11 Y:$11 S:$61 P:$00
 read memory: $825D -> $48
-write memory: $0160 <- $9F
+write memory: $0161 <- $9F
 [$825D] PHA 
 <REGISTER-DUMP> PC:$825E A:$9F X:$11 Y:$11 S:$60 P:$00
 read memory: $825E -> $48
-write memory: $015F <- $A0
+write memory: $0160 <- $A0
 [$825E] PHA 
 <REGISTER-DUMP> PC:$825F A:$A0 X:$11 Y:$11 S:$5F P:$00
 read memory: $825F -> $48
-write memory: $015E <- $A1
+write memory: $015F <- $A1
 [$825F] PHA 
 <REGISTER-DUMP> PC:$8260 A:$A1 X:$11 Y:$11 S:$5E P:$00
 read memory: $8260 -> $48
-write memory: $015D <- $A2
+write memory: $015E <- $A2
 [$8260] PHA 
 <REGISTER-DUMP> PC:$8261 A:$A2 X:$11 Y:$11 S:$5D P:$00
 read memory: $8261 -> $48
-write memory: $015C <- $A3
+write memory: $015D <- $A3
 [$8261] PHA 
 <REGISTER-DUMP> PC:$8262 A:$A3 X:$11 Y:$11 S:$5C P:$00
 read memory: $8262 -> $48
-write memory: $015B <- $A4
+write memory: $015C <- $A4
 [$8262] PHA 
 <REGISTER-DUMP> PC:$8263 A:$A4 X:$11 Y:$11 S:$5B P:$00
 read memory: $8263 -> $48
-write memory: $015A <- $A5
+write memory: $015B <- $A5
 [$8263] PHA 
 <REGISTER-DUMP> PC:$8264 A:$A5 X:$11 Y:$11 S:$5A P:$00
 read memory: $8264 -> $48
-write memory: $0159 <- $A6
+write memory: $015A <- $A6
 [$8264] PHA 
 <REGISTER-DUMP> PC:$8265 A:$A6 X:$11 Y:$11 S:$59 P:$00
 read memory: $8265 -> $48
-write memory: $0158 <- $A7
+write memory: $0159 <- $A7
 [$8265] PHA 
 <REGISTER-DUMP> PC:$8266 A:$A7 X:$11 Y:$11 S:$58 P:$00
 read memory: $8266 -> $48
-write memory: $0157 <- $A8
+write memory: $0158 <- $A8
 [$8266] PHA 
 <REGISTER-DUMP> PC:$8267 A:$A8 X:$11 Y:$11 S:$57 P:$00
 read memory: $8267 -> $48
-write memory: $0156 <- $A9
+write memory: $0157 <- $A9
 [$8267] PHA 
 <REGISTER-DUMP> PC:$8268 A:$A9 X:$11 Y:$11 S:$56 P:$00
 read memory: $8268 -> $48
-write memory: $0155 <- $AA
+write memory: $0156 <- $AA
 [$8268] PHA 
 <REGISTER-DUMP> PC:$8269 A:$AA X:$11 Y:$11 S:$55 P:$00
 read memory: $8269 -> $48
-write memory: $0154 <- $AB
+write memory: $0155 <- $AB
 [$8269] PHA 
 <REGISTER-DUMP> PC:$826A A:$AB X:$11 Y:$11 S:$54 P:$00
 read memory: $826A -> $48
-write memory: $0153 <- $AC
+write memory: $0154 <- $AC
 [$826A] PHA 
 <REGISTER-DUMP> PC:$826B A:$AC X:$11 Y:$11 S:$53 P:$00
 read memory: $826B -> $48
-write memory: $0152 <- $AD
+write memory: $0153 <- $AD
 [$826B] PHA 
 <REGISTER-DUMP> PC:$826C A:$AD X:$11 Y:$11 S:$52 P:$00
 read memory: $826C -> $48
-write memory: $0151 <- $AE
+write memory: $0152 <- $AE
 [$826C] PHA 
 <REGISTER-DUMP> PC:$826D A:$AE X:$11 Y:$11 S:$51 P:$00
 read memory: $826D -> $48
-write memory: $0150 <- $AF
+write memory: $0151 <- $AF
 [$826D] PHA 
 <REGISTER-DUMP> PC:$826E A:$AF X:$11 Y:$11 S:$50 P:$00
 read memory: $826E -> $48
-write memory: $014F <- $B0
+write memory: $0150 <- $B0
 [$826E] PHA 
 <REGISTER-DUMP> PC:$826F A:$B0 X:$11 Y:$11 S:$4F P:$00
 read memory: $826F -> $48
-write memory: $014E <- $B1
+write memory: $014F <- $B1
 [$826F] PHA 
 <REGISTER-DUMP> PC:$8270 A:$B1 X:$11 Y:$11 S:$4E P:$00
 read memory: $8270 -> $48
-write memory: $014D <- $B2
+write memory: $014E <- $B2
 [$8270] PHA 
 <REGISTER-DUMP> PC:$8271 A:$B2 X:$11 Y:$11 S:$4D P:$00
 read memory: $8271 -> $48
-write memory: $014C <- $B3
+write memory: $014D <- $B3
 [$8271] PHA 
 <REGISTER-DUMP> PC:$8272 A:$B3 X:$11 Y:$11 S:$4C P:$00
 read memory: $8272 -> $48
-write memory: $014B <- $B4
+write memory: $014C <- $B4
 [$8272] PHA 
 <REGISTER-DUMP> PC:$8273 A:$B4 X:$11 Y:$11 S:$4B P:$00
 read memory: $8273 -> $48
-write memory: $014A <- $B5
+write memory: $014B <- $B5
 [$8273] PHA 
 <REGISTER-DUMP> PC:$8274 A:$B5 X:$11 Y:$11 S:$4A P:$00
 read memory: $8274 -> $48
-write memory: $0149 <- $B6
+write memory: $014A <- $B6
 [$8274] PHA 
 <REGISTER-DUMP> PC:$8275 A:$B6 X:$11 Y:$11 S:$49 P:$00
 read memory: $8275 -> $48
-write memory: $0148 <- $B7
+write memory: $0149 <- $B7
 [$8275] PHA 
 <REGISTER-DUMP> PC:$8276 A:$B7 X:$11 Y:$11 S:$48 P:$00
 read memory: $8276 -> $48
-write memory: $0147 <- $B8
+write memory: $0148 <- $B8
 [$8276] PHA 
 <REGISTER-DUMP> PC:$8277 A:$B8 X:$11 Y:$11 S:$47 P:$00
 read memory: $8277 -> $48
-write memory: $0146 <- $B9
+write memory: $0147 <- $B9
 [$8277] PHA 
 <REGISTER-DUMP> PC:$8278 A:$B9 X:$11 Y:$11 S:$46 P:$00
 read memory: $8278 -> $48
-write memory: $0145 <- $BA
+write memory: $0146 <- $BA
 [$8278] PHA 
 <REGISTER-DUMP> PC:$8279 A:$BA X:$11 Y:$11 S:$45 P:$00
 read memory: $8279 -> $48
-write memory: $0144 <- $BB
+write memory: $0145 <- $BB
 [$8279] PHA 
 <REGISTER-DUMP> PC:$827A A:$BB X:$11 Y:$11 S:$44 P:$00
 read memory: $827A -> $48
-write memory: $0143 <- $BC
+write memory: $0144 <- $BC
 [$827A] PHA 
 <REGISTER-DUMP> PC:$827B A:$BC X:$11 Y:$11 S:$43 P:$00
 read memory: $827B -> $48
-write memory: $0142 <- $BD
+write memory: $0143 <- $BD
 [$827B] PHA 
 <REGISTER-DUMP> PC:$827C A:$BD X:$11 Y:$11 S:$42 P:$00
 read memory: $827C -> $48
-write memory: $0141 <- $BE
+write memory: $0142 <- $BE
 [$827C] PHA 
 <REGISTER-DUMP> PC:$827D A:$BE X:$11 Y:$11 S:$41 P:$00
 read memory: $827D -> $48
-write memory: $0140 <- $BF
+write memory: $0141 <- $BF
 [$827D] PHA 
 <REGISTER-DUMP> PC:$827E A:$BF X:$11 Y:$11 S:$40 P:$00
 read memory: $827E -> $48
-write memory: $013F <- $C0
+write memory: $0140 <- $C0
 [$827E] PHA 
 <REGISTER-DUMP> PC:$827F A:$C0 X:$11 Y:$11 S:$3F P:$00
 read memory: $827F -> $48
-write memory: $013E <- $C1
+write memory: $013F <- $C1
 [$827F] PHA 
 <REGISTER-DUMP> PC:$8280 A:$C1 X:$11 Y:$11 S:$3E P:$00
 read memory: $8280 -> $48
-write memory: $013D <- $C2
+write memory: $013E <- $C2
 [$8280] PHA 
 <REGISTER-DUMP> PC:$8281 A:$C2 X:$11 Y:$11 S:$3D P:$00
 read memory: $8281 -> $48
-write memory: $013C <- $C3
+write memory: $013D <- $C3
 [$8281] PHA 
 <REGISTER-DUMP> PC:$8282 A:$C3 X:$11 Y:$11 S:$3C P:$00
 read memory: $8282 -> $48
-write memory: $013B <- $C4
+write memory: $013C <- $C4
 [$8282] PHA 
 <REGISTER-DUMP> PC:$8283 A:$C4 X:$11 Y:$11 S:$3B P:$00
 read memory: $8283 -> $48
-write memory: $013A <- $C5
+write memory: $013B <- $C5
 [$8283] PHA 
 <REGISTER-DUMP> PC:$8284 A:$C5 X:$11 Y:$11 S:$3A P:$00
 read memory: $8284 -> $48
-write memory: $0139 <- $C6
+write memory: $013A <- $C6
 [$8284] PHA 
 <REGISTER-DUMP> PC:$8285 A:$C6 X:$11 Y:$11 S:$39 P:$00
 read memory: $8285 -> $48
-write memory: $0138 <- $C7
+write memory: $0139 <- $C7
 [$8285] PHA 
 <REGISTER-DUMP> PC:$8286 A:$C7 X:$11 Y:$11 S:$38 P:$00
 read memory: $8286 -> $48
-write memory: $0137 <- $C8
+write memory: $0138 <- $C8
 [$8286] PHA 
 <REGISTER-DUMP> PC:$8287 A:$C8 X:$11 Y:$11 S:$37 P:$00
 read memory: $8287 -> $48
-write memory: $0136 <- $C9
+write memory: $0137 <- $C9
 [$8287] PHA 
 <REGISTER-DUMP> PC:$8288 A:$C9 X:$11 Y:$11 S:$36 P:$00
 read memory: $8288 -> $48
-write memory: $0135 <- $CA
+write memory: $0136 <- $CA
 [$8288] PHA 
 <REGISTER-DUMP> PC:$8289 A:$CA X:$11 Y:$11 S:$35 P:$00
 read memory: $8289 -> $48
-write memory: $0134 <- $CB
+write memory: $0135 <- $CB
 [$8289] PHA 
 <REGISTER-DUMP> PC:$828A A:$CB X:$11 Y:$11 S:$34 P:$00
 read memory: $828A -> $48
-write memory: $0133 <- $CC
+write memory: $0134 <- $CC
 [$828A] PHA 
 <REGISTER-DUMP> PC:$828B A:$CC X:$11 Y:$11 S:$33 P:$00
 read memory: $828B -> $48
-write memory: $0132 <- $CD
+write memory: $0133 <- $CD
 [$828B] PHA 
 <REGISTER-DUMP> PC:$828C A:$CD X:$11 Y:$11 S:$32 P:$00
 read memory: $828C -> $48
-write memory: $0131 <- $CE
+write memory: $0132 <- $CE
 [$828C] PHA 
 <REGISTER-DUMP> PC:$828D A:$CE X:$11 Y:$11 S:$31 P:$00
 read memory: $828D -> $48
-write memory: $0130 <- $CF
+write memory: $0131 <- $CF
 [$828D] PHA 
 <REGISTER-DUMP> PC:$828E A:$CF X:$11 Y:$11 S:$30 P:$00
 read memory: $828E -> $48
-write memory: $012F <- $D0
+write memory: $0130 <- $D0
 [$828E] PHA 
 <REGISTER-DUMP> PC:$828F A:$D0 X:$11 Y:$11 S:$2F P:$00
 read memory: $828F -> $48
-write memory: $012E <- $D1
+write memory: $012F <- $D1
 [$828F] PHA 
 <REGISTER-DUMP> PC:$8290 A:$D1 X:$11 Y:$11 S:$2E P:$00
 read memory: $8290 -> $48
-write memory: $012D <- $D2
+write memory: $012E <- $D2
 [$8290] PHA 
 <REGISTER-DUMP> PC:$8291 A:$D2 X:$11 Y:$11 S:$2D P:$00
 read memory: $8291 -> $48
-write memory: $012C <- $D3
+write memory: $012D <- $D3
 [$8291] PHA 
 <REGISTER-DUMP> PC:$8292 A:$D3 X:$11 Y:$11 S:$2C P:$00
 read memory: $8292 -> $48
-write memory: $012B <- $D4
+write memory: $012C <- $D4
 [$8292] PHA 
 <REGISTER-DUMP> PC:$8293 A:$D4 X:$11 Y:$11 S:$2B P:$00
 read memory: $8293 -> $48
-write memory: $012A <- $D5
+write memory: $012B <- $D5
 [$8293] PHA 
 <REGISTER-DUMP> PC:$8294 A:$D5 X:$11 Y:$11 S:$2A P:$00
 read memory: $8294 -> $48
-write memory: $0129 <- $D6
+write memory: $012A <- $D6
 [$8294] PHA 
 <REGISTER-DUMP> PC:$8295 A:$D6 X:$11 Y:$11 S:$29 P:$00
 read memory: $8295 -> $48
-write memory: $0128 <- $D7
+write memory: $0129 <- $D7
 [$8295] PHA 
 <REGISTER-DUMP> PC:$8296 A:$D7 X:$11 Y:$11 S:$28 P:$00
 read memory: $8296 -> $48
-write memory: $0127 <- $D8
+write memory: $0128 <- $D8
 [$8296] PHA 
 <REGISTER-DUMP> PC:$8297 A:$D8 X:$11 Y:$11 S:$27 P:$00
 read memory: $8297 -> $48
-write memory: $0126 <- $D9
+write memory: $0127 <- $D9
 [$8297] PHA 
 <REGISTER-DUMP> PC:$8298 A:$D9 X:$11 Y:$11 S:$26 P:$00
 read memory: $8298 -> $48
-write memory: $0125 <- $DA
+write memory: $0126 <- $DA
 [$8298] PHA 
 <REGISTER-DUMP> PC:$8299 A:$DA X:$11 Y:$11 S:$25 P:$00
 read memory: $8299 -> $48
-write memory: $0124 <- $DB
+write memory: $0125 <- $DB
 [$8299] PHA 
 <REGISTER-DUMP> PC:$829A A:$DB X:$11 Y:$11 S:$24 P:$00
 read memory: $829A -> $48
-write memory: $0123 <- $DC
+write memory: $0124 <- $DC
 [$829A] PHA 
 <REGISTER-DUMP> PC:$829B A:$DC X:$11 Y:$11 S:$23 P:$00
 read memory: $829B -> $48
-write memory: $0122 <- $DD
+write memory: $0123 <- $DD
 [$829B] PHA 
 <REGISTER-DUMP> PC:$829C A:$DD X:$11 Y:$11 S:$22 P:$00
 read memory: $829C -> $48
-write memory: $0121 <- $DE
+write memory: $0122 <- $DE
 [$829C] PHA 
 <REGISTER-DUMP> PC:$829D A:$DE X:$11 Y:$11 S:$21 P:$00
 read memory: $829D -> $48
-write memory: $0120 <- $DF
+write memory: $0121 <- $DF
 [$829D] PHA 
 <REGISTER-DUMP> PC:$829E A:$DF X:$11 Y:$11 S:$20 P:$00
 read memory: $829E -> $48
-write memory: $011F <- $E0
+write memory: $0120 <- $E0
 [$829E] PHA 
 <REGISTER-DUMP> PC:$829F A:$E0 X:$11 Y:$11 S:$1F P:$00
 read memory: $829F -> $48
-write memory: $011E <- $E1
+write memory: $011F <- $E1
 [$829F] PHA 
 <REGISTER-DUMP> PC:$82A0 A:$E1 X:$11 Y:$11 S:$1E P:$00
 read memory: $82A0 -> $48
-write memory: $011D <- $E2
+write memory: $011E <- $E2
 [$82A0] PHA 
 <REGISTER-DUMP> PC:$82A1 A:$E2 X:$11 Y:$11 S:$1D P:$00
 read memory: $82A1 -> $48
-write memory: $011C <- $E3
+write memory: $011D <- $E3
 [$82A1] PHA 
 <REGISTER-DUMP> PC:$82A2 A:$E3 X:$11 Y:$11 S:$1C P:$00
 read memory: $82A2 -> $48
-write memory: $011B <- $E4
+write memory: $011C <- $E4
 [$82A2] PHA 
 <REGISTER-DUMP> PC:$82A3 A:$E4 X:$11 Y:$11 S:$1B P:$00
 read memory: $82A3 -> $48
-write memory: $011A <- $E5
+write memory: $011B <- $E5
 [$82A3] PHA 
 <REGISTER-DUMP> PC:$82A4 A:$E5 X:$11 Y:$11 S:$1A P:$00
 read memory: $82A4 -> $48
-write memory: $0119 <- $E6
+write memory: $011A <- $E6
 [$82A4] PHA 
 <REGISTER-DUMP> PC:$82A5 A:$E6 X:$11 Y:$11 S:$19 P:$00
 read memory: $82A5 -> $48
-write memory: $0118 <- $E7
+write memory: $0119 <- $E7
 [$82A5] PHA 
 <REGISTER-DUMP> PC:$82A6 A:$E7 X:$11 Y:$11 S:$18 P:$00
 read memory: $82A6 -> $48
-write memory: $0117 <- $E8
+write memory: $0118 <- $E8
 [$82A6] PHA 
 <REGISTER-DUMP> PC:$82A7 A:$E8 X:$11 Y:$11 S:$17 P:$00
 read memory: $82A7 -> $48
-write memory: $0116 <- $E9
+write memory: $0117 <- $E9
 [$82A7] PHA 
 <REGISTER-DUMP> PC:$82A8 A:$E9 X:$11 Y:$11 S:$16 P:$00
 read memory: $82A8 -> $48
-write memory: $0115 <- $EA
+write memory: $0116 <- $EA
 [$82A8] PHA 
 <REGISTER-DUMP> PC:$82A9 A:$EA X:$11 Y:$11 S:$15 P:$00
 read memory: $82A9 -> $48
-write memory: $0114 <- $EB
+write memory: $0115 <- $EB
 [$82A9] PHA 
 <REGISTER-DUMP> PC:$82AA A:$EB X:$11 Y:$11 S:$14 P:$00
 read memory: $82AA -> $48
-write memory: $0113 <- $EC
+write memory: $0114 <- $EC
 [$82AA] PHA 
 <REGISTER-DUMP> PC:$82AB A:$EC X:$11 Y:$11 S:$13 P:$00
 read memory: $82AB -> $48
-write memory: $0112 <- $ED
+write memory: $0113 <- $ED
 [$82AB] PHA 
 <REGISTER-DUMP> PC:$82AC A:$ED X:$11 Y:$11 S:$12 P:$00
 read memory: $82AC -> $48
-write memory: $0111 <- $EE
+write memory: $0112 <- $EE
 [$82AC] PHA 
 <REGISTER-DUMP> PC:$82AD A:$EE X:$11 Y:$11 S:$11 P:$00
 read memory: $82AD -> $48
-write memory: $0110 <- $EF
+write memory: $0111 <- $EF
 [$82AD] PHA 
 <REGISTER-DUMP> PC:$82AE A:$EF X:$11 Y:$11 S:$10 P:$00
 read memory: $82AE -> $48
-write memory: $010F <- $F0
+write memory: $0110 <- $F0
 [$82AE] PHA 
 <REGISTER-DUMP> PC:$82AF A:$F0 X:$11 Y:$11 S:$0F P:$00
 read memory: $82AF -> $48
-write memory: $010E <- $F1
+write memory: $010F <- $F1
 [$82AF] PHA 
 <REGISTER-DUMP> PC:$82B0 A:$F1 X:$11 Y:$11 S:$0E P:$00
 read memory: $82B0 -> $48
-write memory: $010D <- $F2
+write memory: $010E <- $F2
 [$82B0] PHA 
 <REGISTER-DUMP> PC:$82B1 A:$F2 X:$11 Y:$11 S:$0D P:$00
 read memory: $82B1 -> $48
-write memory: $010C <- $F3
+write memory: $010D <- $F3
 [$82B1] PHA 
 <REGISTER-DUMP> PC:$82B2 A:$F3 X:$11 Y:$11 S:$0C P:$00
 read memory: $82B2 -> $48
-write memory: $010B <- $F4
+write memory: $010C <- $F4
 [$82B2] PHA 
 <REGISTER-DUMP> PC:$82B3 A:$F4 X:$11 Y:$11 S:$0B P:$00
 read memory: $82B3 -> $48
-write memory: $010A <- $F5
+write memory: $010B <- $F5
 [$82B3] PHA 
 <REGISTER-DUMP> PC:$82B4 A:$F5 X:$11 Y:$11 S:$0A P:$00
 read memory: $82B4 -> $48
-write memory: $0109 <- $F6
+write memory: $010A <- $F6
 [$82B4] PHA 
 <REGISTER-DUMP> PC:$82B5 A:$F6 X:$11 Y:$11 S:$09 P:$00
 read memory: $82B5 -> $48
-write memory: $0108 <- $F7
+write memory: $0109 <- $F7
 [$82B5] PHA 
 <REGISTER-DUMP> PC:$82B6 A:$F7 X:$11 Y:$11 S:$08 P:$00
 read memory: $82B6 -> $48
-write memory: $0107 <- $F8
+write memory: $0108 <- $F8
 [$82B6] PHA 
 <REGISTER-DUMP> PC:$82B7 A:$F8 X:$11 Y:$11 S:$07 P:$00
 read memory: $82B7 -> $48
-write memory: $0106 <- $F9
+write memory: $0107 <- $F9
 [$82B7] PHA 
 <REGISTER-DUMP> PC:$82B8 A:$F9 X:$11 Y:$11 S:$06 P:$00
 read memory: $82B8 -> $48
-write memory: $0105 <- $FA
+write memory: $0106 <- $FA
 [$82B8] PHA 
 <REGISTER-DUMP> PC:$82B9 A:$FA X:$11 Y:$11 S:$05 P:$00
 read memory: $82B9 -> $48
-write memory: $0104 <- $FB
+write memory: $0105 <- $FB
 [$82B9] PHA 
 <REGISTER-DUMP> PC:$82BA A:$FB X:$11 Y:$11 S:$04 P:$00
 read memory: $82BA -> $48
-write memory: $0103 <- $FC
+write memory: $0104 <- $FC
 [$82BA] PHA 
 <REGISTER-DUMP> PC:$82BB A:$FC X:$11 Y:$11 S:$03 P:$00
 read memory: $82BB -> $48
-write memory: $0102 <- $FD
+write memory: $0103 <- $FD
 [$82BB] PHA 
 <REGISTER-DUMP> PC:$82BC A:$FD X:$11 Y:$11 S:$02 P:$00
 read memory: $82BC -> $48
-write memory: $0101 <- $FE
+write memory: $0102 <- $FE
 [$82BC] PHA 
 <REGISTER-DUMP> PC:$82BD A:$FE X:$11 Y:$11 S:$01 P:$00
 read memory: $82BD -> $48
-write memory: $0100 <- $FF
+write memory: $0101 <- $FF
 [$82BD] PHA 
 <REGISTER-DUMP> PC:$82BE A:$FF X:$11 Y:$11 S:$00 P:$00
 read memory: $82BE -> $68
-read memory: $0100 -> $FF
+read memory: $0101 -> $FF
 [$82BE] PLA 
 <REGISTER-DUMP> PC:$82BF A:$FF X:$11 Y:$11 S:$01 P:$00
 read memory: $82BF -> $68
-read memory: $0101 -> $FE
+read memory: $0102 -> $FE
 [$82BF] PLA 
 <REGISTER-DUMP> PC:$82C0 A:$FE X:$11 Y:$11 S:$02 P:$00
 read memory: $82C0 -> $68
-read memory: $0102 -> $FD
+read memory: $0103 -> $FD
 [$82C0] PLA 
 <REGISTER-DUMP> PC:$82C1 A:$FD X:$11 Y:$11 S:$03 P:$00
 read memory: $82C1 -> $68
-read memory: $0103 -> $FC
+read memory: $0104 -> $FC
 [$82C1] PLA 
 <REGISTER-DUMP> PC:$82C2 A:$FC X:$11 Y:$11 S:$04 P:$00
 read memory: $82C2 -> $68
-read memory: $0104 -> $FB
+read memory: $0105 -> $FB
 [$82C2] PLA 
 <REGISTER-DUMP> PC:$82C3 A:$FB X:$11 Y:$11 S:$05 P:$00
 read memory: $82C3 -> $68
-read memory: $0105 -> $FA
+read memory: $0106 -> $FA
 [$82C3] PLA 
 <REGISTER-DUMP> PC:$82C4 A:$FA X:$11 Y:$11 S:$06 P:$00
 read memory: $82C4 -> $68
-read memory: $0106 -> $F9
+read memory: $0107 -> $F9
 [$82C4] PLA 
 <REGISTER-DUMP> PC:$82C5 A:$F9 X:$11 Y:$11 S:$07 P:$00
 read memory: $82C5 -> $68
-read memory: $0107 -> $F8
+read memory: $0108 -> $F8
 [$82C5] PLA 
 <REGISTER-DUMP> PC:$82C6 A:$F8 X:$11 Y:$11 S:$08 P:$00
 read memory: $82C6 -> $68
-read memory: $0108 -> $F7
+read memory: $0109 -> $F7
 [$82C6] PLA 
 <REGISTER-DUMP> PC:$82C7 A:$F7 X:$11 Y:$11 S:$09 P:$00
 read memory: $82C7 -> $68
-read memory: $0109 -> $F6
+read memory: $010A -> $F6
 [$82C7] PLA 
 <REGISTER-DUMP> PC:$82C8 A:$F6 X:$11 Y:$11 S:$0A P:$00
 read memory: $82C8 -> $68
-read memory: $010A -> $F5
+read memory: $010B -> $F5
 [$82C8] PLA 
 <REGISTER-DUMP> PC:$82C9 A:$F5 X:$11 Y:$11 S:$0B P:$00
 read memory: $82C9 -> $68
-read memory: $010B -> $F4
+read memory: $010C -> $F4
 [$82C9] PLA 
 <REGISTER-DUMP> PC:$82CA A:$F4 X:$11 Y:$11 S:$0C P:$00
 read memory: $82CA -> $68
-read memory: $010C -> $F3
+read memory: $010D -> $F3
 [$82CA] PLA 
 <REGISTER-DUMP> PC:$82CB A:$F3 X:$11 Y:$11 S:$0D P:$00
 read memory: $82CB -> $68
-read memory: $010D -> $F2
+read memory: $010E -> $F2
 [$82CB] PLA 
 <REGISTER-DUMP> PC:$82CC A:$F2 X:$11 Y:$11 S:$0E P:$00
 read memory: $82CC -> $68
-read memory: $010E -> $F1
+read memory: $010F -> $F1
 [$82CC] PLA 
 <REGISTER-DUMP> PC:$82CD A:$F1 X:$11 Y:$11 S:$0F P:$00
 read memory: $82CD -> $68
-read memory: $010F -> $F0
+read memory: $0110 -> $F0
 [$82CD] PLA 
 <REGISTER-DUMP> PC:$82CE A:$F0 X:$11 Y:$11 S:$10 P:$00
 read memory: $82CE -> $68
-read memory: $0110 -> $EF
+read memory: $0111 -> $EF
 [$82CE] PLA 
 <REGISTER-DUMP> PC:$82CF A:$EF X:$11 Y:$11 S:$11 P:$00
 read memory: $82CF -> $68
-read memory: $0111 -> $EE
+read memory: $0112 -> $EE
 [$82CF] PLA 
 <REGISTER-DUMP> PC:$82D0 A:$EE X:$11 Y:$11 S:$12 P:$00
 read memory: $82D0 -> $68
-read memory: $0112 -> $ED
+read memory: $0113 -> $ED
 [$82D0] PLA 
 <REGISTER-DUMP> PC:$82D1 A:$ED X:$11 Y:$11 S:$13 P:$00
 read memory: $82D1 -> $68
-read memory: $0113 -> $EC
+read memory: $0114 -> $EC
 [$82D1] PLA 
 <REGISTER-DUMP> PC:$82D2 A:$EC X:$11 Y:$11 S:$14 P:$00
 read memory: $82D2 -> $68
-read memory: $0114 -> $EB
+read memory: $0115 -> $EB
 [$82D2] PLA 
 <REGISTER-DUMP> PC:$82D3 A:$EB X:$11 Y:$11 S:$15 P:$00
 read memory: $82D3 -> $68
-read memory: $0115 -> $EA
+read memory: $0116 -> $EA
 [$82D3] PLA 
 <REGISTER-DUMP> PC:$82D4 A:$EA X:$11 Y:$11 S:$16 P:$00
 read memory: $82D4 -> $68
-read memory: $0116 -> $E9
+read memory: $0117 -> $E9
 [$82D4] PLA 
 <REGISTER-DUMP> PC:$82D5 A:$E9 X:$11 Y:$11 S:$17 P:$00
 read memory: $82D5 -> $68
-read memory: $0117 -> $E8
+read memory: $0118 -> $E8
 [$82D5] PLA 
 <REGISTER-DUMP> PC:$82D6 A:$E8 X:$11 Y:$11 S:$18 P:$00
 read memory: $82D6 -> $68
-read memory: $0118 -> $E7
+read memory: $0119 -> $E7
 [$82D6] PLA 
 <REGISTER-DUMP> PC:$82D7 A:$E7 X:$11 Y:$11 S:$19 P:$00
 read memory: $82D7 -> $68
-read memory: $0119 -> $E6
+read memory: $011A -> $E6
 [$82D7] PLA 
 <REGISTER-DUMP> PC:$82D8 A:$E6 X:$11 Y:$11 S:$1A P:$00
 read memory: $82D8 -> $68
-read memory: $011A -> $E5
+read memory: $011B -> $E5
 [$82D8] PLA 
 <REGISTER-DUMP> PC:$82D9 A:$E5 X:$11 Y:$11 S:$1B P:$00
 read memory: $82D9 -> $68
-read memory: $011B -> $E4
+read memory: $011C -> $E4
 [$82D9] PLA 
 <REGISTER-DUMP> PC:$82DA A:$E4 X:$11 Y:$11 S:$1C P:$00
 read memory: $82DA -> $68
-read memory: $011C -> $E3
+read memory: $011D -> $E3
 [$82DA] PLA 
 <REGISTER-DUMP> PC:$82DB A:$E3 X:$11 Y:$11 S:$1D P:$00
 read memory: $82DB -> $68
-read memory: $011D -> $E2
+read memory: $011E -> $E2
 [$82DB] PLA 
 <REGISTER-DUMP> PC:$82DC A:$E2 X:$11 Y:$11 S:$1E P:$00
 read memory: $82DC -> $68
-read memory: $011E -> $E1
+read memory: $011F -> $E1
 [$82DC] PLA 
 <REGISTER-DUMP> PC:$82DD A:$E1 X:$11 Y:$11 S:$1F P:$00
 read memory: $82DD -> $68
-read memory: $011F -> $E0
+read memory: $0120 -> $E0
 [$82DD] PLA 
 <REGISTER-DUMP> PC:$82DE A:$E0 X:$11 Y:$11 S:$20 P:$00
 read memory: $82DE -> $68
-read memory: $0120 -> $DF
+read memory: $0121 -> $DF
 [$82DE] PLA 
 <REGISTER-DUMP> PC:$82DF A:$DF X:$11 Y:$11 S:$21 P:$00
 read memory: $82DF -> $68
-read memory: $0121 -> $DE
+read memory: $0122 -> $DE
 [$82DF] PLA 
 <REGISTER-DUMP> PC:$82E0 A:$DE X:$11 Y:$11 S:$22 P:$00
 read memory: $82E0 -> $68
-read memory: $0122 -> $DD
+read memory: $0123 -> $DD
 [$82E0] PLA 
 <REGISTER-DUMP> PC:$82E1 A:$DD X:$11 Y:$11 S:$23 P:$00
 read memory: $82E1 -> $68
-read memory: $0123 -> $DC
+read memory: $0124 -> $DC
 [$82E1] PLA 
 <REGISTER-DUMP> PC:$82E2 A:$DC X:$11 Y:$11 S:$24 P:$00
 read memory: $82E2 -> $68
-read memory: $0124 -> $DB
+read memory: $0125 -> $DB
 [$82E2] PLA 
 <REGISTER-DUMP> PC:$82E3 A:$DB X:$11 Y:$11 S:$25 P:$00
 read memory: $82E3 -> $68
-read memory: $0125 -> $DA
+read memory: $0126 -> $DA
 [$82E3] PLA 
 <REGISTER-DUMP> PC:$82E4 A:$DA X:$11 Y:$11 S:$26 P:$00
 read memory: $82E4 -> $68
-read memory: $0126 -> $D9
+read memory: $0127 -> $D9
 [$82E4] PLA 
 <REGISTER-DUMP> PC:$82E5 A:$D9 X:$11 Y:$11 S:$27 P:$00
 read memory: $82E5 -> $68
-read memory: $0127 -> $D8
+read memory: $0128 -> $D8
 [$82E5] PLA 
 <REGISTER-DUMP> PC:$82E6 A:$D8 X:$11 Y:$11 S:$28 P:$00
 read memory: $82E6 -> $68
-read memory: $0128 -> $D7
+read memory: $0129 -> $D7
 [$82E6] PLA 
 <REGISTER-DUMP> PC:$82E7 A:$D7 X:$11 Y:$11 S:$29 P:$00
 read memory: $82E7 -> $68
-read memory: $0129 -> $D6
+read memory: $012A -> $D6
 [$82E7] PLA 
 <REGISTER-DUMP> PC:$82E8 A:$D6 X:$11 Y:$11 S:$2A P:$00
 read memory: $82E8 -> $68
-read memory: $012A -> $D5
+read memory: $012B -> $D5
 [$82E8] PLA 
 <REGISTER-DUMP> PC:$82E9 A:$D5 X:$11 Y:$11 S:$2B P:$00
 read memory: $82E9 -> $68
-read memory: $012B -> $D4
+read memory: $012C -> $D4
 [$82E9] PLA 
 <REGISTER-DUMP> PC:$82EA A:$D4 X:$11 Y:$11 S:$2C P:$00
 read memory: $82EA -> $68
-read memory: $012C -> $D3
+read memory: $012D -> $D3
 [$82EA] PLA 
 <REGISTER-DUMP> PC:$82EB A:$D3 X:$11 Y:$11 S:$2D P:$00
 read memory: $82EB -> $68
-read memory: $012D -> $D2
+read memory: $012E -> $D2
 [$82EB] PLA 
 <REGISTER-DUMP> PC:$82EC A:$D2 X:$11 Y:$11 S:$2E P:$00
 read memory: $82EC -> $68
-read memory: $012E -> $D1
+read memory: $012F -> $D1
 [$82EC] PLA 
 <REGISTER-DUMP> PC:$82ED A:$D1 X:$11 Y:$11 S:$2F P:$00
 read memory: $82ED -> $68
-read memory: $012F -> $D0
+read memory: $0130 -> $D0
 [$82ED] PLA 
 <REGISTER-DUMP> PC:$82EE A:$D0 X:$11 Y:$11 S:$30 P:$00
 read memory: $82EE -> $68
-read memory: $0130 -> $CF
+read memory: $0131 -> $CF
 [$82EE] PLA 
 <REGISTER-DUMP> PC:$82EF A:$CF X:$11 Y:$11 S:$31 P:$00
 read memory: $82EF -> $68
-read memory: $0131 -> $CE
+read memory: $0132 -> $CE
 [$82EF] PLA 
 <REGISTER-DUMP> PC:$82F0 A:$CE X:$11 Y:$11 S:$32 P:$00
 read memory: $82F0 -> $68
-read memory: $0132 -> $CD
+read memory: $0133 -> $CD
 [$82F0] PLA 
 <REGISTER-DUMP> PC:$82F1 A:$CD X:$11 Y:$11 S:$33 P:$00
 read memory: $82F1 -> $68
-read memory: $0133 -> $CC
+read memory: $0134 -> $CC
 [$82F1] PLA 
 <REGISTER-DUMP> PC:$82F2 A:$CC X:$11 Y:$11 S:$34 P:$00
 read memory: $82F2 -> $68
-read memory: $0134 -> $CB
+read memory: $0135 -> $CB
 [$82F2] PLA 
 <REGISTER-DUMP> PC:$82F3 A:$CB X:$11 Y:$11 S:$35 P:$00
 read memory: $82F3 -> $68
-read memory: $0135 -> $CA
+read memory: $0136 -> $CA
 [$82F3] PLA 
 <REGISTER-DUMP> PC:$82F4 A:$CA X:$11 Y:$11 S:$36 P:$00
 read memory: $82F4 -> $68
-read memory: $0136 -> $C9
+read memory: $0137 -> $C9
 [$82F4] PLA 
 <REGISTER-DUMP> PC:$82F5 A:$C9 X:$11 Y:$11 S:$37 P:$00
 read memory: $82F5 -> $68
-read memory: $0137 -> $C8
+read memory: $0138 -> $C8
 [$82F5] PLA 
 <REGISTER-DUMP> PC:$82F6 A:$C8 X:$11 Y:$11 S:$38 P:$00
 read memory: $82F6 -> $68
-read memory: $0138 -> $C7
+read memory: $0139 -> $C7
 [$82F6] PLA 
 <REGISTER-DUMP> PC:$82F7 A:$C7 X:$11 Y:$11 S:$39 P:$00
 read memory: $82F7 -> $68
-read memory: $0139 -> $C6
+read memory: $013A -> $C6
 [$82F7] PLA 
 <REGISTER-DUMP> PC:$82F8 A:$C6 X:$11 Y:$11 S:$3A P:$00
 read memory: $82F8 -> $68
-read memory: $013A -> $C5
+read memory: $013B -> $C5
 [$82F8] PLA 
 <REGISTER-DUMP> PC:$82F9 A:$C5 X:$11 Y:$11 S:$3B P:$00
 read memory: $82F9 -> $68
-read memory: $013B -> $C4
+read memory: $013C -> $C4
 [$82F9] PLA 
 <REGISTER-DUMP> PC:$82FA A:$C4 X:$11 Y:$11 S:$3C P:$00
 read memory: $82FA -> $68
-read memory: $013C -> $C3
+read memory: $013D -> $C3
 [$82FA] PLA 
 <REGISTER-DUMP> PC:$82FB A:$C3 X:$11 Y:$11 S:$3D P:$00
 read memory: $82FB -> $68
-read memory: $013D -> $C2
+read memory: $013E -> $C2
 [$82FB] PLA 
 <REGISTER-DUMP> PC:$82FC A:$C2 X:$11 Y:$11 S:$3E P:$00
 read memory: $82FC -> $68
-read memory: $013E -> $C1
+read memory: $013F -> $C1
 [$82FC] PLA 
 <REGISTER-DUMP> PC:$82FD A:$C1 X:$11 Y:$11 S:$3F P:$00
 read memory: $82FD -> $68
-read memory: $013F -> $C0
+read memory: $0140 -> $C0
 [$82FD] PLA 
 <REGISTER-DUMP> PC:$82FE A:$C0 X:$11 Y:$11 S:$40 P:$00
 read memory: $82FE -> $68
-read memory: $0140 -> $BF
+read memory: $0141 -> $BF
 [$82FE] PLA 
 <REGISTER-DUMP> PC:$82FF A:$BF X:$11 Y:$11 S:$41 P:$00
 read memory: $82FF -> $68
-read memory: $0141 -> $BE
+read memory: $0142 -> $BE
 [$82FF] PLA 
 <REGISTER-DUMP> PC:$8300 A:$BE X:$11 Y:$11 S:$42 P:$00
 read memory: $8300 -> $68
-read memory: $0142 -> $BD
+read memory: $0143 -> $BD
 [$8300] PLA 
 <REGISTER-DUMP> PC:$8301 A:$BD X:$11 Y:$11 S:$43 P:$00
 read memory: $8301 -> $68
-read memory: $0143 -> $BC
+read memory: $0144 -> $BC
 [$8301] PLA 
 <REGISTER-DUMP> PC:$8302 A:$BC X:$11 Y:$11 S:$44 P:$00
 read memory: $8302 -> $68
-read memory: $0144 -> $BB
+read memory: $0145 -> $BB
 [$8302] PLA 
 <REGISTER-DUMP> PC:$8303 A:$BB X:$11 Y:$11 S:$45 P:$00
 read memory: $8303 -> $68
-read memory: $0145 -> $BA
+read memory: $0146 -> $BA
 [$8303] PLA 
 <REGISTER-DUMP> PC:$8304 A:$BA X:$11 Y:$11 S:$46 P:$00
 read memory: $8304 -> $68
-read memory: $0146 -> $B9
+read memory: $0147 -> $B9
 [$8304] PLA 
 <REGISTER-DUMP> PC:$8305 A:$B9 X:$11 Y:$11 S:$47 P:$00
 read memory: $8305 -> $68
-read memory: $0147 -> $B8
+read memory: $0148 -> $B8
 [$8305] PLA 
 <REGISTER-DUMP> PC:$8306 A:$B8 X:$11 Y:$11 S:$48 P:$00
 read memory: $8306 -> $68
-read memory: $0148 -> $B7
+read memory: $0149 -> $B7
 [$8306] PLA 
 <REGISTER-DUMP> PC:$8307 A:$B7 X:$11 Y:$11 S:$49 P:$00
 read memory: $8307 -> $68
-read memory: $0149 -> $B6
+read memory: $014A -> $B6
 [$8307] PLA 
 <REGISTER-DUMP> PC:$8308 A:$B6 X:$11 Y:$11 S:$4A P:$00
 read memory: $8308 -> $68
-read memory: $014A -> $B5
+read memory: $014B -> $B5
 [$8308] PLA 
 <REGISTER-DUMP> PC:$8309 A:$B5 X:$11 Y:$11 S:$4B P:$00
 read memory: $8309 -> $68
-read memory: $014B -> $B4
+read memory: $014C -> $B4
 [$8309] PLA 
 <REGISTER-DUMP> PC:$830A A:$B4 X:$11 Y:$11 S:$4C P:$00
 read memory: $830A -> $68
-read memory: $014C -> $B3
+read memory: $014D -> $B3
 [$830A] PLA 
 <REGISTER-DUMP> PC:$830B A:$B3 X:$11 Y:$11 S:$4D P:$00
 read memory: $830B -> $68
-read memory: $014D -> $B2
+read memory: $014E -> $B2
 [$830B] PLA 
 <REGISTER-DUMP> PC:$830C A:$B2 X:$11 Y:$11 S:$4E P:$00
 read memory: $830C -> $68
-read memory: $014E -> $B1
+read memory: $014F -> $B1
 [$830C] PLA 
 <REGISTER-DUMP> PC:$830D A:$B1 X:$11 Y:$11 S:$4F P:$00
 read memory: $830D -> $68
-read memory: $014F -> $B0
+read memory: $0150 -> $B0
 [$830D] PLA 
 <REGISTER-DUMP> PC:$830E A:$B0 X:$11 Y:$11 S:$50 P:$00
 read memory: $830E -> $68
-read memory: $0150 -> $AF
+read memory: $0151 -> $AF
 [$830E] PLA 
 <REGISTER-DUMP> PC:$830F A:$AF X:$11 Y:$11 S:$51 P:$00
 read memory: $830F -> $68
-read memory: $0151 -> $AE
+read memory: $0152 -> $AE
 [$830F] PLA 
 <REGISTER-DUMP> PC:$8310 A:$AE X:$11 Y:$11 S:$52 P:$00
 read memory: $8310 -> $68
-read memory: $0152 -> $AD
+read memory: $0153 -> $AD
 [$8310] PLA 
 <REGISTER-DUMP> PC:$8311 A:$AD X:$11 Y:$11 S:$53 P:$00
 read memory: $8311 -> $68
-read memory: $0153 -> $AC
+read memory: $0154 -> $AC
 [$8311] PLA 
 <REGISTER-DUMP> PC:$8312 A:$AC X:$11 Y:$11 S:$54 P:$00
 read memory: $8312 -> $68
-read memory: $0154 -> $AB
+read memory: $0155 -> $AB
 [$8312] PLA 
 <REGISTER-DUMP> PC:$8313 A:$AB X:$11 Y:$11 S:$55 P:$00
 read memory: $8313 -> $68
-read memory: $0155 -> $AA
+read memory: $0156 -> $AA
 [$8313] PLA 
 <REGISTER-DUMP> PC:$8314 A:$AA X:$11 Y:$11 S:$56 P:$00
 read memory: $8314 -> $68
-read memory: $0156 -> $A9
+read memory: $0157 -> $A9
 [$8314] PLA 
 <REGISTER-DUMP> PC:$8315 A:$A9 X:$11 Y:$11 S:$57 P:$00
 read memory: $8315 -> $68
-read memory: $0157 -> $A8
+read memory: $0158 -> $A8
 [$8315] PLA 
 <REGISTER-DUMP> PC:$8316 A:$A8 X:$11 Y:$11 S:$58 P:$00
 read memory: $8316 -> $68
-read memory: $0158 -> $A7
+read memory: $0159 -> $A7
 [$8316] PLA 
 <REGISTER-DUMP> PC:$8317 A:$A7 X:$11 Y:$11 S:$59 P:$00
 read memory: $8317 -> $68
-read memory: $0159 -> $A6
+read memory: $015A -> $A6
 [$8317] PLA 
 <REGISTER-DUMP> PC:$8318 A:$A6 X:$11 Y:$11 S:$5A P:$00
 read memory: $8318 -> $68
-read memory: $015A -> $A5
+read memory: $015B -> $A5
 [$8318] PLA 
 <REGISTER-DUMP> PC:$8319 A:$A5 X:$11 Y:$11 S:$5B P:$00
 read memory: $8319 -> $68
-read memory: $015B -> $A4
+read memory: $015C -> $A4
 [$8319] PLA 
 <REGISTER-DUMP> PC:$831A A:$A4 X:$11 Y:$11 S:$5C P:$00
 read memory: $831A -> $68
-read memory: $015C -> $A3
+read memory: $015D -> $A3
 [$831A] PLA 
 <REGISTER-DUMP> PC:$831B A:$A3 X:$11 Y:$11 S:$5D P:$00
 read memory: $831B -> $68
-read memory: $015D -> $A2
+read memory: $015E -> $A2
 [$831B] PLA 
 <REGISTER-DUMP> PC:$831C A:$A2 X:$11 Y:$11 S:$5E P:$00
 read memory: $831C -> $68
-read memory: $015E -> $A1
+read memory: $015F -> $A1
 [$831C] PLA 
 <REGISTER-DUMP> PC:$831D A:$A1 X:$11 Y:$11 S:$5F P:$00
 read memory: $831D -> $68
-read memory: $015F -> $A0
+read memory: $0160 -> $A0
 [$831D] PLA 
 <REGISTER-DUMP> PC:$831E A:$A0 X:$11 Y:$11 S:$60 P:$00
 read memory: $831E -> $68
-read memory: $0160 -> $9F
+read memory: $0161 -> $9F
 [$831E] PLA 
 <REGISTER-DUMP> PC:$831F A:$9F X:$11 Y:$11 S:$61 P:$00
 read memory: $831F -> $68
-read memory: $0161 -> $9E
+read memory: $0162 -> $9E
 [$831F] PLA 
 <REGISTER-DUMP> PC:$8320 A:$9E X:$11 Y:$11 S:$62 P:$00
 read memory: $8320 -> $68
-read memory: $0162 -> $9D
+read memory: $0163 -> $9D
 [$8320] PLA 
 <REGISTER-DUMP> PC:$8321 A:$9D X:$11 Y:$11 S:$63 P:$00
 read memory: $8321 -> $68
-read memory: $0163 -> $9C
+read memory: $0164 -> $9C
 [$8321] PLA 
 <REGISTER-DUMP> PC:$8322 A:$9C X:$11 Y:$11 S:$64 P:$00
 read memory: $8322 -> $68
-read memory: $0164 -> $9B
+read memory: $0165 -> $9B
 [$8322] PLA 
 <REGISTER-DUMP> PC:$8323 A:$9B X:$11 Y:$11 S:$65 P:$00
 read memory: $8323 -> $68
-read memory: $0165 -> $9A
+read memory: $0166 -> $9A
 [$8323] PLA 
 <REGISTER-DUMP> PC:$8324 A:$9A X:$11 Y:$11 S:$66 P:$00
 read memory: $8324 -> $68
-read memory: $0166 -> $99
+read memory: $0167 -> $99
 [$8324] PLA 
 <REGISTER-DUMP> PC:$8325 A:$99 X:$11 Y:$11 S:$67 P:$00
 read memory: $8325 -> $68
-read memory: $0167 -> $98
+read memory: $0168 -> $98
 [$8325] PLA 
 <REGISTER-DUMP> PC:$8326 A:$98 X:$11 Y:$11 S:$68 P:$00
 read memory: $8326 -> $68
-read memory: $0168 -> $97
+read memory: $0169 -> $97
 [$8326] PLA 
 <REGISTER-DUMP> PC:$8327 A:$97 X:$11 Y:$11 S:$69 P:$00
 read memory: $8327 -> $68
-read memory: $0169 -> $96
+read memory: $016A -> $96
 [$8327] PLA 
 <REGISTER-DUMP> PC:$8328 A:$96 X:$11 Y:$11 S:$6A P:$00
 read memory: $8328 -> $68
-read memory: $016A -> $95
+read memory: $016B -> $95
 [$8328] PLA 
 <REGISTER-DUMP> PC:$8329 A:$95 X:$11 Y:$11 S:$6B P:$00
 read memory: $8329 -> $68
-read memory: $016B -> $94
+read memory: $016C -> $94
 [$8329] PLA 
 <REGISTER-DUMP> PC:$832A A:$94 X:$11 Y:$11 S:$6C P:$00
 read memory: $832A -> $68
-read memory: $016C -> $93
+read memory: $016D -> $93
 [$832A] PLA 
 <REGISTER-DUMP> PC:$832B A:$93 X:$11 Y:$11 S:$6D P:$00
 read memory: $832B -> $68
-read memory: $016D -> $92
+read memory: $016E -> $92
 [$832B] PLA 
 <REGISTER-DUMP> PC:$832C A:$92 X:$11 Y:$11 S:$6E P:$00
 read memory: $832C -> $68
-read memory: $016E -> $91
+read memory: $016F -> $91
 [$832C] PLA 
 <REGISTER-DUMP> PC:$832D A:$91 X:$11 Y:$11 S:$6F P:$00
 read memory: $832D -> $68
-read memory: $016F -> $90
+read memory: $0170 -> $90
 [$832D] PLA 
 <REGISTER-DUMP> PC:$832E A:$90 X:$11 Y:$11 S:$70 P:$00
 read memory: $832E -> $68
-read memory: $0170 -> $8F
+read memory: $0171 -> $8F
 [$832E] PLA 
 <REGISTER-DUMP> PC:$832F A:$8F X:$11 Y:$11 S:$71 P:$00
 read memory: $832F -> $68
-read memory: $0171 -> $8E
+read memory: $0172 -> $8E
 [$832F] PLA 
 <REGISTER-DUMP> PC:$8330 A:$8E X:$11 Y:$11 S:$72 P:$00
 read memory: $8330 -> $68
-read memory: $0172 -> $8D
+read memory: $0173 -> $8D
 [$8330] PLA 
 <REGISTER-DUMP> PC:$8331 A:$8D X:$11 Y:$11 S:$73 P:$00
 read memory: $8331 -> $68
-read memory: $0173 -> $8C
+read memory: $0174 -> $8C
 [$8331] PLA 
 <REGISTER-DUMP> PC:$8332 A:$8C X:$11 Y:$11 S:$74 P:$00
 read memory: $8332 -> $68
-read memory: $0174 -> $8B
+read memory: $0175 -> $8B
 [$8332] PLA 
 <REGISTER-DUMP> PC:$8333 A:$8B X:$11 Y:$11 S:$75 P:$00
 read memory: $8333 -> $68
-read memory: $0175 -> $8A
+read memory: $0176 -> $8A
 [$8333] PLA 
 <REGISTER-DUMP> PC:$8334 A:$8A X:$11 Y:$11 S:$76 P:$00
 read memory: $8334 -> $68
-read memory: $0176 -> $89
+read memory: $0177 -> $89
 [$8334] PLA 
 <REGISTER-DUMP> PC:$8335 A:$89 X:$11 Y:$11 S:$77 P:$00
 read memory: $8335 -> $68
-read memory: $0177 -> $88
+read memory: $0178 -> $88
 [$8335] PLA 
 <REGISTER-DUMP> PC:$8336 A:$88 X:$11 Y:$11 S:$78 P:$00
 read memory: $8336 -> $68
-read memory: $0178 -> $87
+read memory: $0179 -> $87
 [$8336] PLA 
 <REGISTER-DUMP> PC:$8337 A:$87 X:$11 Y:$11 S:$79 P:$00
 read memory: $8337 -> $68
-read memory: $0179 -> $86
+read memory: $017A -> $86
 [$8337] PLA 
 <REGISTER-DUMP> PC:$8338 A:$86 X:$11 Y:$11 S:$7A P:$00
 read memory: $8338 -> $68
-read memory: $017A -> $85
+read memory: $017B -> $85
 [$8338] PLA 
 <REGISTER-DUMP> PC:$8339 A:$85 X:$11 Y:$11 S:$7B P:$00
 read memory: $8339 -> $68
-read memory: $017B -> $84
+read memory: $017C -> $84
 [$8339] PLA 
 <REGISTER-DUMP> PC:$833A A:$84 X:$11 Y:$11 S:$7C P:$00
 read memory: $833A -> $68
-read memory: $017C -> $83
+read memory: $017D -> $83
 [$833A] PLA 
 <REGISTER-DUMP> PC:$833B A:$83 X:$11 Y:$11 S:$7D P:$00
 read memory: $833B -> $68
-read memory: $017D -> $82
+read memory: $017E -> $82
 [$833B] PLA 
 <REGISTER-DUMP> PC:$833C A:$82 X:$11 Y:$11 S:$7E P:$00
 read memory: $833C -> $68
-read memory: $017E -> $81
+read memory: $017F -> $81
 [$833C] PLA 
 <REGISTER-DUMP> PC:$833D A:$81 X:$11 Y:$11 S:$7F P:$00
 read memory: $833D -> $68
-read memory: $017F -> $80
+read memory: $0180 -> $80
 [$833D] PLA 
 <REGISTER-DUMP> PC:$833E A:$80 X:$11 Y:$11 S:$80 P:$00
 read memory: $833E -> $68
-read memory: $0180 -> $7F
+read memory: $0181 -> $7F
 [$833E] PLA 
 <REGISTER-DUMP> PC:$833F A:$7F X:$11 Y:$11 S:$81 P:$00
 read memory: $833F -> $68
-read memory: $0181 -> $7E
+read memory: $0182 -> $7E
 [$833F] PLA 
 <REGISTER-DUMP> PC:$8340 A:$7E X:$11 Y:$11 S:$82 P:$00
 read memory: $8340 -> $68
-read memory: $0182 -> $7D
+read memory: $0183 -> $7D
 [$8340] PLA 
 <REGISTER-DUMP> PC:$8341 A:$7D X:$11 Y:$11 S:$83 P:$00
 read memory: $8341 -> $68
-read memory: $0183 -> $7C
+read memory: $0184 -> $7C
 [$8341] PLA 
 <REGISTER-DUMP> PC:$8342 A:$7C X:$11 Y:$11 S:$84 P:$00
 read memory: $8342 -> $68
-read memory: $0184 -> $7B
+read memory: $0185 -> $7B
 [$8342] PLA 
 <REGISTER-DUMP> PC:$8343 A:$7B X:$11 Y:$11 S:$85 P:$00
 read memory: $8343 -> $68
-read memory: $0185 -> $7A
+read memory: $0186 -> $7A
 [$8343] PLA 
 <REGISTER-DUMP> PC:$8344 A:$7A X:$11 Y:$11 S:$86 P:$00
 read memory: $8344 -> $68
-read memory: $0186 -> $79
+read memory: $0187 -> $79
 [$8344] PLA 
 <REGISTER-DUMP> PC:$8345 A:$79 X:$11 Y:$11 S:$87 P:$00
 read memory: $8345 -> $68
-read memory: $0187 -> $78
+read memory: $0188 -> $78
 [$8345] PLA 
 <REGISTER-DUMP> PC:$8346 A:$78 X:$11 Y:$11 S:$88 P:$00
 read memory: $8346 -> $68
-read memory: $0188 -> $77
+read memory: $0189 -> $77
 [$8346] PLA 
 <REGISTER-DUMP> PC:$8347 A:$77 X:$11 Y:$11 S:$89 P:$00
 read memory: $8347 -> $68
-read memory: $0189 -> $76
+read memory: $018A -> $76
 [$8347] PLA 
 <REGISTER-DUMP> PC:$8348 A:$76 X:$11 Y:$11 S:$8A P:$00
 read memory: $8348 -> $68
-read memory: $018A -> $75
+read memory: $018B -> $75
 [$8348] PLA 
 <REGISTER-DUMP> PC:$8349 A:$75 X:$11 Y:$11 S:$8B P:$00
 read memory: $8349 -> $68
-read memory: $018B -> $74
+read memory: $018C -> $74
 [$8349] PLA 
 <REGISTER-DUMP> PC:$834A A:$74 X:$11 Y:$11 S:$8C P:$00
 read memory: $834A -> $68
-read memory: $018C -> $73
+read memory: $018D -> $73
 [$834A] PLA 
 <REGISTER-DUMP> PC:$834B A:$73 X:$11 Y:$11 S:$8D P:$00
 read memory: $834B -> $68
-read memory: $018D -> $72
+read memory: $018E -> $72
 [$834B] PLA 
 <REGISTER-DUMP> PC:$834C A:$72 X:$11 Y:$11 S:$8E P:$00
 read memory: $834C -> $68
-read memory: $018E -> $71
+read memory: $018F -> $71
 [$834C] PLA 
 <REGISTER-DUMP> PC:$834D A:$71 X:$11 Y:$11 S:$8F P:$00
 read memory: $834D -> $68
-read memory: $018F -> $70
+read memory: $0190 -> $70
 [$834D] PLA 
 <REGISTER-DUMP> PC:$834E A:$70 X:$11 Y:$11 S:$90 P:$00
 read memory: $834E -> $68
-read memory: $0190 -> $6F
+read memory: $0191 -> $6F
 [$834E] PLA 
 <REGISTER-DUMP> PC:$834F A:$6F X:$11 Y:$11 S:$91 P:$00
 read memory: $834F -> $68
-read memory: $0191 -> $6E
+read memory: $0192 -> $6E
 [$834F] PLA 
 <REGISTER-DUMP> PC:$8350 A:$6E X:$11 Y:$11 S:$92 P:$00
 read memory: $8350 -> $68
-read memory: $0192 -> $6D
+read memory: $0193 -> $6D
 [$8350] PLA 
 <REGISTER-DUMP> PC:$8351 A:$6D X:$11 Y:$11 S:$93 P:$00
 read memory: $8351 -> $68
-read memory: $0193 -> $6C
+read memory: $0194 -> $6C
 [$8351] PLA 
 <REGISTER-DUMP> PC:$8352 A:$6C X:$11 Y:$11 S:$94 P:$00
 read memory: $8352 -> $68
-read memory: $0194 -> $6B
+read memory: $0195 -> $6B
 [$8352] PLA 
 <REGISTER-DUMP> PC:$8353 A:$6B X:$11 Y:$11 S:$95 P:$00
 read memory: $8353 -> $68
-read memory: $0195 -> $6A
+read memory: $0196 -> $6A
 [$8353] PLA 
 <REGISTER-DUMP> PC:$8354 A:$6A X:$11 Y:$11 S:$96 P:$00
 read memory: $8354 -> $68
-read memory: $0196 -> $69
+read memory: $0197 -> $69
 [$8354] PLA 
 <REGISTER-DUMP> PC:$8355 A:$69 X:$11 Y:$11 S:$97 P:$00
 read memory: $8355 -> $68
-read memory: $0197 -> $68
+read memory: $0198 -> $68
 [$8355] PLA 
 <REGISTER-DUMP> PC:$8356 A:$68 X:$11 Y:$11 S:$98 P:$00
 read memory: $8356 -> $68
-read memory: $0198 -> $67
+read memory: $0199 -> $67
 [$8356] PLA 
 <REGISTER-DUMP> PC:$8357 A:$67 X:$11 Y:$11 S:$99 P:$00
 read memory: $8357 -> $68
-read memory: $0199 -> $66
+read memory: $019A -> $66
 [$8357] PLA 
 <REGISTER-DUMP> PC:$8358 A:$66 X:$11 Y:$11 S:$9A P:$00
 read memory: $8358 -> $68
-read memory: $019A -> $65
+read memory: $019B -> $65
 [$8358] PLA 
 <REGISTER-DUMP> PC:$8359 A:$65 X:$11 Y:$11 S:$9B P:$00
 read memory: $8359 -> $68
-read memory: $019B -> $64
+read memory: $019C -> $64
 [$8359] PLA 
 <REGISTER-DUMP> PC:$835A A:$64 X:$11 Y:$11 S:$9C P:$00
 read memory: $835A -> $68
-read memory: $019C -> $63
+read memory: $019D -> $63
 [$835A] PLA 
 <REGISTER-DUMP> PC:$835B A:$63 X:$11 Y:$11 S:$9D P:$00
 read memory: $835B -> $68
-read memory: $019D -> $62
+read memory: $019E -> $62
 [$835B] PLA 
 <REGISTER-DUMP> PC:$835C A:$62 X:$11 Y:$11 S:$9E P:$00
 read memory: $835C -> $68
-read memory: $019E -> $61
+read memory: $019F -> $61
 [$835C] PLA 
 <REGISTER-DUMP> PC:$835D A:$61 X:$11 Y:$11 S:$9F P:$00
 read memory: $835D -> $68
-read memory: $019F -> $60
+read memory: $01A0 -> $60
 [$835D] PLA 
 <REGISTER-DUMP> PC:$835E A:$60 X:$11 Y:$11 S:$A0 P:$00
 read memory: $835E -> $68
-read memory: $01A0 -> $5F
+read memory: $01A1 -> $5F
 [$835E] PLA 
 <REGISTER-DUMP> PC:$835F A:$5F X:$11 Y:$11 S:$A1 P:$00
 read memory: $835F -> $68
-read memory: $01A1 -> $5E
+read memory: $01A2 -> $5E
 [$835F] PLA 
 <REGISTER-DUMP> PC:$8360 A:$5E X:$11 Y:$11 S:$A2 P:$00
 read memory: $8360 -> $68
-read memory: $01A2 -> $5D
+read memory: $01A3 -> $5D
 [$8360] PLA 
 <REGISTER-DUMP> PC:$8361 A:$5D X:$11 Y:$11 S:$A3 P:$00
 read memory: $8361 -> $68
-read memory: $01A3 -> $5C
+read memory: $01A4 -> $5C
 [$8361] PLA 
 <REGISTER-DUMP> PC:$8362 A:$5C X:$11 Y:$11 S:$A4 P:$00
 read memory: $8362 -> $68
-read memory: $01A4 -> $5B
+read memory: $01A5 -> $5B
 [$8362] PLA 
 <REGISTER-DUMP> PC:$8363 A:$5B X:$11 Y:$11 S:$A5 P:$00
 read memory: $8363 -> $68
-read memory: $01A5 -> $5A
+read memory: $01A6 -> $5A
 [$8363] PLA 
 <REGISTER-DUMP> PC:$8364 A:$5A X:$11 Y:$11 S:$A6 P:$00
 read memory: $8364 -> $68
-read memory: $01A6 -> $59
+read memory: $01A7 -> $59
 [$8364] PLA 
 <REGISTER-DUMP> PC:$8365 A:$59 X:$11 Y:$11 S:$A7 P:$00
 read memory: $8365 -> $68
-read memory: $01A7 -> $58
+read memory: $01A8 -> $58
 [$8365] PLA 
 <REGISTER-DUMP> PC:$8366 A:$58 X:$11 Y:$11 S:$A8 P:$00
 read memory: $8366 -> $68
-read memory: $01A8 -> $57
+read memory: $01A9 -> $57
 [$8366] PLA 
 <REGISTER-DUMP> PC:$8367 A:$57 X:$11 Y:$11 S:$A9 P:$00
 read memory: $8367 -> $68
-read memory: $01A9 -> $56
+read memory: $01AA -> $56
 [$8367] PLA 
 <REGISTER-DUMP> PC:$8368 A:$56 X:$11 Y:$11 S:$AA P:$00
 read memory: $8368 -> $68
-read memory: $01AA -> $55
+read memory: $01AB -> $55
 [$8368] PLA 
 <REGISTER-DUMP> PC:$8369 A:$55 X:$11 Y:$11 S:$AB P:$00
 read memory: $8369 -> $68
-read memory: $01AB -> $54
+read memory: $01AC -> $54
 [$8369] PLA 
 <REGISTER-DUMP> PC:$836A A:$54 X:$11 Y:$11 S:$AC P:$00
 read memory: $836A -> $68
-read memory: $01AC -> $53
+read memory: $01AD -> $53
 [$836A] PLA 
 <REGISTER-DUMP> PC:$836B A:$53 X:$11 Y:$11 S:$AD P:$00
 read memory: $836B -> $68
-read memory: $01AD -> $52
+read memory: $01AE -> $52
 [$836B] PLA 
 <REGISTER-DUMP> PC:$836C A:$52 X:$11 Y:$11 S:$AE P:$00
 read memory: $836C -> $68
-read memory: $01AE -> $51
+read memory: $01AF -> $51
 [$836C] PLA 
 <REGISTER-DUMP> PC:$836D A:$51 X:$11 Y:$11 S:$AF P:$00
 read memory: $836D -> $68
-read memory: $01AF -> $50
+read memory: $01B0 -> $50
 [$836D] PLA 
 <REGISTER-DUMP> PC:$836E A:$50 X:$11 Y:$11 S:$B0 P:$00
 read memory: $836E -> $68
-read memory: $01B0 -> $4F
+read memory: $01B1 -> $4F
 [$836E] PLA 
 <REGISTER-DUMP> PC:$836F A:$4F X:$11 Y:$11 S:$B1 P:$00
 read memory: $836F -> $68
-read memory: $01B1 -> $4E
+read memory: $01B2 -> $4E
 [$836F] PLA 
 <REGISTER-DUMP> PC:$8370 A:$4E X:$11 Y:$11 S:$B2 P:$00
 read memory: $8370 -> $68
-read memory: $01B2 -> $4D
+read memory: $01B3 -> $4D
 [$8370] PLA 
 <REGISTER-DUMP> PC:$8371 A:$4D X:$11 Y:$11 S:$B3 P:$00
 read memory: $8371 -> $68
-read memory: $01B3 -> $4C
+read memory: $01B4 -> $4C
 [$8371] PLA 
 <REGISTER-DUMP> PC:$8372 A:$4C X:$11 Y:$11 S:$B4 P:$00
 read memory: $8372 -> $68
-read memory: $01B4 -> $4B
+read memory: $01B5 -> $4B
 [$8372] PLA 
 <REGISTER-DUMP> PC:$8373 A:$4B X:$11 Y:$11 S:$B5 P:$00
 read memory: $8373 -> $68
-read memory: $01B5 -> $4A
+read memory: $01B6 -> $4A
 [$8373] PLA 
 <REGISTER-DUMP> PC:$8374 A:$4A X:$11 Y:$11 S:$B6 P:$00
 read memory: $8374 -> $68
-read memory: $01B6 -> $49
+read memory: $01B7 -> $49
 [$8374] PLA 
 <REGISTER-DUMP> PC:$8375 A:$49 X:$11 Y:$11 S:$B7 P:$00
 read memory: $8375 -> $68
-read memory: $01B7 -> $48
+read memory: $01B8 -> $48
 [$8375] PLA 
 <REGISTER-DUMP> PC:$8376 A:$48 X:$11 Y:$11 S:$B8 P:$00
 read memory: $8376 -> $68
-read memory: $01B8 -> $47
+read memory: $01B9 -> $47
 [$8376] PLA 
 <REGISTER-DUMP> PC:$8377 A:$47 X:$11 Y:$11 S:$B9 P:$00
 read memory: $8377 -> $68
-read memory: $01B9 -> $46
+read memory: $01BA -> $46
 [$8377] PLA 
 <REGISTER-DUMP> PC:$8378 A:$46 X:$11 Y:$11 S:$BA P:$00
 read memory: $8378 -> $68
-read memory: $01BA -> $45
+read memory: $01BB -> $45
 [$8378] PLA 
 <REGISTER-DUMP> PC:$8379 A:$45 X:$11 Y:$11 S:$BB P:$00
 read memory: $8379 -> $68
-read memory: $01BB -> $44
+read memory: $01BC -> $44
 [$8379] PLA 
 <REGISTER-DUMP> PC:$837A A:$44 X:$11 Y:$11 S:$BC P:$00
 read memory: $837A -> $68
-read memory: $01BC -> $43
+read memory: $01BD -> $43
 [$837A] PLA 
 <REGISTER-DUMP> PC:$837B A:$43 X:$11 Y:$11 S:$BD P:$00
 read memory: $837B -> $68
-read memory: $01BD -> $42
+read memory: $01BE -> $42
 [$837B] PLA 
 <REGISTER-DUMP> PC:$837C A:$42 X:$11 Y:$11 S:$BE P:$00
 read memory: $837C -> $68
-read memory: $01BE -> $41
+read memory: $01BF -> $41
 [$837C] PLA 
 <REGISTER-DUMP> PC:$837D A:$41 X:$11 Y:$11 S:$BF P:$00
 read memory: $837D -> $68
-read memory: $01BF -> $40
+read memory: $01C0 -> $40
 [$837D] PLA 
 <REGISTER-DUMP> PC:$837E A:$40 X:$11 Y:$11 S:$C0 P:$00
 read memory: $837E -> $68
-read memory: $01C0 -> $3F
+read memory: $01C1 -> $3F
 [$837E] PLA 
 <REGISTER-DUMP> PC:$837F A:$3F X:$11 Y:$11 S:$C1 P:$00
 read memory: $837F -> $68
-read memory: $01C1 -> $3E
+read memory: $01C2 -> $3E
 [$837F] PLA 
 <REGISTER-DUMP> PC:$8380 A:$3E X:$11 Y:$11 S:$C2 P:$00
 read memory: $8380 -> $68
-read memory: $01C2 -> $3D
+read memory: $01C3 -> $3D
 [$8380] PLA 
 <REGISTER-DUMP> PC:$8381 A:$3D X:$11 Y:$11 S:$C3 P:$00
 read memory: $8381 -> $68
-read memory: $01C3 -> $3C
+read memory: $01C4 -> $3C
 [$8381] PLA 
 <REGISTER-DUMP> PC:$8382 A:$3C X:$11 Y:$11 S:$C4 P:$00
 read memory: $8382 -> $68
-read memory: $01C4 -> $3B
+read memory: $01C5 -> $3B
 [$8382] PLA 
 <REGISTER-DUMP> PC:$8383 A:$3B X:$11 Y:$11 S:$C5 P:$00
 read memory: $8383 -> $68
-read memory: $01C5 -> $3A
+read memory: $01C6 -> $3A
 [$8383] PLA 
 <REGISTER-DUMP> PC:$8384 A:$3A X:$11 Y:$11 S:$C6 P:$00
 read memory: $8384 -> $68
-read memory: $01C6 -> $39
+read memory: $01C7 -> $39
 [$8384] PLA 
 <REGISTER-DUMP> PC:$8385 A:$39 X:$11 Y:$11 S:$C7 P:$00
 read memory: $8385 -> $68
-read memory: $01C7 -> $38
+read memory: $01C8 -> $38
 [$8385] PLA 
 <REGISTER-DUMP> PC:$8386 A:$38 X:$11 Y:$11 S:$C8 P:$00
 read memory: $8386 -> $68
-read memory: $01C8 -> $37
+read memory: $01C9 -> $37
 [$8386] PLA 
 <REGISTER-DUMP> PC:$8387 A:$37 X:$11 Y:$11 S:$C9 P:$00
 read memory: $8387 -> $68
-read memory: $01C9 -> $36
+read memory: $01CA -> $36
 [$8387] PLA 
 <REGISTER-DUMP> PC:$8388 A:$36 X:$11 Y:$11 S:$CA P:$00
 read memory: $8388 -> $68
-read memory: $01CA -> $35
+read memory: $01CB -> $35
 [$8388] PLA 
 <REGISTER-DUMP> PC:$8389 A:$35 X:$11 Y:$11 S:$CB P:$00
 read memory: $8389 -> $68
-read memory: $01CB -> $34
+read memory: $01CC -> $34
 [$8389] PLA 
 <REGISTER-DUMP> PC:$838A A:$34 X:$11 Y:$11 S:$CC P:$00
 read memory: $838A -> $68
-read memory: $01CC -> $33
+read memory: $01CD -> $33
 [$838A] PLA 
 <REGISTER-DUMP> PC:$838B A:$33 X:$11 Y:$11 S:$CD P:$00
 read memory: $838B -> $68
-read memory: $01CD -> $32
+read memory: $01CE -> $32
 [$838B] PLA 
 <REGISTER-DUMP> PC:$838C A:$32 X:$11 Y:$11 S:$CE P:$00
 read memory: $838C -> $68
-read memory: $01CE -> $31
+read memory: $01CF -> $31
 [$838C] PLA 
 <REGISTER-DUMP> PC:$838D A:$31 X:$11 Y:$11 S:$CF P:$00
 read memory: $838D -> $68
-read memory: $01CF -> $30
+read memory: $01D0 -> $30
 [$838D] PLA 
 <REGISTER-DUMP> PC:$838E A:$30 X:$11 Y:$11 S:$D0 P:$00
 read memory: $838E -> $68
-read memory: $01D0 -> $2F
+read memory: $01D1 -> $2F
 [$838E] PLA 
 <REGISTER-DUMP> PC:$838F A:$2F X:$11 Y:$11 S:$D1 P:$00
 read memory: $838F -> $68
-read memory: $01D1 -> $2E
+read memory: $01D2 -> $2E
 [$838F] PLA 
 <REGISTER-DUMP> PC:$8390 A:$2E X:$11 Y:$11 S:$D2 P:$00
 read memory: $8390 -> $68
-read memory: $01D2 -> $2D
+read memory: $01D3 -> $2D
 [$8390] PLA 
 <REGISTER-DUMP> PC:$8391 A:$2D X:$11 Y:$11 S:$D3 P:$00
 read memory: $8391 -> $68
-read memory: $01D3 -> $2C
+read memory: $01D4 -> $2C
 [$8391] PLA 
 <REGISTER-DUMP> PC:$8392 A:$2C X:$11 Y:$11 S:$D4 P:$00
 read memory: $8392 -> $68
-read memory: $01D4 -> $2B
+read memory: $01D5 -> $2B
 [$8392] PLA 
 <REGISTER-DUMP> PC:$8393 A:$2B X:$11 Y:$11 S:$D5 P:$00
 read memory: $8393 -> $68
-read memory: $01D5 -> $2A
+read memory: $01D6 -> $2A
 [$8393] PLA 
 <REGISTER-DUMP> PC:$8394 A:$2A X:$11 Y:$11 S:$D6 P:$00
 read memory: $8394 -> $68
-read memory: $01D6 -> $29
+read memory: $01D7 -> $29
 [$8394] PLA 
 <REGISTER-DUMP> PC:$8395 A:$29 X:$11 Y:$11 S:$D7 P:$00
 read memory: $8395 -> $68
-read memory: $01D7 -> $28
+read memory: $01D8 -> $28
 [$8395] PLA 
 <REGISTER-DUMP> PC:$8396 A:$28 X:$11 Y:$11 S:$D8 P:$00
 read memory: $8396 -> $68
-read memory: $01D8 -> $27
+read memory: $01D9 -> $27
 [$8396] PLA 
 <REGISTER-DUMP> PC:$8397 A:$27 X:$11 Y:$11 S:$D9 P:$00
 read memory: $8397 -> $68
-read memory: $01D9 -> $26
+read memory: $01DA -> $26
 [$8397] PLA 
 <REGISTER-DUMP> PC:$8398 A:$26 X:$11 Y:$11 S:$DA P:$00
 read memory: $8398 -> $68
-read memory: $01DA -> $25
+read memory: $01DB -> $25
 [$8398] PLA 
 <REGISTER-DUMP> PC:$8399 A:$25 X:$11 Y:$11 S:$DB P:$00
 read memory: $8399 -> $68
-read memory: $01DB -> $24
+read memory: $01DC -> $24
 [$8399] PLA 
 <REGISTER-DUMP> PC:$839A A:$24 X:$11 Y:$11 S:$DC P:$00
 read memory: $839A -> $68
-read memory: $01DC -> $23
+read memory: $01DD -> $23
 [$839A] PLA 
 <REGISTER-DUMP> PC:$839B A:$23 X:$11 Y:$11 S:$DD P:$00
 read memory: $839B -> $68
-read memory: $01DD -> $22
+read memory: $01DE -> $22
 [$839B] PLA 
 <REGISTER-DUMP> PC:$839C A:$22 X:$11 Y:$11 S:$DE P:$00
 read memory: $839C -> $68
-read memory: $01DE -> $21
+read memory: $01DF -> $21
 [$839C] PLA 
 <REGISTER-DUMP> PC:$839D A:$21 X:$11 Y:$11 S:$DF P:$00
 read memory: $839D -> $68
-read memory: $01DF -> $20
+read memory: $01E0 -> $20
 [$839D] PLA 
 <REGISTER-DUMP> PC:$839E A:$20 X:$11 Y:$11 S:$E0 P:$00
 read memory: $839E -> $68
-read memory: $01E0 -> $1F
+read memory: $01E1 -> $1F
 [$839E] PLA 
 <REGISTER-DUMP> PC:$839F A:$1F X:$11 Y:$11 S:$E1 P:$00
 read memory: $839F -> $68
-read memory: $01E1 -> $1E
+read memory: $01E2 -> $1E
 [$839F] PLA 
 <REGISTER-DUMP> PC:$83A0 A:$1E X:$11 Y:$11 S:$E2 P:$00
 read memory: $83A0 -> $68
-read memory: $01E2 -> $1D
+read memory: $01E3 -> $1D
 [$83A0] PLA 
 <REGISTER-DUMP> PC:$83A1 A:$1D X:$11 Y:$11 S:$E3 P:$00
 read memory: $83A1 -> $68
-read memory: $01E3 -> $1C
+read memory: $01E4 -> $1C
 [$83A1] PLA 
 <REGISTER-DUMP> PC:$83A2 A:$1C X:$11 Y:$11 S:$E4 P:$00
 read memory: $83A2 -> $68
-read memory: $01E4 -> $1B
+read memory: $01E5 -> $1B
 [$83A2] PLA 
 <REGISTER-DUMP> PC:$83A3 A:$1B X:$11 Y:$11 S:$E5 P:$00
 read memory: $83A3 -> $68
-read memory: $01E5 -> $1A
+read memory: $01E6 -> $1A
 [$83A3] PLA 
 <REGISTER-DUMP> PC:$83A4 A:$1A X:$11 Y:$11 S:$E6 P:$00
 read memory: $83A4 -> $68
-read memory: $01E6 -> $19
+read memory: $01E7 -> $19
 [$83A4] PLA 
 <REGISTER-DUMP> PC:$83A5 A:$19 X:$11 Y:$11 S:$E7 P:$00
 read memory: $83A5 -> $68
-read memory: $01E7 -> $18
+read memory: $01E8 -> $18
 [$83A5] PLA 
 <REGISTER-DUMP> PC:$83A6 A:$18 X:$11 Y:$11 S:$E8 P:$00
 read memory: $83A6 -> $68
-read memory: $01E8 -> $17
+read memory: $01E9 -> $17
 [$83A6] PLA 
 <REGISTER-DUMP> PC:$83A7 A:$17 X:$11 Y:$11 S:$E9 P:$00
 read memory: $83A7 -> $68
-read memory: $01E9 -> $16
+read memory: $01EA -> $16
 [$83A7] PLA 
 <REGISTER-DUMP> PC:$83A8 A:$16 X:$11 Y:$11 S:$EA P:$00
 read memory: $83A8 -> $68
-read memory: $01EA -> $15
+read memory: $01EB -> $15
 [$83A8] PLA 
 <REGISTER-DUMP> PC:$83A9 A:$15 X:$11 Y:$11 S:$EB P:$00
 read memory: $83A9 -> $68
-read memory: $01EB -> $14
+read memory: $01EC -> $14
 [$83A9] PLA 
 <REGISTER-DUMP> PC:$83AA A:$14 X:$11 Y:$11 S:$EC P:$00
 read memory: $83AA -> $68
-read memory: $01EC -> $13
+read memory: $01ED -> $13
 [$83AA] PLA 
 <REGISTER-DUMP> PC:$83AB A:$13 X:$11 Y:$11 S:$ED P:$00
 read memory: $83AB -> $68
-read memory: $01ED -> $12
+read memory: $01EE -> $12
 [$83AB] PLA 
 <REGISTER-DUMP> PC:$83AC A:$12 X:$11 Y:$11 S:$EE P:$00
 read memory: $83AC -> $68
-read memory: $01EE -> $11
+read memory: $01EF -> $11
 [$83AC] PLA 
 <REGISTER-DUMP> PC:$83AD A:$11 X:$11 Y:$11 S:$EF P:$00
 read memory: $83AD -> $68
-read memory: $01EF -> $10
+read memory: $01F0 -> $10
 [$83AD] PLA 
 <REGISTER-DUMP> PC:$83AE A:$10 X:$11 Y:$11 S:$F0 P:$00
 read memory: $83AE -> $68
-read memory: $01F0 -> $0F
+read memory: $01F1 -> $0F
 [$83AE] PLA 
 <REGISTER-DUMP> PC:$83AF A:$0F X:$11 Y:$11 S:$F1 P:$00
 read memory: $83AF -> $68
-read memory: $01F1 -> $0E
+read memory: $01F2 -> $0E
 [$83AF] PLA 
 <REGISTER-DUMP> PC:$83B0 A:$0E X:$11 Y:$11 S:$F2 P:$00
 read memory: $83B0 -> $68
-read memory: $01F2 -> $0D
+read memory: $01F3 -> $0D
 [$83B0] PLA 
 <REGISTER-DUMP> PC:$83B1 A:$0D X:$11 Y:$11 S:$F3 P:$00
 read memory: $83B1 -> $68
-read memory: $01F3 -> $0C
+read memory: $01F4 -> $0C
 [$83B1] PLA 
 <REGISTER-DUMP> PC:$83B2 A:$0C X:$11 Y:$11 S:$F4 P:$00
 read memory: $83B2 -> $68
-read memory: $01F4 -> $0B
+read memory: $01F5 -> $0B
 [$83B2] PLA 
 <REGISTER-DUMP> PC:$83B3 A:$0B X:$11 Y:$11 S:$F5 P:$00
 read memory: $83B3 -> $68
-read memory: $01F5 -> $0A
+read memory: $01F6 -> $0A
 [$83B3] PLA 
 <REGISTER-DUMP> PC:$83B4 A:$0A X:$11 Y:$11 S:$F6 P:$00
 read memory: $83B4 -> $68
-read memory: $01F6 -> $09
+read memory: $01F7 -> $09
 [$83B4] PLA 
 <REGISTER-DUMP> PC:$83B5 A:$09 X:$11 Y:$11 S:$F7 P:$00
 read memory: $83B5 -> $68
-read memory: $01F7 -> $08
+read memory: $01F8 -> $08
 [$83B5] PLA 
 <REGISTER-DUMP> PC:$83B6 A:$08 X:$11 Y:$11 S:$F8 P:$00
 read memory: $83B6 -> $68
-read memory: $01F8 -> $07
+read memory: $01F9 -> $07
 [$83B6] PLA 
 <REGISTER-DUMP> PC:$83B7 A:$07 X:$11 Y:$11 S:$F9 P:$00
 read memory: $83B7 -> $68
-read memory: $01F9 -> $06
+read memory: $01FA -> $06
 [$83B7] PLA 
 <REGISTER-DUMP> PC:$83B8 A:$06 X:$11 Y:$11 S:$FA P:$00
 read memory: $83B8 -> $68
-read memory: $01FA -> $05
+read memory: $01FB -> $05
 [$83B8] PLA 
 <REGISTER-DUMP> PC:$83B9 A:$05 X:$11 Y:$11 S:$FB P:$00
 read memory: $83B9 -> $68
-read memory: $01FB -> $04
+read memory: $01FC -> $04
 [$83B9] PLA 
 <REGISTER-DUMP> PC:$83BA A:$04 X:$11 Y:$11 S:$FC P:$00
 read memory: $83BA -> $68
-read memory: $01FC -> $03
+read memory: $01FD -> $03
 [$83BA] PLA 
 <REGISTER-DUMP> PC:$83BB A:$03 X:$11 Y:$11 S:$FD P:$00
 read memory: $83BB -> $68
-read memory: $01FD -> $02
+read memory: $01FE -> $02
 [$83BB] PLA 
 <REGISTER-DUMP> PC:$83BC A:$02 X:$11 Y:$11 S:$FE P:$00
 read memory: $83BC -> $68
-read memory: $01FE -> $01
+read memory: $01FF -> $01
 [$83BC] PLA 
 <REGISTER-DUMP> PC:$83BD A:$01 X:$11 Y:$11 S:$FF P:$00
 read memory: $83BD -> $68
-read memory: $01FF -> $00
+read memory: $0100 -> $00
 [$83BD] PLA 
 <REGISTER-DUMP> PC:$83BE A:$00 X:$11 Y:$11 S:$00 P:$00
 
 ===== TEST:PHP,PLP =====
 read memory: $83BE -> $08
-write memory: $01FF <- $00
+write memory: $0100 <- $00
 [$83BE] PHP 
 <REGISTER-DUMP> PC:$83BF A:$00 X:$11 Y:$11 S:$FF P:$00
 read memory: $83BF -> $08
-write memory: $01FE <- $01
+write memory: $01FF <- $01
 [$83BF] PHP 
 <REGISTER-DUMP> PC:$83C0 A:$00 X:$11 Y:$11 S:$FE P:$01
 read memory: $83C0 -> $08
-write memory: $01FD <- $02
+write memory: $01FE <- $02
 [$83C0] PHP 
 <REGISTER-DUMP> PC:$83C1 A:$00 X:$11 Y:$11 S:$FD P:$02
 read memory: $83C1 -> $08
-write memory: $01FC <- $03
+write memory: $01FD <- $03
 [$83C1] PHP 
 <REGISTER-DUMP> PC:$83C2 A:$00 X:$11 Y:$11 S:$FC P:$03
 read memory: $83C2 -> $08
-write memory: $01FB <- $04
+write memory: $01FC <- $04
 [$83C2] PHP 
 <REGISTER-DUMP> PC:$83C3 A:$00 X:$11 Y:$11 S:$FB P:$04
 read memory: $83C3 -> $08
-write memory: $01FA <- $05
+write memory: $01FB <- $05
 [$83C3] PHP 
 <REGISTER-DUMP> PC:$83C4 A:$00 X:$11 Y:$11 S:$FA P:$05
 read memory: $83C4 -> $08
-write memory: $01F9 <- $06
+write memory: $01FA <- $06
 [$83C4] PHP 
 <REGISTER-DUMP> PC:$83C5 A:$00 X:$11 Y:$11 S:$F9 P:$06
 read memory: $83C5 -> $08
-write memory: $01F8 <- $07
+write memory: $01F9 <- $07
 [$83C5] PHP 
 <REGISTER-DUMP> PC:$83C6 A:$00 X:$11 Y:$11 S:$F8 P:$07
 read memory: $83C6 -> $08
-write memory: $01F7 <- $08
+write memory: $01F8 <- $08
 [$83C6] PHP 
 <REGISTER-DUMP> PC:$83C7 A:$00 X:$11 Y:$11 S:$F7 P:$08
 read memory: $83C7 -> $08
-write memory: $01F6 <- $09
+write memory: $01F7 <- $09
 [$83C7] PHP 
 <REGISTER-DUMP> PC:$83C8 A:$00 X:$11 Y:$11 S:$F6 P:$09
 read memory: $83C8 -> $08
-write memory: $01F5 <- $0A
+write memory: $01F6 <- $0A
 [$83C8] PHP 
 <REGISTER-DUMP> PC:$83C9 A:$00 X:$11 Y:$11 S:$F5 P:$0A
 read memory: $83C9 -> $08
-write memory: $01F4 <- $0B
+write memory: $01F5 <- $0B
 [$83C9] PHP 
 <REGISTER-DUMP> PC:$83CA A:$00 X:$11 Y:$11 S:$F4 P:$0B
 read memory: $83CA -> $08
-write memory: $01F3 <- $0C
+write memory: $01F4 <- $0C
 [$83CA] PHP 
 <REGISTER-DUMP> PC:$83CB A:$00 X:$11 Y:$11 S:$F3 P:$0C
 read memory: $83CB -> $08
-write memory: $01F2 <- $0D
+write memory: $01F3 <- $0D
 [$83CB] PHP 
 <REGISTER-DUMP> PC:$83CC A:$00 X:$11 Y:$11 S:$F2 P:$0D
 read memory: $83CC -> $08
-write memory: $01F1 <- $0E
+write memory: $01F2 <- $0E
 [$83CC] PHP 
 <REGISTER-DUMP> PC:$83CD A:$00 X:$11 Y:$11 S:$F1 P:$0E
 read memory: $83CD -> $08
-write memory: $01F0 <- $0F
+write memory: $01F1 <- $0F
 [$83CD] PHP 
 <REGISTER-DUMP> PC:$83CE A:$00 X:$11 Y:$11 S:$F0 P:$0F
 read memory: $83CE -> $08
-write memory: $01EF <- $10
+write memory: $01F0 <- $10
 [$83CE] PHP 
 <REGISTER-DUMP> PC:$83CF A:$00 X:$11 Y:$11 S:$EF P:$10
 read memory: $83CF -> $08
-write memory: $01EE <- $11
+write memory: $01EF <- $11
 [$83CF] PHP 
 <REGISTER-DUMP> PC:$83D0 A:$00 X:$11 Y:$11 S:$EE P:$11
 read memory: $83D0 -> $08
-write memory: $01ED <- $12
+write memory: $01EE <- $12
 [$83D0] PHP 
 <REGISTER-DUMP> PC:$83D1 A:$00 X:$11 Y:$11 S:$ED P:$12
 read memory: $83D1 -> $08
-write memory: $01EC <- $13
+write memory: $01ED <- $13
 [$83D1] PHP 
 <REGISTER-DUMP> PC:$83D2 A:$00 X:$11 Y:$11 S:$EC P:$13
 read memory: $83D2 -> $08
-write memory: $01EB <- $14
+write memory: $01EC <- $14
 [$83D2] PHP 
 <REGISTER-DUMP> PC:$83D3 A:$00 X:$11 Y:$11 S:$EB P:$14
 read memory: $83D3 -> $08
-write memory: $01EA <- $15
+write memory: $01EB <- $15
 [$83D3] PHP 
 <REGISTER-DUMP> PC:$83D4 A:$00 X:$11 Y:$11 S:$EA P:$15
 read memory: $83D4 -> $08
-write memory: $01E9 <- $16
+write memory: $01EA <- $16
 [$83D4] PHP 
 <REGISTER-DUMP> PC:$83D5 A:$00 X:$11 Y:$11 S:$E9 P:$16
 read memory: $83D5 -> $08
-write memory: $01E8 <- $17
+write memory: $01E9 <- $17
 [$83D5] PHP 
 <REGISTER-DUMP> PC:$83D6 A:$00 X:$11 Y:$11 S:$E8 P:$17
 read memory: $83D6 -> $08
-write memory: $01E7 <- $18
+write memory: $01E8 <- $18
 [$83D6] PHP 
 <REGISTER-DUMP> PC:$83D7 A:$00 X:$11 Y:$11 S:$E7 P:$18
 read memory: $83D7 -> $08
-write memory: $01E6 <- $19
+write memory: $01E7 <- $19
 [$83D7] PHP 
 <REGISTER-DUMP> PC:$83D8 A:$00 X:$11 Y:$11 S:$E6 P:$19
 read memory: $83D8 -> $08
-write memory: $01E5 <- $1A
+write memory: $01E6 <- $1A
 [$83D8] PHP 
 <REGISTER-DUMP> PC:$83D9 A:$00 X:$11 Y:$11 S:$E5 P:$1A
 read memory: $83D9 -> $08
-write memory: $01E4 <- $1B
+write memory: $01E5 <- $1B
 [$83D9] PHP 
 <REGISTER-DUMP> PC:$83DA A:$00 X:$11 Y:$11 S:$E4 P:$1B
 read memory: $83DA -> $08
-write memory: $01E3 <- $1C
+write memory: $01E4 <- $1C
 [$83DA] PHP 
 <REGISTER-DUMP> PC:$83DB A:$00 X:$11 Y:$11 S:$E3 P:$1C
 read memory: $83DB -> $08
-write memory: $01E2 <- $1D
+write memory: $01E3 <- $1D
 [$83DB] PHP 
 <REGISTER-DUMP> PC:$83DC A:$00 X:$11 Y:$11 S:$E2 P:$1D
 read memory: $83DC -> $08
-write memory: $01E1 <- $1E
+write memory: $01E2 <- $1E
 [$83DC] PHP 
 <REGISTER-DUMP> PC:$83DD A:$00 X:$11 Y:$11 S:$E1 P:$1E
 read memory: $83DD -> $08
-write memory: $01E0 <- $1F
+write memory: $01E1 <- $1F
 [$83DD] PHP 
 <REGISTER-DUMP> PC:$83DE A:$00 X:$11 Y:$11 S:$E0 P:$1F
 read memory: $83DE -> $08
-write memory: $01DF <- $20
+write memory: $01E0 <- $20
 [$83DE] PHP 
 <REGISTER-DUMP> PC:$83DF A:$00 X:$11 Y:$11 S:$DF P:$20
 read memory: $83DF -> $08
-write memory: $01DE <- $21
+write memory: $01DF <- $21
 [$83DF] PHP 
 <REGISTER-DUMP> PC:$83E0 A:$00 X:$11 Y:$11 S:$DE P:$21
 read memory: $83E0 -> $08
-write memory: $01DD <- $22
+write memory: $01DE <- $22
 [$83E0] PHP 
 <REGISTER-DUMP> PC:$83E1 A:$00 X:$11 Y:$11 S:$DD P:$22
 read memory: $83E1 -> $08
-write memory: $01DC <- $23
+write memory: $01DD <- $23
 [$83E1] PHP 
 <REGISTER-DUMP> PC:$83E2 A:$00 X:$11 Y:$11 S:$DC P:$23
 read memory: $83E2 -> $08
-write memory: $01DB <- $24
+write memory: $01DC <- $24
 [$83E2] PHP 
 <REGISTER-DUMP> PC:$83E3 A:$00 X:$11 Y:$11 S:$DB P:$24
 read memory: $83E3 -> $08
-write memory: $01DA <- $25
+write memory: $01DB <- $25
 [$83E3] PHP 
 <REGISTER-DUMP> PC:$83E4 A:$00 X:$11 Y:$11 S:$DA P:$25
 read memory: $83E4 -> $08
-write memory: $01D9 <- $26
+write memory: $01DA <- $26
 [$83E4] PHP 
 <REGISTER-DUMP> PC:$83E5 A:$00 X:$11 Y:$11 S:$D9 P:$26
 read memory: $83E5 -> $08
-write memory: $01D8 <- $27
+write memory: $01D9 <- $27
 [$83E5] PHP 
 <REGISTER-DUMP> PC:$83E6 A:$00 X:$11 Y:$11 S:$D8 P:$27
 read memory: $83E6 -> $08
-write memory: $01D7 <- $28
+write memory: $01D8 <- $28
 [$83E6] PHP 
 <REGISTER-DUMP> PC:$83E7 A:$00 X:$11 Y:$11 S:$D7 P:$28
 read memory: $83E7 -> $08
-write memory: $01D6 <- $29
+write memory: $01D7 <- $29
 [$83E7] PHP 
 <REGISTER-DUMP> PC:$83E8 A:$00 X:$11 Y:$11 S:$D6 P:$29
 read memory: $83E8 -> $08
-write memory: $01D5 <- $2A
+write memory: $01D6 <- $2A
 [$83E8] PHP 
 <REGISTER-DUMP> PC:$83E9 A:$00 X:$11 Y:$11 S:$D5 P:$2A
 read memory: $83E9 -> $08
-write memory: $01D4 <- $2B
+write memory: $01D5 <- $2B
 [$83E9] PHP 
 <REGISTER-DUMP> PC:$83EA A:$00 X:$11 Y:$11 S:$D4 P:$2B
 read memory: $83EA -> $08
-write memory: $01D3 <- $2C
+write memory: $01D4 <- $2C
 [$83EA] PHP 
 <REGISTER-DUMP> PC:$83EB A:$00 X:$11 Y:$11 S:$D3 P:$2C
 read memory: $83EB -> $08
-write memory: $01D2 <- $2D
+write memory: $01D3 <- $2D
 [$83EB] PHP 
 <REGISTER-DUMP> PC:$83EC A:$00 X:$11 Y:$11 S:$D2 P:$2D
 read memory: $83EC -> $08
-write memory: $01D1 <- $2E
+write memory: $01D2 <- $2E
 [$83EC] PHP 
 <REGISTER-DUMP> PC:$83ED A:$00 X:$11 Y:$11 S:$D1 P:$2E
 read memory: $83ED -> $08
-write memory: $01D0 <- $2F
+write memory: $01D1 <- $2F
 [$83ED] PHP 
 <REGISTER-DUMP> PC:$83EE A:$00 X:$11 Y:$11 S:$D0 P:$2F
 read memory: $83EE -> $08
-write memory: $01CF <- $30
+write memory: $01D0 <- $30
 [$83EE] PHP 
 <REGISTER-DUMP> PC:$83EF A:$00 X:$11 Y:$11 S:$CF P:$30
 read memory: $83EF -> $08
-write memory: $01CE <- $31
+write memory: $01CF <- $31
 [$83EF] PHP 
 <REGISTER-DUMP> PC:$83F0 A:$00 X:$11 Y:$11 S:$CE P:$31
 read memory: $83F0 -> $08
-write memory: $01CD <- $32
+write memory: $01CE <- $32
 [$83F0] PHP 
 <REGISTER-DUMP> PC:$83F1 A:$00 X:$11 Y:$11 S:$CD P:$32
 read memory: $83F1 -> $08
-write memory: $01CC <- $33
+write memory: $01CD <- $33
 [$83F1] PHP 
 <REGISTER-DUMP> PC:$83F2 A:$00 X:$11 Y:$11 S:$CC P:$33
 read memory: $83F2 -> $08
-write memory: $01CB <- $34
+write memory: $01CC <- $34
 [$83F2] PHP 
 <REGISTER-DUMP> PC:$83F3 A:$00 X:$11 Y:$11 S:$CB P:$34
 read memory: $83F3 -> $08
-write memory: $01CA <- $35
+write memory: $01CB <- $35
 [$83F3] PHP 
 <REGISTER-DUMP> PC:$83F4 A:$00 X:$11 Y:$11 S:$CA P:$35
 read memory: $83F4 -> $08
-write memory: $01C9 <- $36
+write memory: $01CA <- $36
 [$83F4] PHP 
 <REGISTER-DUMP> PC:$83F5 A:$00 X:$11 Y:$11 S:$C9 P:$36
 read memory: $83F5 -> $08
-write memory: $01C8 <- $37
+write memory: $01C9 <- $37
 [$83F5] PHP 
 <REGISTER-DUMP> PC:$83F6 A:$00 X:$11 Y:$11 S:$C8 P:$37
 read memory: $83F6 -> $08
-write memory: $01C7 <- $38
+write memory: $01C8 <- $38
 [$83F6] PHP 
 <REGISTER-DUMP> PC:$83F7 A:$00 X:$11 Y:$11 S:$C7 P:$38
 read memory: $83F7 -> $08
-write memory: $01C6 <- $39
+write memory: $01C7 <- $39
 [$83F7] PHP 
 <REGISTER-DUMP> PC:$83F8 A:$00 X:$11 Y:$11 S:$C6 P:$39
 read memory: $83F8 -> $08
-write memory: $01C5 <- $3A
+write memory: $01C6 <- $3A
 [$83F8] PHP 
 <REGISTER-DUMP> PC:$83F9 A:$00 X:$11 Y:$11 S:$C5 P:$3A
 read memory: $83F9 -> $08
-write memory: $01C4 <- $3B
+write memory: $01C5 <- $3B
 [$83F9] PHP 
 <REGISTER-DUMP> PC:$83FA A:$00 X:$11 Y:$11 S:$C4 P:$3B
 read memory: $83FA -> $08
-write memory: $01C3 <- $3C
+write memory: $01C4 <- $3C
 [$83FA] PHP 
 <REGISTER-DUMP> PC:$83FB A:$00 X:$11 Y:$11 S:$C3 P:$3C
 read memory: $83FB -> $08
-write memory: $01C2 <- $3D
+write memory: $01C3 <- $3D
 [$83FB] PHP 
 <REGISTER-DUMP> PC:$83FC A:$00 X:$11 Y:$11 S:$C2 P:$3D
 read memory: $83FC -> $08
-write memory: $01C1 <- $3E
+write memory: $01C2 <- $3E
 [$83FC] PHP 
 <REGISTER-DUMP> PC:$83FD A:$00 X:$11 Y:$11 S:$C1 P:$3E
 read memory: $83FD -> $08
-write memory: $01C0 <- $3F
+write memory: $01C1 <- $3F
 [$83FD] PHP 
 <REGISTER-DUMP> PC:$83FE A:$00 X:$11 Y:$11 S:$C0 P:$3F
 read memory: $83FE -> $08
-write memory: $01BF <- $40
+write memory: $01C0 <- $40
 [$83FE] PHP 
 <REGISTER-DUMP> PC:$83FF A:$00 X:$11 Y:$11 S:$BF P:$40
 read memory: $83FF -> $08
-write memory: $01BE <- $41
+write memory: $01BF <- $41
 [$83FF] PHP 
 <REGISTER-DUMP> PC:$8400 A:$00 X:$11 Y:$11 S:$BE P:$41
 read memory: $8400 -> $08
-write memory: $01BD <- $42
+write memory: $01BE <- $42
 [$8400] PHP 
 <REGISTER-DUMP> PC:$8401 A:$00 X:$11 Y:$11 S:$BD P:$42
 read memory: $8401 -> $08
-write memory: $01BC <- $43
+write memory: $01BD <- $43
 [$8401] PHP 
 <REGISTER-DUMP> PC:$8402 A:$00 X:$11 Y:$11 S:$BC P:$43
 read memory: $8402 -> $08
-write memory: $01BB <- $44
+write memory: $01BC <- $44
 [$8402] PHP 
 <REGISTER-DUMP> PC:$8403 A:$00 X:$11 Y:$11 S:$BB P:$44
 read memory: $8403 -> $08
-write memory: $01BA <- $45
+write memory: $01BB <- $45
 [$8403] PHP 
 <REGISTER-DUMP> PC:$8404 A:$00 X:$11 Y:$11 S:$BA P:$45
 read memory: $8404 -> $08
-write memory: $01B9 <- $46
+write memory: $01BA <- $46
 [$8404] PHP 
 <REGISTER-DUMP> PC:$8405 A:$00 X:$11 Y:$11 S:$B9 P:$46
 read memory: $8405 -> $08
-write memory: $01B8 <- $47
+write memory: $01B9 <- $47
 [$8405] PHP 
 <REGISTER-DUMP> PC:$8406 A:$00 X:$11 Y:$11 S:$B8 P:$47
 read memory: $8406 -> $08
-write memory: $01B7 <- $48
+write memory: $01B8 <- $48
 [$8406] PHP 
 <REGISTER-DUMP> PC:$8407 A:$00 X:$11 Y:$11 S:$B7 P:$48
 read memory: $8407 -> $08
-write memory: $01B6 <- $49
+write memory: $01B7 <- $49
 [$8407] PHP 
 <REGISTER-DUMP> PC:$8408 A:$00 X:$11 Y:$11 S:$B6 P:$49
 read memory: $8408 -> $08
-write memory: $01B5 <- $4A
+write memory: $01B6 <- $4A
 [$8408] PHP 
 <REGISTER-DUMP> PC:$8409 A:$00 X:$11 Y:$11 S:$B5 P:$4A
 read memory: $8409 -> $08
-write memory: $01B4 <- $4B
+write memory: $01B5 <- $4B
 [$8409] PHP 
 <REGISTER-DUMP> PC:$840A A:$00 X:$11 Y:$11 S:$B4 P:$4B
 read memory: $840A -> $08
-write memory: $01B3 <- $4C
+write memory: $01B4 <- $4C
 [$840A] PHP 
 <REGISTER-DUMP> PC:$840B A:$00 X:$11 Y:$11 S:$B3 P:$4C
 read memory: $840B -> $08
-write memory: $01B2 <- $4D
+write memory: $01B3 <- $4D
 [$840B] PHP 
 <REGISTER-DUMP> PC:$840C A:$00 X:$11 Y:$11 S:$B2 P:$4D
 read memory: $840C -> $08
-write memory: $01B1 <- $4E
+write memory: $01B2 <- $4E
 [$840C] PHP 
 <REGISTER-DUMP> PC:$840D A:$00 X:$11 Y:$11 S:$B1 P:$4E
 read memory: $840D -> $08
-write memory: $01B0 <- $4F
+write memory: $01B1 <- $4F
 [$840D] PHP 
 <REGISTER-DUMP> PC:$840E A:$00 X:$11 Y:$11 S:$B0 P:$4F
 read memory: $840E -> $08
-write memory: $01AF <- $50
+write memory: $01B0 <- $50
 [$840E] PHP 
 <REGISTER-DUMP> PC:$840F A:$00 X:$11 Y:$11 S:$AF P:$50
 read memory: $840F -> $08
-write memory: $01AE <- $51
+write memory: $01AF <- $51
 [$840F] PHP 
 <REGISTER-DUMP> PC:$8410 A:$00 X:$11 Y:$11 S:$AE P:$51
 read memory: $8410 -> $08
-write memory: $01AD <- $52
+write memory: $01AE <- $52
 [$8410] PHP 
 <REGISTER-DUMP> PC:$8411 A:$00 X:$11 Y:$11 S:$AD P:$52
 read memory: $8411 -> $08
-write memory: $01AC <- $53
+write memory: $01AD <- $53
 [$8411] PHP 
 <REGISTER-DUMP> PC:$8412 A:$00 X:$11 Y:$11 S:$AC P:$53
 read memory: $8412 -> $08
-write memory: $01AB <- $54
+write memory: $01AC <- $54
 [$8412] PHP 
 <REGISTER-DUMP> PC:$8413 A:$00 X:$11 Y:$11 S:$AB P:$54
 read memory: $8413 -> $08
-write memory: $01AA <- $55
+write memory: $01AB <- $55
 [$8413] PHP 
 <REGISTER-DUMP> PC:$8414 A:$00 X:$11 Y:$11 S:$AA P:$55
 read memory: $8414 -> $08
-write memory: $01A9 <- $56
+write memory: $01AA <- $56
 [$8414] PHP 
 <REGISTER-DUMP> PC:$8415 A:$00 X:$11 Y:$11 S:$A9 P:$56
 read memory: $8415 -> $08
-write memory: $01A8 <- $57
+write memory: $01A9 <- $57
 [$8415] PHP 
 <REGISTER-DUMP> PC:$8416 A:$00 X:$11 Y:$11 S:$A8 P:$57
 read memory: $8416 -> $08
-write memory: $01A7 <- $58
+write memory: $01A8 <- $58
 [$8416] PHP 
 <REGISTER-DUMP> PC:$8417 A:$00 X:$11 Y:$11 S:$A7 P:$58
 read memory: $8417 -> $08
-write memory: $01A6 <- $59
+write memory: $01A7 <- $59
 [$8417] PHP 
 <REGISTER-DUMP> PC:$8418 A:$00 X:$11 Y:$11 S:$A6 P:$59
 read memory: $8418 -> $08
-write memory: $01A5 <- $5A
+write memory: $01A6 <- $5A
 [$8418] PHP 
 <REGISTER-DUMP> PC:$8419 A:$00 X:$11 Y:$11 S:$A5 P:$5A
 read memory: $8419 -> $08
-write memory: $01A4 <- $5B
+write memory: $01A5 <- $5B
 [$8419] PHP 
 <REGISTER-DUMP> PC:$841A A:$00 X:$11 Y:$11 S:$A4 P:$5B
 read memory: $841A -> $08
-write memory: $01A3 <- $5C
+write memory: $01A4 <- $5C
 [$841A] PHP 
 <REGISTER-DUMP> PC:$841B A:$00 X:$11 Y:$11 S:$A3 P:$5C
 read memory: $841B -> $08
-write memory: $01A2 <- $5D
+write memory: $01A3 <- $5D
 [$841B] PHP 
 <REGISTER-DUMP> PC:$841C A:$00 X:$11 Y:$11 S:$A2 P:$5D
 read memory: $841C -> $08
-write memory: $01A1 <- $5E
+write memory: $01A2 <- $5E
 [$841C] PHP 
 <REGISTER-DUMP> PC:$841D A:$00 X:$11 Y:$11 S:$A1 P:$5E
 read memory: $841D -> $08
-write memory: $01A0 <- $5F
+write memory: $01A1 <- $5F
 [$841D] PHP 
 <REGISTER-DUMP> PC:$841E A:$00 X:$11 Y:$11 S:$A0 P:$5F
 read memory: $841E -> $08
-write memory: $019F <- $60
+write memory: $01A0 <- $60
 [$841E] PHP 
 <REGISTER-DUMP> PC:$841F A:$00 X:$11 Y:$11 S:$9F P:$60
 read memory: $841F -> $08
-write memory: $019E <- $61
+write memory: $019F <- $61
 [$841F] PHP 
 <REGISTER-DUMP> PC:$8420 A:$00 X:$11 Y:$11 S:$9E P:$61
 read memory: $8420 -> $08
-write memory: $019D <- $62
+write memory: $019E <- $62
 [$8420] PHP 
 <REGISTER-DUMP> PC:$8421 A:$00 X:$11 Y:$11 S:$9D P:$62
 read memory: $8421 -> $08
-write memory: $019C <- $63
+write memory: $019D <- $63
 [$8421] PHP 
 <REGISTER-DUMP> PC:$8422 A:$00 X:$11 Y:$11 S:$9C P:$63
 read memory: $8422 -> $08
-write memory: $019B <- $64
+write memory: $019C <- $64
 [$8422] PHP 
 <REGISTER-DUMP> PC:$8423 A:$00 X:$11 Y:$11 S:$9B P:$64
 read memory: $8423 -> $08
-write memory: $019A <- $65
+write memory: $019B <- $65
 [$8423] PHP 
 <REGISTER-DUMP> PC:$8424 A:$00 X:$11 Y:$11 S:$9A P:$65
 read memory: $8424 -> $08
-write memory: $0199 <- $66
+write memory: $019A <- $66
 [$8424] PHP 
 <REGISTER-DUMP> PC:$8425 A:$00 X:$11 Y:$11 S:$99 P:$66
 read memory: $8425 -> $08
-write memory: $0198 <- $67
+write memory: $0199 <- $67
 [$8425] PHP 
 <REGISTER-DUMP> PC:$8426 A:$00 X:$11 Y:$11 S:$98 P:$67
 read memory: $8426 -> $08
-write memory: $0197 <- $68
+write memory: $0198 <- $68
 [$8426] PHP 
 <REGISTER-DUMP> PC:$8427 A:$00 X:$11 Y:$11 S:$97 P:$68
 read memory: $8427 -> $08
-write memory: $0196 <- $69
+write memory: $0197 <- $69
 [$8427] PHP 
 <REGISTER-DUMP> PC:$8428 A:$00 X:$11 Y:$11 S:$96 P:$69
 read memory: $8428 -> $08
-write memory: $0195 <- $6A
+write memory: $0196 <- $6A
 [$8428] PHP 
 <REGISTER-DUMP> PC:$8429 A:$00 X:$11 Y:$11 S:$95 P:$6A
 read memory: $8429 -> $08
-write memory: $0194 <- $6B
+write memory: $0195 <- $6B
 [$8429] PHP 
 <REGISTER-DUMP> PC:$842A A:$00 X:$11 Y:$11 S:$94 P:$6B
 read memory: $842A -> $08
-write memory: $0193 <- $6C
+write memory: $0194 <- $6C
 [$842A] PHP 
 <REGISTER-DUMP> PC:$842B A:$00 X:$11 Y:$11 S:$93 P:$6C
 read memory: $842B -> $08
-write memory: $0192 <- $6D
+write memory: $0193 <- $6D
 [$842B] PHP 
 <REGISTER-DUMP> PC:$842C A:$00 X:$11 Y:$11 S:$92 P:$6D
 read memory: $842C -> $08
-write memory: $0191 <- $6E
+write memory: $0192 <- $6E
 [$842C] PHP 
 <REGISTER-DUMP> PC:$842D A:$00 X:$11 Y:$11 S:$91 P:$6E
 read memory: $842D -> $08
-write memory: $0190 <- $6F
+write memory: $0191 <- $6F
 [$842D] PHP 
 <REGISTER-DUMP> PC:$842E A:$00 X:$11 Y:$11 S:$90 P:$6F
 read memory: $842E -> $08
-write memory: $018F <- $70
+write memory: $0190 <- $70
 [$842E] PHP 
 <REGISTER-DUMP> PC:$842F A:$00 X:$11 Y:$11 S:$8F P:$70
 read memory: $842F -> $08
-write memory: $018E <- $71
+write memory: $018F <- $71
 [$842F] PHP 
 <REGISTER-DUMP> PC:$8430 A:$00 X:$11 Y:$11 S:$8E P:$71
 read memory: $8430 -> $08
-write memory: $018D <- $72
+write memory: $018E <- $72
 [$8430] PHP 
 <REGISTER-DUMP> PC:$8431 A:$00 X:$11 Y:$11 S:$8D P:$72
 read memory: $8431 -> $08
-write memory: $018C <- $73
+write memory: $018D <- $73
 [$8431] PHP 
 <REGISTER-DUMP> PC:$8432 A:$00 X:$11 Y:$11 S:$8C P:$73
 read memory: $8432 -> $08
-write memory: $018B <- $74
+write memory: $018C <- $74
 [$8432] PHP 
 <REGISTER-DUMP> PC:$8433 A:$00 X:$11 Y:$11 S:$8B P:$74
 read memory: $8433 -> $08
-write memory: $018A <- $75
+write memory: $018B <- $75
 [$8433] PHP 
 <REGISTER-DUMP> PC:$8434 A:$00 X:$11 Y:$11 S:$8A P:$75
 read memory: $8434 -> $08
-write memory: $0189 <- $76
+write memory: $018A <- $76
 [$8434] PHP 
 <REGISTER-DUMP> PC:$8435 A:$00 X:$11 Y:$11 S:$89 P:$76
 read memory: $8435 -> $08
-write memory: $0188 <- $77
+write memory: $0189 <- $77
 [$8435] PHP 
 <REGISTER-DUMP> PC:$8436 A:$00 X:$11 Y:$11 S:$88 P:$77
 read memory: $8436 -> $08
-write memory: $0187 <- $78
+write memory: $0188 <- $78
 [$8436] PHP 
 <REGISTER-DUMP> PC:$8437 A:$00 X:$11 Y:$11 S:$87 P:$78
 read memory: $8437 -> $08
-write memory: $0186 <- $79
+write memory: $0187 <- $79
 [$8437] PHP 
 <REGISTER-DUMP> PC:$8438 A:$00 X:$11 Y:$11 S:$86 P:$79
 read memory: $8438 -> $08
-write memory: $0185 <- $7A
+write memory: $0186 <- $7A
 [$8438] PHP 
 <REGISTER-DUMP> PC:$8439 A:$00 X:$11 Y:$11 S:$85 P:$7A
 read memory: $8439 -> $08
-write memory: $0184 <- $7B
+write memory: $0185 <- $7B
 [$8439] PHP 
 <REGISTER-DUMP> PC:$843A A:$00 X:$11 Y:$11 S:$84 P:$7B
 read memory: $843A -> $08
-write memory: $0183 <- $7C
+write memory: $0184 <- $7C
 [$843A] PHP 
 <REGISTER-DUMP> PC:$843B A:$00 X:$11 Y:$11 S:$83 P:$7C
 read memory: $843B -> $08
-write memory: $0182 <- $7D
+write memory: $0183 <- $7D
 [$843B] PHP 
 <REGISTER-DUMP> PC:$843C A:$00 X:$11 Y:$11 S:$82 P:$7D
 read memory: $843C -> $08
-write memory: $0181 <- $7E
+write memory: $0182 <- $7E
 [$843C] PHP 
 <REGISTER-DUMP> PC:$843D A:$00 X:$11 Y:$11 S:$81 P:$7E
 read memory: $843D -> $08
-write memory: $0180 <- $7F
+write memory: $0181 <- $7F
 [$843D] PHP 
 <REGISTER-DUMP> PC:$843E A:$00 X:$11 Y:$11 S:$80 P:$7F
 read memory: $843E -> $08
-write memory: $017F <- $80
+write memory: $0180 <- $80
 [$843E] PHP 
 <REGISTER-DUMP> PC:$843F A:$00 X:$11 Y:$11 S:$7F P:$80
 read memory: $843F -> $08
-write memory: $017E <- $81
+write memory: $017F <- $81
 [$843F] PHP 
 <REGISTER-DUMP> PC:$8440 A:$00 X:$11 Y:$11 S:$7E P:$81
 read memory: $8440 -> $08
-write memory: $017D <- $82
+write memory: $017E <- $82
 [$8440] PHP 
 <REGISTER-DUMP> PC:$8441 A:$00 X:$11 Y:$11 S:$7D P:$82
 read memory: $8441 -> $08
-write memory: $017C <- $83
+write memory: $017D <- $83
 [$8441] PHP 
 <REGISTER-DUMP> PC:$8442 A:$00 X:$11 Y:$11 S:$7C P:$83
 read memory: $8442 -> $08
-write memory: $017B <- $84
+write memory: $017C <- $84
 [$8442] PHP 
 <REGISTER-DUMP> PC:$8443 A:$00 X:$11 Y:$11 S:$7B P:$84
 read memory: $8443 -> $08
-write memory: $017A <- $85
+write memory: $017B <- $85
 [$8443] PHP 
 <REGISTER-DUMP> PC:$8444 A:$00 X:$11 Y:$11 S:$7A P:$85
 read memory: $8444 -> $08
-write memory: $0179 <- $86
+write memory: $017A <- $86
 [$8444] PHP 
 <REGISTER-DUMP> PC:$8445 A:$00 X:$11 Y:$11 S:$79 P:$86
 read memory: $8445 -> $08
-write memory: $0178 <- $87
+write memory: $0179 <- $87
 [$8445] PHP 
 <REGISTER-DUMP> PC:$8446 A:$00 X:$11 Y:$11 S:$78 P:$87
 read memory: $8446 -> $08
-write memory: $0177 <- $88
+write memory: $0178 <- $88
 [$8446] PHP 
 <REGISTER-DUMP> PC:$8447 A:$00 X:$11 Y:$11 S:$77 P:$88
 read memory: $8447 -> $08
-write memory: $0176 <- $89
+write memory: $0177 <- $89
 [$8447] PHP 
 <REGISTER-DUMP> PC:$8448 A:$00 X:$11 Y:$11 S:$76 P:$89
 read memory: $8448 -> $08
-write memory: $0175 <- $8A
+write memory: $0176 <- $8A
 [$8448] PHP 
 <REGISTER-DUMP> PC:$8449 A:$00 X:$11 Y:$11 S:$75 P:$8A
 read memory: $8449 -> $08
-write memory: $0174 <- $8B
+write memory: $0175 <- $8B
 [$8449] PHP 
 <REGISTER-DUMP> PC:$844A A:$00 X:$11 Y:$11 S:$74 P:$8B
 read memory: $844A -> $08
-write memory: $0173 <- $8C
+write memory: $0174 <- $8C
 [$844A] PHP 
 <REGISTER-DUMP> PC:$844B A:$00 X:$11 Y:$11 S:$73 P:$8C
 read memory: $844B -> $08
-write memory: $0172 <- $8D
+write memory: $0173 <- $8D
 [$844B] PHP 
 <REGISTER-DUMP> PC:$844C A:$00 X:$11 Y:$11 S:$72 P:$8D
 read memory: $844C -> $08
-write memory: $0171 <- $8E
+write memory: $0172 <- $8E
 [$844C] PHP 
 <REGISTER-DUMP> PC:$844D A:$00 X:$11 Y:$11 S:$71 P:$8E
 read memory: $844D -> $08
-write memory: $0170 <- $8F
+write memory: $0171 <- $8F
 [$844D] PHP 
 <REGISTER-DUMP> PC:$844E A:$00 X:$11 Y:$11 S:$70 P:$8F
 read memory: $844E -> $08
-write memory: $016F <- $90
+write memory: $0170 <- $90
 [$844E] PHP 
 <REGISTER-DUMP> PC:$844F A:$00 X:$11 Y:$11 S:$6F P:$90
 read memory: $844F -> $08
-write memory: $016E <- $91
+write memory: $016F <- $91
 [$844F] PHP 
 <REGISTER-DUMP> PC:$8450 A:$00 X:$11 Y:$11 S:$6E P:$91
 read memory: $8450 -> $08
-write memory: $016D <- $92
+write memory: $016E <- $92
 [$8450] PHP 
 <REGISTER-DUMP> PC:$8451 A:$00 X:$11 Y:$11 S:$6D P:$92
 read memory: $8451 -> $08
-write memory: $016C <- $93
+write memory: $016D <- $93
 [$8451] PHP 
 <REGISTER-DUMP> PC:$8452 A:$00 X:$11 Y:$11 S:$6C P:$93
 read memory: $8452 -> $08
-write memory: $016B <- $94
+write memory: $016C <- $94
 [$8452] PHP 
 <REGISTER-DUMP> PC:$8453 A:$00 X:$11 Y:$11 S:$6B P:$94
 read memory: $8453 -> $08
-write memory: $016A <- $95
+write memory: $016B <- $95
 [$8453] PHP 
 <REGISTER-DUMP> PC:$8454 A:$00 X:$11 Y:$11 S:$6A P:$95
 read memory: $8454 -> $08
-write memory: $0169 <- $96
+write memory: $016A <- $96
 [$8454] PHP 
 <REGISTER-DUMP> PC:$8455 A:$00 X:$11 Y:$11 S:$69 P:$96
 read memory: $8455 -> $08
-write memory: $0168 <- $97
+write memory: $0169 <- $97
 [$8455] PHP 
 <REGISTER-DUMP> PC:$8456 A:$00 X:$11 Y:$11 S:$68 P:$97
 read memory: $8456 -> $08
-write memory: $0167 <- $98
+write memory: $0168 <- $98
 [$8456] PHP 
 <REGISTER-DUMP> PC:$8457 A:$00 X:$11 Y:$11 S:$67 P:$98
 read memory: $8457 -> $08
-write memory: $0166 <- $99
+write memory: $0167 <- $99
 [$8457] PHP 
 <REGISTER-DUMP> PC:$8458 A:$00 X:$11 Y:$11 S:$66 P:$99
 read memory: $8458 -> $08
-write memory: $0165 <- $9A
+write memory: $0166 <- $9A
 [$8458] PHP 
 <REGISTER-DUMP> PC:$8459 A:$00 X:$11 Y:$11 S:$65 P:$9A
 read memory: $8459 -> $08
-write memory: $0164 <- $9B
+write memory: $0165 <- $9B
 [$8459] PHP 
 <REGISTER-DUMP> PC:$845A A:$00 X:$11 Y:$11 S:$64 P:$9B
 read memory: $845A -> $08
-write memory: $0163 <- $9C
+write memory: $0164 <- $9C
 [$845A] PHP 
 <REGISTER-DUMP> PC:$845B A:$00 X:$11 Y:$11 S:$63 P:$9C
 read memory: $845B -> $08
-write memory: $0162 <- $9D
+write memory: $0163 <- $9D
 [$845B] PHP 
 <REGISTER-DUMP> PC:$845C A:$00 X:$11 Y:$11 S:$62 P:$9D
 read memory: $845C -> $08
-write memory: $0161 <- $9E
+write memory: $0162 <- $9E
 [$845C] PHP 
 <REGISTER-DUMP> PC:$845D A:$00 X:$11 Y:$11 S:$61 P:$9E
 read memory: $845D -> $08
-write memory: $0160 <- $9F
+write memory: $0161 <- $9F
 [$845D] PHP 
 <REGISTER-DUMP> PC:$845E A:$00 X:$11 Y:$11 S:$60 P:$9F
 read memory: $845E -> $08
-write memory: $015F <- $A0
+write memory: $0160 <- $A0
 [$845E] PHP 
 <REGISTER-DUMP> PC:$845F A:$00 X:$11 Y:$11 S:$5F P:$A0
 read memory: $845F -> $08
-write memory: $015E <- $A1
+write memory: $015F <- $A1
 [$845F] PHP 
 <REGISTER-DUMP> PC:$8460 A:$00 X:$11 Y:$11 S:$5E P:$A1
 read memory: $8460 -> $08
-write memory: $015D <- $A2
+write memory: $015E <- $A2
 [$8460] PHP 
 <REGISTER-DUMP> PC:$8461 A:$00 X:$11 Y:$11 S:$5D P:$A2
 read memory: $8461 -> $08
-write memory: $015C <- $A3
+write memory: $015D <- $A3
 [$8461] PHP 
 <REGISTER-DUMP> PC:$8462 A:$00 X:$11 Y:$11 S:$5C P:$A3
 read memory: $8462 -> $08
-write memory: $015B <- $A4
+write memory: $015C <- $A4
 [$8462] PHP 
 <REGISTER-DUMP> PC:$8463 A:$00 X:$11 Y:$11 S:$5B P:$A4
 read memory: $8463 -> $08
-write memory: $015A <- $A5
+write memory: $015B <- $A5
 [$8463] PHP 
 <REGISTER-DUMP> PC:$8464 A:$00 X:$11 Y:$11 S:$5A P:$A5
 read memory: $8464 -> $08
-write memory: $0159 <- $A6
+write memory: $015A <- $A6
 [$8464] PHP 
 <REGISTER-DUMP> PC:$8465 A:$00 X:$11 Y:$11 S:$59 P:$A6
 read memory: $8465 -> $08
-write memory: $0158 <- $A7
+write memory: $0159 <- $A7
 [$8465] PHP 
 <REGISTER-DUMP> PC:$8466 A:$00 X:$11 Y:$11 S:$58 P:$A7
 read memory: $8466 -> $08
-write memory: $0157 <- $A8
+write memory: $0158 <- $A8
 [$8466] PHP 
 <REGISTER-DUMP> PC:$8467 A:$00 X:$11 Y:$11 S:$57 P:$A8
 read memory: $8467 -> $08
-write memory: $0156 <- $A9
+write memory: $0157 <- $A9
 [$8467] PHP 
 <REGISTER-DUMP> PC:$8468 A:$00 X:$11 Y:$11 S:$56 P:$A9
 read memory: $8468 -> $08
-write memory: $0155 <- $AA
+write memory: $0156 <- $AA
 [$8468] PHP 
 <REGISTER-DUMP> PC:$8469 A:$00 X:$11 Y:$11 S:$55 P:$AA
 read memory: $8469 -> $08
-write memory: $0154 <- $AB
+write memory: $0155 <- $AB
 [$8469] PHP 
 <REGISTER-DUMP> PC:$846A A:$00 X:$11 Y:$11 S:$54 P:$AB
 read memory: $846A -> $08
-write memory: $0153 <- $AC
+write memory: $0154 <- $AC
 [$846A] PHP 
 <REGISTER-DUMP> PC:$846B A:$00 X:$11 Y:$11 S:$53 P:$AC
 read memory: $846B -> $08
-write memory: $0152 <- $AD
+write memory: $0153 <- $AD
 [$846B] PHP 
 <REGISTER-DUMP> PC:$846C A:$00 X:$11 Y:$11 S:$52 P:$AD
 read memory: $846C -> $08
-write memory: $0151 <- $AE
+write memory: $0152 <- $AE
 [$846C] PHP 
 <REGISTER-DUMP> PC:$846D A:$00 X:$11 Y:$11 S:$51 P:$AE
 read memory: $846D -> $08
-write memory: $0150 <- $AF
+write memory: $0151 <- $AF
 [$846D] PHP 
 <REGISTER-DUMP> PC:$846E A:$00 X:$11 Y:$11 S:$50 P:$AF
 read memory: $846E -> $08
-write memory: $014F <- $B0
+write memory: $0150 <- $B0
 [$846E] PHP 
 <REGISTER-DUMP> PC:$846F A:$00 X:$11 Y:$11 S:$4F P:$B0
 read memory: $846F -> $08
-write memory: $014E <- $B1
+write memory: $014F <- $B1
 [$846F] PHP 
 <REGISTER-DUMP> PC:$8470 A:$00 X:$11 Y:$11 S:$4E P:$B1
 read memory: $8470 -> $08
-write memory: $014D <- $B2
+write memory: $014E <- $B2
 [$8470] PHP 
 <REGISTER-DUMP> PC:$8471 A:$00 X:$11 Y:$11 S:$4D P:$B2
 read memory: $8471 -> $08
-write memory: $014C <- $B3
+write memory: $014D <- $B3
 [$8471] PHP 
 <REGISTER-DUMP> PC:$8472 A:$00 X:$11 Y:$11 S:$4C P:$B3
 read memory: $8472 -> $08
-write memory: $014B <- $B4
+write memory: $014C <- $B4
 [$8472] PHP 
 <REGISTER-DUMP> PC:$8473 A:$00 X:$11 Y:$11 S:$4B P:$B4
 read memory: $8473 -> $08
-write memory: $014A <- $B5
+write memory: $014B <- $B5
 [$8473] PHP 
 <REGISTER-DUMP> PC:$8474 A:$00 X:$11 Y:$11 S:$4A P:$B5
 read memory: $8474 -> $08
-write memory: $0149 <- $B6
+write memory: $014A <- $B6
 [$8474] PHP 
 <REGISTER-DUMP> PC:$8475 A:$00 X:$11 Y:$11 S:$49 P:$B6
 read memory: $8475 -> $08
-write memory: $0148 <- $B7
+write memory: $0149 <- $B7
 [$8475] PHP 
 <REGISTER-DUMP> PC:$8476 A:$00 X:$11 Y:$11 S:$48 P:$B7
 read memory: $8476 -> $08
-write memory: $0147 <- $B8
+write memory: $0148 <- $B8
 [$8476] PHP 
 <REGISTER-DUMP> PC:$8477 A:$00 X:$11 Y:$11 S:$47 P:$B8
 read memory: $8477 -> $08
-write memory: $0146 <- $B9
+write memory: $0147 <- $B9
 [$8477] PHP 
 <REGISTER-DUMP> PC:$8478 A:$00 X:$11 Y:$11 S:$46 P:$B9
 read memory: $8478 -> $08
-write memory: $0145 <- $BA
+write memory: $0146 <- $BA
 [$8478] PHP 
 <REGISTER-DUMP> PC:$8479 A:$00 X:$11 Y:$11 S:$45 P:$BA
 read memory: $8479 -> $08
-write memory: $0144 <- $BB
+write memory: $0145 <- $BB
 [$8479] PHP 
 <REGISTER-DUMP> PC:$847A A:$00 X:$11 Y:$11 S:$44 P:$BB
 read memory: $847A -> $08
-write memory: $0143 <- $BC
+write memory: $0144 <- $BC
 [$847A] PHP 
 <REGISTER-DUMP> PC:$847B A:$00 X:$11 Y:$11 S:$43 P:$BC
 read memory: $847B -> $08
-write memory: $0142 <- $BD
+write memory: $0143 <- $BD
 [$847B] PHP 
 <REGISTER-DUMP> PC:$847C A:$00 X:$11 Y:$11 S:$42 P:$BD
 read memory: $847C -> $08
-write memory: $0141 <- $BE
+write memory: $0142 <- $BE
 [$847C] PHP 
 <REGISTER-DUMP> PC:$847D A:$00 X:$11 Y:$11 S:$41 P:$BE
 read memory: $847D -> $08
-write memory: $0140 <- $BF
+write memory: $0141 <- $BF
 [$847D] PHP 
 <REGISTER-DUMP> PC:$847E A:$00 X:$11 Y:$11 S:$40 P:$BF
 read memory: $847E -> $08
-write memory: $013F <- $C0
+write memory: $0140 <- $C0
 [$847E] PHP 
 <REGISTER-DUMP> PC:$847F A:$00 X:$11 Y:$11 S:$3F P:$C0
 read memory: $847F -> $08
-write memory: $013E <- $C1
+write memory: $013F <- $C1
 [$847F] PHP 
 <REGISTER-DUMP> PC:$8480 A:$00 X:$11 Y:$11 S:$3E P:$C1
 read memory: $8480 -> $08
-write memory: $013D <- $C2
+write memory: $013E <- $C2
 [$8480] PHP 
 <REGISTER-DUMP> PC:$8481 A:$00 X:$11 Y:$11 S:$3D P:$C2
 read memory: $8481 -> $08
-write memory: $013C <- $C3
+write memory: $013D <- $C3
 [$8481] PHP 
 <REGISTER-DUMP> PC:$8482 A:$00 X:$11 Y:$11 S:$3C P:$C3
 read memory: $8482 -> $08
-write memory: $013B <- $C4
+write memory: $013C <- $C4
 [$8482] PHP 
 <REGISTER-DUMP> PC:$8483 A:$00 X:$11 Y:$11 S:$3B P:$C4
 read memory: $8483 -> $08
-write memory: $013A <- $C5
+write memory: $013B <- $C5
 [$8483] PHP 
 <REGISTER-DUMP> PC:$8484 A:$00 X:$11 Y:$11 S:$3A P:$C5
 read memory: $8484 -> $08
-write memory: $0139 <- $C6
+write memory: $013A <- $C6
 [$8484] PHP 
 <REGISTER-DUMP> PC:$8485 A:$00 X:$11 Y:$11 S:$39 P:$C6
 read memory: $8485 -> $08
-write memory: $0138 <- $C7
+write memory: $0139 <- $C7
 [$8485] PHP 
 <REGISTER-DUMP> PC:$8486 A:$00 X:$11 Y:$11 S:$38 P:$C7
 read memory: $8486 -> $08
-write memory: $0137 <- $C8
+write memory: $0138 <- $C8
 [$8486] PHP 
 <REGISTER-DUMP> PC:$8487 A:$00 X:$11 Y:$11 S:$37 P:$C8
 read memory: $8487 -> $08
-write memory: $0136 <- $C9
+write memory: $0137 <- $C9
 [$8487] PHP 
 <REGISTER-DUMP> PC:$8488 A:$00 X:$11 Y:$11 S:$36 P:$C9
 read memory: $8488 -> $08
-write memory: $0135 <- $CA
+write memory: $0136 <- $CA
 [$8488] PHP 
 <REGISTER-DUMP> PC:$8489 A:$00 X:$11 Y:$11 S:$35 P:$CA
 read memory: $8489 -> $08
-write memory: $0134 <- $CB
+write memory: $0135 <- $CB
 [$8489] PHP 
 <REGISTER-DUMP> PC:$848A A:$00 X:$11 Y:$11 S:$34 P:$CB
 read memory: $848A -> $08
-write memory: $0133 <- $CC
+write memory: $0134 <- $CC
 [$848A] PHP 
 <REGISTER-DUMP> PC:$848B A:$00 X:$11 Y:$11 S:$33 P:$CC
 read memory: $848B -> $08
-write memory: $0132 <- $CD
+write memory: $0133 <- $CD
 [$848B] PHP 
 <REGISTER-DUMP> PC:$848C A:$00 X:$11 Y:$11 S:$32 P:$CD
 read memory: $848C -> $08
-write memory: $0131 <- $CE
+write memory: $0132 <- $CE
 [$848C] PHP 
 <REGISTER-DUMP> PC:$848D A:$00 X:$11 Y:$11 S:$31 P:$CE
 read memory: $848D -> $08
-write memory: $0130 <- $CF
+write memory: $0131 <- $CF
 [$848D] PHP 
 <REGISTER-DUMP> PC:$848E A:$00 X:$11 Y:$11 S:$30 P:$CF
 read memory: $848E -> $08
-write memory: $012F <- $D0
+write memory: $0130 <- $D0
 [$848E] PHP 
 <REGISTER-DUMP> PC:$848F A:$00 X:$11 Y:$11 S:$2F P:$D0
 read memory: $848F -> $08
-write memory: $012E <- $D1
+write memory: $012F <- $D1
 [$848F] PHP 
 <REGISTER-DUMP> PC:$8490 A:$00 X:$11 Y:$11 S:$2E P:$D1
 read memory: $8490 -> $08
-write memory: $012D <- $D2
+write memory: $012E <- $D2
 [$8490] PHP 
 <REGISTER-DUMP> PC:$8491 A:$00 X:$11 Y:$11 S:$2D P:$D2
 read memory: $8491 -> $08
-write memory: $012C <- $D3
+write memory: $012D <- $D3
 [$8491] PHP 
 <REGISTER-DUMP> PC:$8492 A:$00 X:$11 Y:$11 S:$2C P:$D3
 read memory: $8492 -> $08
-write memory: $012B <- $D4
+write memory: $012C <- $D4
 [$8492] PHP 
 <REGISTER-DUMP> PC:$8493 A:$00 X:$11 Y:$11 S:$2B P:$D4
 read memory: $8493 -> $08
-write memory: $012A <- $D5
+write memory: $012B <- $D5
 [$8493] PHP 
 <REGISTER-DUMP> PC:$8494 A:$00 X:$11 Y:$11 S:$2A P:$D5
 read memory: $8494 -> $08
-write memory: $0129 <- $D6
+write memory: $012A <- $D6
 [$8494] PHP 
 <REGISTER-DUMP> PC:$8495 A:$00 X:$11 Y:$11 S:$29 P:$D6
 read memory: $8495 -> $08
-write memory: $0128 <- $D7
+write memory: $0129 <- $D7
 [$8495] PHP 
 <REGISTER-DUMP> PC:$8496 A:$00 X:$11 Y:$11 S:$28 P:$D7
 read memory: $8496 -> $08
-write memory: $0127 <- $D8
+write memory: $0128 <- $D8
 [$8496] PHP 
 <REGISTER-DUMP> PC:$8497 A:$00 X:$11 Y:$11 S:$27 P:$D8
 read memory: $8497 -> $08
-write memory: $0126 <- $D9
+write memory: $0127 <- $D9
 [$8497] PHP 
 <REGISTER-DUMP> PC:$8498 A:$00 X:$11 Y:$11 S:$26 P:$D9
 read memory: $8498 -> $08
-write memory: $0125 <- $DA
+write memory: $0126 <- $DA
 [$8498] PHP 
 <REGISTER-DUMP> PC:$8499 A:$00 X:$11 Y:$11 S:$25 P:$DA
 read memory: $8499 -> $08
-write memory: $0124 <- $DB
+write memory: $0125 <- $DB
 [$8499] PHP 
 <REGISTER-DUMP> PC:$849A A:$00 X:$11 Y:$11 S:$24 P:$DB
 read memory: $849A -> $08
-write memory: $0123 <- $DC
+write memory: $0124 <- $DC
 [$849A] PHP 
 <REGISTER-DUMP> PC:$849B A:$00 X:$11 Y:$11 S:$23 P:$DC
 read memory: $849B -> $08
-write memory: $0122 <- $DD
+write memory: $0123 <- $DD
 [$849B] PHP 
 <REGISTER-DUMP> PC:$849C A:$00 X:$11 Y:$11 S:$22 P:$DD
 read memory: $849C -> $08
-write memory: $0121 <- $DE
+write memory: $0122 <- $DE
 [$849C] PHP 
 <REGISTER-DUMP> PC:$849D A:$00 X:$11 Y:$11 S:$21 P:$DE
 read memory: $849D -> $08
-write memory: $0120 <- $DF
+write memory: $0121 <- $DF
 [$849D] PHP 
 <REGISTER-DUMP> PC:$849E A:$00 X:$11 Y:$11 S:$20 P:$DF
 read memory: $849E -> $08
-write memory: $011F <- $E0
+write memory: $0120 <- $E0
 [$849E] PHP 
 <REGISTER-DUMP> PC:$849F A:$00 X:$11 Y:$11 S:$1F P:$E0
 read memory: $849F -> $08
-write memory: $011E <- $E1
+write memory: $011F <- $E1
 [$849F] PHP 
 <REGISTER-DUMP> PC:$84A0 A:$00 X:$11 Y:$11 S:$1E P:$E1
 read memory: $84A0 -> $08
-write memory: $011D <- $E2
+write memory: $011E <- $E2
 [$84A0] PHP 
 <REGISTER-DUMP> PC:$84A1 A:$00 X:$11 Y:$11 S:$1D P:$E2
 read memory: $84A1 -> $08
-write memory: $011C <- $E3
+write memory: $011D <- $E3
 [$84A1] PHP 
 <REGISTER-DUMP> PC:$84A2 A:$00 X:$11 Y:$11 S:$1C P:$E3
 read memory: $84A2 -> $08
-write memory: $011B <- $E4
+write memory: $011C <- $E4
 [$84A2] PHP 
 <REGISTER-DUMP> PC:$84A3 A:$00 X:$11 Y:$11 S:$1B P:$E4
 read memory: $84A3 -> $08
-write memory: $011A <- $E5
+write memory: $011B <- $E5
 [$84A3] PHP 
 <REGISTER-DUMP> PC:$84A4 A:$00 X:$11 Y:$11 S:$1A P:$E5
 read memory: $84A4 -> $08
-write memory: $0119 <- $E6
+write memory: $011A <- $E6
 [$84A4] PHP 
 <REGISTER-DUMP> PC:$84A5 A:$00 X:$11 Y:$11 S:$19 P:$E6
 read memory: $84A5 -> $08
-write memory: $0118 <- $E7
+write memory: $0119 <- $E7
 [$84A5] PHP 
 <REGISTER-DUMP> PC:$84A6 A:$00 X:$11 Y:$11 S:$18 P:$E7
 read memory: $84A6 -> $08
-write memory: $0117 <- $E8
+write memory: $0118 <- $E8
 [$84A6] PHP 
 <REGISTER-DUMP> PC:$84A7 A:$00 X:$11 Y:$11 S:$17 P:$E8
 read memory: $84A7 -> $08
-write memory: $0116 <- $E9
+write memory: $0117 <- $E9
 [$84A7] PHP 
 <REGISTER-DUMP> PC:$84A8 A:$00 X:$11 Y:$11 S:$16 P:$E9
 read memory: $84A8 -> $08
-write memory: $0115 <- $EA
+write memory: $0116 <- $EA
 [$84A8] PHP 
 <REGISTER-DUMP> PC:$84A9 A:$00 X:$11 Y:$11 S:$15 P:$EA
 read memory: $84A9 -> $08
-write memory: $0114 <- $EB
+write memory: $0115 <- $EB
 [$84A9] PHP 
 <REGISTER-DUMP> PC:$84AA A:$00 X:$11 Y:$11 S:$14 P:$EB
 read memory: $84AA -> $08
-write memory: $0113 <- $EC
+write memory: $0114 <- $EC
 [$84AA] PHP 
 <REGISTER-DUMP> PC:$84AB A:$00 X:$11 Y:$11 S:$13 P:$EC
 read memory: $84AB -> $08
-write memory: $0112 <- $ED
+write memory: $0113 <- $ED
 [$84AB] PHP 
 <REGISTER-DUMP> PC:$84AC A:$00 X:$11 Y:$11 S:$12 P:$ED
 read memory: $84AC -> $08
-write memory: $0111 <- $EE
+write memory: $0112 <- $EE
 [$84AC] PHP 
 <REGISTER-DUMP> PC:$84AD A:$00 X:$11 Y:$11 S:$11 P:$EE
 read memory: $84AD -> $08
-write memory: $0110 <- $EF
+write memory: $0111 <- $EF
 [$84AD] PHP 
 <REGISTER-DUMP> PC:$84AE A:$00 X:$11 Y:$11 S:$10 P:$EF
 read memory: $84AE -> $08
-write memory: $010F <- $F0
+write memory: $0110 <- $F0
 [$84AE] PHP 
 <REGISTER-DUMP> PC:$84AF A:$00 X:$11 Y:$11 S:$0F P:$F0
 read memory: $84AF -> $08
-write memory: $010E <- $F1
+write memory: $010F <- $F1
 [$84AF] PHP 
 <REGISTER-DUMP> PC:$84B0 A:$00 X:$11 Y:$11 S:$0E P:$F1
 read memory: $84B0 -> $08
-write memory: $010D <- $F2
+write memory: $010E <- $F2
 [$84B0] PHP 
 <REGISTER-DUMP> PC:$84B1 A:$00 X:$11 Y:$11 S:$0D P:$F2
 read memory: $84B1 -> $08
-write memory: $010C <- $F3
+write memory: $010D <- $F3
 [$84B1] PHP 
 <REGISTER-DUMP> PC:$84B2 A:$00 X:$11 Y:$11 S:$0C P:$F3
 read memory: $84B2 -> $08
-write memory: $010B <- $F4
+write memory: $010C <- $F4
 [$84B2] PHP 
 <REGISTER-DUMP> PC:$84B3 A:$00 X:$11 Y:$11 S:$0B P:$F4
 read memory: $84B3 -> $08
-write memory: $010A <- $F5
+write memory: $010B <- $F5
 [$84B3] PHP 
 <REGISTER-DUMP> PC:$84B4 A:$00 X:$11 Y:$11 S:$0A P:$F5
 read memory: $84B4 -> $08
-write memory: $0109 <- $F6
+write memory: $010A <- $F6
 [$84B4] PHP 
 <REGISTER-DUMP> PC:$84B5 A:$00 X:$11 Y:$11 S:$09 P:$F6
 read memory: $84B5 -> $08
-write memory: $0108 <- $F7
+write memory: $0109 <- $F7
 [$84B5] PHP 
 <REGISTER-DUMP> PC:$84B6 A:$00 X:$11 Y:$11 S:$08 P:$F7
 read memory: $84B6 -> $08
-write memory: $0107 <- $F8
+write memory: $0108 <- $F8
 [$84B6] PHP 
 <REGISTER-DUMP> PC:$84B7 A:$00 X:$11 Y:$11 S:$07 P:$F8
 read memory: $84B7 -> $08
-write memory: $0106 <- $F9
+write memory: $0107 <- $F9
 [$84B7] PHP 
 <REGISTER-DUMP> PC:$84B8 A:$00 X:$11 Y:$11 S:$06 P:$F9
 read memory: $84B8 -> $08
-write memory: $0105 <- $FA
+write memory: $0106 <- $FA
 [$84B8] PHP 
 <REGISTER-DUMP> PC:$84B9 A:$00 X:$11 Y:$11 S:$05 P:$FA
 read memory: $84B9 -> $08
-write memory: $0104 <- $FB
+write memory: $0105 <- $FB
 [$84B9] PHP 
 <REGISTER-DUMP> PC:$84BA A:$00 X:$11 Y:$11 S:$04 P:$FB
 read memory: $84BA -> $08
-write memory: $0103 <- $FC
+write memory: $0104 <- $FC
 [$84BA] PHP 
 <REGISTER-DUMP> PC:$84BB A:$00 X:$11 Y:$11 S:$03 P:$FC
 read memory: $84BB -> $08
-write memory: $0102 <- $FD
+write memory: $0103 <- $FD
 [$84BB] PHP 
 <REGISTER-DUMP> PC:$84BC A:$00 X:$11 Y:$11 S:$02 P:$FD
 read memory: $84BC -> $08
-write memory: $0101 <- $FE
+write memory: $0102 <- $FE
 [$84BC] PHP 
 <REGISTER-DUMP> PC:$84BD A:$00 X:$11 Y:$11 S:$01 P:$FE
 read memory: $84BD -> $08
-write memory: $0100 <- $FF
+write memory: $0101 <- $FF
 [$84BD] PHP 
 <REGISTER-DUMP> PC:$84BE A:$00 X:$11 Y:$11 S:$00 P:$FF
 read memory: $84BE -> $28
-read memory: $0100 -> $FF
+read memory: $0101 -> $FF
 [$84BE] PLP 
 <REGISTER-DUMP> PC:$84BF A:$00 X:$11 Y:$11 S:$01 P:$FF
 read memory: $84BF -> $28
-read memory: $0101 -> $FE
+read memory: $0102 -> $FE
 [$84BF] PLP 
 <REGISTER-DUMP> PC:$84C0 A:$00 X:$11 Y:$11 S:$02 P:$FE
 read memory: $84C0 -> $28
-read memory: $0102 -> $FD
+read memory: $0103 -> $FD
 [$84C0] PLP 
 <REGISTER-DUMP> PC:$84C1 A:$00 X:$11 Y:$11 S:$03 P:$FD
 read memory: $84C1 -> $28
-read memory: $0103 -> $FC
+read memory: $0104 -> $FC
 [$84C1] PLP 
 <REGISTER-DUMP> PC:$84C2 A:$00 X:$11 Y:$11 S:$04 P:$FC
 read memory: $84C2 -> $28
-read memory: $0104 -> $FB
+read memory: $0105 -> $FB
 [$84C2] PLP 
 <REGISTER-DUMP> PC:$84C3 A:$00 X:$11 Y:$11 S:$05 P:$FB
 read memory: $84C3 -> $28
-read memory: $0105 -> $FA
+read memory: $0106 -> $FA
 [$84C3] PLP 
 <REGISTER-DUMP> PC:$84C4 A:$00 X:$11 Y:$11 S:$06 P:$FA
 read memory: $84C4 -> $28
-read memory: $0106 -> $F9
+read memory: $0107 -> $F9
 [$84C4] PLP 
 <REGISTER-DUMP> PC:$84C5 A:$00 X:$11 Y:$11 S:$07 P:$F9
 read memory: $84C5 -> $28
-read memory: $0107 -> $F8
+read memory: $0108 -> $F8
 [$84C5] PLP 
 <REGISTER-DUMP> PC:$84C6 A:$00 X:$11 Y:$11 S:$08 P:$F8
 read memory: $84C6 -> $28
-read memory: $0108 -> $F7
+read memory: $0109 -> $F7
 [$84C6] PLP 
 <REGISTER-DUMP> PC:$84C7 A:$00 X:$11 Y:$11 S:$09 P:$F7
 read memory: $84C7 -> $28
-read memory: $0109 -> $F6
+read memory: $010A -> $F6
 [$84C7] PLP 
 <REGISTER-DUMP> PC:$84C8 A:$00 X:$11 Y:$11 S:$0A P:$F6
 read memory: $84C8 -> $28
-read memory: $010A -> $F5
+read memory: $010B -> $F5
 [$84C8] PLP 
 <REGISTER-DUMP> PC:$84C9 A:$00 X:$11 Y:$11 S:$0B P:$F5
 read memory: $84C9 -> $28
-read memory: $010B -> $F4
+read memory: $010C -> $F4
 [$84C9] PLP 
 <REGISTER-DUMP> PC:$84CA A:$00 X:$11 Y:$11 S:$0C P:$F4
 read memory: $84CA -> $28
-read memory: $010C -> $F3
+read memory: $010D -> $F3
 [$84CA] PLP 
 <REGISTER-DUMP> PC:$84CB A:$00 X:$11 Y:$11 S:$0D P:$F3
 read memory: $84CB -> $28
-read memory: $010D -> $F2
+read memory: $010E -> $F2
 [$84CB] PLP 
 <REGISTER-DUMP> PC:$84CC A:$00 X:$11 Y:$11 S:$0E P:$F2
 read memory: $84CC -> $28
-read memory: $010E -> $F1
+read memory: $010F -> $F1
 [$84CC] PLP 
 <REGISTER-DUMP> PC:$84CD A:$00 X:$11 Y:$11 S:$0F P:$F1
 read memory: $84CD -> $28
-read memory: $010F -> $F0
+read memory: $0110 -> $F0
 [$84CD] PLP 
 <REGISTER-DUMP> PC:$84CE A:$00 X:$11 Y:$11 S:$10 P:$F0
 read memory: $84CE -> $28
-read memory: $0110 -> $EF
+read memory: $0111 -> $EF
 [$84CE] PLP 
 <REGISTER-DUMP> PC:$84CF A:$00 X:$11 Y:$11 S:$11 P:$EF
 read memory: $84CF -> $28
-read memory: $0111 -> $EE
+read memory: $0112 -> $EE
 [$84CF] PLP 
 <REGISTER-DUMP> PC:$84D0 A:$00 X:$11 Y:$11 S:$12 P:$EE
 read memory: $84D0 -> $28
-read memory: $0112 -> $ED
+read memory: $0113 -> $ED
 [$84D0] PLP 
 <REGISTER-DUMP> PC:$84D1 A:$00 X:$11 Y:$11 S:$13 P:$ED
 read memory: $84D1 -> $28
-read memory: $0113 -> $EC
+read memory: $0114 -> $EC
 [$84D1] PLP 
 <REGISTER-DUMP> PC:$84D2 A:$00 X:$11 Y:$11 S:$14 P:$EC
 read memory: $84D2 -> $28
-read memory: $0114 -> $EB
+read memory: $0115 -> $EB
 [$84D2] PLP 
 <REGISTER-DUMP> PC:$84D3 A:$00 X:$11 Y:$11 S:$15 P:$EB
 read memory: $84D3 -> $28
-read memory: $0115 -> $EA
+read memory: $0116 -> $EA
 [$84D3] PLP 
 <REGISTER-DUMP> PC:$84D4 A:$00 X:$11 Y:$11 S:$16 P:$EA
 read memory: $84D4 -> $28
-read memory: $0116 -> $E9
+read memory: $0117 -> $E9
 [$84D4] PLP 
 <REGISTER-DUMP> PC:$84D5 A:$00 X:$11 Y:$11 S:$17 P:$E9
 read memory: $84D5 -> $28
-read memory: $0117 -> $E8
+read memory: $0118 -> $E8
 [$84D5] PLP 
 <REGISTER-DUMP> PC:$84D6 A:$00 X:$11 Y:$11 S:$18 P:$E8
 read memory: $84D6 -> $28
-read memory: $0118 -> $E7
+read memory: $0119 -> $E7
 [$84D6] PLP 
 <REGISTER-DUMP> PC:$84D7 A:$00 X:$11 Y:$11 S:$19 P:$E7
 read memory: $84D7 -> $28
-read memory: $0119 -> $E6
+read memory: $011A -> $E6
 [$84D7] PLP 
 <REGISTER-DUMP> PC:$84D8 A:$00 X:$11 Y:$11 S:$1A P:$E6
 read memory: $84D8 -> $28
-read memory: $011A -> $E5
+read memory: $011B -> $E5
 [$84D8] PLP 
 <REGISTER-DUMP> PC:$84D9 A:$00 X:$11 Y:$11 S:$1B P:$E5
 read memory: $84D9 -> $28
-read memory: $011B -> $E4
+read memory: $011C -> $E4
 [$84D9] PLP 
 <REGISTER-DUMP> PC:$84DA A:$00 X:$11 Y:$11 S:$1C P:$E4
 read memory: $84DA -> $28
-read memory: $011C -> $E3
+read memory: $011D -> $E3
 [$84DA] PLP 
 <REGISTER-DUMP> PC:$84DB A:$00 X:$11 Y:$11 S:$1D P:$E3
 read memory: $84DB -> $28
-read memory: $011D -> $E2
+read memory: $011E -> $E2
 [$84DB] PLP 
 <REGISTER-DUMP> PC:$84DC A:$00 X:$11 Y:$11 S:$1E P:$E2
 read memory: $84DC -> $28
-read memory: $011E -> $E1
+read memory: $011F -> $E1
 [$84DC] PLP 
 <REGISTER-DUMP> PC:$84DD A:$00 X:$11 Y:$11 S:$1F P:$E1
 read memory: $84DD -> $28
-read memory: $011F -> $E0
+read memory: $0120 -> $E0
 [$84DD] PLP 
 <REGISTER-DUMP> PC:$84DE A:$00 X:$11 Y:$11 S:$20 P:$E0
 read memory: $84DE -> $28
-read memory: $0120 -> $DF
+read memory: $0121 -> $DF
 [$84DE] PLP 
 <REGISTER-DUMP> PC:$84DF A:$00 X:$11 Y:$11 S:$21 P:$DF
 read memory: $84DF -> $28
-read memory: $0121 -> $DE
+read memory: $0122 -> $DE
 [$84DF] PLP 
 <REGISTER-DUMP> PC:$84E0 A:$00 X:$11 Y:$11 S:$22 P:$DE
 read memory: $84E0 -> $28
-read memory: $0122 -> $DD
+read memory: $0123 -> $DD
 [$84E0] PLP 
 <REGISTER-DUMP> PC:$84E1 A:$00 X:$11 Y:$11 S:$23 P:$DD
 read memory: $84E1 -> $28
-read memory: $0123 -> $DC
+read memory: $0124 -> $DC
 [$84E1] PLP 
 <REGISTER-DUMP> PC:$84E2 A:$00 X:$11 Y:$11 S:$24 P:$DC
 read memory: $84E2 -> $28
-read memory: $0124 -> $DB
+read memory: $0125 -> $DB
 [$84E2] PLP 
 <REGISTER-DUMP> PC:$84E3 A:$00 X:$11 Y:$11 S:$25 P:$DB
 read memory: $84E3 -> $28
-read memory: $0125 -> $DA
+read memory: $0126 -> $DA
 [$84E3] PLP 
 <REGISTER-DUMP> PC:$84E4 A:$00 X:$11 Y:$11 S:$26 P:$DA
 read memory: $84E4 -> $28
-read memory: $0126 -> $D9
+read memory: $0127 -> $D9
 [$84E4] PLP 
 <REGISTER-DUMP> PC:$84E5 A:$00 X:$11 Y:$11 S:$27 P:$D9
 read memory: $84E5 -> $28
-read memory: $0127 -> $D8
+read memory: $0128 -> $D8
 [$84E5] PLP 
 <REGISTER-DUMP> PC:$84E6 A:$00 X:$11 Y:$11 S:$28 P:$D8
 read memory: $84E6 -> $28
-read memory: $0128 -> $D7
+read memory: $0129 -> $D7
 [$84E6] PLP 
 <REGISTER-DUMP> PC:$84E7 A:$00 X:$11 Y:$11 S:$29 P:$D7
 read memory: $84E7 -> $28
-read memory: $0129 -> $D6
+read memory: $012A -> $D6
 [$84E7] PLP 
 <REGISTER-DUMP> PC:$84E8 A:$00 X:$11 Y:$11 S:$2A P:$D6
 read memory: $84E8 -> $28
-read memory: $012A -> $D5
+read memory: $012B -> $D5
 [$84E8] PLP 
 <REGISTER-DUMP> PC:$84E9 A:$00 X:$11 Y:$11 S:$2B P:$D5
 read memory: $84E9 -> $28
-read memory: $012B -> $D4
+read memory: $012C -> $D4
 [$84E9] PLP 
 <REGISTER-DUMP> PC:$84EA A:$00 X:$11 Y:$11 S:$2C P:$D4
 read memory: $84EA -> $28
-read memory: $012C -> $D3
+read memory: $012D -> $D3
 [$84EA] PLP 
 <REGISTER-DUMP> PC:$84EB A:$00 X:$11 Y:$11 S:$2D P:$D3
 read memory: $84EB -> $28
-read memory: $012D -> $D2
+read memory: $012E -> $D2
 [$84EB] PLP 
 <REGISTER-DUMP> PC:$84EC A:$00 X:$11 Y:$11 S:$2E P:$D2
 read memory: $84EC -> $28
-read memory: $012E -> $D1
+read memory: $012F -> $D1
 [$84EC] PLP 
 <REGISTER-DUMP> PC:$84ED A:$00 X:$11 Y:$11 S:$2F P:$D1
 read memory: $84ED -> $28
-read memory: $012F -> $D0
+read memory: $0130 -> $D0
 [$84ED] PLP 
 <REGISTER-DUMP> PC:$84EE A:$00 X:$11 Y:$11 S:$30 P:$D0
 read memory: $84EE -> $28
-read memory: $0130 -> $CF
+read memory: $0131 -> $CF
 [$84EE] PLP 
 <REGISTER-DUMP> PC:$84EF A:$00 X:$11 Y:$11 S:$31 P:$CF
 read memory: $84EF -> $28
-read memory: $0131 -> $CE
+read memory: $0132 -> $CE
 [$84EF] PLP 
 <REGISTER-DUMP> PC:$84F0 A:$00 X:$11 Y:$11 S:$32 P:$CE
 read memory: $84F0 -> $28
-read memory: $0132 -> $CD
+read memory: $0133 -> $CD
 [$84F0] PLP 
 <REGISTER-DUMP> PC:$84F1 A:$00 X:$11 Y:$11 S:$33 P:$CD
 read memory: $84F1 -> $28
-read memory: $0133 -> $CC
+read memory: $0134 -> $CC
 [$84F1] PLP 
 <REGISTER-DUMP> PC:$84F2 A:$00 X:$11 Y:$11 S:$34 P:$CC
 read memory: $84F2 -> $28
-read memory: $0134 -> $CB
+read memory: $0135 -> $CB
 [$84F2] PLP 
 <REGISTER-DUMP> PC:$84F3 A:$00 X:$11 Y:$11 S:$35 P:$CB
 read memory: $84F3 -> $28
-read memory: $0135 -> $CA
+read memory: $0136 -> $CA
 [$84F3] PLP 
 <REGISTER-DUMP> PC:$84F4 A:$00 X:$11 Y:$11 S:$36 P:$CA
 read memory: $84F4 -> $28
-read memory: $0136 -> $C9
+read memory: $0137 -> $C9
 [$84F4] PLP 
 <REGISTER-DUMP> PC:$84F5 A:$00 X:$11 Y:$11 S:$37 P:$C9
 read memory: $84F5 -> $28
-read memory: $0137 -> $C8
+read memory: $0138 -> $C8
 [$84F5] PLP 
 <REGISTER-DUMP> PC:$84F6 A:$00 X:$11 Y:$11 S:$38 P:$C8
 read memory: $84F6 -> $28
-read memory: $0138 -> $C7
+read memory: $0139 -> $C7
 [$84F6] PLP 
 <REGISTER-DUMP> PC:$84F7 A:$00 X:$11 Y:$11 S:$39 P:$C7
 read memory: $84F7 -> $28
-read memory: $0139 -> $C6
+read memory: $013A -> $C6
 [$84F7] PLP 
 <REGISTER-DUMP> PC:$84F8 A:$00 X:$11 Y:$11 S:$3A P:$C6
 read memory: $84F8 -> $28
-read memory: $013A -> $C5
+read memory: $013B -> $C5
 [$84F8] PLP 
 <REGISTER-DUMP> PC:$84F9 A:$00 X:$11 Y:$11 S:$3B P:$C5
 read memory: $84F9 -> $28
-read memory: $013B -> $C4
+read memory: $013C -> $C4
 [$84F9] PLP 
 <REGISTER-DUMP> PC:$84FA A:$00 X:$11 Y:$11 S:$3C P:$C4
 read memory: $84FA -> $28
-read memory: $013C -> $C3
+read memory: $013D -> $C3
 [$84FA] PLP 
 <REGISTER-DUMP> PC:$84FB A:$00 X:$11 Y:$11 S:$3D P:$C3
 read memory: $84FB -> $28
-read memory: $013D -> $C2
+read memory: $013E -> $C2
 [$84FB] PLP 
 <REGISTER-DUMP> PC:$84FC A:$00 X:$11 Y:$11 S:$3E P:$C2
 read memory: $84FC -> $28
-read memory: $013E -> $C1
+read memory: $013F -> $C1
 [$84FC] PLP 
 <REGISTER-DUMP> PC:$84FD A:$00 X:$11 Y:$11 S:$3F P:$C1
 read memory: $84FD -> $28
-read memory: $013F -> $C0
+read memory: $0140 -> $C0
 [$84FD] PLP 
 <REGISTER-DUMP> PC:$84FE A:$00 X:$11 Y:$11 S:$40 P:$C0
 read memory: $84FE -> $28
-read memory: $0140 -> $BF
+read memory: $0141 -> $BF
 [$84FE] PLP 
 <REGISTER-DUMP> PC:$84FF A:$00 X:$11 Y:$11 S:$41 P:$BF
 read memory: $84FF -> $28
-read memory: $0141 -> $BE
+read memory: $0142 -> $BE
 [$84FF] PLP 
 <REGISTER-DUMP> PC:$8500 A:$00 X:$11 Y:$11 S:$42 P:$BE
 read memory: $8500 -> $28
-read memory: $0142 -> $BD
+read memory: $0143 -> $BD
 [$8500] PLP 
 <REGISTER-DUMP> PC:$8501 A:$00 X:$11 Y:$11 S:$43 P:$BD
 read memory: $8501 -> $28
-read memory: $0143 -> $BC
+read memory: $0144 -> $BC
 [$8501] PLP 
 <REGISTER-DUMP> PC:$8502 A:$00 X:$11 Y:$11 S:$44 P:$BC
 read memory: $8502 -> $28
-read memory: $0144 -> $BB
+read memory: $0145 -> $BB
 [$8502] PLP 
 <REGISTER-DUMP> PC:$8503 A:$00 X:$11 Y:$11 S:$45 P:$BB
 read memory: $8503 -> $28
-read memory: $0145 -> $BA
+read memory: $0146 -> $BA
 [$8503] PLP 
 <REGISTER-DUMP> PC:$8504 A:$00 X:$11 Y:$11 S:$46 P:$BA
 read memory: $8504 -> $28
-read memory: $0146 -> $B9
+read memory: $0147 -> $B9
 [$8504] PLP 
 <REGISTER-DUMP> PC:$8505 A:$00 X:$11 Y:$11 S:$47 P:$B9
 read memory: $8505 -> $28
-read memory: $0147 -> $B8
+read memory: $0148 -> $B8
 [$8505] PLP 
 <REGISTER-DUMP> PC:$8506 A:$00 X:$11 Y:$11 S:$48 P:$B8
 read memory: $8506 -> $28
-read memory: $0148 -> $B7
+read memory: $0149 -> $B7
 [$8506] PLP 
 <REGISTER-DUMP> PC:$8507 A:$00 X:$11 Y:$11 S:$49 P:$B7
 read memory: $8507 -> $28
-read memory: $0149 -> $B6
+read memory: $014A -> $B6
 [$8507] PLP 
 <REGISTER-DUMP> PC:$8508 A:$00 X:$11 Y:$11 S:$4A P:$B6
 read memory: $8508 -> $28
-read memory: $014A -> $B5
+read memory: $014B -> $B5
 [$8508] PLP 
 <REGISTER-DUMP> PC:$8509 A:$00 X:$11 Y:$11 S:$4B P:$B5
 read memory: $8509 -> $28
-read memory: $014B -> $B4
+read memory: $014C -> $B4
 [$8509] PLP 
 <REGISTER-DUMP> PC:$850A A:$00 X:$11 Y:$11 S:$4C P:$B4
 read memory: $850A -> $28
-read memory: $014C -> $B3
+read memory: $014D -> $B3
 [$850A] PLP 
 <REGISTER-DUMP> PC:$850B A:$00 X:$11 Y:$11 S:$4D P:$B3
 read memory: $850B -> $28
-read memory: $014D -> $B2
+read memory: $014E -> $B2
 [$850B] PLP 
 <REGISTER-DUMP> PC:$850C A:$00 X:$11 Y:$11 S:$4E P:$B2
 read memory: $850C -> $28
-read memory: $014E -> $B1
+read memory: $014F -> $B1
 [$850C] PLP 
 <REGISTER-DUMP> PC:$850D A:$00 X:$11 Y:$11 S:$4F P:$B1
 read memory: $850D -> $28
-read memory: $014F -> $B0
+read memory: $0150 -> $B0
 [$850D] PLP 
 <REGISTER-DUMP> PC:$850E A:$00 X:$11 Y:$11 S:$50 P:$B0
 read memory: $850E -> $28
-read memory: $0150 -> $AF
+read memory: $0151 -> $AF
 [$850E] PLP 
 <REGISTER-DUMP> PC:$850F A:$00 X:$11 Y:$11 S:$51 P:$AF
 read memory: $850F -> $28
-read memory: $0151 -> $AE
+read memory: $0152 -> $AE
 [$850F] PLP 
 <REGISTER-DUMP> PC:$8510 A:$00 X:$11 Y:$11 S:$52 P:$AE
 read memory: $8510 -> $28
-read memory: $0152 -> $AD
+read memory: $0153 -> $AD
 [$8510] PLP 
 <REGISTER-DUMP> PC:$8511 A:$00 X:$11 Y:$11 S:$53 P:$AD
 read memory: $8511 -> $28
-read memory: $0153 -> $AC
+read memory: $0154 -> $AC
 [$8511] PLP 
 <REGISTER-DUMP> PC:$8512 A:$00 X:$11 Y:$11 S:$54 P:$AC
 read memory: $8512 -> $28
-read memory: $0154 -> $AB
+read memory: $0155 -> $AB
 [$8512] PLP 
 <REGISTER-DUMP> PC:$8513 A:$00 X:$11 Y:$11 S:$55 P:$AB
 read memory: $8513 -> $28
-read memory: $0155 -> $AA
+read memory: $0156 -> $AA
 [$8513] PLP 
 <REGISTER-DUMP> PC:$8514 A:$00 X:$11 Y:$11 S:$56 P:$AA
 read memory: $8514 -> $28
-read memory: $0156 -> $A9
+read memory: $0157 -> $A9
 [$8514] PLP 
 <REGISTER-DUMP> PC:$8515 A:$00 X:$11 Y:$11 S:$57 P:$A9
 read memory: $8515 -> $28
-read memory: $0157 -> $A8
+read memory: $0158 -> $A8
 [$8515] PLP 
 <REGISTER-DUMP> PC:$8516 A:$00 X:$11 Y:$11 S:$58 P:$A8
 read memory: $8516 -> $28
-read memory: $0158 -> $A7
+read memory: $0159 -> $A7
 [$8516] PLP 
 <REGISTER-DUMP> PC:$8517 A:$00 X:$11 Y:$11 S:$59 P:$A7
 read memory: $8517 -> $28
-read memory: $0159 -> $A6
+read memory: $015A -> $A6
 [$8517] PLP 
 <REGISTER-DUMP> PC:$8518 A:$00 X:$11 Y:$11 S:$5A P:$A6
 read memory: $8518 -> $28
-read memory: $015A -> $A5
+read memory: $015B -> $A5
 [$8518] PLP 
 <REGISTER-DUMP> PC:$8519 A:$00 X:$11 Y:$11 S:$5B P:$A5
 read memory: $8519 -> $28
-read memory: $015B -> $A4
+read memory: $015C -> $A4
 [$8519] PLP 
 <REGISTER-DUMP> PC:$851A A:$00 X:$11 Y:$11 S:$5C P:$A4
 read memory: $851A -> $28
-read memory: $015C -> $A3
+read memory: $015D -> $A3
 [$851A] PLP 
 <REGISTER-DUMP> PC:$851B A:$00 X:$11 Y:$11 S:$5D P:$A3
 read memory: $851B -> $28
-read memory: $015D -> $A2
+read memory: $015E -> $A2
 [$851B] PLP 
 <REGISTER-DUMP> PC:$851C A:$00 X:$11 Y:$11 S:$5E P:$A2
 read memory: $851C -> $28
-read memory: $015E -> $A1
+read memory: $015F -> $A1
 [$851C] PLP 
 <REGISTER-DUMP> PC:$851D A:$00 X:$11 Y:$11 S:$5F P:$A1
 read memory: $851D -> $28
-read memory: $015F -> $A0
+read memory: $0160 -> $A0
 [$851D] PLP 
 <REGISTER-DUMP> PC:$851E A:$00 X:$11 Y:$11 S:$60 P:$A0
 read memory: $851E -> $28
-read memory: $0160 -> $9F
+read memory: $0161 -> $9F
 [$851E] PLP 
 <REGISTER-DUMP> PC:$851F A:$00 X:$11 Y:$11 S:$61 P:$9F
 read memory: $851F -> $28
-read memory: $0161 -> $9E
+read memory: $0162 -> $9E
 [$851F] PLP 
 <REGISTER-DUMP> PC:$8520 A:$00 X:$11 Y:$11 S:$62 P:$9E
 read memory: $8520 -> $28
-read memory: $0162 -> $9D
+read memory: $0163 -> $9D
 [$8520] PLP 
 <REGISTER-DUMP> PC:$8521 A:$00 X:$11 Y:$11 S:$63 P:$9D
 read memory: $8521 -> $28
-read memory: $0163 -> $9C
+read memory: $0164 -> $9C
 [$8521] PLP 
 <REGISTER-DUMP> PC:$8522 A:$00 X:$11 Y:$11 S:$64 P:$9C
 read memory: $8522 -> $28
-read memory: $0164 -> $9B
+read memory: $0165 -> $9B
 [$8522] PLP 
 <REGISTER-DUMP> PC:$8523 A:$00 X:$11 Y:$11 S:$65 P:$9B
 read memory: $8523 -> $28
-read memory: $0165 -> $9A
+read memory: $0166 -> $9A
 [$8523] PLP 
 <REGISTER-DUMP> PC:$8524 A:$00 X:$11 Y:$11 S:$66 P:$9A
 read memory: $8524 -> $28
-read memory: $0166 -> $99
+read memory: $0167 -> $99
 [$8524] PLP 
 <REGISTER-DUMP> PC:$8525 A:$00 X:$11 Y:$11 S:$67 P:$99
 read memory: $8525 -> $28
-read memory: $0167 -> $98
+read memory: $0168 -> $98
 [$8525] PLP 
 <REGISTER-DUMP> PC:$8526 A:$00 X:$11 Y:$11 S:$68 P:$98
 read memory: $8526 -> $28
-read memory: $0168 -> $97
+read memory: $0169 -> $97
 [$8526] PLP 
 <REGISTER-DUMP> PC:$8527 A:$00 X:$11 Y:$11 S:$69 P:$97
 read memory: $8527 -> $28
-read memory: $0169 -> $96
+read memory: $016A -> $96
 [$8527] PLP 
 <REGISTER-DUMP> PC:$8528 A:$00 X:$11 Y:$11 S:$6A P:$96
 read memory: $8528 -> $28
-read memory: $016A -> $95
+read memory: $016B -> $95
 [$8528] PLP 
 <REGISTER-DUMP> PC:$8529 A:$00 X:$11 Y:$11 S:$6B P:$95
 read memory: $8529 -> $28
-read memory: $016B -> $94
+read memory: $016C -> $94
 [$8529] PLP 
 <REGISTER-DUMP> PC:$852A A:$00 X:$11 Y:$11 S:$6C P:$94
 read memory: $852A -> $28
-read memory: $016C -> $93
+read memory: $016D -> $93
 [$852A] PLP 
 <REGISTER-DUMP> PC:$852B A:$00 X:$11 Y:$11 S:$6D P:$93
 read memory: $852B -> $28
-read memory: $016D -> $92
+read memory: $016E -> $92
 [$852B] PLP 
 <REGISTER-DUMP> PC:$852C A:$00 X:$11 Y:$11 S:$6E P:$92
 read memory: $852C -> $28
-read memory: $016E -> $91
+read memory: $016F -> $91
 [$852C] PLP 
 <REGISTER-DUMP> PC:$852D A:$00 X:$11 Y:$11 S:$6F P:$91
 read memory: $852D -> $28
-read memory: $016F -> $90
+read memory: $0170 -> $90
 [$852D] PLP 
 <REGISTER-DUMP> PC:$852E A:$00 X:$11 Y:$11 S:$70 P:$90
 read memory: $852E -> $28
-read memory: $0170 -> $8F
+read memory: $0171 -> $8F
 [$852E] PLP 
 <REGISTER-DUMP> PC:$852F A:$00 X:$11 Y:$11 S:$71 P:$8F
 read memory: $852F -> $28
-read memory: $0171 -> $8E
+read memory: $0172 -> $8E
 [$852F] PLP 
 <REGISTER-DUMP> PC:$8530 A:$00 X:$11 Y:$11 S:$72 P:$8E
 read memory: $8530 -> $28
-read memory: $0172 -> $8D
+read memory: $0173 -> $8D
 [$8530] PLP 
 <REGISTER-DUMP> PC:$8531 A:$00 X:$11 Y:$11 S:$73 P:$8D
 read memory: $8531 -> $28
-read memory: $0173 -> $8C
+read memory: $0174 -> $8C
 [$8531] PLP 
 <REGISTER-DUMP> PC:$8532 A:$00 X:$11 Y:$11 S:$74 P:$8C
 read memory: $8532 -> $28
-read memory: $0174 -> $8B
+read memory: $0175 -> $8B
 [$8532] PLP 
 <REGISTER-DUMP> PC:$8533 A:$00 X:$11 Y:$11 S:$75 P:$8B
 read memory: $8533 -> $28
-read memory: $0175 -> $8A
+read memory: $0176 -> $8A
 [$8533] PLP 
 <REGISTER-DUMP> PC:$8534 A:$00 X:$11 Y:$11 S:$76 P:$8A
 read memory: $8534 -> $28
-read memory: $0176 -> $89
+read memory: $0177 -> $89
 [$8534] PLP 
 <REGISTER-DUMP> PC:$8535 A:$00 X:$11 Y:$11 S:$77 P:$89
 read memory: $8535 -> $28
-read memory: $0177 -> $88
+read memory: $0178 -> $88
 [$8535] PLP 
 <REGISTER-DUMP> PC:$8536 A:$00 X:$11 Y:$11 S:$78 P:$88
 read memory: $8536 -> $28
-read memory: $0178 -> $87
+read memory: $0179 -> $87
 [$8536] PLP 
 <REGISTER-DUMP> PC:$8537 A:$00 X:$11 Y:$11 S:$79 P:$87
 read memory: $8537 -> $28
-read memory: $0179 -> $86
+read memory: $017A -> $86
 [$8537] PLP 
 <REGISTER-DUMP> PC:$8538 A:$00 X:$11 Y:$11 S:$7A P:$86
 read memory: $8538 -> $28
-read memory: $017A -> $85
+read memory: $017B -> $85
 [$8538] PLP 
 <REGISTER-DUMP> PC:$8539 A:$00 X:$11 Y:$11 S:$7B P:$85
 read memory: $8539 -> $28
-read memory: $017B -> $84
+read memory: $017C -> $84
 [$8539] PLP 
 <REGISTER-DUMP> PC:$853A A:$00 X:$11 Y:$11 S:$7C P:$84
 read memory: $853A -> $28
-read memory: $017C -> $83
+read memory: $017D -> $83
 [$853A] PLP 
 <REGISTER-DUMP> PC:$853B A:$00 X:$11 Y:$11 S:$7D P:$83
 read memory: $853B -> $28
-read memory: $017D -> $82
+read memory: $017E -> $82
 [$853B] PLP 
 <REGISTER-DUMP> PC:$853C A:$00 X:$11 Y:$11 S:$7E P:$82
 read memory: $853C -> $28
-read memory: $017E -> $81
+read memory: $017F -> $81
 [$853C] PLP 
 <REGISTER-DUMP> PC:$853D A:$00 X:$11 Y:$11 S:$7F P:$81
 read memory: $853D -> $28
-read memory: $017F -> $80
+read memory: $0180 -> $80
 [$853D] PLP 
 <REGISTER-DUMP> PC:$853E A:$00 X:$11 Y:$11 S:$80 P:$80
 read memory: $853E -> $28
-read memory: $0180 -> $7F
+read memory: $0181 -> $7F
 [$853E] PLP 
 <REGISTER-DUMP> PC:$853F A:$00 X:$11 Y:$11 S:$81 P:$7F
 read memory: $853F -> $28
-read memory: $0181 -> $7E
+read memory: $0182 -> $7E
 [$853F] PLP 
 <REGISTER-DUMP> PC:$8540 A:$00 X:$11 Y:$11 S:$82 P:$7E
 read memory: $8540 -> $28
-read memory: $0182 -> $7D
+read memory: $0183 -> $7D
 [$8540] PLP 
 <REGISTER-DUMP> PC:$8541 A:$00 X:$11 Y:$11 S:$83 P:$7D
 read memory: $8541 -> $28
-read memory: $0183 -> $7C
+read memory: $0184 -> $7C
 [$8541] PLP 
 <REGISTER-DUMP> PC:$8542 A:$00 X:$11 Y:$11 S:$84 P:$7C
 read memory: $8542 -> $28
-read memory: $0184 -> $7B
+read memory: $0185 -> $7B
 [$8542] PLP 
 <REGISTER-DUMP> PC:$8543 A:$00 X:$11 Y:$11 S:$85 P:$7B
 read memory: $8543 -> $28
-read memory: $0185 -> $7A
+read memory: $0186 -> $7A
 [$8543] PLP 
 <REGISTER-DUMP> PC:$8544 A:$00 X:$11 Y:$11 S:$86 P:$7A
 read memory: $8544 -> $28
-read memory: $0186 -> $79
+read memory: $0187 -> $79
 [$8544] PLP 
 <REGISTER-DUMP> PC:$8545 A:$00 X:$11 Y:$11 S:$87 P:$79
 read memory: $8545 -> $28
-read memory: $0187 -> $78
+read memory: $0188 -> $78
 [$8545] PLP 
 <REGISTER-DUMP> PC:$8546 A:$00 X:$11 Y:$11 S:$88 P:$78
 read memory: $8546 -> $28
-read memory: $0188 -> $77
+read memory: $0189 -> $77
 [$8546] PLP 
 <REGISTER-DUMP> PC:$8547 A:$00 X:$11 Y:$11 S:$89 P:$77
 read memory: $8547 -> $28
-read memory: $0189 -> $76
+read memory: $018A -> $76
 [$8547] PLP 
 <REGISTER-DUMP> PC:$8548 A:$00 X:$11 Y:$11 S:$8A P:$76
 read memory: $8548 -> $28
-read memory: $018A -> $75
+read memory: $018B -> $75
 [$8548] PLP 
 <REGISTER-DUMP> PC:$8549 A:$00 X:$11 Y:$11 S:$8B P:$75
 read memory: $8549 -> $28
-read memory: $018B -> $74
+read memory: $018C -> $74
 [$8549] PLP 
 <REGISTER-DUMP> PC:$854A A:$00 X:$11 Y:$11 S:$8C P:$74
 read memory: $854A -> $28
-read memory: $018C -> $73
+read memory: $018D -> $73
 [$854A] PLP 
 <REGISTER-DUMP> PC:$854B A:$00 X:$11 Y:$11 S:$8D P:$73
 read memory: $854B -> $28
-read memory: $018D -> $72
+read memory: $018E -> $72
 [$854B] PLP 
 <REGISTER-DUMP> PC:$854C A:$00 X:$11 Y:$11 S:$8E P:$72
 read memory: $854C -> $28
-read memory: $018E -> $71
+read memory: $018F -> $71
 [$854C] PLP 
 <REGISTER-DUMP> PC:$854D A:$00 X:$11 Y:$11 S:$8F P:$71
 read memory: $854D -> $28
-read memory: $018F -> $70
+read memory: $0190 -> $70
 [$854D] PLP 
 <REGISTER-DUMP> PC:$854E A:$00 X:$11 Y:$11 S:$90 P:$70
 read memory: $854E -> $28
-read memory: $0190 -> $6F
+read memory: $0191 -> $6F
 [$854E] PLP 
 <REGISTER-DUMP> PC:$854F A:$00 X:$11 Y:$11 S:$91 P:$6F
 read memory: $854F -> $28
-read memory: $0191 -> $6E
+read memory: $0192 -> $6E
 [$854F] PLP 
 <REGISTER-DUMP> PC:$8550 A:$00 X:$11 Y:$11 S:$92 P:$6E
 read memory: $8550 -> $28
-read memory: $0192 -> $6D
+read memory: $0193 -> $6D
 [$8550] PLP 
 <REGISTER-DUMP> PC:$8551 A:$00 X:$11 Y:$11 S:$93 P:$6D
 read memory: $8551 -> $28
-read memory: $0193 -> $6C
+read memory: $0194 -> $6C
 [$8551] PLP 
 <REGISTER-DUMP> PC:$8552 A:$00 X:$11 Y:$11 S:$94 P:$6C
 read memory: $8552 -> $28
-read memory: $0194 -> $6B
+read memory: $0195 -> $6B
 [$8552] PLP 
 <REGISTER-DUMP> PC:$8553 A:$00 X:$11 Y:$11 S:$95 P:$6B
 read memory: $8553 -> $28
-read memory: $0195 -> $6A
+read memory: $0196 -> $6A
 [$8553] PLP 
 <REGISTER-DUMP> PC:$8554 A:$00 X:$11 Y:$11 S:$96 P:$6A
 read memory: $8554 -> $28
-read memory: $0196 -> $69
+read memory: $0197 -> $69
 [$8554] PLP 
 <REGISTER-DUMP> PC:$8555 A:$00 X:$11 Y:$11 S:$97 P:$69
 read memory: $8555 -> $28
-read memory: $0197 -> $68
+read memory: $0198 -> $68
 [$8555] PLP 
 <REGISTER-DUMP> PC:$8556 A:$00 X:$11 Y:$11 S:$98 P:$68
 read memory: $8556 -> $28
-read memory: $0198 -> $67
+read memory: $0199 -> $67
 [$8556] PLP 
 <REGISTER-DUMP> PC:$8557 A:$00 X:$11 Y:$11 S:$99 P:$67
 read memory: $8557 -> $28
-read memory: $0199 -> $66
+read memory: $019A -> $66
 [$8557] PLP 
 <REGISTER-DUMP> PC:$8558 A:$00 X:$11 Y:$11 S:$9A P:$66
 read memory: $8558 -> $28
-read memory: $019A -> $65
+read memory: $019B -> $65
 [$8558] PLP 
 <REGISTER-DUMP> PC:$8559 A:$00 X:$11 Y:$11 S:$9B P:$65
 read memory: $8559 -> $28
-read memory: $019B -> $64
+read memory: $019C -> $64
 [$8559] PLP 
 <REGISTER-DUMP> PC:$855A A:$00 X:$11 Y:$11 S:$9C P:$64
 read memory: $855A -> $28
-read memory: $019C -> $63
+read memory: $019D -> $63
 [$855A] PLP 
 <REGISTER-DUMP> PC:$855B A:$00 X:$11 Y:$11 S:$9D P:$63
 read memory: $855B -> $28
-read memory: $019D -> $62
+read memory: $019E -> $62
 [$855B] PLP 
 <REGISTER-DUMP> PC:$855C A:$00 X:$11 Y:$11 S:$9E P:$62
 read memory: $855C -> $28
-read memory: $019E -> $61
+read memory: $019F -> $61
 [$855C] PLP 
 <REGISTER-DUMP> PC:$855D A:$00 X:$11 Y:$11 S:$9F P:$61
 read memory: $855D -> $28
-read memory: $019F -> $60
+read memory: $01A0 -> $60
 [$855D] PLP 
 <REGISTER-DUMP> PC:$855E A:$00 X:$11 Y:$11 S:$A0 P:$60
 read memory: $855E -> $28
-read memory: $01A0 -> $5F
+read memory: $01A1 -> $5F
 [$855E] PLP 
 <REGISTER-DUMP> PC:$855F A:$00 X:$11 Y:$11 S:$A1 P:$5F
 read memory: $855F -> $28
-read memory: $01A1 -> $5E
+read memory: $01A2 -> $5E
 [$855F] PLP 
 <REGISTER-DUMP> PC:$8560 A:$00 X:$11 Y:$11 S:$A2 P:$5E
 read memory: $8560 -> $28
-read memory: $01A2 -> $5D
+read memory: $01A3 -> $5D
 [$8560] PLP 
 <REGISTER-DUMP> PC:$8561 A:$00 X:$11 Y:$11 S:$A3 P:$5D
 read memory: $8561 -> $28
-read memory: $01A3 -> $5C
+read memory: $01A4 -> $5C
 [$8561] PLP 
 <REGISTER-DUMP> PC:$8562 A:$00 X:$11 Y:$11 S:$A4 P:$5C
 read memory: $8562 -> $28
-read memory: $01A4 -> $5B
+read memory: $01A5 -> $5B
 [$8562] PLP 
 <REGISTER-DUMP> PC:$8563 A:$00 X:$11 Y:$11 S:$A5 P:$5B
 read memory: $8563 -> $28
-read memory: $01A5 -> $5A
+read memory: $01A6 -> $5A
 [$8563] PLP 
 <REGISTER-DUMP> PC:$8564 A:$00 X:$11 Y:$11 S:$A6 P:$5A
 read memory: $8564 -> $28
-read memory: $01A6 -> $59
+read memory: $01A7 -> $59
 [$8564] PLP 
 <REGISTER-DUMP> PC:$8565 A:$00 X:$11 Y:$11 S:$A7 P:$59
 read memory: $8565 -> $28
-read memory: $01A7 -> $58
+read memory: $01A8 -> $58
 [$8565] PLP 
 <REGISTER-DUMP> PC:$8566 A:$00 X:$11 Y:$11 S:$A8 P:$58
 read memory: $8566 -> $28
-read memory: $01A8 -> $57
+read memory: $01A9 -> $57
 [$8566] PLP 
 <REGISTER-DUMP> PC:$8567 A:$00 X:$11 Y:$11 S:$A9 P:$57
 read memory: $8567 -> $28
-read memory: $01A9 -> $56
+read memory: $01AA -> $56
 [$8567] PLP 
 <REGISTER-DUMP> PC:$8568 A:$00 X:$11 Y:$11 S:$AA P:$56
 read memory: $8568 -> $28
-read memory: $01AA -> $55
+read memory: $01AB -> $55
 [$8568] PLP 
 <REGISTER-DUMP> PC:$8569 A:$00 X:$11 Y:$11 S:$AB P:$55
 read memory: $8569 -> $28
-read memory: $01AB -> $54
+read memory: $01AC -> $54
 [$8569] PLP 
 <REGISTER-DUMP> PC:$856A A:$00 X:$11 Y:$11 S:$AC P:$54
 read memory: $856A -> $28
-read memory: $01AC -> $53
+read memory: $01AD -> $53
 [$856A] PLP 
 <REGISTER-DUMP> PC:$856B A:$00 X:$11 Y:$11 S:$AD P:$53
 read memory: $856B -> $28
-read memory: $01AD -> $52
+read memory: $01AE -> $52
 [$856B] PLP 
 <REGISTER-DUMP> PC:$856C A:$00 X:$11 Y:$11 S:$AE P:$52
 read memory: $856C -> $28
-read memory: $01AE -> $51
+read memory: $01AF -> $51
 [$856C] PLP 
 <REGISTER-DUMP> PC:$856D A:$00 X:$11 Y:$11 S:$AF P:$51
 read memory: $856D -> $28
-read memory: $01AF -> $50
+read memory: $01B0 -> $50
 [$856D] PLP 
 <REGISTER-DUMP> PC:$856E A:$00 X:$11 Y:$11 S:$B0 P:$50
 read memory: $856E -> $28
-read memory: $01B0 -> $4F
+read memory: $01B1 -> $4F
 [$856E] PLP 
 <REGISTER-DUMP> PC:$856F A:$00 X:$11 Y:$11 S:$B1 P:$4F
 read memory: $856F -> $28
-read memory: $01B1 -> $4E
+read memory: $01B2 -> $4E
 [$856F] PLP 
 <REGISTER-DUMP> PC:$8570 A:$00 X:$11 Y:$11 S:$B2 P:$4E
 read memory: $8570 -> $28
-read memory: $01B2 -> $4D
+read memory: $01B3 -> $4D
 [$8570] PLP 
 <REGISTER-DUMP> PC:$8571 A:$00 X:$11 Y:$11 S:$B3 P:$4D
 read memory: $8571 -> $28
-read memory: $01B3 -> $4C
+read memory: $01B4 -> $4C
 [$8571] PLP 
 <REGISTER-DUMP> PC:$8572 A:$00 X:$11 Y:$11 S:$B4 P:$4C
 read memory: $8572 -> $28
-read memory: $01B4 -> $4B
+read memory: $01B5 -> $4B
 [$8572] PLP 
 <REGISTER-DUMP> PC:$8573 A:$00 X:$11 Y:$11 S:$B5 P:$4B
 read memory: $8573 -> $28
-read memory: $01B5 -> $4A
+read memory: $01B6 -> $4A
 [$8573] PLP 
 <REGISTER-DUMP> PC:$8574 A:$00 X:$11 Y:$11 S:$B6 P:$4A
 read memory: $8574 -> $28
-read memory: $01B6 -> $49
+read memory: $01B7 -> $49
 [$8574] PLP 
 <REGISTER-DUMP> PC:$8575 A:$00 X:$11 Y:$11 S:$B7 P:$49
 read memory: $8575 -> $28
-read memory: $01B7 -> $48
+read memory: $01B8 -> $48
 [$8575] PLP 
 <REGISTER-DUMP> PC:$8576 A:$00 X:$11 Y:$11 S:$B8 P:$48
 read memory: $8576 -> $28
-read memory: $01B8 -> $47
+read memory: $01B9 -> $47
 [$8576] PLP 
 <REGISTER-DUMP> PC:$8577 A:$00 X:$11 Y:$11 S:$B9 P:$47
 read memory: $8577 -> $28
-read memory: $01B9 -> $46
+read memory: $01BA -> $46
 [$8577] PLP 
 <REGISTER-DUMP> PC:$8578 A:$00 X:$11 Y:$11 S:$BA P:$46
 read memory: $8578 -> $28
-read memory: $01BA -> $45
+read memory: $01BB -> $45
 [$8578] PLP 
 <REGISTER-DUMP> PC:$8579 A:$00 X:$11 Y:$11 S:$BB P:$45
 read memory: $8579 -> $28
-read memory: $01BB -> $44
+read memory: $01BC -> $44
 [$8579] PLP 
 <REGISTER-DUMP> PC:$857A A:$00 X:$11 Y:$11 S:$BC P:$44
 read memory: $857A -> $28
-read memory: $01BC -> $43
+read memory: $01BD -> $43
 [$857A] PLP 
 <REGISTER-DUMP> PC:$857B A:$00 X:$11 Y:$11 S:$BD P:$43
 read memory: $857B -> $28
-read memory: $01BD -> $42
+read memory: $01BE -> $42
 [$857B] PLP 
 <REGISTER-DUMP> PC:$857C A:$00 X:$11 Y:$11 S:$BE P:$42
 read memory: $857C -> $28
-read memory: $01BE -> $41
+read memory: $01BF -> $41
 [$857C] PLP 
 <REGISTER-DUMP> PC:$857D A:$00 X:$11 Y:$11 S:$BF P:$41
 read memory: $857D -> $28
-read memory: $01BF -> $40
+read memory: $01C0 -> $40
 [$857D] PLP 
 <REGISTER-DUMP> PC:$857E A:$00 X:$11 Y:$11 S:$C0 P:$40
 read memory: $857E -> $28
-read memory: $01C0 -> $3F
+read memory: $01C1 -> $3F
 [$857E] PLP 
 <REGISTER-DUMP> PC:$857F A:$00 X:$11 Y:$11 S:$C1 P:$3F
 read memory: $857F -> $28
-read memory: $01C1 -> $3E
+read memory: $01C2 -> $3E
 [$857F] PLP 
 <REGISTER-DUMP> PC:$8580 A:$00 X:$11 Y:$11 S:$C2 P:$3E
 read memory: $8580 -> $28
-read memory: $01C2 -> $3D
+read memory: $01C3 -> $3D
 [$8580] PLP 
 <REGISTER-DUMP> PC:$8581 A:$00 X:$11 Y:$11 S:$C3 P:$3D
 read memory: $8581 -> $28
-read memory: $01C3 -> $3C
+read memory: $01C4 -> $3C
 [$8581] PLP 
 <REGISTER-DUMP> PC:$8582 A:$00 X:$11 Y:$11 S:$C4 P:$3C
 read memory: $8582 -> $28
-read memory: $01C4 -> $3B
+read memory: $01C5 -> $3B
 [$8582] PLP 
 <REGISTER-DUMP> PC:$8583 A:$00 X:$11 Y:$11 S:$C5 P:$3B
 read memory: $8583 -> $28
-read memory: $01C5 -> $3A
+read memory: $01C6 -> $3A
 [$8583] PLP 
 <REGISTER-DUMP> PC:$8584 A:$00 X:$11 Y:$11 S:$C6 P:$3A
 read memory: $8584 -> $28
-read memory: $01C6 -> $39
+read memory: $01C7 -> $39
 [$8584] PLP 
 <REGISTER-DUMP> PC:$8585 A:$00 X:$11 Y:$11 S:$C7 P:$39
 read memory: $8585 -> $28
-read memory: $01C7 -> $38
+read memory: $01C8 -> $38
 [$8585] PLP 
 <REGISTER-DUMP> PC:$8586 A:$00 X:$11 Y:$11 S:$C8 P:$38
 read memory: $8586 -> $28
-read memory: $01C8 -> $37
+read memory: $01C9 -> $37
 [$8586] PLP 
 <REGISTER-DUMP> PC:$8587 A:$00 X:$11 Y:$11 S:$C9 P:$37
 read memory: $8587 -> $28
-read memory: $01C9 -> $36
+read memory: $01CA -> $36
 [$8587] PLP 
 <REGISTER-DUMP> PC:$8588 A:$00 X:$11 Y:$11 S:$CA P:$36
 read memory: $8588 -> $28
-read memory: $01CA -> $35
+read memory: $01CB -> $35
 [$8588] PLP 
 <REGISTER-DUMP> PC:$8589 A:$00 X:$11 Y:$11 S:$CB P:$35
 read memory: $8589 -> $28
-read memory: $01CB -> $34
+read memory: $01CC -> $34
 [$8589] PLP 
 <REGISTER-DUMP> PC:$858A A:$00 X:$11 Y:$11 S:$CC P:$34
 read memory: $858A -> $28
-read memory: $01CC -> $33
+read memory: $01CD -> $33
 [$858A] PLP 
 <REGISTER-DUMP> PC:$858B A:$00 X:$11 Y:$11 S:$CD P:$33
 read memory: $858B -> $28
-read memory: $01CD -> $32
+read memory: $01CE -> $32
 [$858B] PLP 
 <REGISTER-DUMP> PC:$858C A:$00 X:$11 Y:$11 S:$CE P:$32
 read memory: $858C -> $28
-read memory: $01CE -> $31
+read memory: $01CF -> $31
 [$858C] PLP 
 <REGISTER-DUMP> PC:$858D A:$00 X:$11 Y:$11 S:$CF P:$31
 read memory: $858D -> $28
-read memory: $01CF -> $30
+read memory: $01D0 -> $30
 [$858D] PLP 
 <REGISTER-DUMP> PC:$858E A:$00 X:$11 Y:$11 S:$D0 P:$30
 read memory: $858E -> $28
-read memory: $01D0 -> $2F
+read memory: $01D1 -> $2F
 [$858E] PLP 
 <REGISTER-DUMP> PC:$858F A:$00 X:$11 Y:$11 S:$D1 P:$2F
 read memory: $858F -> $28
-read memory: $01D1 -> $2E
+read memory: $01D2 -> $2E
 [$858F] PLP 
 <REGISTER-DUMP> PC:$8590 A:$00 X:$11 Y:$11 S:$D2 P:$2E
 read memory: $8590 -> $28
-read memory: $01D2 -> $2D
+read memory: $01D3 -> $2D
 [$8590] PLP 
 <REGISTER-DUMP> PC:$8591 A:$00 X:$11 Y:$11 S:$D3 P:$2D
 read memory: $8591 -> $28
-read memory: $01D3 -> $2C
+read memory: $01D4 -> $2C
 [$8591] PLP 
 <REGISTER-DUMP> PC:$8592 A:$00 X:$11 Y:$11 S:$D4 P:$2C
 read memory: $8592 -> $28
-read memory: $01D4 -> $2B
+read memory: $01D5 -> $2B
 [$8592] PLP 
 <REGISTER-DUMP> PC:$8593 A:$00 X:$11 Y:$11 S:$D5 P:$2B
 read memory: $8593 -> $28
-read memory: $01D5 -> $2A
+read memory: $01D6 -> $2A
 [$8593] PLP 
 <REGISTER-DUMP> PC:$8594 A:$00 X:$11 Y:$11 S:$D6 P:$2A
 read memory: $8594 -> $28
-read memory: $01D6 -> $29
+read memory: $01D7 -> $29
 [$8594] PLP 
 <REGISTER-DUMP> PC:$8595 A:$00 X:$11 Y:$11 S:$D7 P:$29
 read memory: $8595 -> $28
-read memory: $01D7 -> $28
+read memory: $01D8 -> $28
 [$8595] PLP 
 <REGISTER-DUMP> PC:$8596 A:$00 X:$11 Y:$11 S:$D8 P:$28
 read memory: $8596 -> $28
-read memory: $01D8 -> $27
+read memory: $01D9 -> $27
 [$8596] PLP 
 <REGISTER-DUMP> PC:$8597 A:$00 X:$11 Y:$11 S:$D9 P:$27
 read memory: $8597 -> $28
-read memory: $01D9 -> $26
+read memory: $01DA -> $26
 [$8597] PLP 
 <REGISTER-DUMP> PC:$8598 A:$00 X:$11 Y:$11 S:$DA P:$26
 read memory: $8598 -> $28
-read memory: $01DA -> $25
+read memory: $01DB -> $25
 [$8598] PLP 
 <REGISTER-DUMP> PC:$8599 A:$00 X:$11 Y:$11 S:$DB P:$25
 read memory: $8599 -> $28
-read memory: $01DB -> $24
+read memory: $01DC -> $24
 [$8599] PLP 
 <REGISTER-DUMP> PC:$859A A:$00 X:$11 Y:$11 S:$DC P:$24
 read memory: $859A -> $28
-read memory: $01DC -> $23
+read memory: $01DD -> $23
 [$859A] PLP 
 <REGISTER-DUMP> PC:$859B A:$00 X:$11 Y:$11 S:$DD P:$23
 read memory: $859B -> $28
-read memory: $01DD -> $22
+read memory: $01DE -> $22
 [$859B] PLP 
 <REGISTER-DUMP> PC:$859C A:$00 X:$11 Y:$11 S:$DE P:$22
 read memory: $859C -> $28
-read memory: $01DE -> $21
+read memory: $01DF -> $21
 [$859C] PLP 
 <REGISTER-DUMP> PC:$859D A:$00 X:$11 Y:$11 S:$DF P:$21
 read memory: $859D -> $28
-read memory: $01DF -> $20
+read memory: $01E0 -> $20
 [$859D] PLP 
 <REGISTER-DUMP> PC:$859E A:$00 X:$11 Y:$11 S:$E0 P:$20
 read memory: $859E -> $28
-read memory: $01E0 -> $1F
+read memory: $01E1 -> $1F
 [$859E] PLP 
 <REGISTER-DUMP> PC:$859F A:$00 X:$11 Y:$11 S:$E1 P:$1F
 read memory: $859F -> $28
-read memory: $01E1 -> $1E
+read memory: $01E2 -> $1E
 [$859F] PLP 
 <REGISTER-DUMP> PC:$85A0 A:$00 X:$11 Y:$11 S:$E2 P:$1E
 read memory: $85A0 -> $28
-read memory: $01E2 -> $1D
+read memory: $01E3 -> $1D
 [$85A0] PLP 
 <REGISTER-DUMP> PC:$85A1 A:$00 X:$11 Y:$11 S:$E3 P:$1D
 read memory: $85A1 -> $28
-read memory: $01E3 -> $1C
+read memory: $01E4 -> $1C
 [$85A1] PLP 
 <REGISTER-DUMP> PC:$85A2 A:$00 X:$11 Y:$11 S:$E4 P:$1C
 read memory: $85A2 -> $28
-read memory: $01E4 -> $1B
+read memory: $01E5 -> $1B
 [$85A2] PLP 
 <REGISTER-DUMP> PC:$85A3 A:$00 X:$11 Y:$11 S:$E5 P:$1B
 read memory: $85A3 -> $28
-read memory: $01E5 -> $1A
+read memory: $01E6 -> $1A
 [$85A3] PLP 
 <REGISTER-DUMP> PC:$85A4 A:$00 X:$11 Y:$11 S:$E6 P:$1A
 read memory: $85A4 -> $28
-read memory: $01E6 -> $19
+read memory: $01E7 -> $19
 [$85A4] PLP 
 <REGISTER-DUMP> PC:$85A5 A:$00 X:$11 Y:$11 S:$E7 P:$19
 read memory: $85A5 -> $28
-read memory: $01E7 -> $18
+read memory: $01E8 -> $18
 [$85A5] PLP 
 <REGISTER-DUMP> PC:$85A6 A:$00 X:$11 Y:$11 S:$E8 P:$18
 read memory: $85A6 -> $28
-read memory: $01E8 -> $17
+read memory: $01E9 -> $17
 [$85A6] PLP 
 <REGISTER-DUMP> PC:$85A7 A:$00 X:$11 Y:$11 S:$E9 P:$17
 read memory: $85A7 -> $28
-read memory: $01E9 -> $16
+read memory: $01EA -> $16
 [$85A7] PLP 
 <REGISTER-DUMP> PC:$85A8 A:$00 X:$11 Y:$11 S:$EA P:$16
 read memory: $85A8 -> $28
-read memory: $01EA -> $15
+read memory: $01EB -> $15
 [$85A8] PLP 
 <REGISTER-DUMP> PC:$85A9 A:$00 X:$11 Y:$11 S:$EB P:$15
 read memory: $85A9 -> $28
-read memory: $01EB -> $14
+read memory: $01EC -> $14
 [$85A9] PLP 
 <REGISTER-DUMP> PC:$85AA A:$00 X:$11 Y:$11 S:$EC P:$14
 read memory: $85AA -> $28
-read memory: $01EC -> $13
+read memory: $01ED -> $13
 [$85AA] PLP 
 <REGISTER-DUMP> PC:$85AB A:$00 X:$11 Y:$11 S:$ED P:$13
 read memory: $85AB -> $28
-read memory: $01ED -> $12
+read memory: $01EE -> $12
 [$85AB] PLP 
 <REGISTER-DUMP> PC:$85AC A:$00 X:$11 Y:$11 S:$EE P:$12
 read memory: $85AC -> $28
-read memory: $01EE -> $11
+read memory: $01EF -> $11
 [$85AC] PLP 
 <REGISTER-DUMP> PC:$85AD A:$00 X:$11 Y:$11 S:$EF P:$11
 read memory: $85AD -> $28
-read memory: $01EF -> $10
+read memory: $01F0 -> $10
 [$85AD] PLP 
 <REGISTER-DUMP> PC:$85AE A:$00 X:$11 Y:$11 S:$F0 P:$10
 read memory: $85AE -> $28
-read memory: $01F0 -> $0F
+read memory: $01F1 -> $0F
 [$85AE] PLP 
 <REGISTER-DUMP> PC:$85AF A:$00 X:$11 Y:$11 S:$F1 P:$0F
 read memory: $85AF -> $28
-read memory: $01F1 -> $0E
+read memory: $01F2 -> $0E
 [$85AF] PLP 
 <REGISTER-DUMP> PC:$85B0 A:$00 X:$11 Y:$11 S:$F2 P:$0E
 read memory: $85B0 -> $28
-read memory: $01F2 -> $0D
+read memory: $01F3 -> $0D
 [$85B0] PLP 
 <REGISTER-DUMP> PC:$85B1 A:$00 X:$11 Y:$11 S:$F3 P:$0D
 read memory: $85B1 -> $28
-read memory: $01F3 -> $0C
+read memory: $01F4 -> $0C
 [$85B1] PLP 
 <REGISTER-DUMP> PC:$85B2 A:$00 X:$11 Y:$11 S:$F4 P:$0C
 read memory: $85B2 -> $28
-read memory: $01F4 -> $0B
+read memory: $01F5 -> $0B
 [$85B2] PLP 
 <REGISTER-DUMP> PC:$85B3 A:$00 X:$11 Y:$11 S:$F5 P:$0B
 read memory: $85B3 -> $28
-read memory: $01F5 -> $0A
+read memory: $01F6 -> $0A
 [$85B3] PLP 
 <REGISTER-DUMP> PC:$85B4 A:$00 X:$11 Y:$11 S:$F6 P:$0A
 read memory: $85B4 -> $28
-read memory: $01F6 -> $09
+read memory: $01F7 -> $09
 [$85B4] PLP 
 <REGISTER-DUMP> PC:$85B5 A:$00 X:$11 Y:$11 S:$F7 P:$09
 read memory: $85B5 -> $28
-read memory: $01F7 -> $08
+read memory: $01F8 -> $08
 [$85B5] PLP 
 <REGISTER-DUMP> PC:$85B6 A:$00 X:$11 Y:$11 S:$F8 P:$08
 read memory: $85B6 -> $28
-read memory: $01F8 -> $07
+read memory: $01F9 -> $07
 [$85B6] PLP 
 <REGISTER-DUMP> PC:$85B7 A:$00 X:$11 Y:$11 S:$F9 P:$07
 read memory: $85B7 -> $28
-read memory: $01F9 -> $06
+read memory: $01FA -> $06
 [$85B7] PLP 
 <REGISTER-DUMP> PC:$85B8 A:$00 X:$11 Y:$11 S:$FA P:$06
 read memory: $85B8 -> $28
-read memory: $01FA -> $05
+read memory: $01FB -> $05
 [$85B8] PLP 
 <REGISTER-DUMP> PC:$85B9 A:$00 X:$11 Y:$11 S:$FB P:$05
 read memory: $85B9 -> $28
-read memory: $01FB -> $04
+read memory: $01FC -> $04
 [$85B9] PLP 
 <REGISTER-DUMP> PC:$85BA A:$00 X:$11 Y:$11 S:$FC P:$04
 read memory: $85BA -> $28
-read memory: $01FC -> $03
+read memory: $01FD -> $03
 [$85BA] PLP 
 <REGISTER-DUMP> PC:$85BB A:$00 X:$11 Y:$11 S:$FD P:$03
 read memory: $85BB -> $28
-read memory: $01FD -> $02
+read memory: $01FE -> $02
 [$85BB] PLP 
 <REGISTER-DUMP> PC:$85BC A:$00 X:$11 Y:$11 S:$FE P:$02
 read memory: $85BC -> $28
-read memory: $01FE -> $01
+read memory: $01FF -> $01
 [$85BC] PLP 
 <REGISTER-DUMP> PC:$85BD A:$00 X:$11 Y:$11 S:$FF P:$01
 read memory: $85BD -> $28
-read memory: $01FF -> $00
+read memory: $0100 -> $00
 [$85BD] PLP 
 <REGISTER-DUMP> PC:$85BE A:$00 X:$11 Y:$11 S:$00 P:$00
 
@@ -6044,13 +6044,13 @@ read memory: $1235 -> $56
 read memory: $C000 -> $20
 read memory: $C001 -> $00
 read memory: $C002 -> $D0
-write memory: $01FE <- $03
-write memory: $01FD <- $C0
+write memory: $01FF <- $03
+write memory: $01FE <- $C0
 [$C000] JSR $D000
 <REGISTER-DUMP> PC:$D000 A:$00 X:$54 Y:$A9 S:$FD P:$02
 read memory: $D000 -> $60
-read memory: $01FD -> $C0
-read memory: $01FE -> $03
+read memory: $01FE -> $C0
+read memory: $01FF -> $03
 [$D000] RTS 
 <REGISTER-DUMP> PC:$C003 A:$00 X:$54 Y:$A9 S:$FF P:$02
 
@@ -6064,16 +6064,16 @@ read memory: $C003 -> $EA
 read memory: $1234 -> $EA
 [$1234] NOP 
 EXECUTE IRQ
-write memory: $01FE <- $12
-write memory: $01FD <- $35
-write memory: $01FC <- $00
+write memory: $01FF <- $12
+write memory: $01FE <- $35
+write memory: $01FD <- $00
 read memory: $FFFE -> $AD
 read memory: $FFFF -> $DE
 <REGISTER-DUMP> PC:$DEAD A:$00 X:$54 Y:$A9 S:$FC P:$04
 read memory: $DEAD -> $40
-read memory: $01FC -> $00
-read memory: $01FD -> $35
-read memory: $01FE -> $12
+read memory: $01FD -> $00
+read memory: $01FE -> $35
+read memory: $01FF -> $12
 [$DEAD] RTI 
 <REGISTER-DUMP> PC:$1235 A:$00 X:$54 Y:$A9 S:$FF P:$00
 read memory: $1235 -> $EA
@@ -6084,9 +6084,9 @@ read memory: $1235 -> $EA
 read memory: $1234 -> $EA
 [$1234] NOP 
 EXECUTE NMI
-write memory: $01FE <- $12
-write memory: $01FD <- $35
-write memory: $01FC <- $00
+write memory: $01FF <- $12
+write memory: $01FE <- $35
+write memory: $01FD <- $00
 read memory: $FFFA -> $EF
 read memory: $FFFB -> $BE
 <REGISTER-DUMP> PC:$BEEF A:$00 X:$54 Y:$A9 S:$FC P:$04
@@ -6096,9 +6096,9 @@ read memory: $FFFB -> $BE
 read memory: $1234 -> $EA
 [$1234] NOP 
 EXECUTE NMI
-write memory: $01FB <- $12
-write memory: $01FA <- $35
-write memory: $01F9 <- $04
+write memory: $01FC <- $12
+write memory: $01FB <- $35
+write memory: $01FA <- $04
 read memory: $FFFA -> $EF
 read memory: $FFFB -> $BE
 <REGISTER-DUMP> PC:$BEEF A:$00 X:$54 Y:$A9 S:$F9 P:$04

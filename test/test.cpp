@@ -2404,7 +2404,7 @@ int main(int argc, char** argv)
             EXECUTE();
             CHECK(clocks == 3);
             CHECK(len == 1);
-            CHECK(mmu.ram[0x100 + cpu.R.s] == i);
+            CHECK(mmu.ram[0x100 + ((cpu.R.s + 1) & 0xFF)] == i);
         }
         for (int i = 0; i < 256; i++) {
             mmu.ram[cpu.R.pc + 0] = 0x68;
@@ -2427,7 +2427,7 @@ int main(int argc, char** argv)
             EXECUTE();
             CHECK(clocks == 3);
             CHECK(len == 1);
-            CHECK(mmu.ram[0x100 + cpu.R.s] == i);
+            CHECK(mmu.ram[0x100 + ((cpu.R.s + 1) & 0xFF)] == i);
         }
         for (int i = 0; i < 256; i++) {
             mmu.ram[cpu.R.pc + 0] = 0x28;
