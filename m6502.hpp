@@ -373,6 +373,15 @@ class M6502
         consumeClock();
     }
 
+    inline void writeMemoryWithDummy(unsigned short addr, unsigned char before, unsigned char after)
+    {
+        if (CB.writeMemory) {
+            CB.writeMemory(CB.arg, addr, before);
+            CB.writeMemory(CB.arg, addr, after);
+        }
+        consumeClock();
+    }
+
     inline unsigned char fetch()
     {
         return readMemory(R.pc++);
@@ -839,26 +848,30 @@ class M6502
     static inline void asl_zpg(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->asl(cpu->readZeroPage(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPage(&addr);
+        unsigned char after = cpu->asl(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void asl_zpg_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->asl(cpu->readZeroPageX(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPageX(&addr);
+        unsigned char after = cpu->asl(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void asl_abs(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->asl(cpu->readAbsolute(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsolute(&addr);
+        unsigned char after = cpu->asl(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void asl_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->asl(cpu->readAbsoluteX(&addr, true));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char after = cpu->asl(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
 
     inline unsigned char lsr(unsigned char value)
@@ -877,26 +890,30 @@ class M6502
     static inline void lsr_zpg(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->lsr(cpu->readZeroPage(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPage(&addr);
+        unsigned char after = cpu->lsr(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void lsr_zpg_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->lsr(cpu->readZeroPageX(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPageX(&addr);
+        unsigned char after = cpu->lsr(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void lsr_abs(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->lsr(cpu->readAbsolute(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsolute(&addr);
+        unsigned char after = cpu->lsr(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void lsr_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->lsr(cpu->readAbsoluteX(&addr, true));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char after = cpu->lsr(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
 
     inline unsigned char rol(unsigned char value)
@@ -916,26 +933,30 @@ class M6502
     static inline void rol_zpg(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->rol(cpu->readZeroPage(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPage(&addr);
+        unsigned char after = cpu->rol(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void rol_zpg_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->rol(cpu->readZeroPageX(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPageX(&addr);
+        unsigned char after = cpu->rol(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void rol_abs(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->rol(cpu->readAbsolute(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsolute(&addr);
+        unsigned char after = cpu->rol(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void rol_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->rol(cpu->readAbsoluteX(&addr, true));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char after = cpu->rol(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
 
     inline unsigned char ror(unsigned char value)
@@ -955,26 +976,30 @@ class M6502
     static inline void ror_zpg(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->ror(cpu->readZeroPage(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPage(&addr);
+        unsigned char after = cpu->ror(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void ror_zpg_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->ror(cpu->readZeroPageX(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPageX(&addr);
+        unsigned char after = cpu->ror(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void ror_abs(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->ror(cpu->readAbsolute(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsolute(&addr);
+        unsigned char after = cpu->ror(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void ror_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->ror(cpu->readAbsoluteX(&addr, true));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char after = cpu->ror(before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
 
     inline unsigned char dec(const char* mne, unsigned char value)
@@ -989,26 +1014,30 @@ class M6502
     static inline void dec_zpg(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->dec("DEC", cpu->readZeroPage(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPage(&addr);
+        unsigned char after = cpu->dec("DEC", before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void dec_zpg_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->dec("DEC", cpu->readZeroPageX(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPageX(&addr);
+        unsigned char after = cpu->dec("DEC", before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void dec_abs(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->dec("DEC", cpu->readAbsolute(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsolute(&addr);
+        unsigned char after = cpu->dec("DEC", before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void dec_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->dec("DEC", cpu->readAbsoluteX(&addr, true));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char after = cpu->dec("DEC", before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void dex(M6502* cpu) { cpu->R.x = cpu->dec("DEX", cpu->R.x); }
     static inline void dey(M6502* cpu) { cpu->R.y = cpu->dec("DEY", cpu->R.y); }
@@ -1025,26 +1054,30 @@ class M6502
     static inline void inc_zpg(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->inc("INC", cpu->readZeroPage(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPage(&addr);
+        unsigned char after = cpu->inc("INC", before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void inc_zpg_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->inc("INC", cpu->readZeroPageX(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readZeroPageX(&addr);
+        unsigned char after = cpu->inc("INC", before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void inc_abs(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->inc("INC", cpu->readAbsolute(&addr));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsolute(&addr);
+        unsigned char after = cpu->inc("INC", before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void inc_abs_x(M6502* cpu)
     {
         unsigned short addr;
-        unsigned char m = cpu->inc("INC", cpu->readAbsoluteX(&addr, true));
-        cpu->writeMemory(addr, m);
+        unsigned char before = cpu->readAbsoluteX(&addr);
+        unsigned char after = cpu->inc("INC", before);
+        cpu->writeMemoryWithDummy(addr, before, after);
     }
     static inline void inx(M6502* cpu) { cpu->R.x = cpu->inc("INX", cpu->R.x); }
     static inline void iny(M6502* cpu) { cpu->R.y = cpu->inc("INY", cpu->R.y); }
